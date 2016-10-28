@@ -1,3 +1,5 @@
 # WDI-Project2
+jammers
+Luke
 John
 development change
