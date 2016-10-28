@@ -112,4 +112,28 @@ $(function () {
     localStorage.removeItem('token');
     showLoginForm();
   }
+
+  var $mapDiv = $('#map');
+
+  var map = new google.maps.Map($mapDiv[0], {
+    center: { lat: 51, lng: -0.1 },
+    zoom: 14
+  });
+
+  navigator.geolocation.getCurrentPosition(function (position) {
+    var latLng = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+
+    map.panTo(latLng);
+    map.setZoom(20);
+
+    var marker = new google.maps.Marker({
+      position: latLng,
+      animation: google.maps.Animation.DROP,
+      draggable: true,
+      map: map
+    });
+  });
 });

@@ -1,4 +1,4 @@
-const Dog   = require("../models/dog");
+const Game   = require("../models/game");
 const User   = require("../models/user");
 
 const jwt    = require("jsonwebtoken");

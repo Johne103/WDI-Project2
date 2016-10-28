@@ -1,7 +1,8 @@
+
 const express = require("express");
 const router  = express.Router();
 
-const dogsController = require("../controllers/dogs");
+const gamesController = require("../controllers/games");
 const authController = require('../controllers/auth');
 
 const secret  =  require('./tokens').secret;
@@ -29,15 +30,15 @@ router.route("/user/register")
 router.route("/user/login")
   .post(authController.login);
 
-router.route("/dogs")
-  .post(secureRoute,dogsController.create)
-  .get(dogsController.index);
+router.route("/games")
+  .post(secureRoute,gamesController.create)
+  .get(gamesController.index);
 
-router.route("/dogs/:id")
+router.route("/games/:id")
   .all(secureRoute)
-  .get(dogsController.show)
-  .put(dogsController.update)
-  .delete(dogsController.delete);
+  .get(gamesController.show)
+  .put(gamesController.update)
+  .delete(gamesController.delete);
 
 
 module.exports = router;

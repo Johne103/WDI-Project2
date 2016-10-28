@@ -1,0 +1,27 @@
+body, html{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  width: 80%;
+  height: 80%;
+  margin: 30px;
+  align-items: center;
+}
+
+nav {
+font-family: monofett, fantasy;
+font-size: 35px;
+}
+
+a:hover {
+  color: yellow;
+  /*background-color: yellow;*/
+}
+
+.navbar-brand {
+  color: yellow;
+
+}

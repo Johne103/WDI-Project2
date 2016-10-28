@@ -6,7 +6,7 @@ const routes = require('./config/routes');
 const app = express();
 const port = process.env.PORT || 8000;
 
-let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/newapi';
+let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/WDI-Project2';
 
 mongoose.connect(mongoUri);
 
@@ -17,6 +17,7 @@ app.get(`/`,(req,res) => res.render('index'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
-app.use('/dogs', routes);
+
+app.use('/games', routes);
 
 app.listen(port,() => console.log(`running on port: ${port}`));
