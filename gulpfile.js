@@ -1,9 +1,9 @@
 const gulp     = require("gulp");
 const babel    = require("gulp-babel");
 const sass 		 	 = require('gulp-sass');
+const plumber    = require('gulp-plumber');
 const cleanCSS 	 = require("gulp-clean-css");
 const flatten		 = require('gulp-flatten');
-const plumber    = require('gulp-plumber');
 const nodemon    = require("gulp-nodemon");
 const livereload = require('gulp-livereload');
 
