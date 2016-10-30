@@ -43,7 +43,6 @@ gulp.task("watch", () => {
 	gulp.watch(`${src}/**/*.scss`, ['sass']);
 });
 
-gulp.task("default", ['es6', 'minifyCSS', 'watch']);
 gulp.task("default", [
 	'es6',
   'sass',
