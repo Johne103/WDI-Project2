@@ -13,6 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh0LdXjZVzZe_SgwaIB7AxrvBGqSpVA6o" charset="utf-8"></script>
     <script src="/js/app.js" charset="utf-8"></script>
+    <script src="/js/quizLogic.js" charset="utf-8"></script>
 
   </head>
   <body>
@@ -46,6 +47,16 @@
     <div id="map"></div>
     <div id="quiz">
       this is where the questions go
+      <form id="quiz">
+        <input type="text" name='capital' id="capCity" placeholder="What is the capital city?" value="">
+        <select name="capCity" id="capCity">
+          <option value=capCity1>Silver</option>
+          <option value=capCity2>Black</option>
+          <option value=capCity3>Red</option>
+          <option value=capCity4>Blue</option>
+        </select>
+        <input type="submit" value='Submit answer'>
+      </form>
     </div>
 
   </body>

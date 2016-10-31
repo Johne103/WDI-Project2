@@ -120,6 +120,15 @@ $(function () {
     zoom: 14
   });
 
+  // Flow:
+  // Add eventlistener to map object (http://www.geocodezip.com/v3_example_click2add_infowindow.html)
+  // On click, geocode lat lng using google geocoder api
+  // Parse response to extract country shortname
+  // Lookup countries object (`require`d) for country info... i.e. countries['AT'] for Austria
+  // Create marker at countries['AT'].laglng (i.e. the Representative point for that country)
+  // You can modify the convert.js script to incoprorate questions and answers for each country,
+  // if you can find a source for them.
+
   navigator.geolocation.getCurrentPosition(function (position) {
     var latLng = {
       lat: position.coords.latitude,
