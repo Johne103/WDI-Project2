@@ -12,7 +12,7 @@ const dist = "public";
 
 gulp.task('nodemon', () => {
   return nodemon({
-    script: 'server.js',
+    script: 'app.js',
     ext: 'js html',
     env: { 'NODE_ENV': 'development' }
   });

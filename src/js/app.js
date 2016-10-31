@@ -24,7 +24,7 @@ $(() =>{
     if(event) event.preventDefault();
     $main.html(`
       <h2>Register</h2>
-      <form method="post" action="/api/register">
+      <form method="post" action="/api/user/register">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username">
         </div>
@@ -46,7 +46,7 @@ $(() =>{
     if(event) event.preventDefault();
     $main.html(`
       <h2>Login</h2>
-      <form method="post" action="/api/login">
+      <form method="post" action="/api/user/login">
         <div class="form-group">
           <input class="form-control" name="email" placeholder="Email">
         </div>
