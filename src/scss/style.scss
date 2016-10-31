@@ -11,6 +11,19 @@ body, html{
   align-items: center;
 }
 
+
+#quiz {
+  width: 20%;
+  height: 20%;
+  background-image: url(../css/images/q.jpg);
+  margin: 10% 50% ;
+  align-items: center;
+  position: absolute;
+  border: 5px dotted black;
+  z-index: 10;
+
+}
+
 nav {
 font-family: monofett, fantasy;
 font-size: 35px;

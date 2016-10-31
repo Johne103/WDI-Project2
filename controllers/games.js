@@ -1,4 +1,5 @@
 const Game = require("../models/game");
+const countries = require('../data/countries.json');
 
 function gamesCreate(req, res) {
  Game.create(req.body, (err, game) => {

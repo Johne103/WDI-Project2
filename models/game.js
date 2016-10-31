@@ -6,7 +6,7 @@ const gameSchema = new mongoose.Schema ({
   player1: {
     name: String,
     points: Number,
-    countries: [String]
+    countries: [String] // e.g. ['GB', 'IE', 'AT']
   },
   player2: {
     name: String,
@@ -14,10 +14,5 @@ const gameSchema = new mongoose.Schema ({
     countries: [String]
   }
 });
-
-
-// dogSchema.set("toJSON", {
-//
-// });
 
 module.exports = mongoose.model("Game", gameSchema);
