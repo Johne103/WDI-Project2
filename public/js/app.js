@@ -134,16 +134,31 @@ $(function () {
 
   map.setOptions({ maxZoom: 5 });
 
-  for (var countryCode in countries) {
-    var country = countries[countryCode];
-
-    var marker = new google.maps.Marker({
+  var _loop = function _loop(countryCode) {
+    country = countries[countryCode];
+    marker = new google.maps.Marker({
       map: map,
       position: { lat: country.latlng[0], lng: country.latlng[1] }
     });
+
+
+    var countryContent = '\n      <div id=\'content\'>\n        <h1></h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power<li>\n              <li>Number of questions<li>\n              <button>Conquer</button>\n              <button>Back to Map</button>\n            </ul>\n        </div>\n      </div>\n      ';
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: countryContent
+    });
+
     marker.addListener('click', function () {
       console.log("CLECK!");
+      infoWindow.open(map, marker);
     });
+  };
+
+  for (var countryCode in countries) {
+    var country;
+    var marker;
+
+    _loop(countryCode);
   }
 
   //

@@ -200,8 +200,28 @@ $(() =>{
       map: map,
       position: { lat: country.latlng[0], lng: country.latlng[1] }
     });
+
+    let countryContent = `
+      <div id='content'>
+        <h1></h1>
+        <div id='countryInfo'>
+            <ul>
+              <li>Power<li>
+              <li>Number of questions<li>
+              <button>Conquer</button>
+              <button>Back to Map</button>
+            </ul>
+        </div>
+      </div>
+      `;
+
+      let infoWindow = new google.maps.InfoWindow({
+        content: countryContent
+      });
+
     marker.addListener('click', function() {
       console.log("CLECK!");
+      infoWindow.open(map, marker);
     });
   }
 
