@@ -129,7 +129,8 @@ $(function () {
 
   var map = new google.maps.Map($mapDiv[0], {
     center: { lat: 51, lng: -0.1 },
-    zoom: 14
+    zoom: 14,
+    scrollwheel: false
   });
 
   for (var countryCode in countries) {

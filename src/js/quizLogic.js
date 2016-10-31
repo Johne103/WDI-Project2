@@ -43,19 +43,14 @@ $(() => {
     }
     return selectedCountries;
   }
-});
 
-googleMap.addInfoWindowForQuestions = function (country, marker) {
-    google.maps.event.addListener(marker, 'click',() => {
-      if(this.infowindow) {
-        this.infowindow.close();
-      }
-      this.infowindow = new google.maps.InfoWindow({
-      content: `<p>${countries.name}</p>`
-    });
-    this.infowindow.open(this.map, marker);
-  });
-};
+  function quizQuestion() {
+    $("#quiz").html(`
+     <p>this is the first capital</p>
+    `);
+  }
+
+});
 
 
 
