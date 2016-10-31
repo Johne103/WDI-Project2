@@ -136,16 +136,21 @@ $(function () {
 
   var _loop = function _loop(countryCode) {
     country = countries[countryCode];
+
+
+    var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+
     marker = new google.maps.Marker({
       map: map,
-      position: { lat: country.latlng[0], lng: country.latlng[1] }
+      position: latLng
     });
 
 
-    var countryContent = '\n      <div id=\'content\'>\n        <h1></h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power<li>\n              <li>Number of questions<li>\n              <button>Conquer</button>\n              <button>Back to Map</button>\n            </ul>\n        </div>\n      </div>\n      ';
+    var countryDetails = '\n      <div id=\'content\'>\n        <h1></h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power</li>\n              <li>Number of questions</li>\n              <button>Conquer</button>\n              <button>Back to Map</button>\n            </ul>\n        </div>\n      </div>\n      ';
 
     var infoWindow = new google.maps.InfoWindow({
-      content: countryContent
+      content: countryDetails,
+      position: latLng
     });
 
     marker.addListener('click', function () {
@@ -160,6 +165,33 @@ $(function () {
 
     _loop(countryCode);
   }
+
+  // addInfoWindowForCountry = function() {
+  //   let countryContent = `
+  //     <div id='content'>
+  //       <h1></h1>
+  //       <div id='countryInfo'>
+  //           <ul>
+  //             <li>Power<li>
+  //             <li>Number of questions<li>
+  //             <button>Conquer</button>
+  //             <button>Back to Map</button>
+  //           </ul>
+  //       </div>
+  //     </div>
+  //     `;
+  //
+  //   let infoWindow = new google.maps.InfoWindow({
+  //     content: countryContent,
+  //     position: { lat: country.latlng[0], lng: country.latlng[1] }
+  //   });
+  //
+  //   marker.addListener('click', function() {
+  //     console.log("CLECK!");
+  //     infoWindow.open(map, marker);
+  //   });
+  // };
+
 
   //
   // let geocoder = new google.maps.Geocoder();
