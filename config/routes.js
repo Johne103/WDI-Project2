@@ -26,7 +26,6 @@ function secureRoute(req, res, next) {
 router.route("/user/register")
   .post(authController.register);
 
-
 router.route("/user/login")
   .post(authController.login);
 
@@ -39,6 +38,5 @@ router.route("/games/:id")
   .get(gamesController.show)
   .put(gamesController.update)
   .delete(gamesController.delete);
-
 
 module.exports = router;

@@ -171,6 +171,46 @@ $(() =>{
     zoom: 14
   });
 
+
+  for (let countryCode in countries){
+    var country = countries[countryCode];
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: { lat: country.latlng[0], lng: country.latlng[1] }
+    });
+  }
+
+
+
+
+
+
+  //
+  // let geocoder = new google.maps.Geocoder();
+  //
+  // function getCountry(country) {
+  //   console.log("getCountry");
+  //     geocoder.geocode( { 'address': country }, function(results, status) {
+  //       console.log(results, status);
+  //         if (status == google.maps.GeocoderStatus.OK) {
+  //            map.setCenter(results[0].geometry.location);
+  //            var marker = new google.maps.Marker({
+  //                map: map,
+  //                position: results[0].geometry.location
+  //            });
+  //         } else {
+  //           alert("Geocode was not successful for the following reason: " + status);
+  //         }
+  //     });
+  // }
+  //
+  // getCountry('USA');
+  // getCountry('Brazil');
+  // getCountry('Denmark');
+
+
+
 // Flow:
 // Add eventlistener to map object (http://www.geocodezip.com/v3_example_click2add_infowindow.html)
 // On click, geocode lat lng using google geocoder api
@@ -180,21 +220,21 @@ $(() =>{
 // You can modify the convert.js script to incoprorate questions and answers for each country,
 // if you can find a source for them.
 
-navigator.geolocation.getCurrentPosition((position) => {
-  let latLng = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude
-  };
-
-map.panTo(latLng);
-map.setZoom(20);
-
-let marker = new google.maps.Marker({
-  position:latLng,
-  animation:google.maps.Animation.DROP,
-  draggable:true,
-  map
-});
-});
+// navigator.geolocation.getCurrentPosition((position) => {
+//   let latLng = {
+//     lat: position.coords.latitude,
+//     lng: position.coords.longitude
+//   };
+//
+// map.panTo(latLng);
+// map.setZoom(20);
+//
+// let marker = new google.maps.Marker({
+//   position:latLng,
+//   animation:google.maps.Animation.DROP,
+//   draggable:true,
+//   map
+// });
+// });
 
 });

@@ -1,3 +1,4 @@
+let countries =
 
 {
   "AW": {
@@ -2615,11 +2616,6 @@
       "RU",
       "SK"
     ]
-  },
-  "UM": {
-    "name": "United States Minor Outlying Islands",
-    "latlng": [],
-    "borders": []
   },
   "UY": {
     "name": "Uruguay",
