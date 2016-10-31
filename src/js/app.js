@@ -2,12 +2,15 @@ $(() =>{
 
   let $main = $('main');
 
+  //
+  // let $userProfile = $('.userProfile');
+
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getUser);
-  $('.usersIndex').on('click', getUsers);
+  // $('.usersIndex').on('click', getUsers);
   $('.logout').on('click', logout);
 
   function isLoggedIn() {
@@ -15,7 +18,8 @@ $(() =>{
   }
 
   if(isLoggedIn()) {
-    getUsers();
+    showProfile();
+    console.log("logged in!");
   } else {
     showLoginForm();
   }
@@ -24,7 +28,7 @@ $(() =>{
     if(event) event.preventDefault();
     $main.html(`
       <h2>Register</h2>
-      <form method="post" action="/api/register">
+      <form method="post" action="/api/user/register">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username">
         </div>
@@ -46,7 +50,7 @@ $(() =>{
     if(event) event.preventDefault();
     $main.html(`
       <h2>Login</h2>
-      <form method="post" action="/api/login">
+      <form method="post" action="/api/user/login">
         <div class="form-group">
           <input class="form-control" name="email" placeholder="Email">
         </div>
@@ -62,7 +66,7 @@ $(() =>{
     if(event) event.preventDefault();
     $main.html(`
       <h2>Edit User</h2>
-      <form method="put" action="/api/users/${user._id}">
+      <form method="put" action="/api/user/${user._id}">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username" value="${user.username}">
         </div>
@@ -89,24 +93,40 @@ $(() =>{
       }
     }).done((data) => {
       if(data.token) localStorage.setItem('token', data.token);
-      getUsers();
+      // getUsers();
+      showProfile();
     }).fail(showLoginForm);
   }
 
-  function getUsers() {
-    if(event) event.preventDefault();
 
-    let token = localStorage.getItem('token');
-    $.ajax({
-      url: '/api/users',
-      method: "GET",
-      beforeSend: function(jqXHR) {
-        if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
-      }
-    })
-    .done(showUsers)
-    .fail(showLoginForm);
+
+  function showProfile(user) {
+    if(event) event.preventDefault();
+    $main.html(`
+      <div class="userProfile">
+        <img src='#'>
+        <form method="#" action"#>
+          <button class="startGame">Play</button>
+        </form>
+      </div>
+      `);
   }
+
+
+  // function getUsers() {
+  //   if(event) event.preventDefault();
+  //
+  //   let token = localStorage.getItem('token');
+  //   $.ajax({
+  //     url: '/api/users',
+  //     method: "GET",
+  //     beforeSend: function(jqXHR) {
+  //       if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
+  //     }
+  //   })
+  //   .done(showUsers)
+  //   .fail(showLoginForm);
+  // }
 
   function showUsers(users) {
     let $row = $('<div class="row"></div>');

@@ -4,12 +4,15 @@ $(function () {
 
   var $main = $('main');
 
+  //
+  // let $userProfile = $('.userProfile');
+
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getUser);
-  $('.usersIndex').on('click', getUsers);
+  // $('.usersIndex').on('click', getUsers);
   $('.logout').on('click', logout);
 
   function isLoggedIn() {
@@ -17,24 +20,25 @@ $(function () {
   }
 
   if (isLoggedIn()) {
-    getUsers();
+    showProfile();
+    console.log("logged in!");
   } else {
     showLoginForm();
   }
 
   function showRegisterForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/register">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/user/register">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
   }
 
   function showLoginForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Login</h2>\n      <form method="post" action="/api/login">\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html('\n      <h2>Login</h2>\n      <form method="post" action="/api/user/login">\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
   }
 
   function showEditForm(user) {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Edit User</h2>\n      <form method="put" action="/api/users/' + user._id + '">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username" value="' + user.username + '">\n        </div>\n        <button class="btn btn-primary">Update</button>\n      </form>\n    ');
+    $main.html('\n      <h2>Edit User</h2>\n      <form method="put" action="/api/user/' + user._id + '">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username" value="' + user.username + '">\n        </div>\n        <button class="btn btn-primary">Update</button>\n      </form>\n    ');
   }
 
   function handleForm() {
@@ -55,22 +59,30 @@ $(function () {
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
-      getUsers();
+      // getUsers();
+      showProfile();
     }).fail(showLoginForm);
   }
 
-  function getUsers() {
+  function showProfile(user) {
     if (event) event.preventDefault();
-
-    var token = localStorage.getItem('token');
-    $.ajax({
-      url: '/api/users',
-      method: "GET",
-      beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
-      }
-    }).done(showUsers).fail(showLoginForm);
+    $main.html('\n      <div class="userProfile">\n        <img src=\'#\'>\n        <form method="#" action"#>\n          <button class="startGame">Play</button>\n        </form>\n      </div>\n      ');
   }
+
+  // function getUsers() {
+  //   if(event) event.preventDefault();
+  //
+  //   let token = localStorage.getItem('token');
+  //   $.ajax({
+  //     url: '/api/users',
+  //     method: "GET",
+  //     beforeSend: function(jqXHR) {
+  //       if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
+  //     }
+  //   })
+  //   .done(showUsers)
+  //   .fail(showLoginForm);
+  // }
 
   function showUsers(users) {
     var $row = $('<div class="row"></div>');
