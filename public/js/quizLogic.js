@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 $(function () {
   var countryData = [];
@@ -16,8 +16,6 @@ $(function () {
         }
       };
     });
-
-    console.log(selectCountries("GB"));
   });
 
   function findCountryByAlpha2Code(alpha2Code) {
@@ -44,11 +42,35 @@ $(function () {
     }
     return selectedCountries;
   }
-});
 
-function quizQuestion() {
-  $("#quiz").html("\n     <p>this is the first capital</p>\n      ");
-}
+  function shuffle(array) {
+    var m = array.length,
+        t,
+        i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+
+    return array;
+  }
+
+  $('#quizBtn').on('click', quizQuestion);
+
+  function quizQuestion() {
+    selectCountries("GB");
+    selectedCountries = shuffle(selectedCountries);
+    $("#quiz").html('\n      <p>This is the first capital</p>\n      <label>' + selectedCountries[0].capital + '</label>\n      <input type="radio" name="answer" value="' + selectedCountries[0].capital + '">\n      <label>' + selectedCountries[1].capital + '</label>\n      <input type="radio" name="answer" value="' + selectedCountries[1].capital + '">\n      <label>' + selectedCountries[2].capital + '</label>\n      <input type="radio" name="answer" value="' + selectedCountries[2].capital + '">\n      <label>' + selectedCountries[3].capital + '</label>\n      <input type="radio" name="answer" value="' + selectedCountries[3].capital + '">\n\n      ');
+  }
+});
 
 // const getQuestions = () => {
 //   $.ajax({
