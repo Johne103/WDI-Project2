@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 
 app.use('/games', routes);
-app.use('/api', profileRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api', routes);
 
 app.listen(port,() => console.log(`running on port: ${port}`));

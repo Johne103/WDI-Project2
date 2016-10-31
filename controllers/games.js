@@ -41,6 +41,14 @@ function gamesDelete(req, res) {
   });
 }
 
+function getCountryFromGeolocation(lat, lng) {
+    // call google geocoder, extract 2 letter code.
+}
+
+function getLocationForCountry(countryCode) {
+  // return countries[countryCode].latlng;
+}
+
 module.exports = {
   create: gamesCreate,
   index: gamesIndex,
