@@ -187,10 +187,11 @@ $(() =>{
   let $mapDiv = $('#map');
 
   let map = new  google.maps.Map($mapDiv[0], {
-    center: { lat:51, lng: -0.1},
-    zoom: 14
+    center: { lat:0, lng: 0},
+    zoom: 2
   });
 
+  map.setOptions({ maxZoom: 5});
 
   for (let countryCode in countries){
     var country = countries[countryCode];
@@ -199,10 +200,10 @@ $(() =>{
       map: map,
       position: { lat: country.latlng[0], lng: country.latlng[1] }
     });
+    marker.addListener('click', function() {
+      console.log("CLECK!");
+    });
   }
-
-
-
 
 
 
