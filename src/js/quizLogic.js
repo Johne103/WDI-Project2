@@ -45,6 +45,21 @@ $(() => {
   }
 });
 
+googleMap.addInfoWindowForQuestions = function (country, marker) {
+    google.maps.event.addListener(marker, 'click',() => {
+      if(this.infowindow) {
+        this.infowindow.close();
+      }
+      this.infowindow = new google.maps.InfoWindow({
+      content: `<p>${countries.name}</p>`
+    });
+    this.infowindow.open(this.map, marker);
+  });
+};
+
+
+
+
 
 // const getQuestions = () => {
 //   $.ajax({

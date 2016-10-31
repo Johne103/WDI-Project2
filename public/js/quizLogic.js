@@ -46,6 +46,20 @@ $(function () {
   }
 });
 
+googleMap.addInfoWindowForQuestions = function (country, marker) {
+  var _this = this;
+
+  google.maps.event.addListener(marker, 'click', function () {
+    if (_this.infowindow) {
+      _this.infowindow.close();
+    }
+    _this.infowindow = new google.maps.InfoWindow({
+      content: "<p>" + countries.name + "</p>"
+    });
+    _this.infowindow.open(_this.map, marker);
+  });
+};
+
 // const getQuestions = () => {
 //   $.ajax({
 //     method: 'GET',
