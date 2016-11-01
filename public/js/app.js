@@ -169,6 +169,4 @@ $(function () {
 
     _loop(countryCode);
   }
-
-  var questions = '\n  <div id=\'quizPopup\'>\n    <h1>what is the capital of ' + country.name + '?</h1>\n    <div id=\'options\'>\n        <ul>\n          <li>a</li>\n          <li>b</li>\n          <li>c</li>\n        </ul>\n    </div>\n  </div>\n  ';
 });
