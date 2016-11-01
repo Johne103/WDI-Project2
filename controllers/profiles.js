@@ -16,6 +16,14 @@ function getProfileIndex(req, res){
   });
 }
 
+function getProfileShow(req, res){
+  console.log(req.params);
+  Profile.characters.find(req.params.character, function(err, results) {
+    if (err) return res.status(500).json({ message: "Something went wrong.", err });
+    return res.status(201).json(results);
+  });
+}
+
 // function getProfiles(req, res){
 //   Profile.characters.findByName(req.body, function(err, results) {
 //     if (err) return res.status(500).json({ message: "Something went wrong.", err });
@@ -24,5 +32,6 @@ function getProfileIndex(req, res){
 // }
 
 module.exports = {
-  profileIndex: getProfileIndex
+  profileIndex: getProfileIndex,
+  profileShow: getProfileShow
 };

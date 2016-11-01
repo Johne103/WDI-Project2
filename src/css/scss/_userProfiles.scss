@@ -1,0 +1,79 @@
+
+// Profiles
+
+.profileHolder {
+  * {
+    color: #fff;
+    text-align: center;
+  }
+  .profileImage {
+    width: 70%;
+    margin: 20px auto;
+    border: 0px;
+    border-radius: 100px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  h3 {
+    font-size:18px;
+  }
+  p {
+    font-family: 'Helvetica';
+    font-size: 12px;
+    font-weight: normal;
+  }
+}
+
+// Form selection
+.avatarSelection {
+  width:100%;
+
+  img {
+    width: 100%;
+  }
+
+  .avatar {
+    width:25%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+
+    float:left;
+
+    overflow: hidden;
+    position: relative;
+
+    .overlay {
+      height: 100%;
+      width: calc(100% - 20px);
+
+      background: lime;
+      background: -webkit-radial-gradient(circle, rgba(0,0,0,0.65) 30%, rgba(0,0,0,0) 100%);
+
+      opacity: 1;
+      position: absolute;
+      top: 0px;
+
+      transition: all .7s;
+
+      h4 {
+        display: block;
+        vertical-align: middle;
+        color: white;
+        font-size: 15px;
+
+        text-align: center;
+
+        padding-top: calc(50% - 5px);
+      }
+    }
+
+    &:hover, &.selected {
+      .overlay {
+        opacity: 0;
+        transition: all .7s;
+      }
+    }
+  }
+}

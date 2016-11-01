@@ -3,6 +3,10 @@
 @import '_variables';
 @import '_mixins';
 
+* {
+  box-sizing: border-box;
+  font-family: "classic-comic";
+}
 body, html{
   height: 100%;
   margin: 0;
@@ -10,9 +14,22 @@ body, html{
 }
 
 #hud {
+  height: 100%;
+  width: 70%;
   position: relative;
   z-index: 2;
+  background-color: #0d0c47;
+
+  overflow: auto;
+  transition: all 0.5s;
+
+  header {
+    width: 100%;
+    overflow: hidden;
+  }
 }
+
+
 
 nav {
   font-family: knewave, fantasy;
