@@ -171,6 +171,7 @@ $(() =>{
   let $mapDiv = $('#map');
 
   let map = new  google.maps.Map($mapDiv[0], {
+
     center: { lat:0, lng: 0},
     zoom: 2
   });

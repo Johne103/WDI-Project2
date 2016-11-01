@@ -113,8 +113,14 @@ $(function () {
   var $mapDiv = $('#map');
 
   var map = new google.maps.Map($mapDiv[0], {
+<<<<<<< HEAD
+    center: { lat: 51, lng: -0.1 },
+    zoom: 14,
+    scrollwheel: false
+=======
     center: { lat: 0, lng: 0 },
     zoom: 2
+>>>>>>> development
   });
 
   map.setOptions({ maxZoom: 5 });
