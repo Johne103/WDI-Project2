@@ -13,6 +13,7 @@ $(function () {
   var $playerOnePower = $('#playerOnePower');
   var $playerTwoPower = $('#playerTwoPower');
   var $turnDisplay = $('.turnDisplay');
+  var $gameOverScreen = $('#gameOverDiv');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
   var $turnCounter = 2;
@@ -267,5 +268,10 @@ $(function () {
         ask6thQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
       });
     };
+  }
+
+  if ($turnCounter <= 0) {
+    $gameOverScreen.show();
+    $gameOverScreen.html("\n              <h2>Game Over</h2>\n              <p id=\"playerOneFinalScore\">" + $p1PowerCounter + "</p>\n              <p id=\"playeTwoFinalScore\">" + $p2PowerCounter + "</p>\n          ");
   }
 });

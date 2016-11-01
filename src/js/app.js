@@ -193,7 +193,7 @@ $(() =>{
         if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
       }
     })
-    .done(getAvatarss)
+    .done(getAvatars)
     .fail(showLoginForm);
   }
 

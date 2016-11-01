@@ -11,9 +11,12 @@ $(() => {
   let $playerOnePower = $('#playerOnePower');
   let $playerTwoPower = $('#playerTwoPower');
   let $turnDisplay = $('.turnDisplay');
+  let $gameOverScreen = $('#gameOverDiv');
   let $p1PowerCounter = 10;
   let $p2PowerCounter = 10;
   let $turnCounter = 2;
+
+
 
   // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
   $.get("https://restcountries.eu/rest/v1/all")
@@ -323,5 +326,14 @@ $(() => {
                   ask6thQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
                 });
             };
+        }
+
+        if($turnCounter <= 0){
+          $gameOverScreen.show();
+            $gameOverScreen.html(`
+              <h2>Game Over</h2>
+              <p id="playerOneFinalScore">`+ $p1PowerCounter +`</p>
+              <p id="playeTwoFinalScore">`+ $p2PowerCounter +`</p>
+          `);
         }
 });
