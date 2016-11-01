@@ -221,18 +221,4 @@ $(() =>{
 
   }
 
-  let questions = `
-  <div id='quizPopup'>
-    <h1>what is the capital of ${country.name}?</h1>
-    <div id='options'>
-        <ul>
-          <li>a</li>
-          <li>b</li>
-          <li>c</li>
-        </ul>
-    </div>
-  </div>
-  `;
-
-
 });
