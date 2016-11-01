@@ -22,6 +22,13 @@ function register(req, res){
 
 }
 
+function userIndex(req, res) {
+ User.find((err, users) => {
+   if (err) return res.status(500).json({ success: false, message: err });
+   if (!users) return res.status(500).json({ success: false, message: "No games found" });
+   return res.status(200).json(users);
+ });
+}
 
 function login(req, res){
    User.findOne({ email: req.body.email }, (err, user) => {
@@ -47,6 +54,7 @@ function login(req, res){
 
 
 module.exports = {
- register: register,
- login:    login
+ register:  register,
+ login:     login,
+ index:     userIndex
 };

@@ -15,6 +15,13 @@ $(function () {
   // $('.usersIndex').on('click', getAvatarss);
   $('.logout').on('click', logout);
 
+  $main.on('click', '.avatar', function () {
+    console.log(this);
+    var avatarID = $(this).data('id');
+    var input = $main.find('#characterId');
+    input.val(avatarID);
+  });
+
   function isLoggedIn() {
     return !!localStorage.getItem('token');
   }
@@ -34,7 +41,7 @@ $(function () {
   }
 
   function getAvatars() {
-    var characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'cyclops', 'Iron Man', 'Star-Lord (Peter Quill)', 'Blacklash', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    var characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'cyclops', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     var $avatars = $('<div class="avatarSelection"></div>');
 
     for (var i = 0; i < characters.length; i++) {
@@ -43,7 +50,7 @@ $(function () {
         method: "GET"
       }).done(function (profile) {
         var obj = profile.data[0];
-        $avatars.append('\n          <div class="col-md-4" data-id="' + obj.id + '">\n            <img class="card-img-top" src="' + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + '" width="100" alt="profile image">\n            <h4 class="card-title">' + obj.name + '</h4>\n          </div>\n        ');
+        $avatars.append('\n          <div class="col-md-2 avatar" data-id="' + obj.id + '">\n            <img class="card-img-top" src="' + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + '" width="100" alt="profile image">\n            <h4 class="card-title">' + obj.name + '</h4>\n          </div>\n        ');
       }).fail(function (jqXHR) {
         console.log(jqXHR.status);
         $main.html('You are a failure.');
@@ -54,7 +61,7 @@ $(function () {
 
   function showRegisterForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/user/register">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <div class="avatarHolder"></div>\n        <input type="hidden" name="avatar" id="avatar" value="" />\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/user/register">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <div class="avatarHolder"></div>\n        <input type="hidden" name="characterId" id="characterId" value="" />\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
     // $main.on(eventName, '.avatarHolder', function() {});
     $main.find('.avatarHolder').append($avatars);
   }
@@ -95,8 +102,8 @@ $(function () {
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
-      // getAvatarss();
-      showProfileForm();
+      //showProfileForm();
+      $main.html('');
     }).fail(showLoginForm);
   }
 

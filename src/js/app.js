@@ -13,6 +13,13 @@ $(() =>{
   // $('.usersIndex').on('click', getAvatarss);
   $('.logout').on('click', logout);
 
+  $main.on('click', '.avatar', function() {
+    console.log(this);
+    let avatarID = $(this).data('id');
+    let input = $main.find('#characterId');
+    input.val(avatarID);
+  });
+
   function isLoggedIn() {
     return !!localStorage.getItem('token');
   }
@@ -35,7 +42,7 @@ $(() =>{
   }
 
   function getAvatars() {
-    const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'cyclops', 'Iron Man', 'Star-Lord (Peter Quill)', 'Blacklash', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'cyclops', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     let $avatars = $('<div class="avatarSelection"></div>');
 
     for(let i = 0; i<characters.length; i++){
@@ -46,7 +53,7 @@ $(() =>{
       .done(function(profile){
         let obj = profile.data[0]
         $avatars.append(`
-          <div class="col-md-4" data-id="${obj.id}">
+          <div class="col-md-2 avatar" data-id="${obj.id}">
             <img class="card-img-top" src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" width="100" alt="profile image">
             <h4 class="card-title">${obj.name}</h4>
           </div>
@@ -78,7 +85,7 @@ $(() =>{
           <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
         </div>
         <div class="avatarHolder"></div>
-        <input type="hidden" name="avatar" id="avatar" value="" />
+        <input type="hidden" name="characterId" id="characterId" value="" />
         <button class="btn btn-primary">Register</button>
       </form>
     `);
@@ -147,11 +154,10 @@ $(() =>{
       }
     }).done((data) => {
       if(data.token) localStorage.setItem('token', data.token);
-      // getAvatarss();
-      showProfileForm();
+      //showProfileForm();
+      $main.html('');
     }).fail(showLoginForm);
   }
-
 
 
 
