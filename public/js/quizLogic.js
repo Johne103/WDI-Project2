@@ -9,9 +9,9 @@ $(function () {
   var isCountry = "";
   var answerToQuestion = "";
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
-  var $answerGiven = $('#answerGiven');
   var $playerOnePower = $('#playerOnePower');
   var $playerTwoPower = $('#playerTwoPower');
+  var $answerGiven = $('.answerGiven');
   var $turnDisplay = $('.turnDisplay');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
@@ -35,6 +35,7 @@ $(function () {
         subRegion: country.subregion,
         area: country.area,
         borders: country.borders,
+        currencies: country.currencies,
         location: {
           lat: country.latlng[0],
           lng: country.latlng[1]
@@ -106,6 +107,12 @@ $(function () {
     quizQuestion(countryCode);
   });
 
+  $('#quizPopup').on("click", '.stopBtn', closeWindow);
+
+  function closeWindow() {
+    $('#quizPopup').hide();
+  }
+
   function quizQuestion(countryCode) {
     selectCountries(countryCode);
     selectedCountries = shuffle(selectedCountries);
@@ -116,13 +123,15 @@ $(function () {
     console.log("currentCountry: " + currentCountry);
 
     var ask1stQuestion = function ask1stQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n        <p>What is the capital of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        ");
+
+      $("#quizPopup").html("\n        <p>What is the capital of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        <button class=\"stopBtn\">Stop Questions</button>\n\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentCapital) {
           answerToQuestion = true;
           $answerGiven.html('Yeh You Gave the Right Answer');
+          // $main.html(`Oh Yes.`);
           console.log("Answer: " + answerToQuestion);
           console.log('correct selected: ' + currentCapital);
 
@@ -135,13 +144,18 @@ $(function () {
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
+          // $main.html(`Oh No.`);
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentCapital);
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
-        ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+        if ($turnCounter === 0) {
+          $('#quizPopup').hide();
+        } else {
+          ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+        }
       });
     };
     //First Question
@@ -149,7 +163,7 @@ $(function () {
 
     //Second Question
     var ask2ndQuestion = function ask2ndQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        ");
+      $("#quizPopup").html("\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        <button class=\"stopBtn\">Stop Questions</button>\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -174,12 +188,16 @@ $(function () {
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
-        ask3rdQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+        if ($turnCounter === 0) {
+          $('#quizPopup').hide();
+        } else {
+          ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
+        }
       });
     };
     //Third Question
     var ask3rdQuestion = function ask3rdQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n          <p>What is the area of " + countries[countryCode].name + "? </p>\n          <label>" + option1 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n          <label>" + option2 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n          <label>" + option3 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n          <label>" + option4 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n          ");
+      $("#quizPopup").html("\n          <p>What is the area of " + countries[countryCode].name + "? </p>\n          <label>" + option1 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n          <label>" + option2 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n          <label>" + option3 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n          <label>" + option4 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n          <button class=\"stopBtn\">Stop Questions</button>\n          ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -204,12 +222,16 @@ $(function () {
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
-        ask4thQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
+        if ($turnCounter === 0) {
+          $('#quizPopup').hide();
+        } else {
+          ask4thQuestion(selectedCountries[0].region, selectedCountries[1].region, selectedCountries[2].region, selectedCountries[3].region);
+        }
       });
     };
     //Forth Question
     var ask4thQuestion = function ask4thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n            <p>What is the population of " + countries[countryCode].name + "? </p>\n            <label>" + option1 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n            <label>" + option2 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n            <label>" + option3 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n            <label>" + option4 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n            ");
+      $("#quizPopup").html("\n            <p>In what region is " + countries[countryCode].name + " located? </p>\n            <label>" + option1 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n            <label>" + option2 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n            <label>" + option3 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n            <label>" + option4 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n            <button class=\"stopBtn\">Stop Questions</button>\n            ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -234,12 +256,13 @@ $(function () {
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
-        ask5thQuestion(selectedCountries[0].region, selectedCountries[1].region, selectedCountries[2].region, selectedCountries[3].region);
+        $('#quizPopup').hide();
+        // ask5thQuestion(selectedCountries[0].border, selectedCountries[1].border, selectedCountries[2].border, selectedCountries[3].border);
       });
     };
     //Fifth Question
     var ask5thQuestion = function ask5thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n              <p>What is the population of " + countries[countryCode].name + "? </p>\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              ");
+      $("#quizPopup").html("\n              <p>Name a country bordering " + countries[countryCode].name + "? </p>\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              <button class=\"stopBtn\">Stop Questions</button>\n              ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -264,7 +287,8 @@ $(function () {
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
-        ask6thQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+        $('#quizPopup').hide();
+        // ask5thQuestion(selectedCountries[0].border, selectedCountries[1].border, selectedCountries[2].border, selectedCountries[3].border);
       });
     };
   }
