@@ -12,6 +12,7 @@ $(() => {
   let $playerTwoPower = $('#playerTwoPower');
   let $turnDisplay = $('.turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
+  let $resetButton = $('#restart');
   let $p1PowerCounter = 10;
   let $p2PowerCounter = 10;
   let $turnCounter = 2;
@@ -345,6 +346,8 @@ $(() => {
           }
         }
 
+
+
         function endGame() {
           console.log("GAME OVER!!");
           $gameOverScreen.html(`
@@ -353,5 +356,11 @@ $(() => {
             <p id="playeTwoFinalScore">Player Two has `+ $p2PowerCounter +`</p>
             <button id="restart">Restart</button>
           `);
+          // $resetButton.click(function(e) {
+          //   console.log("CLEKCK!");
+          //   window.reload();
+          // });
         }
+
+
 });

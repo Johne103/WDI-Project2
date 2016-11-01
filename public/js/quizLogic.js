@@ -14,6 +14,7 @@ $(function () {
   var $playerTwoPower = $('#playerTwoPower');
   var $turnDisplay = $('.turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
+  var $resetButton = $('#restart');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
   var $turnCounter = 2;
@@ -281,14 +282,17 @@ $(function () {
   // functions to check if the turns have ended and to display gameOver screen when out of turns
   function gameOverChecker() {
     if ($turnCounter <= 0) {
-      console.log("GAME OVER MAN, GAME OVER!!");
+      console.log("GAME OVER MAN");
       endGame();
     }
   }
 
   function endGame() {
-    // $gameOverScreen.show();
-    console.log("GAME OVER MAN, GAME OVER!!");
-    $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n          ");
+    console.log("GAME OVER!!");
+    $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
+    // $resetButton.click(function(e) {
+    //   console.log("CLEKCK!");
+    //   window.reload();
+    // });
   }
 });
