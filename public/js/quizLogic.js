@@ -84,11 +84,16 @@ $(function () {
   }
 
   //On marker click - trigger generation of question.
-  $('#quizBtn').on('click', quizQuestion);
+  // $('#quizBtn').on('click', quizQuestion);
 
-  //Present selection of four options for answer to question.
-  function quizQuestion() {
-    selectCountries("GB");
+  $('#map').on('click', '.conquer', function () {
+    var countryCode = $(this).data('country');
+    $('#quizPopup').show();
+    quizQuestion(countryCode);
+  });
+
+  function quizQuestion(countryCode) {
+    selectCountries(countryCode);
     selectedCountries = shuffle(selectedCountries);
     // console.log(selectedCountries);
 
@@ -96,7 +101,6 @@ $(function () {
     console.log("isCountry: " + isCountry);
     console.log("currentCountry: " + currentCountry);
     // document.getElementById('whichCountry').value = isCountry;
-
 
     var askQuestion = function askQuestion(option1, option2, option3, option4) {
 

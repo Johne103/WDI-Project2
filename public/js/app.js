@@ -148,7 +148,7 @@ $(function () {
       position: latLng
     });
 
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + '</li>\n              <button>Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ';
+    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
 
     var infoWindow = new google.maps.InfoWindow({
       content: countryDetails,
@@ -169,4 +169,6 @@ $(function () {
 
     _loop(countryCode);
   }
+
+  var questions = '\n  <div id=\'quizPopup\'>\n    <h1>what is the capital of ' + country.name + '?</h1>\n    <div id=\'options\'>\n        <ul>\n          <li>a</li>\n          <li>b</li>\n          <li>c</li>\n        </ul>\n    </div>\n  </div>\n  ';
 });

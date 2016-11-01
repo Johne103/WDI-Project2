@@ -91,20 +91,6 @@ $(() =>{
     $main.find('.avatarHolder').append($avatars);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   function showLoginForm() {
     if(event) event.preventDefault();
     $main.html(`
@@ -210,9 +196,10 @@ $(() =>{
         <h1>`+ country.name + `</h1>
         <div id='countryInfo'>
             <ul>
+
               <li>Power: `+ country.power +`</li>
               <li>Number of questions: `+ country.questions.length +`</li>
-              <button>Conquer</button>
+              <button class="conquer" data-country="${countryCode}">Conquer</button>
             </ul>
         </div>
       </div>
@@ -233,6 +220,19 @@ $(() =>{
     });
 
   }
+
+  let questions = `
+  <div id='quizPopup'>
+    <h1>what is the capital of ${country.name}?</h1>
+    <div id='options'>
+        <ul>
+          <li>a</li>
+          <li>b</li>
+          <li>c</li>
+        </ul>
+    </div>
+  </div>
+  `;
 
 
 });
