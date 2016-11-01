@@ -49,7 +49,9 @@ $(function () {
     });
     currentCountry = countryData[index].name;
     currentCapital = countryData[index].capital;
+    var currentCountryPower = $(this).find('.countryPower').val();
     console.log(currentCountry);
+    console.log(currentCountryPower);
     console.log(currentCapital);
     return countryData[index];
   }

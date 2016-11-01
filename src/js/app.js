@@ -199,7 +199,7 @@ $(() =>{
         <div id='countryInfo'>
             <ul>
 
-              <li>Power: `+ country.power +`</li>
+              <li class="countryPower">Power: `+ country.power +`</li>
               <li>Number of questions: `+ country.questions.length +`</li>
               <button class="conquer" data-country="${countryCode}">Conquer</button>
             </ul>
