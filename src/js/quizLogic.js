@@ -7,9 +7,22 @@ $(() => {
   let answerToQuestion = "";
   let numberOfQuestionOptions = 0; //Number of options to select for each question.
 
+  let $playerOnePower = $('#playerOnePower');
+  let $playerTwoPower = $('#playerTwoPower');
+  let $turnDisplay = $('.turnDisplay');
+  let $p1PowerCounter = 10;
+  let $p2PowerCounter = 10;
+  let $turnCounter = 2;
+
   // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
   $.get("https://restcountries.eu/rest/v1/all")
   .done(function(data) {
+    // Creating power counters for players and display for number of turns left
+    // must be moved inside game start function once that is made
+    $playerOnePower.html ('Power: ' + $p1PowerCounter);
+    $playerTwoPower.html ('Power: ' + $p2PowerCounter);
+    $turnDisplay.html ('Turns left: ' + $turnCounter);
+    //
     countryData = data.map((country) => {
       return {
         name: country.name,
@@ -98,12 +111,16 @@ $(() => {
     let isCountry = currentCountry;
     console.log(`isCountry: ${isCountry}`);
     console.log(`currentCountry: ${currentCountry}`);
-    // document.getElementById('whichCountry').value = isCountry;
+
 
     let askQuestion = function(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
+<<<<<<< HEAD
         <p>What is the capital of ${countries[countryCode].name}? </p><label id="whichCountry"></label>
+=======
+
+>>>>>>> 93823d270a9046119ee7f8a3990df02c07551f66
 
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
@@ -124,11 +141,21 @@ $(() => {
             console.log(`Answer: ${answerToQuestion}`);
             console.log('correct selected: ' + currentCapital);
 
+            // Should update players amount of power upon answering question correctly
+            $p1PowerCounter++;
+            $playerOnePower.html ('Power: ' + $p1PowerCounter);
+            // should update number of turns left after question is answered
+            $turnCounter--;
+            $turnDisplay.html ('Turns left: ' + $turnCounter);
+
         }
         else {
             answerToQuestion = false;
             console.log(`Answer: ${answerToQuestion}`);
             console.log('correct not selected: ' + currentCapital);
+            // should update number of turns left after question is answered
+            $turnCounter--;
+            $turnDisplay.html ('Turns left: ' + $turnCounter);
         }
       });
     };

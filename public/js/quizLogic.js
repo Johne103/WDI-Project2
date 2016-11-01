@@ -9,8 +9,21 @@ $(function () {
   var answerToQuestion = "";
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
 
+  var $playerOnePower = $('#playerOnePower');
+  var $playerTwoPower = $('#playerTwoPower');
+  var $turnDisplay = $('.turnDisplay');
+  var $p1PowerCounter = 10;
+  var $p2PowerCounter = 10;
+  var $turnCounter = 2;
+
   // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
   $.get("https://restcountries.eu/rest/v1/all").done(function (data) {
+    // Creating power counters for players and display for number of turns left
+    // must be moved inside game start function once that is made
+    $playerOnePower.html('Power: ' + $p1PowerCounter);
+    $playerTwoPower.html('Power: ' + $p2PowerCounter);
+    $turnDisplay.html('Turns left: ' + $turnCounter);
+    //
     countryData = data.map(function (country) {
       return {
         name: country.name,
@@ -100,11 +113,10 @@ $(function () {
     var isCountry = currentCountry;
     console.log("isCountry: " + isCountry);
     console.log("currentCountry: " + currentCountry);
-    // document.getElementById('whichCountry').value = isCountry;
 
     var askQuestion = function askQuestion(option1, option2, option3, option4) {
 
-      $("#quizPopup").html("\n        <p>What is the capital of " + countries[countryCode].name + "?: </p><label id=\"whichCountry\"></label>\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
+      $("#quizPopup").html("\n<<<<<<< HEAD\n        <p>What is the capital of " + countries[countryCode].name + "? </p><label id=\"whichCountry\"></label>\n=======\n\n>>>>>>> 93823d270a9046119ee7f8a3990df02c07551f66\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -112,10 +124,20 @@ $(function () {
           answerToQuestion = true;
           console.log("Answer: " + answerToQuestion);
           console.log('correct selected: ' + currentCapital);
+
+          // Should update players amount of power upon answering question correctly
+          $p1PowerCounter++;
+          $playerOnePower.html('Power: ' + $p1PowerCounter);
+          // should update number of turns left after question is answered
+          $turnCounter--;
+          $turnDisplay.html('Turns left: ' + $turnCounter);
         } else {
           answerToQuestion = false;
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentCapital);
+          // should update number of turns left after question is answered
+          $turnCounter--;
+          $turnDisplay.html('Turns left: ' + $turnCounter);
         }
       });
     };

@@ -11,6 +11,8 @@ $(() =>{
   $main.on('click', 'button.edit', getAvatars);
   $('.logout').on('click', logout);
 
+
+
   $main.on('click', '.avatar', function() {
     console.log(this);
     let avatarID = $(this).data('id');
