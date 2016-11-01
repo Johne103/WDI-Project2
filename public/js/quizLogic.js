@@ -7,6 +7,7 @@ $(function () {
   var currentCapital = "";
   var isCountry = "";
   var answerToQuestion = "";
+  var numberOfQuestionOptions = 0; //Number of options to select for each question.
 
   var $playerOnePower = $('#playerOnePower');
   var $playerTwoPower = $('#playerTwoPower');
@@ -28,6 +29,11 @@ $(function () {
         name: country.name,
         capital: country.capital,
         id: country.alpha2Code,
+        population: country.population,
+        region: country.region,
+        subRegion: country.subregion,
+        area: country.area,
+        borders: country.borders,
         location: {
           lat: country.latlng[0],
           lng: country.latlng[1]
@@ -53,6 +59,8 @@ $(function () {
     var randomIndex = Math.floor(Math.random() * countryData.length);
     return countryData[randomIndex];
   }
+
+  numberOfQuestionOptions = 3;
 
   //Select first four countries from randam array and check for duplicate selectioins.
   function selectCountries(alpha2Code) {
@@ -89,19 +97,25 @@ $(function () {
   }
 
   //On marker click - trigger generation of question.
-  $('#quizBtn').on('click', quizQuestion);
+  // $('#quizBtn').on('click', quizQuestion);
 
-  //Present selection of four options for answer to question.
-  function quizQuestion() {
-    selectCountries("GB");
+  $('#map').on('click', '.conquer', function () {
+    var countryCode = $(this).data('country');
+    $('#quizPopup').show();
+    quizQuestion(countryCode);
+  });
+
+  function quizQuestion(countryCode) {
+    selectCountries(countryCode);
     selectedCountries = shuffle(selectedCountries);
     // console.log(selectedCountries);
 
     var isCountry = currentCountry;
-    console.log(isCountry);
-    console.log(currentCountry);
+    console.log("isCountry: " + isCountry);
+    console.log("currentCountry: " + currentCountry);
     // document.getElementById('whichCountry').value = isCountry;
 
+<<<<<<< HEAD
     $("#quiz").html("\n      <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n      <label>" + selectedCountries[0].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[0].capital + "\">\n      <label>" + selectedCountries[1].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[1].capital + "\">\n      <label>" + selectedCountries[2].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[2].capital + "\">\n      <label>" + selectedCountries[3].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[3].capital + "\">\n\n      ");
 
     //Check for correct answer and return true or false.
@@ -125,5 +139,29 @@ $(function () {
         $turnDisplay.html('Turns left: ' + $turnCounter);
       }
     });
+=======
+    var askQuestion = function askQuestion(option1, option2, option3, option4) {
+
+      $("#quizPopup").html("\n        <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
+
+      //Check for correct answer and return true or false.
+      $('input:radio[name="answer"]').change(function () {
+        if ($(this).val() == currentCapital) {
+          answerToQuestion = true;
+          console.log("Answer: " + answerToQuestion);
+          console.log('correct selected: ' + currentCapital);
+        } else {
+          answerToQuestion = false;
+          console.log("Answer: " + answerToQuestion);
+          console.log('correct not selected: ' + currentCapital);
+        }
+      });
+    };
+    //First Question
+    askQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
+
+    //Second Question
+    // askQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+>>>>>>> development
   }
 });
