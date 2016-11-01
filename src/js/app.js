@@ -193,7 +193,7 @@ $(() =>{
         <div id='countryInfo'>
             <ul>
               <li>Power: `+ country.power +`</li>
-              <li>Number of questions</li>
+              <li>Number of questions: `+ country.questions.length +`</li>
               <button>Conquer</button>
             </ul>
         </div>
