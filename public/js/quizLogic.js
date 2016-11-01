@@ -5,6 +5,7 @@ $(function () {
   var selectedCountries = [];
   var currentCountry = "";
   var currentCapital = "";
+  var currentCountryPower = 0;
   var isCountry = "";
   var answerToQuestion = "";
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
@@ -49,8 +50,9 @@ $(function () {
     });
     currentCountry = countryData[index].name;
     currentCapital = countryData[index].capital;
-    var currentCountryPower = $(this).find('.countryPower').val();
+    currentCountryPower = $('.countryPower').html();
     console.log(currentCountry);
+    currentCountryPower = parseFloat(currentCountryPower);
     console.log(currentCountryPower);
     console.log(currentCapital);
     return countryData[index];
@@ -128,7 +130,7 @@ $(function () {
           console.log('correct selected: ' + currentCapital);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter++;
+          $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
           $turnCounter--;

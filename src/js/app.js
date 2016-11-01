@@ -232,9 +232,10 @@ $(() =>{
         <h1>`+ country.name + `</h1>
         <div id='countryInfo'>
             <ul>
-
-              <li class="countryPower">Power: `+ country.power +`</li>
-              <li>Number of questions: `+ country.questions.length +`</li>
+              <li>Power</li>
+              <li class="countryPower">`+ country.power +`</li>
+              <li>Number of questions</li>
+              <li>`+ country.questions.length +`</li>
               <button class="conquer" data-country="${countryCode}">Conquer</button>
             </ul>
         </div>

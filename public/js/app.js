@@ -157,7 +157,7 @@ $(function () {
       position: latLng
     });
 
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n\n              <li class="countryPower">Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
+    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power</li>\n              <li class="countryPower">' + country.power + '</li>\n              <li>Number of questions</li>\n              <li>' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
 
     var infoWindow = new google.maps.InfoWindow({
       content: countryDetails,
