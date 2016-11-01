@@ -1,24 +1,68 @@
 $(() =>{
 
   let $main = $('main');
+  let $avatars = getAvatars();
 
 
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
-  $main.on('click', 'button.edit', getUser);
+  $main.on('click', 'button.edit', getAvatars);
   $('.logout').on('click', logout);
+
+  $main.on('click', '.avatar', function() {
+    console.log(this);
+    let avatarID = $(this).data('id');
+    let input = $main.find('#characterId');
+    input.val(avatarID);
+  });
 
   function isLoggedIn() {
     return !!localStorage.getItem('token');
   }
 
   if(isLoggedIn()) {
-    showProfile();
+    // showProfileForm();
     console.log("logged in!");
   } else {
     showLoginForm();
+  }
+
+
+  // SHOW PROFILE FORM
+  function showProfileForm(profiles) {
+    profiles.data.forEach((profile) => {
+
+    });
+    console.log($avatars[0]);
+    return $avatars;
+  }
+
+  function getAvatars() {
+    const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'cyclops', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    let $avatars = $('<div class="avatarSelection"></div>');
+
+    for(let i = 0; i<characters.length; i++){
+      $.ajax({
+        url: "/api/profile/"+ characters[i],
+        method: "GET"
+      })
+      .done(function(profile){
+        let obj = profile.data[0]
+        $avatars.append(`
+          <div class="col-md-2 avatar" data-id="${obj.id}">
+            <img class="card-img-top" src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" width="100" alt="profile image">
+            <h4 class="card-title">${obj.name}</h4>
+          </div>
+        `);
+      })
+      .fail(function(jqXHR){
+        console.log(jqXHR.status);
+        $main.html(`You are a failure.`);
+      });
+    }
+    return $avatars;
   }
 
   function showRegisterForm() {
@@ -38,10 +82,28 @@ $(() =>{
         <div class="form-group">
           <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
         </div>
+        <div class="avatarHolder"></div>
+        <input type="hidden" name="characterId" id="characterId" value="" />
         <button class="btn btn-primary">Register</button>
       </form>
     `);
+    // $main.on(eventName, '.avatarHolder', function() {});
+    $main.find('.avatarHolder').append($avatars);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   function showLoginForm() {
     if(event) event.preventDefault();
@@ -59,18 +121,18 @@ $(() =>{
     `);
   }
 
-  function showEditForm(user) {
-    if(event) event.preventDefault();
-    $main.html(`
-      <h2>Edit User</h2>
-      <form method="put" action="/api/user/${user._id}">
-        <div class="form-group">
-          <input class="form-control" name="username" placeholder="Username" value="${user.username}">
-        </div>
-        <button class="btn btn-primary">Update</button>
-      </form>
-    `);
-  }
+  // function showEditForm(user) {
+  //   if(event) event.preventDefault();
+  //   $main.html(`
+  //     <h2>Edit User</h2>
+  //     <form method="put" action="/api/user/${user._id}">
+  //       <div class="form-group">
+  //         <input class="form-control" name="username" placeholder="Username" value="${user.username}">
+  //       </div>
+  //       <button class="btn btn-primary">Update</button>
+  //     </form>
+  //   `);
+  // }
 
   function handleForm() {
     if(event) event.preventDefault();
@@ -90,45 +152,14 @@ $(() =>{
       }
     }).done((data) => {
       if(data.token) localStorage.setItem('token', data.token);
-      // getUsers();
-      showProfile();
+      //showProfileForm();
+      $main.html('');
     }).fail(showLoginForm);
   }
 
 
 
-  function showProfile(user) {
-    if(event) event.preventDefault();
-    $main.html(`
-      <div class="userProfile">
-        <img src='#'>
-        <form method="#" action"#>
-          <button class="startGame">Play</button>
-        </form>
-      </div>
-      `);
-  }
-
-  function showUsers(users) {
-    let $row = $('<div class="row"></div>');
-    users.forEach((user) => {
-      $row.append(`
-        <div class="col-md-4">
-          <div class="card">
-            <img class="card-img-top" src="http://fillmurray.com/300/300" alt="Card image cap">
-            <div class="card-block">
-              <h4 class="card-title">${user.username}</h4>
-            </div>
-          </div>
-          <button class="btn btn-danger delete" data-id="${user._id}">Delete</button>
-          <button class="btn btn-primary edit" data-id="${user._id}">Edit</button>
-        </div>
-      `);
-    });
-
-    $main.html($row);
-  }
-
+// DELETE
   function deleteUser() {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
@@ -140,25 +171,12 @@ $(() =>{
         if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
       }
     })
-    .done(getUsers)
+    .done(getAvatarss)
     .fail(showLoginForm);
   }
 
-  function getUser() {
-    let id = $(this).data('id');
-    let token = localStorage.getItem('token');
 
-    $.ajax({
-      url: `/api/users/${id}`,
-      method: "GET",
-      beforeSend: function(jqXHR) {
-        if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
-      }
-    })
-    .done(showEditForm)
-    .fail(showLoginForm);
-  }
-
+// LOGOUT
   function logout() {
     if(event) event.preventDefault();
     localStorage.removeItem('token');
