@@ -12,6 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh0LdXjZVzZe_SgwaIB7AxrvBGqSpVA6o" charset="utf-8"></script>
+    <script src="https://use.typekit.net/rru2zuj.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
     <script src="js/countries.js" charset="utf-8"></script>
     <script src="/js/app.js" charset="utf-8"></script>
@@ -20,43 +22,26 @@
   </head>
   <body>
     <div id="hud">
-      <nav class="navbar navbar-light bg-faded">
-        <div class="container">
-          <a class="navbar-brand" href="#">CONQUIZTADOR</a>
-          <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
-            &#9776;
-          </button>
-          <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-            <ul class="nav navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link usersIndex loggedIn" href="#">Rules</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link register loggedOut" href="#">Register</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link login loggedOut" href="#">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link logout loggedIn" href="#">Logout</a>
-              </li>
-            </ul>
+      <header>
+      <h1><a href="#">CONQUIZTADOR</a></h1>
+      </header>
+      <div class="nav">
+        <a class="nav-link register loggedOut" href="#">Register</a>
+        <a class="nav-link login loggedOut" href="#">Login</a>
+        <a class="nav-link logout loggedIn" href="#">Logout</a>
+      </div>
+      <main class="container"></main>
+      <section class="scores">
+          <div class="powerCounter">
+            <div id="playerOnePower"></div>
+            <div id="playerTwoPower"></div>
           </div>
-        </div>
-      </nav>
-      <main class="container">
-        <div class="powerCounter">
-          <div id="playerOnePower"></div>
-          <div id="playerTwoPower"></div>
-        </div>
-        <div class="turnDisplay"></div>
-      </main>
-      <div id="quizPopup"></div>
-      <div id="answerGiven"></div>
+          <div class="turnDisplay"></div>
+      </section>
+      <a class="nav-link usersIndex loggedIn" href="#">Rules</a>
+      </div>
     </div>
     <div id="map"></div>
-    <p id="demo"></p>
-    <input type="button" id="quizBtn" value="Next Question">
     <div id="quizPopup"></div>
   </body>
 </html>
