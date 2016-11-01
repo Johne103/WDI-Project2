@@ -69,21 +69,6 @@ $(function () {
     $main.html('\n      <div class="userProfile">\n        <img src=\'#\'>\n        <form method="#" action"#>\n          <button class="startGame">Play</button>\n        </form>\n      </div>\n      ');
   }
 
-  // function getUsers() {
-  //   if(event) event.preventDefault();
-  //
-  //   let token = localStorage.getItem('token');
-  //   $.ajax({
-  //     url: '/api/users',
-  //     method: "GET",
-  //     beforeSend: function(jqXHR) {
-  //       if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
-  //     }
-  //   })
-  //   .done(showUsers)
-  //   .fail(showLoginForm);
-  // }
-
   function showUsers(users) {
     var $row = $('<div class="row"></div>');
     users.forEach(function (user) {
@@ -128,67 +113,76 @@ $(function () {
   var $mapDiv = $('#map');
 
   var map = new google.maps.Map($mapDiv[0], {
+<<<<<<< HEAD
     center: { lat: 51, lng: -0.1 },
     zoom: 14,
     scrollwheel: false
+=======
+    center: { lat: 0, lng: 0 },
+    zoom: 2
+>>>>>>> development
   });
 
-  for (var countryCode in countries) {
-    var country = countries[countryCode];
+  map.setOptions({ maxZoom: 5 });
+
+  var currentWindow = null;
+
+  var _loop = function _loop(countryCode) {
+    country = countries[countryCode];
+
+
+    var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
 
     var marker = new google.maps.Marker({
       map: map,
-      position: { lat: country.latlng[0], lng: country.latlng[1] }
+      position: latLng
     });
+
+    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power</li>\n              <li>Number of questions</li>\n              <button>Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ';
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: countryDetails,
+      position: latLng
+    });
+
+    marker.addListener('click', function () {
+      if (currentWindow !== null) {
+        currentWindow.close();
+      }
+      infoWindow.open(map, marker);
+      currentWindow = infoWindow;
+    });
+  };
+
+  for (var countryCode in countries) {
+    var country;
+
+    _loop(countryCode);
   }
 
+  // addInfoWindowForCountry = function() {
+  //   let countryContent = `
+  //     <div id='content'>
+  //       <h1></h1>
+  //       <div id='countryInfo'>
+  //           <ul>
+  //             <li>Power<li>
+  //             <li>Number of questions<li>
+  //             <button>Conquer</button>
+  //             <button>Back to Map</button>
+  //           </ul>
+  //       </div>
+  //     </div>
+  //     `;
   //
-  // let geocoder = new google.maps.Geocoder();
+  //   let infoWindow = new google.maps.InfoWindow({
+  //     content: countryContent,
+  //     position: { lat: country.latlng[0], lng: country.latlng[1] }
+  //   });
   //
-  // function getCountry(country) {
-  //   console.log("getCountry");
-  //     geocoder.geocode( { 'address': country }, function(results, status) {
-  //       console.log(results, status);
-  //         if (status == google.maps.GeocoderStatus.OK) {
-  //            map.setCenter(results[0].geometry.location);
-  //            var marker = new google.maps.Marker({
-  //                map: map,
-  //                position: results[0].geometry.location
-  //            });
-  //         } else {
-  //           alert("Geocode was not successful for the following reason: " + status);
-  //         }
-  //     });
-  // }
-  //
-  // getCountry('USA');
-  // getCountry('Brazil');
-  // getCountry('Denmark');
-
-
-  // Flow:
-  // Add eventlistener to map object (http://www.geocodezip.com/v3_example_click2add_infowindow.html)
-  // On click, geocode lat lng using google geocoder api
-  // Parse response to extract country shortname
-  // Lookup countries object (`require`d) for country info... i.e. countries['AT'] for Austria
-  // Create marker at countries['AT'].laglng (i.e. the Representative point for that country)
-  // You can modify the convert.js script to incoprorate questions and answers for each country,
-  // if you can find a source for them.
-
-  // navigator.geolocation.getCurrentPosition((position) => {
-  //   let latLng = {
-  //     lat: position.coords.latitude,
-  //     lng: position.coords.longitude
-  //   };
-  //
-  // map.panTo(latLng);
-  // map.setZoom(20);
-  //
-  // let marker = new google.maps.Marker({
-  //   position:latLng,
-  //   animation:google.maps.Animation.DROP,
-  //   draggable:true,
-  //   map
-  // });
-  // });
+  //   marker.addListener('click', function() {
+  //     console.log("CLECK!");
+  //     infoWindow.open(map, marker);
+  //   });
+  // };
 });
