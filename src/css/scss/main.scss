@@ -3,6 +3,10 @@
 @import '_variables';
 @import '_mixins';
 
+* {
+  box-sizing: border-box;
+  font-family: "classic-comic";
+}
 body, html{
   height: 100%;
   margin: 0;
@@ -10,24 +14,55 @@ body, html{
 }
 
 #hud {
+  height: 100%;
+  width: 70%;
   position: relative;
   z-index: 2;
+  background-color: #0d0c47;
+
+  overflow: auto;
+  transition: all 0.5s;
+
+  header {
+    width: 100%;
+    overflow: hidden;
+  }
 }
 
+
+
 nav {
-  font-family: monofett, fantasy;
+  font-family: knewave, fantasy;
   font-size: 35px;
+}
+
+.navbar-brand {
+  font-family: knewave, fantasy;
+  font-size: 50px;
+
 }
 
 #quizPopup {
 
-  height: 400px;
-  width: 300px;
+  height: 300px;
+  width: 1111px;
   position: absolute;
   z-index: 5px;
   display: none;
   background-color: white;
-  // visibility:hidden;
+  font-family: knewave, fantasy;
+  font-size: 33px;
+  margin: 40px;
+
+
+label {
+    font-family: courier;
+    font-size: 20px;
+    color: gray;
+
+  }
+
+
 
 }
 
