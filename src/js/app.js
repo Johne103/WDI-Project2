@@ -11,6 +11,8 @@ $(() =>{
   $main.on('click', 'button.edit', getAvatars);
   $('.logout').on('click', logout);
 
+
+
   $main.on('click', '.avatar', function() {
     console.log(this);
     $(this).siblings().removeClass('selected');
@@ -145,6 +147,7 @@ $(() =>{
 
 
 
+
   function showLoginForm() {
     if(event) event.preventDefault();
     $main.html(`
@@ -229,9 +232,10 @@ $(() =>{
         <h1>`+ country.name + `</h1>
         <div id='countryInfo'>
             <ul>
+
               <li>Power: `+ country.power +`</li>
-              <li>Number of questions</li>
-              <button>Conquer</button>
+              <li>Number of questions: `+ country.questions.length +`</li>
+              <button class="conquer" data-country="${countryCode}">Conquer</button>
             </ul>
         </div>
       </div>
