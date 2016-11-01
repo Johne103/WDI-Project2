@@ -8,8 +8,21 @@ $(function () {
   var isCountry = "";
   var answerToQuestion = "";
 
+  var $playerOnePower = $('#playerOnePower');
+  var $playerTwoPower = $('#playerTwoPower');
+  var $turnDisplay = $('.turnDisplay');
+  var $p1PowerCounter = 10;
+  var $p2PowerCounter = 10;
+  var $turnCounter = 2;
+
   // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
   $.get("https://restcountries.eu/rest/v1/all").done(function (data) {
+    // Creating power counters for players and display for number of turns left
+    // must be moved inside game start function once that is made
+    $playerOnePower.html('Power: ' + $p1PowerCounter);
+    $playerTwoPower.html('Power: ' + $p2PowerCounter);
+    $turnDisplay.html('Turns left: ' + $turnCounter);
+    //
     countryData = data.map(function (country) {
       return {
         name: country.name,
@@ -97,10 +110,19 @@ $(function () {
         answerToQuestion = true;
         console.log(answerToQuestion);
         console.log('correct selected: ' + currentCapital);
+        // Should update players amount of power upon answering question correctly
+        $p1PowerCounter++;
+        $playerOnePower.html('Power: ' + $p1PowerCounter);
+        // should update number of turns left after question is answered
+        $turnCounter--;
+        $turnDisplay.html('Turns left: ' + $turnCounter);
       } else {
         answerToQuestion = false;
         console.log(answerToQuestion);
         console.log('correct not selected: ' + currentCapital);
+        // should update number of turns left after question is answered
+        $turnCounter--;
+        $turnDisplay.html('Turns left: ' + $turnCounter);
       }
     });
   }
