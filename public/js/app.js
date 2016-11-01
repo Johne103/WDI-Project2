@@ -128,12 +128,10 @@ $(function () {
   var $mapDiv = $('#map');
 
   var map = new google.maps.Map($mapDiv[0], {
-
     center: { lat: 0, lng: 0 },
-    zoom: 2
+    zoom: 2,
+    styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
   });
-
-  map.setOptions({ maxZoom: 5 });
 
   var currentWindow = null;
 
@@ -145,7 +143,8 @@ $(function () {
 
     var marker = new google.maps.Marker({
       map: map,
-      position: latLng
+      position: latLng,
+      icon: '/images/grayMarker.png'
     });
 
     var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
