@@ -73,11 +73,17 @@ $(() => {
   }
 
   //On marker click - trigger generation of question.
-  $('#quizBtn').on('click', quizQuestion);
+  // $('#quizBtn').on('click', quizQuestion);
 
-  //Present selection of four options for answer to question.
-  function quizQuestion() {
-    selectCountries("GB");
+  $('#map').on('click', '.conquer', function() {
+    var countryCode = $(this).data('country');
+    $('#quizPopup').show();
+    quizQuestion(countryCode);
+  });
+
+
+  function quizQuestion(countryCode) {
+    selectCountries(countryCode);
     selectedCountries = shuffle(selectedCountries);
     // console.log(selectedCountries);
 
@@ -86,7 +92,7 @@ $(() => {
     console.log(currentCountry);
     // document.getElementById('whichCountry').value = isCountry;
 
-    $("#quiz").html(`
+    $("#quizPopup").html(`
       <p>Select the capital of: </p><label id="whichCountry"></label>
       <label>${selectedCountries[0].capital}</label>
       <input type="radio" name="answer" value="${selectedCountries[0].capital}">

@@ -91,20 +91,6 @@ $(() =>{
     $main.find('.avatarHolder').append($avatars);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   function showLoginForm() {
     if(event) event.preventDefault();
     $main.html(`
@@ -210,15 +196,10 @@ $(() =>{
         <h1>`+ country.name + `</h1>
         <div id='countryInfo'>
             <ul>
-<<<<<<< HEAD
-              <li>Power</li>
-              <li>Number of questions</li>
-              <button class="conquer">Conquer</button>
-=======
+
               <li>Power: `+ country.power +`</li>
               <li>Number of questions: `+ country.questions.length +`</li>
-              <button>Conquer</button>
->>>>>>> fc07c0bd81a236e632776147f63bf18d9388bcb8
+              <button class="conquer" data-country="${countryCode}">Conquer</button>
             </ul>
         </div>
       </div>
@@ -239,16 +220,6 @@ $(() =>{
     });
 
   }
-
-$mapDiv.on('click', '.conquer', function() {
-  console.log('clicked');
-    if ($('#quizPopup').is(":visible")) {
-      console.log('isvisible');
-       $('#quizPopup').hide();
-    }
-     $('#quizPopup').show();
-     console.log('ishidden');
-  });
 
   let questions = `
   <div id='quizPopup'>

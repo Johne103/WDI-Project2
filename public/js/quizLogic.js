@@ -76,11 +76,16 @@ $(function () {
   }
 
   //On marker click - trigger generation of question.
-  $('#quizBtn').on('click', quizQuestion);
+  // $('#quizBtn').on('click', quizQuestion);
 
-  //Present selection of four options for answer to question.
-  function quizQuestion() {
-    selectCountries("GB");
+  $('#map').on('click', '.conquer', function () {
+    var countryCode = $(this).data('country');
+    $('#quizPopup').show();
+    quizQuestion(countryCode);
+  });
+
+  function quizQuestion(countryCode) {
+    selectCountries(countryCode);
     selectedCountries = shuffle(selectedCountries);
     // console.log(selectedCountries);
 
@@ -89,7 +94,7 @@ $(function () {
     console.log(currentCountry);
     // document.getElementById('whichCountry').value = isCountry;
 
-    $("#quiz").html("\n      <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n      <label>" + selectedCountries[0].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[0].capital + "\">\n      <label>" + selectedCountries[1].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[1].capital + "\">\n      <label>" + selectedCountries[2].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[2].capital + "\">\n      <label>" + selectedCountries[3].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[3].capital + "\">\n\n      ");
+    $("#quizPopup").html("\n      <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n      <label>" + selectedCountries[0].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[0].capital + "\">\n      <label>" + selectedCountries[1].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[1].capital + "\">\n      <label>" + selectedCountries[2].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[2].capital + "\">\n      <label>" + selectedCountries[3].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[3].capital + "\">\n\n      ");
 
     //Check for correct answer and return true or false.
     $('input:radio[name="answer"]').change(function () {

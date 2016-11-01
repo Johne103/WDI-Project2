@@ -148,11 +148,7 @@ $(function () {
       position: latLng
     });
 
-<<<<<<< HEAD
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power</li>\n              <li>Number of questions</li>\n              <button class="conquer">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ';
-=======
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + '</li>\n              <button>Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ';
->>>>>>> fc07c0bd81a236e632776147f63bf18d9388bcb8
+    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
 
     var infoWindow = new google.maps.InfoWindow({
       content: countryDetails,
@@ -173,20 +169,6 @@ $(function () {
 
     _loop(countryCode);
   }
-<<<<<<< HEAD
-
-  $mapDiv.on('click', '.conquer', function () {
-    console.log('clicked');
-    if ($('#quizPopup').is(":visible")) {
-      console.log('isvisible');
-      $('#quizPopup').hide();
-    }
-    $('#quizPopup').show();
-    console.log('ishidden');
-    // currentWindow = quizWindow;
-  });
 
   var questions = '\n  <div id=\'quizPopup\'>\n    <h1>what is the capital of ' + country.name + '?</h1>\n    <div id=\'options\'>\n        <ul>\n          <li>a</li>\n          <li>b</li>\n          <li>c</li>\n        </ul>\n    </div>\n  </div>\n  ';
-=======
->>>>>>> fc07c0bd81a236e632776147f63bf18d9388bcb8
 });
