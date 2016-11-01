@@ -115,31 +115,6 @@ $(function () {
     console.log("currentCountry: " + currentCountry);
     // document.getElementById('whichCountry').value = isCountry;
 
-<<<<<<< HEAD
-    $("#quiz").html("\n      <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n      <label>" + selectedCountries[0].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[0].capital + "\">\n      <label>" + selectedCountries[1].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[1].capital + "\">\n      <label>" + selectedCountries[2].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[2].capital + "\">\n      <label>" + selectedCountries[3].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[3].capital + "\">\n\n      ");
-
-    //Check for correct answer and return true or false.
-    $('input:radio[name="answer"]').change(function () {
-      if ($(this).val() == currentCapital) {
-        answerToQuestion = true;
-        console.log(answerToQuestion);
-        console.log('correct selected: ' + currentCapital);
-        // Should update players amount of power upon answering question correctly
-        $p1PowerCounter++;
-        $playerOnePower.html('Power: ' + $p1PowerCounter);
-        // should update number of turns left after question is answered
-        $turnCounter--;
-        $turnDisplay.html('Turns left: ' + $turnCounter);
-      } else {
-        answerToQuestion = false;
-        console.log(answerToQuestion);
-        console.log('correct not selected: ' + currentCapital);
-        // should update number of turns left after question is answered
-        $turnCounter--;
-        $turnDisplay.html('Turns left: ' + $turnCounter);
-      }
-    });
-=======
     var askQuestion = function askQuestion(option1, option2, option3, option4) {
 
       $("#quizPopup").html("\n        <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
@@ -150,10 +125,20 @@ $(function () {
           answerToQuestion = true;
           console.log("Answer: " + answerToQuestion);
           console.log('correct selected: ' + currentCapital);
+
+          // Should update players amount of power upon answering question correctly
+          $p1PowerCounter++;
+          $playerOnePower.html('Power: ' + $p1PowerCounter);
+          // should update number of turns left after question is answered
+          $turnCounter--;
+          $turnDisplay.html('Turns left: ' + $turnCounter);
         } else {
           answerToQuestion = false;
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentCapital);
+          // should update number of turns left after question is answered
+          $turnCounter--;
+          $turnDisplay.html('Turns left: ' + $turnCounter);
         }
       });
     };
@@ -162,6 +147,5 @@ $(function () {
 
     //Second Question
     // askQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
->>>>>>> development
   }
 });
