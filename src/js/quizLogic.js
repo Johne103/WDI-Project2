@@ -3,6 +3,7 @@ $(() => {
   let selectedCountries = [];
   let currentCountry = "";
   let currentCapital = "";
+  let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
   let numberOfQuestionOptions = 0; //Number of options to select for each question.
@@ -48,7 +49,10 @@ $(() => {
     });
     currentCountry = countryData[index].name;
     currentCapital = countryData[index].capital;
+    currentCountryPower = $('.countryPower').html();
     console.log(currentCountry);
+    currentCountryPower = parseFloat(currentCountryPower);
+    console.log(currentCountryPower);
     console.log(currentCapital);
     return countryData[index];
   }
@@ -103,6 +107,7 @@ $(() => {
   });
 
 
+
   function quizQuestion(countryCode) {
     selectCountries(countryCode);
     selectedCountries = shuffle(selectedCountries);
@@ -113,11 +118,11 @@ $(() => {
     console.log(`currentCountry: ${currentCountry}`);
 
 
+
     let askQuestion = function(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
-
-
+        <p>What is the capital of ${countries[countryCode].name}? </p><label id="whichCountry"></label>
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
         <label>${option2}</label>
@@ -138,7 +143,7 @@ $(() => {
             console.log('correct selected: ' + currentCapital);
 
             // Should update players amount of power upon answering question correctly
-            $p1PowerCounter++;
+            $p1PowerCounter += currentCountryPower;
             $playerOnePower.html ('Power: ' + $p1PowerCounter);
             // should update number of turns left after question is answered
             $turnCounter--;

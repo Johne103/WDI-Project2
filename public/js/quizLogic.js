@@ -5,6 +5,7 @@ $(function () {
   var selectedCountries = [];
   var currentCountry = "";
   var currentCapital = "";
+  var currentCountryPower = 0;
   var isCountry = "";
   var answerToQuestion = "";
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
@@ -49,7 +50,10 @@ $(function () {
     });
     currentCountry = countryData[index].name;
     currentCapital = countryData[index].capital;
+    currentCountryPower = $('.countryPower').html();
     console.log(currentCountry);
+    currentCountryPower = parseFloat(currentCountryPower);
+    console.log(currentCountryPower);
     console.log(currentCapital);
     return countryData[index];
   }
@@ -116,7 +120,7 @@ $(function () {
 
     var askQuestion = function askQuestion(option1, option2, option3, option4) {
 
-      $("#quizPopup").html("\n\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
+      $("#quizPopup").html("\n        <p>What is the capital of " + countries[countryCode].name + "? </p><label id=\"whichCountry\"></label>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -126,7 +130,7 @@ $(function () {
           console.log('correct selected: ' + currentCapital);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter++;
+          $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
           $turnCounter--;
