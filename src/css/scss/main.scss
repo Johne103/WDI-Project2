@@ -15,7 +15,7 @@ body, html{
 
 #hud {
   height: 100%;
-  width: 70%;
+  width: 30%;
   position: relative;
   z-index: 2;
   background-color: #0d0c47;
@@ -39,30 +39,6 @@ nav {
 .navbar-brand {
   font-family: knewave, fantasy;
   font-size: 50px;
-
-}
-
-#quizPopup {
-
-  height: 300px;
-  width: 1111px;
-  position: absolute;
-  z-index: 5px;
-  display: none;
-  background-color: white;
-  font-family: knewave, fantasy;
-  font-size: 33px;
-  margin: 40px;
-
-
-label {
-    font-family: courier;
-    font-size: 20px;
-    color: gray;
-
-  }
-
-
 
 }
 

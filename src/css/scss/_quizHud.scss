@@ -1,0 +1,21 @@
+#quizPopup {
+
+  height: 300px;
+  width: 60%;
+  display: none;
+  background-color: white;
+  font-family: knewave, fantasy;
+  font-size: 33px;
+  margin: 40px;
+
+  position: absolute;
+  top: 100px;
+  left: 30%;
+  z-index: 10;
+
+  label {
+    font-family: courier;
+    font-size: 20px;
+    color: gray;
+  }
+}
