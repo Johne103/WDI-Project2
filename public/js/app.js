@@ -4,15 +4,11 @@ $(function () {
 
   var $main = $('main');
 
-  //
-  // let $userProfile = $('.userProfile');
-
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getUser);
-  // $('.usersIndex').on('click', getUsers);
   $('.logout').on('click', logout);
 
   function isLoggedIn() {
@@ -113,14 +109,9 @@ $(function () {
   var $mapDiv = $('#map');
 
   var map = new google.maps.Map($mapDiv[0], {
-<<<<<<< HEAD
-    center: { lat: 51, lng: -0.1 },
-    zoom: 14,
-    scrollwheel: false
-=======
+
     center: { lat: 0, lng: 0 },
     zoom: 2
->>>>>>> development
   });
 
   map.setOptions({ maxZoom: 5 });
@@ -138,7 +129,7 @@ $(function () {
       position: latLng
     });
 
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power</li>\n              <li>Number of questions</li>\n              <button>Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ';
+    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions</li>\n              <button>Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ';
 
     var infoWindow = new google.maps.InfoWindow({
       content: countryDetails,
@@ -159,30 +150,4 @@ $(function () {
 
     _loop(countryCode);
   }
-
-  // addInfoWindowForCountry = function() {
-  //   let countryContent = `
-  //     <div id='content'>
-  //       <h1></h1>
-  //       <div id='countryInfo'>
-  //           <ul>
-  //             <li>Power<li>
-  //             <li>Number of questions<li>
-  //             <button>Conquer</button>
-  //             <button>Back to Map</button>
-  //           </ul>
-  //       </div>
-  //     </div>
-  //     `;
-  //
-  //   let infoWindow = new google.maps.InfoWindow({
-  //     content: countryContent,
-  //     position: { lat: country.latlng[0], lng: country.latlng[1] }
-  //   });
-  //
-  //   marker.addListener('click', function() {
-  //     console.log("CLECK!");
-  //     infoWindow.open(map, marker);
-  //   });
-  // };
 });

@@ -2,15 +2,12 @@ $(() =>{
 
   let $main = $('main');
 
-  //
-  // let $userProfile = $('.userProfile');
 
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getUser);
-  // $('.usersIndex').on('click', getUsers);
   $('.logout').on('click', logout);
 
   function isLoggedIn() {
@@ -195,7 +192,7 @@ $(() =>{
         <h1>`+ country.name + `</h1>
         <div id='countryInfo'>
             <ul>
-              <li>Power</li>
+              <li>Power: `+ country.power +`</li>
               <li>Number of questions</li>
               <button>Conquer</button>
             </ul>
@@ -219,30 +216,5 @@ $(() =>{
 
   }
 
-  // addInfoWindowForCountry = function() {
-  //   let countryContent = `
-  //     <div id='content'>
-  //       <h1></h1>
-  //       <div id='countryInfo'>
-  //           <ul>
-  //             <li>Power<li>
-  //             <li>Number of questions<li>
-  //             <button>Conquer</button>
-  //             <button>Back to Map</button>
-  //           </ul>
-  //       </div>
-  //     </div>
-  //     `;
-  //
-  //   let infoWindow = new google.maps.InfoWindow({
-  //     content: countryContent,
-  //     position: { lat: country.latlng[0], lng: country.latlng[1] }
-  //   });
-  //
-  //   marker.addListener('click', function() {
-  //     console.log("CLECK!");
-  //     infoWindow.open(map, marker);
-  //   });
-  // };
 
 });
