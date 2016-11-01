@@ -13,6 +13,8 @@ $(() =>{
 
   $main.on('click', '.avatar', function() {
     console.log(this);
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
     let avatarID = $(this).data('id');
     let input = $main.find('#characterId');
     input.val(avatarID);
@@ -29,19 +31,10 @@ $(() =>{
     showLoginForm();
   }
 
-
-  // SHOW PROFILE FORM
-  function showProfileForm(profiles) {
-    profiles.data.forEach((profile) => {
-
-    });
-    console.log($avatars[0]);
-    return $avatars;
-  }
-
   function getAvatars() {
-    const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'cyclops', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
-    let $avatars = $('<div class="avatarSelection"></div>');
+    const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+
+    let $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
 
     for(let i = 0; i<characters.length; i++){
       $.ajax({
@@ -51,9 +44,11 @@ $(() =>{
       .done(function(profile){
         let obj = profile.data[0]
         $avatars.append(`
-          <div class="col-md-2 avatar" data-id="${obj.id}">
-            <img class="card-img-top" src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" width="100" alt="profile image">
-            <h4 class="card-title">${obj.name}</h4>
+          <div class="avatar" data-id="${obj.id}">
+            <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" alt="profile image">
+              <div class="overlay">
+                <h4>${obj.name}</h4>
+              </div>
           </div>
         `);
       })
@@ -89,6 +84,51 @@ $(() =>{
     `);
     // $main.on(eventName, '.avatarHolder', function() {});
     $main.find('.avatarHolder').append($avatars);
+  }
+
+  function handleForm() {
+    if(event) event.preventDefault();
+    let token = localStorage.getItem('token');
+    let $form = $(this);
+
+    let url = $form.attr('action');
+    let method = $form.attr('method');
+    let data = $form.serialize();
+
+    $.ajax({
+      url,
+      method,
+      data,
+      beforeSend: function(jqXHR) {
+        if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
+      }
+    })
+    .done((data) => {
+      if(data.token) localStorage.setItem('token', data.token);
+      console.log(data.user);
+      showPlayerProfiles(data.user.characterId, data.user.username);
+    })
+    .fail(showLoginForm);
+  }
+
+  function showPlayerProfiles(id, user){
+    $.ajax({
+      url: "/api/profile/show/"+ id,
+      method: 'GET'
+    }).done((profile) => {
+      let obj = profile.data[0];
+      $main.parent().css('width', '25%');
+      $main.html(`
+        <div class="profileHolder">
+          <div class="profileImage">
+            <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" >
+          </div>
+          <h3>${user}</h3>
+          <p>${obj.description}</p>
+        </div>
+        `);
+      // showPlayers(data);
+    }).fail(showLoginForm);
   }
 
 
@@ -134,28 +174,7 @@ $(() =>{
   //   `);
   // }
 
-  function handleForm() {
-    if(event) event.preventDefault();
-    let token = localStorage.getItem('token');
-    let $form = $(this);
 
-    let url = $form.attr('action');
-    let method = $form.attr('method');
-    let data = $form.serialize();
-
-    $.ajax({
-      url,
-      method,
-      data,
-      beforeSend: function(jqXHR) {
-        if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
-      }
-    }).done((data) => {
-      if(data.token) localStorage.setItem('token', data.token);
-      //showProfileForm();
-      $main.html('');
-    }).fail(showLoginForm);
-  }
 
 
 
@@ -233,6 +252,4 @@ $(() =>{
     });
 
   }
-
-
 });
