@@ -104,7 +104,7 @@ $(function () {
 
     var askQuestion = function askQuestion(option1, option2, option3, option4) {
 
-      $("#quizPopup").html("\n        <p>What is the capital of " + countryCode + "?: </p><label id=\"whichCountry\"></label>\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
+      $("#quizPopup").html("\n        <p>What is the capital of " + countries[countryCode].name + "?: </p><label id=\"whichCountry\"></label>\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -121,5 +121,8 @@ $(function () {
     };
     //First Question
     askQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
+
+    //Second Question
+    // askQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
   }
 });

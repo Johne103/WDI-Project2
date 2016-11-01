@@ -103,7 +103,7 @@ $(() => {
     let askQuestion = function(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
-        <p>What is the capital of ${countryCode}?: </p><label id="whichCountry"></label>
+        <p>What is the capital of ${countries[countryCode].name}? </p><label id="whichCountry"></label>
 
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
@@ -135,6 +135,8 @@ $(() => {
     //First Question
     askQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
 
+    //Second Question
+    // askQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
 
   }
 });
