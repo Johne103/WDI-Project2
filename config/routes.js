@@ -39,4 +39,7 @@ router.route("/games/:id")
   .put(gamesController.update)
   .delete(gamesController.delete);
 
+router.route("/user")
+  .get(authController.index);
+
 module.exports = router;
