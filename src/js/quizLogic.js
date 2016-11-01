@@ -98,12 +98,12 @@ $(() => {
     let isCountry = currentCountry;
     console.log(`isCountry: ${isCountry}`);
     console.log(`currentCountry: ${currentCountry}`);
-    // document.getElementById('whichCountry').value = isCountry;
+
 
     let askQuestion = function(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
-        <p>Select the capital of: </p><label id="whichCountry"></label>
+
 
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
