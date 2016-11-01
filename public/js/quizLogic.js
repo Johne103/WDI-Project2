@@ -102,23 +102,6 @@ $(function () {
     console.log("currentCountry: " + currentCountry);
     // document.getElementById('whichCountry').value = isCountry;
 
-<<<<<<< HEAD
-    $("#quizPopup").html("\n      <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n      <label>" + selectedCountries[0].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[0].capital + "\">\n      <label>" + selectedCountries[1].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[1].capital + "\">\n      <label>" + selectedCountries[2].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[2].capital + "\">\n      <label>" + selectedCountries[3].capital + "</label>\n      <input type=\"radio\" name=\"answer\" value=\"" + selectedCountries[3].capital + "\">\n\n      ");
-
-    //Check for correct answer and return true or false.
-    $('input:radio[name="answer"]').change(function () {
-      if ($(this).val() == currentCapital) {
-        answerToQuestion = true;
-        console.log(answerToQuestion);
-        console.log('correct selected: ' + currentCapital);
-      } else {
-        answerToQuestion = false;
-        console.log(answerToQuestion);
-        console.log('correct not selected: ' + currentCapital);
-      }
-    });
-=======
-
     var askQuestion = function askQuestion(option1, option2, option3, option4) {
 
       $("#quizPopup").html("\n        <p>Select the capital of: </p><label id=\"whichCountry\"></label>\n\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        ");
@@ -138,6 +121,5 @@ $(function () {
     };
     //First Question
     askQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
->>>>>>> f3368509c87fbbf99ee01673492ea28d9c816c56
   }
 });

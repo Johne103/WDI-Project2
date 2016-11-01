@@ -100,17 +100,6 @@ $(() => {
     console.log(`currentCountry: ${currentCountry}`);
     // document.getElementById('whichCountry').value = isCountry;
 
-    $("#quizPopup").html(`
-      <p>Select the capital of: </p><label id="whichCountry"></label>
-      <label>${selectedCountries[0].capital}</label>
-      <input type="radio" name="answer" value="${selectedCountries[0].capital}">
-      <label>${selectedCountries[1].capital}</label>
-      <input type="radio" name="answer" value="${selectedCountries[1].capital}">
-      <label>${selectedCountries[2].capital}</label>
-      <input type="radio" name="answer" value="${selectedCountries[2].capital}">
-      <label>${selectedCountries[3].capital}</label>
-      <input type="radio" name="answer" value="${selectedCountries[3].capital}">
-
     let askQuestion = function(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
