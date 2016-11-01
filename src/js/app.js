@@ -177,25 +177,26 @@ $(() =>{
 
   map.setOptions({ maxZoom: 5});
 
+  let currentWindow = null;
+
   for (let countryCode in countries){
     var country = countries[countryCode];
 
     let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
 
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       map: map,
       position: latLng
     });
 
     let countryDetails = `
       <div id='content'>
-        <h1></h1>
+        <h1>`+ country.name + `</h1>
         <div id='countryInfo'>
             <ul>
               <li>Power</li>
               <li>Number of questions</li>
               <button>Conquer</button>
-              <button>Back to Map</button>
             </ul>
         </div>
       </div>
@@ -208,8 +209,11 @@ $(() =>{
 
 
     marker.addListener('click', function() {
-      console.log("CLECK!");
+      if (currentWindow !== null) {
+        currentWindow.close();
+      }
       infoWindow.open(map, marker);
+      currentWindow = infoWindow;
     });
 
   }
