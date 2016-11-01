@@ -3,14 +3,12 @@ $(() =>{
   let $main = $('main');
   let $avatars = getAvatars();
 
-  // let $userProfile = $('.userProfile');
 
   $('.register').on('click', showRegisterForm);
   $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
-  // $('.usersIndex').on('click', getAvatarss);
   $('.logout').on('click', logout);
 
   $main.on('click', '.avatar', function() {
@@ -161,7 +159,6 @@ $(() =>{
 
 
 
-
 // DELETE
   function deleteUser() {
     let id = $(this).data('id');
@@ -189,74 +186,53 @@ $(() =>{
   let $mapDiv = $('#map');
 
   let map = new  google.maps.Map($mapDiv[0], {
-    center: { lat:51, lng: -0.1},
-    zoom: 14
+
+    center: { lat:0, lng: 0},
+    zoom: 2
   });
 
+  map.setOptions({ maxZoom: 5});
+
+  let currentWindow = null;
 
   for (let countryCode in countries){
     var country = countries[countryCode];
 
-    var marker = new google.maps.Marker({
+    let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+
+    let marker = new google.maps.Marker({
       map: map,
-      position: { lat: country.latlng[0], lng: country.latlng[1] }
+      position: latLng
     });
+
+    let countryDetails = `
+      <div id='content'>
+        <h1>`+ country.name + `</h1>
+        <div id='countryInfo'>
+            <ul>
+              <li>Power: `+ country.power +`</li>
+              <li>Number of questions</li>
+              <button>Conquer</button>
+            </ul>
+        </div>
+      </div>
+      `;
+
+    let infoWindow = new google.maps.InfoWindow({
+      content: countryDetails,
+      position: latLng
+    });
+
+
+    marker.addListener('click', function() {
+      if (currentWindow !== null) {
+        currentWindow.close();
+      }
+      infoWindow.open(map, marker);
+      currentWindow = infoWindow;
+    });
+
   }
 
-
-
-
-
-
-  //
-  // let geocoder = new google.maps.Geocoder();
-  //
-  // function getCountry(country) {
-  //   console.log("getCountry");
-  //     geocoder.geocode( { 'address': country }, function(results, status) {
-  //       console.log(results, status);
-  //         if (status == google.maps.GeocoderStatus.OK) {
-  //            map.setCenter(results[0].geometry.location);
-  //            var marker = new google.maps.Marker({
-  //                map: map,
-  //                position: results[0].geometry.location
-  //            });
-  //         } else {
-  //           alert("Geocode was not successful for the following reason: " + status);
-  //         }
-  //     });
-  // }
-  //
-  // getCountry('USA');
-  // getCountry('Brazil');
-  // getCountry('Denmark');
-
-
-
-// Flow:
-// Add eventlistener to map object (http://www.geocodezip.com/v3_example_click2add_infowindow.html)
-// On click, geocode lat lng using google geocoder api
-// Parse response to extract country shortname
-// Lookup countries object (`require`d) for country info... i.e. countries['AT'] for Austria
-// Create marker at countries['AT'].laglng (i.e. the Representative point for that country)
-// You can modify the convert.js script to incoprorate questions and answers for each country,
-// if you can find a source for them.
-
-// navigator.geolocation.getCurrentPosition((position) => {
-//   let latLng = {
-//     lat: position.coords.latitude,
-//     lng: position.coords.longitude
-//   };
-//
-// map.panTo(latLng);
-// map.setZoom(20);
-//
-// let marker = new google.maps.Marker({
-//   position:latLng,
-//   animation:google.maps.Animation.DROP,
-//   draggable:true,
-//   map
-// });
-// });
 
 });

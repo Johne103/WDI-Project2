@@ -7,6 +7,7 @@ let countries =
       12.5,
       -69.96666666
     ],
+    "power": 10,
     "borders": []
   },
   "AF": {
@@ -15,6 +16,7 @@ let countries =
       33,
       65
     ],
+    "power": 10,
     "borders": [
       "IR",
       "PK",
@@ -30,6 +32,7 @@ let countries =
       -12.5,
       18.5
     ],
+    "power": 10,
     "borders": [
       "CG",
       "CD",
@@ -43,6 +46,7 @@ let countries =
       18.25,
       -63.16666666
     ],
+    "power": 10,
     "borders": []
   },
   "AX": {
@@ -51,6 +55,7 @@ let countries =
       60.116667,
       19.9
     ],
+    "power": 10,
     "borders": []
   },
   "AL": {
@@ -59,6 +64,7 @@ let countries =
       41,
       20
     ],
+    "power": 10,
     "borders": [
       "ME",
       "GR",
@@ -72,6 +78,7 @@ let countries =
       42.5,
       1.5
     ],
+    "power": 10,
     "borders": [
       "FR",
       "ES"
@@ -83,6 +90,7 @@ let countries =
       24,
       54
     ],
+    "power": 10,
     "borders": [
       "OM",
       "SA"
@@ -94,6 +102,7 @@ let countries =
       -34,
       -64
     ],
+    "power": 10,
     "borders": [
       "BO",
       "BR",
@@ -108,6 +117,7 @@ let countries =
       40,
       45
     ],
+    "power": 10,
     "borders": [
       "AZ",
       "GE",
@@ -121,6 +131,7 @@ let countries =
       -14.33333333,
       -170
     ],
+    "power": 10,
     "borders": []
   },
   "AQ": {
@@ -129,6 +140,7 @@ let countries =
       -90,
       0
     ],
+    "power": 10,
     "borders": []
   },
   "TF": {
@@ -137,6 +149,7 @@ let countries =
       -49.25,
       69.167
     ],
+    "power": 10,
     "borders": []
   },
   "AG": {
@@ -145,6 +158,7 @@ let countries =
       17.05,
       -61.8
     ],
+    "power": 10,
     "borders": []
   },
   "AU": {
@@ -153,6 +167,7 @@ let countries =
       -27,
       133
     ],
+    "power": 30,
     "borders": []
   },
   "AT": {
@@ -161,6 +176,7 @@ let countries =
       47.33333333,
       13.33333333
     ],
+    "power": 10,
     "borders": [
       "CZ",
       "DE",
@@ -178,6 +194,7 @@ let countries =
       40.5,
       47.5
     ],
+    "power": 10,
     "borders": [
       "AM",
       "GE",
@@ -192,6 +209,7 @@ let countries =
       -3.5,
       30
     ],
+    "power": 10,
     "borders": [
       "CD",
       "RW",
@@ -204,6 +222,7 @@ let countries =
       50.83333333,
       4
     ],
+    "power": 20,
     "borders": [
       "FR",
       "DE",
@@ -217,6 +236,7 @@ let countries =
       9.5,
       2.25
     ],
+    "power": 10,
     "borders": [
       "BF",
       "NE",
@@ -230,6 +250,7 @@ let countries =
       13,
       -2
     ],
+    "power": 10,
     "borders": [
       "BJ",
       "CI",
@@ -245,6 +266,7 @@ let countries =
       24,
       90
     ],
+    "power": 10,
     "borders": [
       "MM",
       "IN"
@@ -256,6 +278,7 @@ let countries =
       43,
       25
     ],
+    "power": 10,
     "borders": [
       "GR",
       "MK",
@@ -270,6 +293,7 @@ let countries =
       26,
       50.55
     ],
+    "power": 10,
     "borders": []
   },
   "BS": {
@@ -278,6 +302,7 @@ let countries =
       24.25,
       -76
     ],
+    "power": 10,
     "borders": []
   },
   "BA": {
@@ -286,6 +311,7 @@ let countries =
       44,
       18
     ],
+    "power": 10,
     "borders": [
       "HR",
       "ME",
@@ -298,6 +324,7 @@ let countries =
       18.5,
       -63.41666666
     ],
+    "power": 10,
     "borders": []
   },
   "BY": {
@@ -306,6 +333,7 @@ let countries =
       53,
       28
     ],
+    "power": 10,
     "borders": [
       "LV",
       "LT",
@@ -320,6 +348,7 @@ let countries =
       17.25,
       -88.75
     ],
+    "power": 10,
     "borders": [
       "GT",
       "MX"
@@ -331,6 +360,7 @@ let countries =
       32.33333333,
       -64.75
     ],
+    "power": 10,
     "borders": []
   },
   "BO": {
@@ -339,6 +369,7 @@ let countries =
       -17,
       -65
     ],
+    "power": 10,
     "borders": [
       "AR",
       "BR",
@@ -353,6 +384,7 @@ let countries =
       -10,
       -55
     ],
+    "power": 10,
     "borders": [
       "AR",
       "BO",
@@ -372,6 +404,7 @@ let countries =
       13.16666666,
       -59.53333333
     ],
+    "power": 10,
     "borders": []
   },
   "BN": {
@@ -380,6 +413,7 @@ let countries =
       4.5,
       114.66666666
     ],
+    "power": 10,
     "borders": [
       "MY"
     ]
@@ -390,6 +424,7 @@ let countries =
       27.5,
       90.5
     ],
+    "power": 10,
     "borders": [
       "CN",
       "IN"
@@ -401,6 +436,7 @@ let countries =
       -54.43333333,
       3.4
     ],
+    "power": 10,
     "borders": []
   },
   "BW": {
@@ -409,6 +445,7 @@ let countries =
       -22,
       24
     ],
+    "power": 10,
     "borders": [
       "NA",
       "ZA",
@@ -422,6 +459,7 @@ let countries =
       7,
       21
     ],
+    "power": 10,
     "borders": [
       "CM",
       "TD",
@@ -437,6 +475,7 @@ let countries =
       60,
       -95
     ],
+    "power": 30,
     "borders": [
       "US"
     ]
@@ -447,6 +486,7 @@ let countries =
       -12.5,
       96.83333333
     ],
+    "power": 10,
     "borders": []
   },
   "CH": {
@@ -455,6 +495,7 @@ let countries =
       47,
       8
     ],
+    "power": 10,
     "borders": [
       "AT",
       "FR",
@@ -469,6 +510,7 @@ let countries =
       -30,
       -71
     ],
+    "power": 10,
     "borders": [
       "AR",
       "BO",
@@ -481,6 +523,7 @@ let countries =
       35,
       105
     ],
+    "power": 50,
     "borders": [
       "AF",
       "BT",
@@ -505,6 +548,7 @@ let countries =
       8,
       -5
     ],
+    "power": 10,
     "borders": [
       "BF",
       "GH",
@@ -519,6 +563,7 @@ let countries =
       6,
       12
     ],
+    "power": 10,
     "borders": [
       "CF",
       "TD",
@@ -534,6 +579,7 @@ let countries =
       0,
       25
     ],
+    "power": 10,
     "borders": [
       "AO",
       "BI",
@@ -552,6 +598,7 @@ let countries =
       -1,
       15
     ],
+    "power": 10,
     "borders": [
       "AO",
       "CM",
@@ -566,6 +613,7 @@ let countries =
       -21.23333333,
       -159.76666666
     ],
+    "power": 10,
     "borders": []
   },
   "CO": {
@@ -574,6 +622,7 @@ let countries =
       4,
       -72
     ],
+    "power": 15,
     "borders": [
       "BR",
       "EC",
@@ -588,6 +637,7 @@ let countries =
       -12.16666666,
       44.25
     ],
+    "power": 10,
     "borders": []
   },
   "CV": {
@@ -596,6 +646,7 @@ let countries =
       16,
       -24
     ],
+    "power": 10,
     "borders": []
   },
   "CR": {
@@ -604,6 +655,7 @@ let countries =
       10,
       -84
     ],
+    "power": 10,
     "borders": [
       "NI",
       "PA"
@@ -615,6 +667,7 @@ let countries =
       21.5,
       -80
     ],
+    "power": 25,
     "borders": []
   },
   "CW": {
@@ -623,6 +676,7 @@ let countries =
       12.116667,
       -68.933333
     ],
+    "power": 10,
     "borders": []
   },
   "CX": {
@@ -631,6 +685,7 @@ let countries =
       -10.5,
       105.66666666
     ],
+    "power": 10,
     "borders": []
   },
   "KY": {
@@ -639,6 +694,7 @@ let countries =
       19.5,
       -80.5
     ],
+    "power": 10,
     "borders": []
   },
   "CY": {
@@ -647,6 +703,7 @@ let countries =
       35,
       33
     ],
+    "power": 10,
     "borders": [
       "GB"
     ]
@@ -657,6 +714,7 @@ let countries =
       49.75,
       15.5
     ],
+    "power": 10,
     "borders": [
       "AT",
       "DE",
@@ -670,6 +728,7 @@ let countries =
       51,
       9
     ],
+    "power": 40,
     "borders": [
       "AT",
       "BE",
@@ -688,6 +747,7 @@ let countries =
       11.5,
       43
     ],
+    "power": 10,
     "borders": [
       "ER",
       "ET",
@@ -700,6 +760,7 @@ let countries =
       15.41666666,
       -61.33333333
     ],
+    "power": 10,
     "borders": []
   },
   "DK": {
@@ -708,6 +769,7 @@ let countries =
       56,
       10
     ],
+    "power": 10,
     "borders": [
       "DE"
     ]
@@ -718,6 +780,7 @@ let countries =
       19,
       -70.66666666
     ],
+    "power": 10,
     "borders": [
       "HT"
     ]
@@ -728,6 +791,7 @@ let countries =
       28,
       3
     ],
+    "power": 10,
     "borders": [
       "TN",
       "LY",
@@ -744,6 +808,7 @@ let countries =
       -2,
       -77.5
     ],
+    "power": 10,
     "borders": [
       "CO",
       "PE"
@@ -755,6 +820,7 @@ let countries =
       27,
       30
     ],
+    "power": 10,
     "borders": [
       "IL",
       "LY",
@@ -767,6 +833,7 @@ let countries =
       15,
       39
     ],
+    "power": 10,
     "borders": [
       "DJ",
       "ET",
@@ -779,6 +846,7 @@ let countries =
       24.5,
       -13
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "MR",
@@ -791,6 +859,7 @@ let countries =
       40,
       -4
     ],
+    "power": 25,
     "borders": [
       "AD",
       "FR",
@@ -805,6 +874,7 @@ let countries =
       59,
       26
     ],
+    "power": 10,
     "borders": [
       "LV",
       "RU"
@@ -816,6 +886,7 @@ let countries =
       8,
       38
     ],
+    "power": 10,
     "borders": [
       "DJ",
       "ER",
@@ -831,6 +902,7 @@ let countries =
       64,
       26
     ],
+    "power": 10,
     "borders": [
       "NO",
       "SE",
@@ -843,6 +915,7 @@ let countries =
       -18,
       175
     ],
+    "power": 10,
     "borders": []
   },
   "FK": {
@@ -851,6 +924,7 @@ let countries =
       -51.75,
       -59
     ],
+    "power": 10,
     "borders": []
   },
   "FR": {
@@ -859,6 +933,7 @@ let countries =
       46,
       2
     ],
+    "power": 30,
     "borders": [
       "AD",
       "BE",
@@ -876,6 +951,7 @@ let countries =
       62,
       -7
     ],
+    "power": 10,
     "borders": []
   },
   "FM": {
@@ -884,6 +960,7 @@ let countries =
       6.91666666,
       158.25
     ],
+    "power": 10,
     "borders": []
   },
   "GA": {
@@ -892,6 +969,7 @@ let countries =
       -1,
       11.75
     ],
+    "power": 10,
     "borders": [
       "CM",
       "CG",
@@ -904,6 +982,7 @@ let countries =
       54,
       -2
     ],
+    "power": 30,
     "borders": [
       "IE"
     ]
@@ -914,6 +993,7 @@ let countries =
       42,
       43.5
     ],
+    "power": 10,
     "borders": [
       "AM",
       "AZ",
@@ -927,6 +1007,7 @@ let countries =
       49.46666666,
       -2.58333333
     ],
+    "power": 10,
     "borders": []
   },
   "GH": {
@@ -935,6 +1016,7 @@ let countries =
       8,
       -2
     ],
+    "power": 10,
     "borders": [
       "BF",
       "CI",
@@ -947,6 +1029,7 @@ let countries =
       36.13333333,
       -5.35
     ],
+    "power": 10,
     "borders": [
       "ES"
     ]
@@ -957,6 +1040,7 @@ let countries =
       11,
       -10
     ],
+    "power": 10,
     "borders": [
       "CI",
       "GW",
@@ -972,6 +1056,7 @@ let countries =
       16.25,
       -61.583333
     ],
+    "power": 10,
     "borders": []
   },
   "GM": {
@@ -980,6 +1065,7 @@ let countries =
       13.46666666,
       -16.56666666
     ],
+    "power": 10,
     "borders": [
       "SN"
     ]
@@ -990,6 +1076,7 @@ let countries =
       12,
       -15
     ],
+    "power": 10,
     "borders": [
       "GN",
       "SN"
@@ -1001,6 +1088,7 @@ let countries =
       2,
       10
     ],
+    "power": 10,
     "borders": [
       "CM",
       "GA"
@@ -1012,6 +1100,7 @@ let countries =
       39,
       22
     ],
+    "power": 10,
     "borders": [
       "AL",
       "BG",
@@ -1025,6 +1114,7 @@ let countries =
       12.11666666,
       -61.66666666
     ],
+    "power": 10,
     "borders": []
   },
   "GL": {
@@ -1033,6 +1123,7 @@ let countries =
       72,
       -40
     ],
+    "power": 10,
     "borders": []
   },
   "GT": {
@@ -1041,6 +1132,7 @@ let countries =
       15.5,
       -90.25
     ],
+    "power": 10,
     "borders": [
       "BZ",
       "SV",
@@ -1054,6 +1146,7 @@ let countries =
       4,
       -53
     ],
+    "power": 10,
     "borders": [
       "BR",
       "SR"
@@ -1065,6 +1158,7 @@ let countries =
       13.46666666,
       144.78333333
     ],
+    "power": 10,
     "borders": []
   },
   "GY": {
@@ -1073,6 +1167,7 @@ let countries =
       5,
       -59
     ],
+    "power": 10,
     "borders": [
       "BR",
       "SR",
@@ -1085,6 +1180,7 @@ let countries =
       22.267,
       114.188
     ],
+    "power": 20,
     "borders": [
       "CN"
     ]
@@ -1095,6 +1191,7 @@ let countries =
       -53.1,
       72.51666666
     ],
+    "power": 10,
     "borders": []
   },
   "HN": {
@@ -1103,6 +1200,7 @@ let countries =
       15,
       -86.5
     ],
+    "power": 10,
     "borders": [
       "GT",
       "SV",
@@ -1115,6 +1213,7 @@ let countries =
       45.16666666,
       15.5
     ],
+    "power": 10,
     "borders": [
       "BA",
       "HU",
@@ -1129,6 +1228,7 @@ let countries =
       19,
       -72.41666666
     ],
+    "power": 10,
     "borders": [
       "DO"
     ]
@@ -1139,6 +1239,7 @@ let countries =
       47,
       20
     ],
+    "power": 10,
     "borders": [
       "AT",
       "HR",
@@ -1155,6 +1256,7 @@ let countries =
       -5,
       120
     ],
+    "power": 10,
     "borders": [
       "TL",
       "MY",
@@ -1167,6 +1269,7 @@ let countries =
       54.25,
       -4.5
     ],
+    "power": 10,
     "borders": []
   },
   "IN": {
@@ -1175,6 +1278,7 @@ let countries =
       20,
       77
     ],
+    "power": 10,
     "borders": [
       "AF",
       "BD",
@@ -1192,6 +1296,7 @@ let countries =
       -6,
       71.5
     ],
+    "power": 10,
     "borders": []
   },
   "IE": {
@@ -1200,6 +1305,7 @@ let countries =
       53,
       -8
     ],
+    "power": 10,
     "borders": [
       "GB"
     ]
@@ -1210,6 +1316,7 @@ let countries =
       32,
       53
     ],
+    "power": 30,
     "borders": [
       "AF",
       "AM",
@@ -1226,6 +1333,7 @@ let countries =
       33,
       44
     ],
+    "power": 30,
     "borders": [
       "IR",
       "JO",
@@ -1241,6 +1349,7 @@ let countries =
       65,
       -18
     ],
+    "power": 10,
     "borders": []
   },
   "IL": {
@@ -1249,6 +1358,7 @@ let countries =
       31.47,
       35.13
     ],
+    "power": 10,
     "borders": [
       "EG",
       "JO",
@@ -1262,6 +1372,7 @@ let countries =
       42.83333333,
       12.83333333
     ],
+    "power": 20,
     "borders": [
       "AT",
       "FR",
@@ -1277,6 +1388,7 @@ let countries =
       18.25,
       -77.5
     ],
+    "power": 40,
     "borders": []
   },
   "JE": {
@@ -1285,6 +1397,7 @@ let countries =
       49.25,
       -2.16666666
     ],
+    "power": 10,
     "borders": []
   },
   "JO": {
@@ -1293,6 +1406,7 @@ let countries =
       31,
       36
     ],
+    "power": 10,
     "borders": [
       "IQ",
       "IL",
@@ -1306,6 +1420,7 @@ let countries =
       36,
       138
     ],
+    "power": 40,
     "borders": []
   },
   "KZ": {
@@ -1314,6 +1429,7 @@ let countries =
       48,
       68
     ],
+    "power": 10,
     "borders": [
       "CN",
       "KG",
@@ -1328,6 +1444,7 @@ let countries =
       1,
       38
     ],
+    "power": 10,
     "borders": [
       "ET",
       "SO",
@@ -1342,6 +1459,7 @@ let countries =
       41,
       75
     ],
+    "power": 10,
     "borders": [
       "CN",
       "KZ",
@@ -1355,6 +1473,7 @@ let countries =
       13,
       105
     ],
+    "power": 10,
     "borders": [
       "LA",
       "TH",
@@ -1367,6 +1486,7 @@ let countries =
       1.41666666,
       173
     ],
+    "power": 10,
     "borders": []
   },
   "KN": {
@@ -1375,6 +1495,7 @@ let countries =
       17.33333333,
       -62.75
     ],
+    "power": 10,
     "borders": []
   },
   "KR": {
@@ -1383,6 +1504,7 @@ let countries =
       37,
       127.5
     ],
+    "power": 30,
     "borders": [
       "KP"
     ]
@@ -1393,6 +1515,7 @@ let countries =
       42.666667,
       21.166667
     ],
+    "power": 10,
     "borders": [
       "AL",
       "MK",
@@ -1406,6 +1529,7 @@ let countries =
       29.5,
       45.75
     ],
+    "power": 10,
     "borders": [
       "IQ",
       "SA"
@@ -1417,6 +1541,7 @@ let countries =
       18,
       105
     ],
+    "power": 10,
     "borders": [
       "MM",
       "KH",
@@ -1431,6 +1556,7 @@ let countries =
       33.83333333,
       35.83333333
     ],
+    "power": 10,
     "borders": [
       "IL",
       "SY"
@@ -1442,6 +1568,7 @@ let countries =
       6.5,
       -9.5
     ],
+    "power": 10,
     "borders": [
       "GN",
       "CI",
@@ -1454,6 +1581,7 @@ let countries =
       25,
       17
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "TD",
@@ -1469,6 +1597,7 @@ let countries =
       13.88333333,
       -60.96666666
     ],
+    "power": 10,
     "borders": []
   },
   "LI": {
@@ -1477,6 +1606,7 @@ let countries =
       47.26666666,
       9.53333333
     ],
+    "power": 10,
     "borders": [
       "AT",
       "CH"
@@ -1488,6 +1618,7 @@ let countries =
       7,
       81
     ],
+    "power": 10,
     "borders": [
       "IN"
     ]
@@ -1498,6 +1629,7 @@ let countries =
       -29.5,
       28.5
     ],
+    "power": 10,
     "borders": [
       "ZA"
     ]
@@ -1508,6 +1640,7 @@ let countries =
       56,
       24
     ],
+    "power": 10,
     "borders": [
       "BY",
       "LV",
@@ -1521,6 +1654,7 @@ let countries =
       49.75,
       6.16666666
     ],
+    "power": 10,
     "borders": [
       "BE",
       "FR",
@@ -1533,6 +1667,7 @@ let countries =
       57,
       25
     ],
+    "power": 10,
     "borders": [
       "BY",
       "EE",
@@ -1546,6 +1681,7 @@ let countries =
       22.16666666,
       113.55
     ],
+    "power": 10,
     "borders": [
       "CN"
     ]
@@ -1556,6 +1692,7 @@ let countries =
       18.08333333,
       -63.95
     ],
+    "power": 10,
     "borders": [
       "SX"
     ]
@@ -1566,6 +1703,7 @@ let countries =
       32,
       -5
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "EH",
@@ -1578,6 +1716,7 @@ let countries =
       43.73333333,
       7.4
     ],
+    "power": 10,
     "borders": [
       "FR"
     ]
@@ -1588,6 +1727,7 @@ let countries =
       47,
       29
     ],
+    "power": 10,
     "borders": [
       "RO",
       "UA"
@@ -1599,6 +1739,7 @@ let countries =
       -20,
       47
     ],
+    "power": 10,
     "borders": []
   },
   "MV": {
@@ -1607,6 +1748,7 @@ let countries =
       3.25,
       73
     ],
+    "power": 10,
     "borders": []
   },
   "MX": {
@@ -1615,6 +1757,7 @@ let countries =
       23,
       -102
     ],
+    "power": 20,
     "borders": [
       "BZ",
       "GT",
@@ -1627,6 +1770,7 @@ let countries =
       9,
       168
     ],
+    "power": 10,
     "borders": []
   },
   "MK": {
@@ -1635,6 +1779,7 @@ let countries =
       41.83333333,
       22
     ],
+    "power": 10,
     "borders": [
       "AL",
       "BG",
@@ -1649,6 +1794,7 @@ let countries =
       17,
       -4
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "BF",
@@ -1665,6 +1811,7 @@ let countries =
       35.83333333,
       14.58333333
     ],
+    "power": 10,
     "borders": []
   },
   "MM": {
@@ -1673,6 +1820,7 @@ let countries =
       22,
       98
     ],
+    "power": 10,
     "borders": [
       "BD",
       "CN",
@@ -1687,6 +1835,7 @@ let countries =
       42.5,
       19.3
     ],
+    "power": 10,
     "borders": [
       "AL",
       "BA",
@@ -1701,6 +1850,7 @@ let countries =
       46,
       105
     ],
+    "power": 10,
     "borders": [
       "CN",
       "RU"
@@ -1712,6 +1862,7 @@ let countries =
       15.2,
       145.75
     ],
+    "power": 10,
     "borders": []
   },
   "MZ": {
@@ -1720,6 +1871,7 @@ let countries =
       -18.25,
       35
     ],
+    "power": 10,
     "borders": [
       "MW",
       "ZA",
@@ -1735,6 +1887,7 @@ let countries =
       20,
       -12
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "ML",
@@ -1748,6 +1901,7 @@ let countries =
       16.75,
       -62.2
     ],
+    "power": 10,
     "borders": []
   },
   "MQ": {
@@ -1756,6 +1910,7 @@ let countries =
       14.666667,
       -61
     ],
+    "power": 10,
     "borders": []
   },
   "MU": {
@@ -1764,6 +1919,7 @@ let countries =
       -20.28333333,
       57.55
     ],
+    "power": 10,
     "borders": []
   },
   "MW": {
@@ -1772,6 +1928,7 @@ let countries =
       -13.5,
       34
     ],
+    "power": 10,
     "borders": [
       "MZ",
       "TZ",
@@ -1784,6 +1941,7 @@ let countries =
       2.5,
       112.5
     ],
+    "power": 10,
     "borders": [
       "BN",
       "ID",
@@ -1796,6 +1954,7 @@ let countries =
       -12.83333333,
       45.16666666
     ],
+    "power": 10,
     "borders": []
   },
   "NA": {
@@ -1804,6 +1963,7 @@ let countries =
       -22,
       17
     ],
+    "power": 10,
     "borders": [
       "AO",
       "BW",
@@ -1817,6 +1977,7 @@ let countries =
       -21.5,
       165.5
     ],
+    "power": 10,
     "borders": []
   },
   "NE": {
@@ -1825,6 +1986,7 @@ let countries =
       16,
       8
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "BJ",
@@ -1841,6 +2003,7 @@ let countries =
       -29.03333333,
       167.95
     ],
+    "power": 10,
     "borders": []
   },
   "NG": {
@@ -1849,6 +2012,7 @@ let countries =
       10,
       8
     ],
+    "power": 10,
     "borders": [
       "BJ",
       "CM",
@@ -1862,6 +2026,7 @@ let countries =
       13,
       -85
     ],
+    "power": 10,
     "borders": [
       "CR",
       "HN"
@@ -1873,6 +2038,7 @@ let countries =
       -19.03333333,
       -169.86666666
     ],
+    "power": 10,
     "borders": []
   },
   "NL": {
@@ -1881,6 +2047,7 @@ let countries =
       52.5,
       5.75
     ],
+    "power": 10,
     "borders": [
       "BE",
       "DE"
@@ -1892,6 +2059,7 @@ let countries =
       62,
       10
     ],
+    "power": 10,
     "borders": [
       "FI",
       "SE",
@@ -1904,6 +2072,7 @@ let countries =
       28,
       84
     ],
+    "power": 10,
     "borders": [
       "CN",
       "IN"
@@ -1915,6 +2084,7 @@ let countries =
       -0.53333333,
       166.91666666
     ],
+    "power": 10,
     "borders": []
   },
   "NZ": {
@@ -1923,6 +2093,7 @@ let countries =
       -41,
       174
     ],
+    "power": 10,
     "borders": []
   },
   "OM": {
@@ -1931,6 +2102,7 @@ let countries =
       21,
       57
     ],
+    "power": 10,
     "borders": [
       "SA",
       "AE",
@@ -1943,6 +2115,7 @@ let countries =
       30,
       70
     ],
+    "power": 10,
     "borders": [
       "AF",
       "CN",
@@ -1956,6 +2129,7 @@ let countries =
       9,
       -80
     ],
+    "power": 10,
     "borders": [
       "CO",
       "CR"
@@ -1967,6 +2141,7 @@ let countries =
       -25.06666666,
       -130.1
     ],
+    "power": 10,
     "borders": []
   },
   "PE": {
@@ -1975,6 +2150,7 @@ let countries =
       -10,
       -76
     ],
+    "power": 10,
     "borders": [
       "BO",
       "BR",
@@ -1989,6 +2165,7 @@ let countries =
       13,
       122
     ],
+    "power": 10,
     "borders": []
   },
   "PW": {
@@ -1997,6 +2174,7 @@ let countries =
       7.5,
       134.5
     ],
+    "power": 10,
     "borders": []
   },
   "PG": {
@@ -2005,6 +2183,7 @@ let countries =
       -6,
       147
     ],
+    "power": 10,
     "borders": [
       "ID"
     ]
@@ -2015,6 +2194,7 @@ let countries =
       52,
       20
     ],
+    "power": 10,
     "borders": [
       "BY",
       "CZ",
@@ -2031,6 +2211,7 @@ let countries =
       18.25,
       -66.5
     ],
+    "power": 10,
     "borders": []
   },
   "KP": {
@@ -2039,6 +2220,7 @@ let countries =
       40,
       127
     ],
+    "power": 20,
     "borders": [
       "CN",
       "KR",
@@ -2051,6 +2233,7 @@ let countries =
       39.5,
       -8
     ],
+    "power": 10,
     "borders": [
       "ES"
     ]
@@ -2061,6 +2244,7 @@ let countries =
       -23,
       -58
     ],
+    "power": 10,
     "borders": [
       "AR",
       "BO",
@@ -2073,6 +2257,7 @@ let countries =
       31.9,
       35.2
     ],
+    "power": 10,
     "borders": [
       "IL",
       "EG",
@@ -2085,6 +2270,7 @@ let countries =
       -15,
       -140
     ],
+    "power": 10,
     "borders": []
   },
   "QA": {
@@ -2093,6 +2279,7 @@ let countries =
       25.5,
       51.25
     ],
+    "power": 10,
     "borders": [
       "SA"
     ]
@@ -2103,6 +2290,7 @@ let countries =
       -21.15,
       55.5
     ],
+    "power": 10,
     "borders": []
   },
   "RO": {
@@ -2111,6 +2299,7 @@ let countries =
       46,
       25
     ],
+    "power": 10,
     "borders": [
       "BG",
       "HU",
@@ -2125,6 +2314,7 @@ let countries =
       60,
       100
     ],
+    "power": 50,
     "borders": [
       "AZ",
       "BY",
@@ -2148,6 +2338,7 @@ let countries =
       -2,
       30
     ],
+    "power": 10,
     "borders": [
       "BI",
       "CD",
@@ -2161,6 +2352,7 @@ let countries =
       25,
       45
     ],
+    "power": 10,
     "borders": [
       "IQ",
       "JO",
@@ -2177,6 +2369,7 @@ let countries =
       15,
       30
     ],
+    "power": 10,
     "borders": [
       "CF",
       "TD",
@@ -2193,6 +2386,7 @@ let countries =
       14,
       -14
     ],
+    "power": 10,
     "borders": [
       "GM",
       "GN",
@@ -2207,6 +2401,7 @@ let countries =
       1.36666666,
       103.8
     ],
+    "power": 10,
     "borders": []
   },
   "GS": {
@@ -2215,6 +2410,7 @@ let countries =
       -54.5,
       -37
     ],
+    "power": 10,
     "borders": []
   },
   "SJ": {
@@ -2223,6 +2419,7 @@ let countries =
       78,
       20
     ],
+    "power": 10,
     "borders": []
   },
   "SB": {
@@ -2231,6 +2428,7 @@ let countries =
       -8,
       159
     ],
+    "power": 10,
     "borders": []
   },
   "SL": {
@@ -2239,6 +2437,7 @@ let countries =
       8.5,
       -11.5
     ],
+    "power": 10,
     "borders": [
       "GN",
       "LR"
@@ -2250,6 +2449,7 @@ let countries =
       13.83333333,
       -88.91666666
     ],
+    "power": 10,
     "borders": [
       "GT",
       "HN"
@@ -2261,6 +2461,7 @@ let countries =
       43.76666666,
       12.41666666
     ],
+    "power": 10,
     "borders": [
       "IT"
     ]
@@ -2271,6 +2472,7 @@ let countries =
       10,
       49
     ],
+    "power": 5,
     "borders": [
       "DJ",
       "ET",
@@ -2283,6 +2485,7 @@ let countries =
       46.83333333,
       -56.33333333
     ],
+    "power": 10,
     "borders": []
   },
   "RS": {
@@ -2291,6 +2494,7 @@ let countries =
       44,
       21
     ],
+    "power": 10,
     "borders": [
       "BA",
       "BG",
@@ -2308,6 +2512,7 @@ let countries =
       7,
       30
     ],
+    "power": 10,
     "borders": [
       "CF",
       "CD",
@@ -2323,6 +2528,7 @@ let countries =
       1,
       7
     ],
+    "power": 10,
     "borders": []
   },
   "SR": {
@@ -2331,6 +2537,7 @@ let countries =
       4,
       -56
     ],
+    "power": 10,
     "borders": [
       "BR",
       "GF",
@@ -2343,6 +2550,7 @@ let countries =
       48.66666666,
       19.5
     ],
+    "power": 10,
     "borders": [
       "AT",
       "CZ",
@@ -2357,6 +2565,7 @@ let countries =
       46.11666666,
       14.81666666
     ],
+    "power": 10,
     "borders": [
       "AT",
       "HR",
@@ -2370,6 +2579,7 @@ let countries =
       62,
       15
     ],
+    "power": 20,
     "borders": [
       "FI",
       "NO"
@@ -2381,6 +2591,7 @@ let countries =
       -26.5,
       31.5
     ],
+    "power": 10,
     "borders": [
       "MZ",
       "ZA"
@@ -2392,6 +2603,7 @@ let countries =
       18.033333,
       -63.05
     ],
+    "power": 10,
     "borders": [
       "MF"
     ]
@@ -2402,6 +2614,7 @@ let countries =
       -4.58333333,
       55.66666666
     ],
+    "power": 10,
     "borders": []
   },
   "SY": {
@@ -2410,6 +2623,7 @@ let countries =
       35,
       38
     ],
+    "power": 30,
     "borders": [
       "IQ",
       "IL",
@@ -2424,6 +2638,7 @@ let countries =
       21.75,
       -71.58333333
     ],
+    "power": 10,
     "borders": []
   },
   "TD": {
@@ -2432,6 +2647,7 @@ let countries =
       15,
       19
     ],
+    "power": 10,
     "borders": [
       "CM",
       "CF",
@@ -2447,6 +2663,7 @@ let countries =
       8,
       1.16666666
     ],
+    "power": 10,
     "borders": [
       "BJ",
       "BF",
@@ -2459,6 +2676,7 @@ let countries =
       15,
       100
     ],
+    "power": 10,
     "borders": [
       "MM",
       "KH",
@@ -2472,6 +2690,7 @@ let countries =
       39,
       71
     ],
+    "power": 10,
     "borders": [
       "AF",
       "CN",
@@ -2485,6 +2704,7 @@ let countries =
       -9,
       -172
     ],
+    "power": 10,
     "borders": []
   },
   "TM": {
@@ -2493,6 +2713,7 @@ let countries =
       40,
       60
     ],
+    "power": 10,
     "borders": [
       "AF",
       "IR",
@@ -2506,6 +2727,7 @@ let countries =
       -8.83333333,
       125.91666666
     ],
+    "power": 10,
     "borders": [
       "ID"
     ]
@@ -2516,6 +2738,7 @@ let countries =
       -20,
       -175
     ],
+    "power": 10,
     "borders": []
   },
   "TT": {
@@ -2524,6 +2747,7 @@ let countries =
       11,
       -61
     ],
+    "power": 10,
     "borders": []
   },
   "TN": {
@@ -2532,6 +2756,7 @@ let countries =
       34,
       9
     ],
+    "power": 10,
     "borders": [
       "DZ",
       "LY"
@@ -2543,6 +2768,7 @@ let countries =
       39,
       35
     ],
+    "power": 35,
     "borders": [
       "AM",
       "AZ",
@@ -2560,6 +2786,7 @@ let countries =
       -8,
       178
     ],
+    "power": 10,
     "borders": []
   },
   "TW": {
@@ -2568,6 +2795,7 @@ let countries =
       23.5,
       121
     ],
+    "power": 10,
     "borders": []
   },
   "TZ": {
@@ -2576,6 +2804,7 @@ let countries =
       -6,
       35
     ],
+    "power": 10,
     "borders": [
       "BI",
       "CD",
@@ -2593,6 +2822,7 @@ let countries =
       1,
       32
     ],
+    "power": 10,
     "borders": [
       "CD",
       "KE",
@@ -2607,6 +2837,7 @@ let countries =
       49,
       32
     ],
+    "power": 10,
     "borders": [
       "BY",
       "HU",
@@ -2623,6 +2854,7 @@ let countries =
       -33,
       -56
     ],
+    "power": 10,
     "borders": [
       "AR",
       "BR"
@@ -2634,6 +2866,7 @@ let countries =
       38,
       -97
     ],
+    "power": 50,
     "borders": [
       "CA",
       "MX"
@@ -2645,6 +2878,7 @@ let countries =
       41,
       64
     ],
+    "power": 10,
     "borders": [
       "AF",
       "KZ",
@@ -2659,6 +2893,7 @@ let countries =
       41.9,
       12.45
     ],
+    "power": 10,
     "borders": [
       "IT"
     ]
@@ -2669,6 +2904,7 @@ let countries =
       13.25,
       -61.2
     ],
+    "power": 10,
     "borders": []
   },
   "VE": {
@@ -2677,6 +2913,7 @@ let countries =
       8,
       -66
     ],
+    "power": 10,
     "borders": [
       "BR",
       "CO",
@@ -2689,6 +2926,7 @@ let countries =
       18.431383,
       -64.62305
     ],
+    "power": 10,
     "borders": []
   },
   "VI": {
@@ -2697,6 +2935,7 @@ let countries =
       18.35,
       -64.933333
     ],
+    "power": 10,
     "borders": []
   },
   "VN": {
@@ -2705,6 +2944,7 @@ let countries =
       16.16666666,
       107.83333333
     ],
+    "power": 10,
     "borders": [
       "KH",
       "CN",
@@ -2717,6 +2957,7 @@ let countries =
       -16,
       167
     ],
+    "power": 10,
     "borders": []
   },
   "WF": {
@@ -2725,6 +2966,7 @@ let countries =
       -13.3,
       -176.2
     ],
+    "power": 10,
     "borders": []
   },
   "WS": {
@@ -2733,6 +2975,7 @@ let countries =
       -13.58333333,
       -172.33333333
     ],
+    "power": 10,
     "borders": []
   },
   "YE": {
@@ -2741,6 +2984,7 @@ let countries =
       15,
       48
     ],
+    "power": 10,
     "borders": [
       "OM",
       "SA"
@@ -2752,6 +2996,7 @@ let countries =
       -29,
       24
     ],
+    "power": 10,
     "borders": [
       "BW",
       "LS",
@@ -2767,6 +3012,7 @@ let countries =
       -15,
       30
     ],
+    "power": 10,
     "borders": [
       "AO",
       "BW",
@@ -2784,6 +3030,7 @@ let countries =
       -20,
       30
     ],
+    "power": 10,
     "borders": [
       "BW",
       "MZ",
@@ -2791,4 +3038,4 @@ let countries =
       "ZM"
     ]
   }
-}
+};
