@@ -6,7 +6,7 @@ $(() => {
   let isCountry = "";
   let answerToQuestion = "";
   let numberOfQuestionOptions = 0; //Number of options to select for each question.
-
+  let $answerGiven = $('#answerGiven');
   let $playerOnePower = $('#playerOnePower');
   let $playerTwoPower = $('#playerTwoPower');
   let $turnDisplay = $('.turnDisplay');
@@ -93,8 +93,7 @@ $(() => {
     return array;
   }
 
-  //On marker click - trigger generation of question.
-  // $('#quizBtn').on('click', quizQuestion);
+
 
   $('#map').on('click', '.conquer', function() {
     var countryCode = $(this).data('country');
@@ -113,15 +112,9 @@ $(() => {
     console.log(`currentCountry: ${currentCountry}`);
 
 
-    let askQuestion = function(option1, option2, option3, option4) {
-
+    let ask1stQuestion = function(option1, option2, option3, option4) {
       $("#quizPopup").html(`
-<<<<<<< HEAD
-        <p>What is the capital of ${countries[countryCode].name}? </p><label id="whichCountry"></label>
-=======
-
->>>>>>> 93823d270a9046119ee7f8a3990df02c07551f66
-
+        <p>What is the capital of ${countries[countryCode].name}? </p>
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
         <label>${option2}</label>
@@ -130,7 +123,6 @@ $(() => {
         <input type="radio" name="answer" value="${option3}">
         <label>${option4}</label>
         <input type="radio" name="answer" value="${option4}">
-
         `);
 
       //Check for correct answer and return true or false.
@@ -138,6 +130,7 @@ $(() => {
         function() {
           if ($(this).val() == currentCapital) {
             answerToQuestion = true;
+            $answerGiven.html ('Yeh You Gave the Right Answer');
             console.log(`Answer: ${answerToQuestion}`);
             console.log('correct selected: ' + currentCapital);
 
@@ -147,23 +140,184 @@ $(() => {
             // should update number of turns left after question is answered
             $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
-
-        }
-        else {
+          } else {
             answerToQuestion = false;
+            $answerGiven.html ('Oh No You Gave the Wrong Answer');
             console.log(`Answer: ${answerToQuestion}`);
             console.log('correct not selected: ' + currentCapital);
             // should update number of turns left after question is answered
             $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
-        }
-      });
+          }
+          ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+        });
     };
     //First Question
-    askQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
+    ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
 
     //Second Question
-    // askQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+    let ask2ndQuestion = function(option1, option2, option3, option4) {
+      $("#quizPopup").html(`
+        <p>What is the population of ${countries[countryCode].name}? </p>
+        <label>${option1}</label>
+        <input type="radio" name="answer" value="${option1}">
+        <label>${option2}</label>
+        <input type="radio" name="answer" value="${option2}">
+        <label>${option3}</label>
+        <input type="radio" name="answer" value="${option3}">
+        <label>${option4}</label>
+        <input type="radio" name="answer" value="${option4}">
+        `);
 
-  }
+        //Check for correct answer and return true or false.
+        $('input:radio[name="answer"]').change(
+          function() {
+            if ($(this).val() == currentCapital) {
+              answerToQuestion = true;
+              $answerGiven.html ('Yeh You Gave the Right Answer');
+              console.log(`Answer: ${answerToQuestion}`);
+              console.log('correct selected: ' + currentCapital);
+
+              // Should update players amount of power upon answering question correctly
+              $p1PowerCounter++;
+              $playerOnePower.html ('Power: ' + $p1PowerCounter);
+              // should update number of turns left after question is answered
+              $turnCounter--;
+              $turnDisplay.html ('Turns left: ' + $turnCounter);
+            } else {
+              answerToQuestion = false;
+              $answerGiven.html ('Oh No You Gave the Wrong Answer');
+              console.log(`Answer: ${answerToQuestion}`);
+              console.log('correct not selected: ' + currentCapital);
+              // should update number of turns left after question is answered
+              $turnCounter--;
+              $turnDisplay.html ('Turns left: ' + $turnCounter);
+            }
+            ask3rdQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+          });
+      };
+      //Third Question
+      let ask3rdQuestion = function(option1, option2, option3, option4) {
+        $("#quizPopup").html(`
+          <p>What is the area of ${countries[countryCode].name}? </p>
+          <label>${option1}</label>
+          <input type="radio" name="answer" value="${option1}">
+          <label>${option2}</label>
+          <input type="radio" name="answer" value="${option2}">
+          <label>${option3}</label>
+          <input type="radio" name="answer" value="${option3}">
+          <label>${option4}</label>
+          <input type="radio" name="answer" value="${option4}">
+          `);
+
+          //Check for correct answer and return true or false.
+          $('input:radio[name="answer"]').change(
+            function() {
+              if ($(this).val() == currentCapital) {
+                answerToQuestion = true;
+                $answerGiven.html ('Yeh You Gave the Right Answer');
+                console.log(`Answer: ${answerToQuestion}`);
+                console.log('correct selected: ' + currentCapital);
+
+                // Should update players amount of power upon answering question correctly
+                $p1PowerCounter++;
+                $playerOnePower.html ('Power: ' + $p1PowerCounter);
+                // should update number of turns left after question is answered
+                $turnCounter--;
+                $turnDisplay.html ('Turns left: ' + $turnCounter);
+              } else {
+                answerToQuestion = false;
+                $answerGiven.html ('Oh No You Gave the Wrong Answer');
+                console.log(`Answer: ${answerToQuestion}`);
+                console.log('correct not selected: ' + currentCapital);
+                // should update number of turns left after question is answered
+                $turnCounter--;
+                $turnDisplay.html ('Turns left: ' + $turnCounter);
+              }
+              ask4thQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
+            });
+        };
+        //Forth Question
+        let ask4thQuestion = function(option1, option2, option3, option4) {
+          $("#quizPopup").html(`
+            <p>What is the population of ${countries[countryCode].name}? </p>
+            <label>${option1}</label>
+            <input type="radio" name="answer" value="${option1}">
+            <label>${option2}</label>
+            <input type="radio" name="answer" value="${option2}">
+            <label>${option3}</label>
+            <input type="radio" name="answer" value="${option3}">
+            <label>${option4}</label>
+            <input type="radio" name="answer" value="${option4}">
+            `);
+
+            //Check for correct answer and return true or false.
+            $('input:radio[name="answer"]').change(
+              function() {
+                if ($(this).val() == currentCapital) {
+                  answerToQuestion = true;
+                  $answerGiven.html ('Yeh You Gave the Right Answer');
+                  console.log(`Answer: ${answerToQuestion}`);
+                  console.log('correct selected: ' + currentCapital);
+
+                  // Should update players amount of power upon answering question correctly
+                  $p1PowerCounter++;
+                  $playerOnePower.html ('Power: ' + $p1PowerCounter);
+                  // should update number of turns left after question is answered
+                  $turnCounter--;
+                  $turnDisplay.html ('Turns left: ' + $turnCounter);
+                } else {
+                  answerToQuestion = false;
+                  $answerGiven.html ('Oh No You Gave the Wrong Answer');
+                  console.log(`Answer: ${answerToQuestion}`);
+                  console.log('correct not selected: ' + currentCapital);
+                  // should update number of turns left after question is answered
+                  $turnCounter--;
+                  $turnDisplay.html ('Turns left: ' + $turnCounter);
+                }
+                ask5thQuestion(selectedCountries[0].region, selectedCountries[1].region, selectedCountries[2].region, selectedCountries[3].region);
+              });
+          };
+          //Fifth Question
+          let ask5thQuestion = function(option1, option2, option3, option4) {
+            $("#quizPopup").html(`
+              <p>What is the population of ${countries[countryCode].name}? </p>
+              <label>${option1}</label>
+              <input type="radio" name="answer" value="${option1}">
+              <label>${option2}</label>
+              <input type="radio" name="answer" value="${option2}">
+              <label>${option3}</label>
+              <input type="radio" name="answer" value="${option3}">
+              <label>${option4}</label>
+              <input type="radio" name="answer" value="${option4}">
+              `);
+
+              //Check for correct answer and return true or false.
+              $('input:radio[name="answer"]').change(
+                function() {
+                  if ($(this).val() == currentCapital) {
+                    answerToQuestion = true;
+                    $answerGiven.html ('Yeh You Gave the Right Answer');
+                    console.log(`Answer: ${answerToQuestion}`);
+                    console.log('correct selected: ' + currentCapital);
+
+                    // Should update players amount of power upon answering question correctly
+                    $p1PowerCounter++;
+                    $playerOnePower.html ('Power: ' + $p1PowerCounter);
+                    // should update number of turns left after question is answered
+                    $turnCounter--;
+                    $turnDisplay.html ('Turns left: ' + $turnCounter);
+                  } else {
+                    answerToQuestion = false;
+                    $answerGiven.html ('Oh No You Gave the Wrong Answer');
+                    console.log(`Answer: ${answerToQuestion}`);
+                    console.log('correct not selected: ' + currentCapital);
+                    // should update number of turns left after question is answered
+                    $turnCounter--;
+                    $turnDisplay.html ('Turns left: ' + $turnCounter);
+                  }
+                  ask6thQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+                });
+            };
+        }
 });
