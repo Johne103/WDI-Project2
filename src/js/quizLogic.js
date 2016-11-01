@@ -340,18 +340,18 @@ $(() => {
         // functions to check if the turns have ended and to display gameOver screen when out of turns
         function gameOverChecker() {
           if ($turnCounter <= 0){
-            console.log("GAME OVER MAN, GAME OVER!!");
+            console.log("GAME OVER MAN");
             endGame();
           }
         }
 
         function endGame() {
-          // $gameOverScreen.show();
-          console.log("GAME OVER MAN, GAME OVER!!");
+          console.log("GAME OVER!!");
           $gameOverScreen.html(`
             <h2>Game Over</h2>
             <p id="playerOneFinalScore">Player One has `+ $p1PowerCounter +`</p>
             <p id="playeTwoFinalScore">Player Two has `+ $p2PowerCounter +`</p>
+            <button id="restart">Restart</button>
           `);
         }
 });
