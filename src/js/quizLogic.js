@@ -103,7 +103,7 @@ $(() => {
     let askQuestion = function(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
-        <p>Select the capital of: </p><label id="whichCountry"></label>
+        <p>What is the capital of ${countryCode}?: </p><label id="whichCountry"></label>
 
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
