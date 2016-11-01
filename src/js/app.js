@@ -112,22 +112,6 @@ $(() =>{
       `);
   }
 
-
-  // function getUsers() {
-  //   if(event) event.preventDefault();
-  //
-  //   let token = localStorage.getItem('token');
-  //   $.ajax({
-  //     url: '/api/users',
-  //     method: "GET",
-  //     beforeSend: function(jqXHR) {
-  //       if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
-  //     }
-  //   })
-  //   .done(showUsers)
-  //   .fail(showLoginForm);
-  // }
-
   function showUsers(users) {
     let $row = $('<div class="row"></div>');
     users.forEach((user) => {
@@ -201,60 +185,5 @@ $(() =>{
     });
   }
 
-
-
-
-
-
-  //
-  // let geocoder = new google.maps.Geocoder();
-  //
-  // function getCountry(country) {
-  //   console.log("getCountry");
-  //     geocoder.geocode( { 'address': country }, function(results, status) {
-  //       console.log(results, status);
-  //         if (status == google.maps.GeocoderStatus.OK) {
-  //            map.setCenter(results[0].geometry.location);
-  //            var marker = new google.maps.Marker({
-  //                map: map,
-  //                position: results[0].geometry.location
-  //            });
-  //         } else {
-  //           alert("Geocode was not successful for the following reason: " + status);
-  //         }
-  //     });
-  // }
-  //
-  // getCountry('USA');
-  // getCountry('Brazil');
-  // getCountry('Denmark');
-
-
-
-// Flow:
-// Add eventlistener to map object (http://www.geocodezip.com/v3_example_click2add_infowindow.html)
-// On click, geocode lat lng using google geocoder api
-// Parse response to extract country shortname
-// Lookup countries object (`require`d) for country info... i.e. countries['AT'] for Austria
-// Create marker at countries['AT'].laglng (i.e. the Representative point for that country)
-// You can modify the convert.js script to incoprorate questions and answers for each country,
-// if you can find a source for them.
-
-// navigator.geolocation.getCurrentPosition((position) => {
-//   let latLng = {
-//     lat: position.coords.latitude,
-//     lng: position.coords.longitude
-//   };
-//
-// map.panTo(latLng);
-// map.setZoom(20);
-//
-// let marker = new google.maps.Marker({
-//   position:latLng,
-//   animation:google.maps.Animation.DROP,
-//   draggable:true,
-//   map
-// });
-// });
 
 });
