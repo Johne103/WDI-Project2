@@ -19,6 +19,17 @@ nav {
   font-size: 35px;
 }
 
+#quizPopup {
+
+  height: 600px;
+  width: 300px;
+  position: absolute;
+  z-index: 5px;
+  display: none;
+  // visibility:hidden;
+
+}
+
 // Import sections
 
 @import '_map';

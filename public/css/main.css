@@ -1,1 +1,1 @@
-#map,body,html{height:100%;margin:0;padding:0}#hud{position:relative;z-index:2}nav{font-family:monofett,fantasy;font-size:35px}#map{width:100%;top:0;z-index:1}
+#map,body,html{height:100%;margin:0;padding:0}#hud{position:relative;z-index:2}nav{font-family:monofett,fantasy;font-size:35px}#quizPopup{height:600px;width:300px;position:absolute;z-index:5px;display:none}#map{width:100%;top:0;z-index:1}
