@@ -233,7 +233,6 @@ $(() =>{
       let marker = new google.maps.Marker({
         map: map,
         position: latLng
-        style:
       });
 
       marker.metadata = {type: "country", id: country.name};

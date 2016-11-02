@@ -20,7 +20,7 @@ $(() => {
   // let $resetButton = $('#restart');
   let $p1PowerCounter = 10;
   let $p2PowerCounter = 10;
-  let $turnCounter = 2;
+  let $turnCounter = 20;
 
 
   // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
