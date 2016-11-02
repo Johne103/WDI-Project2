@@ -19,10 +19,10 @@ $(function () {
   var $answerGiven = $('.answerGiven');
   var $turnDisplay = $('.turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
-  var $resetButton = $('#restart');
+  // let $resetButton = $('#restart');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
-  var $turnCounter = 2;
+  var $turnCounter = 20;
 
   getArray(function () {
     $('#map').on('click', '.conquer', function () {
@@ -157,7 +157,7 @@ $(function () {
           $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
-          $turnCounter--;
+          // $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
           changeIcon(currentIcon);
           //function to check if game has ended(out of turns)
@@ -169,7 +169,7 @@ $(function () {
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentCapital);
           // should update number of turns left after question is answered
-          $turnCounter--;
+          // $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
           //function to check if game has ended(out of turns)
           gameOverChecker();
@@ -197,20 +197,15 @@ $(function () {
           console.log('correct selected: ' + currentPopulation);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter++;
+          $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
-          // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
-          //function to check if game has ended(out of turns)
-          gameOverChecker();
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentPopulation);
           // should update number of turns left after question is answered
-          $turnCounter--;
+          // $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
           //function to check if game has ended(out of turns)
           gameOverChecker();
@@ -235,10 +230,10 @@ $(function () {
           console.log('correct selected: ' + currentArea);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter++;
+          $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
-          $turnCounter--;
+          // $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         } else {
           answerToQuestion = false;
@@ -246,7 +241,7 @@ $(function () {
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentArea);
           // should update number of turns left after question is answered
-          $turnCounter--;
+          // $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
         if ($turnCounter === 0) {
@@ -269,7 +264,7 @@ $(function () {
           console.log('correct selected: ' + currentRegion);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter++;
+          $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
           $turnCounter--;
@@ -300,7 +295,7 @@ $(function () {
           console.log('correct selected: ' + currentCurrency);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter++;
+          $p1PowerCounter += currentCountryPower;
           $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
           $turnCounter--;
@@ -328,16 +323,16 @@ $(function () {
     }
   }
 
-  // function makeResetWork() {
-  //   $resetButton.addListener('click', function() {
-  //     console.log("CLEKCK!");
-  //     // window.reload();
-  //   });
-  // }
+  function makeResetWork() {
+    $('#restart').click(function () {
+      console.log("CLEKCK!");
+      // window.reload();
+    });
+  }
 
   function endGame() {
     console.log("GAME OVER!!");
     $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
-    // makeResetWork();
+    makeResetWork();
   }
 });
