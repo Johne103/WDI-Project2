@@ -154,14 +154,23 @@ $(() => {
 
       $("#quizPopup").html(`
         <p>What is the capital of ${countries[countryCode].name}? </p>
-        <label>${option1}</label>
-        <input type="radio" name="answer" value="${option1}">
-        <label>${option2}</label>
-        <input type="radio" name="answer" value="${option2}">
-        <label>${option3}</label>
-        <input type="radio" name="answer" value="${option3}">
-        <label>${option4}</label>
-        <input type="radio" name="answer" value="${option4}">
+        </div>
+        <div class="qHolder">
+          <label>${option1}</label>
+          <input type="radio" name="answer" value="${option1}">
+        </div>
+        <div class="qHolder">
+          <label>${option2}</label>
+          <input type="radio" name="answer" value="${option2}">
+        </div>
+        <div class="qHolder">
+          <label>${option3}</label>
+          <input type="radio" name="answer" value="${option3}">
+        </div>
+        <div class="qHolder">
+          <label>${option4}</label>
+          <input type="radio" name="answer" value="${option4}">
+        </div>
         <button class="stopBtn">Stop Questions</button>
 
         `);
@@ -204,14 +213,19 @@ $(() => {
     function ask2ndQuestion(option1, option2, option3, option4) {
       $("#quizPopup").html(`
         <p>What is the population of ${countries[countryCode].name}? </p>
-        <label>${option1}</label>
+        </div>
+        <div class="qHolder"><label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
-        <label>${option2}</label>
+        </div>
+        <div class="qHolder"><label>${option2}</label>
         <input type="radio" name="answer" value="${option2}">
-        <label>${option3}</label>
+        </div>
+        <div class="qHolder"><label>${option3}</label>
         <input type="radio" name="answer" value="${option3}">
-        <label>${option4}</label>
+        </div>
+        <div class="qHolder"><label>${option4}</label>
         <input type="radio" name="answer" value="${option4}">
+        </div>
         <button class="stopBtn">Stop Questions</button>
       `);
 
@@ -247,14 +261,23 @@ $(() => {
       function ask3rdQuestion(option1, option2, option3, option4) {
         $("#quizPopup").html(`
           <p>What is the area of ${countries[countryCode].name}? </p>
-          <label>${option1}</label>
-          <input type="radio" name="answer" value="${option1}">
-          <label>${option2}</label>
-          <input type="radio" name="answer" value="${option2}">
-          <label>${option3}</label>
-          <input type="radio" name="answer" value="${option3}">
-          <label>${option4}</label>
-          <input type="radio" name="answer" value="${option4}">
+
+          <div class="qHolder">
+            <label>${option1}</label>
+            <input type="radio" name="answer" value="${option1}">
+          </div>
+          <div class="qHolder">
+            <label>${option2}</label>
+            <input type="radio" name="answer" value="${option2}">
+          </div>
+          <div class="qHolder">
+            <label>${option3}</label>
+            <input type="radio" name="answer" value="${option3}">
+          </div>
+          <div class="qHolder">
+            <label>${option4}</label>
+            <input type="radio" name="answer" value="${option4}">
+          </div>
           <button class="stopBtn">Stop Questions</button>
           `);
 
@@ -296,14 +319,23 @@ $(() => {
         function ask4thQuestion(option1, option2, option3, option4) {
           $("#quizPopup").html(`
             <p>In what subregion is ${countries[countryCode].name} located? </p>
-            <label>${option1}</label>
-            <input type="radio" name="answer" value="${option1}">
-            <label>${option2}</label>
-            <input type="radio" name="answer" value="${option2}">
-            <label>${option3}</label>
-            <input type="radio" name="answer" value="${option3}">
-            <label>${option4}</label>
-            <input type="radio" name="answer" value="${option4}">
+
+            <div class="qHolder">
+              <label>${option1}</label>
+              <input type="radio" name="answer" value="${option1}">
+            </div>
+            <div class="qHolder">
+              <label>${option2}</label>
+              <input type="radio" name="answer" value="${option2}">
+            </div>
+            <div class="qHolder">
+              <label>${option3}</label>
+              <input type="radio" name="answer" value="${option3}">
+            </div>
+            <div class="qHolder">
+              <label>${option4}</label>
+              <input type="radio" name="answer" value="${option4}">
+            </div>
             <button class="stopBtn">Stop Questions</button>
             `);
 
@@ -343,14 +375,23 @@ $(() => {
           let ask5thQuestion = function(option1, option2, option3, option4) {
             $("#quizPopup").html(`
               <p>Which currency is used in ${countries[countryCode].name}? </p>
-              <label>${option1}</label>
-              <input type="radio" name="answer" value="${option1}">
-              <label>${option2}</label>
-              <input type="radio" name="answer" value="${option2}">
-              <label>${option3}</label>
-              <input type="radio" name="answer" value="${option3}">
-              <label>${option4}</label>
-              <input type="radio" name="answer" value="${option4}">
+
+              <div class="qHolder">
+                <label>${option1}</label>
+                <input type="radio" name="answer" value="${option1}">
+              </div>
+              <div class="qHolder">
+                <label>${option2}</label>
+                <input type="radio" name="answer" value="${option2}">
+              </div>
+              <div class="qHolder">
+                <label>${option3}</label>
+                <input type="radio" name="answer" value="${option3}">
+              </div>
+              <div class="qHolder">
+                <label>${option4}</label>
+                <input type="radio" name="answer" value="${option4}">
+              </div>
               <button class="stopBtn">Stop Questions</button>
               `
             );
@@ -387,14 +428,24 @@ $(() => {
             let ask6thQuestion = function(option1, option2, option3, option4) {
               $("#quizPopup").html(`
                 <p>Which country borders ${countries[countryCode].name}? </p>
-                <label>${option1}</label>
-                <input type="radio" name="answer" value="${option1}">
-                <label>${option2}</label>
-                <input type="radio" name="answer" value="${option2}">
-                <label>${option3}</label>
-                <input type="radio" name="answer" value="${option3}">
-                <label>${option4}</label>
-                <input type="radio" name="answer" value="${option4}">
+
+                <div class="qHolder">
+                  <label>${option1}</label>
+                  <input type="radio" name="answer" value="${option1}">
+                </div>
+                <div class="qHolder">
+                  <label>${option2}</label>
+                  <input type="radio" name="answer" value="${option2}">
+                </div>
+                <div class="qHolder">
+                  <label>${option3}</label>
+                  <input type="radio" name="answer" value="${option3}">
+                </div>
+                <div class="qHolder">
+                  <label>${option4}</label>
+                  <input type="radio" name="answer" value="${option4}">
+                </div>
+                
                 <button class="stopBtn">Stop Questions</button>
                 `);
 
