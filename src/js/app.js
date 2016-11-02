@@ -34,6 +34,8 @@ const gv = {
 
 let map;
 let fnc_removeListener;
+let currentCountryListener;
+let infoWindow = null;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -267,11 +269,12 @@ $(() =>{
     let currentWindow = null;
     for (let countryCode in countries){
 
-      var country = countries[countryCode];
+      let country = countries[countryCode];
       let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
       let marker = new google.maps.Marker({
         map: map,
         position: latLng,
+        icon:"images/grayMarker.png"
 
       });
 
@@ -282,38 +285,54 @@ $(() =>{
           <h1>`+ country.name + `</h1>
           <div id='countryInfo'>
               <ul>
-                <li>Power</li>
+                <li>Power to be gained per question</li>
                 <li class="countryPower">`+ country.power +`</li>
-                <li>Number of questions</li>
-                <li>`+ country.questions.length +`</li>
                 <button class="conquer" data-country="${countryCode}">Conquer</button>
               </ul>
           </div>
         </div>
         `;
 
-      let infoWindow = new google.maps.InfoWindow({
-        content: countryDetails,
-        position: latLng
-      });
+      let eventlistener = marker.addListener('click', function() {
 
-      marker.addListener('click', function() {
-
+        infoWindow = new google.maps.InfoWindow({
+          content: countryDetails,
+          position: latLng
+        });
+        $('.cPower').html(`${country.power}`);
         gv.turnInfo.currentIcon = this; // set global to variable.
+
 
         if (currentWindow !== null) {
           currentWindow.close();
         }
         infoWindow.open(map, marker);
         currentWindow = infoWindow;
-        // fnc_removeListener = clearClick(this, marker);
       });
 
     }
   }
+  $('#rulesLink').on("click", showRules);
 
-  // function clearClick(ci, marker) {
-  //   marker.removeListener();
-  // }
+  function showRules () {
+    console.log("SHOW RULES...");
+    $main.html(`
+      <div class="rulesContent"><p>
+
+  <strong>Object:</strong>
+  <br>score the most points to win the game. <br>
+
+  <strong>Setup:</strong>
+  <br>
+  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.
+<br>
+  <strong>Playing the game:</strong>
+<br>
+  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
+  players take turns and accumulate points throughout the game based on answering the quiz correctly.
+
+  after comparing the scores between players, a winner is annouced.</p></div>
+    `);
+  }
 
 });

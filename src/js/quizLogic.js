@@ -5,9 +5,9 @@ $(() => {
   let currentCapital = "";
   let currentPopulation = "";
   let currentArea = "";
-  let currentRegion = "";
-  let currentCurrency = "";
-  let currentBorder = "";
+  let currentSubRegion = "";
+  let currentCurrency = [];
+  let currentBorder = [];
   let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
@@ -17,7 +17,6 @@ $(() => {
   let $answerGiven = $('.answerGiven');
   let $turnDisplay = $('.turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
-  // let $resetButton = $('#restart');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
   gv.players.player1.turnCounter = 20;
@@ -34,27 +33,16 @@ $(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');
       $('#quizPopup').show();
+      infoWindow.close();
       quizQuestion(countryCode);
-      // findCountryByAlpha2Code(); //Takes an array and sets global varibles from that one country (2)
-      // findRandomCountry();
-      // selectCountries();
-      // shuffle();
-      // quizQuestion(countryCode);
+
     });
   });
-
-
-
 
   $('#quizPopup').on("click", '.stopBtn', closeWindow);
 
   function closeWindow () {
     $('#quizPopup').hide();
-  }
-
-
-  function init () {
-
   }
 
   function getArray(callback) {
@@ -75,8 +63,8 @@ $(() => {
           region: country.region,
           subRegion: country.subregion,
           area: country.area,
-          borders: country.borders,
-          currencies: country.currencies,
+          borders: country.borders[0],
+          currencies: country.currencies[0],
           location: {
             lat: country.latlng[0],
             lng: country.latlng[1]
@@ -97,11 +85,12 @@ $(() => {
     currentCapital = countryData[index].capital;
     currentPopulation = countryData[index].population;
     currentArea = countryData[index].area;
-    currentRegion = countryData[index].region;
-    currentCurrency = countryData[index].currency;
-    currentBorder = countryData[index].border;
+    currentSubRegion = countryData[index].subRegion;
+    currentCurrency = countryData[index].currencies;
+    currentBorder = countryData[index].borders;
 
-    currentCountryPower = $('.countryPower').html();
+    currentCountryPower = $('html').find('.cPower').html();
+    // console.log('find: ' + currentCountryPower[0], currentCountryPower);
     currentCountryPower = parseFloat(currentCountryPower);
     return countryData[index];
   }
@@ -120,6 +109,7 @@ $(() => {
     selectedCountries.push(findCountryByAlpha2Code(alpha2Code));
     for(let i = 0;i<3;i++) {
       let country = findRandomCountry();
+      console.log(country);
       while(selectedCountries.indexOf(country) !== -1) {
         country = findRandomCountry();
       }
@@ -147,13 +137,12 @@ $(() => {
     return array;
   }
 
-
-
-
-
-
   function quizQuestion(countryCode) {
     selectedCountries = shuffle(selectCountries(countryCode));
+
+
+    //First Question
+    ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
 
     function ask1stQuestion(option1, option2, option3, option4) {
 
@@ -183,6 +172,7 @@ $(() => {
 
             // Should update players amount of power upon answering question correctly
             gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+            console.log(currentCountryPower, gv.players.player1.power);
             gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
             // should update number of turns left after question is answered
             // gv.players.player1.turnCounter--;
@@ -207,12 +197,13 @@ $(() => {
             $('#quizPopup').hide();
           } else {
             conquerCountry();
+
+            selectedCountries = shuffle(selectCountries(countryCode));
+
             ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
     }
-    //First Question
-    ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
 
     //Second Question
     function ask2ndQuestion(option1, option2, option3, option4) {
@@ -255,6 +246,9 @@ $(() => {
             if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                 $('#quizPopup').hide();
             } else {
+
+            selectedCountries = shuffle(selectCountries(countryCode));
+
             ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
             }
           });
@@ -302,14 +296,17 @@ $(() => {
               if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                   $('#quizPopup').hide();
               } else {
-              ask4thQuestion(selectedCountries[0].region, selectedCountries[1].region, selectedCountries[2].region, selectedCountries[3].region);
+
+              selectedCountries = shuffle(selectCountries(countryCode));
+
+              ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
               }
             });
         }
         //Forth Question
         function ask4thQuestion(option1, option2, option3, option4) {
           $("#quizPopup").html(`
-            <p>In what region is ${countries[countryCode].name} located? </p>
+            <p>In what subregion is ${countries[countryCode].name} located? </p>
             <label>${option1}</label>
             <input type="radio" name="answer" value="${option1}">
             <label>${option2}</label>
@@ -324,11 +321,11 @@ $(() => {
             //Check for correct answer and return true or false.
             $('input:radio[name="answer"]').change(
               function() {
-                if ($(this).val() == currentRegion) {
+                if ($(this).val() == currentSubRegion) {
                   answerToQuestion = true;
                   $answerGiven.html ('Yeh You Gave the Right Answer');
                   console.log(`Answer: ${answerToQuestion}`);
-                  console.log('correct selected: ' + currentRegion);
+                  console.log('correct selected: ' + currentSubRegion);
 
                   // Should update players amount of power upon answering question correctly
                   gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
@@ -342,18 +339,22 @@ $(() => {
                   // should update number of turns left after question is answered
                   // processTurn();
                   //function to check if game has ended(out of turns)
+                  processTurn();
                   gameOverChecker();
                   closeWindow();
                 }
-                $('#quizPopup').hide();
-                ask5thQuestion(selectedCountries[0].currency, selectedCountries[1].currency, selectedCountries[2].currency, selectedCountries[3].currency);
-                processTurn();
+                if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
+                    $('#quizPopup').hide();
+                } else {
+                  selectedCountries = shuffle(selectCountries(countryCode));
+                  ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
+                }
               });
           }
           //Fifth Question
           let ask5thQuestion = function(option1, option2, option3, option4) {
             $("#quizPopup").html(`
-              <p>What currency is used Int32Array() ${countries[countryCode].name}? </p>
+              <p>Which currency is used in ${countries[countryCode].name}? </p>
               <label>${option1}</label>
               <input type="radio" name="answer" value="${option1}">
               <label>${option2}</label>
@@ -366,37 +367,83 @@ $(() => {
               `
             );
 
-            //Check for correct answer and return true or false.
-            $('input:radio[name="answer"]').change(
-              function() {
-                if ($(this).val() == currentCurrency) {
-                  answerToQuestion = true;
-                  $answerGiven.html ('Yeh You Gave the Right Answer');
-                  console.log(`Answer: ${answerToQuestion}`);
-                  console.log('correct selected: ' + currentCurrency);
+              //Check for correct answer and return true or false.
+              $('input:radio[name="answer"]').change(
+                function() {
+                  if ($(this).val() == currentCurrency) {
+                    answerToQuestion = true;
+                    $answerGiven.html ('Yeh You Gave the Right Answer');
 
-                  // Should update players amount of power upon answering question correctly
-                  gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-                  gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-                  // should update number of turns left after question is answered
-                } else {
-                  answerToQuestion = false;
-                  $answerGiven.html ('Oh No You Gave the Wrong Answer');
-                  console.log(`Answer: ${answerToQuestion}`);
-                  console.log('correct not selected: ' + currentCurrency);
-                  // should update number of turns left after question is answered
-                }
-                $('#quizPopup').hide();
-                // ask5thQuestion(selectedCountries[0].border, selectedCountries[1].border, selectedCountries[2].border, selectedCountries[3].border);
-                processTurn();
-              });
+                    // Should update players amount of power upon answering question correctly
+                    gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+                    gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
+                    // should update number of turns left after question is answered
+                  } else {
+                    answerToQuestion = false;
+                    $answerGiven.html ('Oh No You Gave the Wrong Answer');
+                    processTurn();
+                    gameOverChecker();
+                    closeWindow();
+                    // should update number of turns left after question is answered
+                  }
+                  if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
+                      $('#quizPopup').hide();
+                  } else {
+                    selectedCountries = shuffle(selectCountries(countryCode));
+                    ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
+                  }
+                });
             };
-        }
 
-        function conquerCountry() {
-          // console.log(fnc_removeListener);
-          // currentIcon = null;
-          console.log("NO CLECK");
+
+            //Sixth Question
+            let ask6thQuestion = function(option1, option2, option3, option4) {
+              $("#quizPopup").html(`
+                <p>Which country borders ${countries[countryCode].name}? </p>
+                <label>${option1}</label>
+                <input type="radio" name="answer" value="${option1}">
+                <label>${option2}</label>
+                <input type="radio" name="answer" value="${option2}">
+                <label>${option3}</label>
+                <input type="radio" name="answer" value="${option3}">
+                <label>${option4}</label>
+                <input type="radio" name="answer" value="${option4}">
+                <button class="stopBtn">Stop Questions</button>
+                `);
+
+                //Check for correct answer and return true or false.
+                $('input:radio[name="answer"]').change(
+                  function() {
+                    if ($(this).val() == currentCurrency) {
+                      answerToQuestion = true;
+                      $answerGiven.html ('Yeh You Gave the Right Answer');
+                      console.log(`Answer: ${answerToQuestion}`);
+                      console.log('correct selected: ' + currentCurrency);
+
+                      // Should update players amount of power upon answering question correctly
+                      gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+                      gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
+                    } else {
+                      answerToQuestion = false;
+                      $answerGiven.html ('Oh No You Gave the Wrong Answer');
+                      console.log(`Answer: ${answerToQuestion}`);
+                      console.log('correct not selected: ' + currentCurrency);
+                    }
+                    // if ($turnCounter === 0) {
+                        $('#quizPopup').hide();
+                    // } else {
+
+                    // selectedCountries = shuffle(selectCountries(countryCode));
+
+                    // ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
+                    // }
+                    processTurn();
+                });
+            };
+
+        function conquerCountry(marker) {
+          google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+          console.log('NO CLECK NO CRY');
         }
 
         // functions to check if the turns have ended and to display gameOver screen when out of turns
@@ -410,7 +457,6 @@ $(() => {
         function makeResetWork() {
           $('#restart').click( function() {
             console.log("CLEKCK!");
-            // window.reload();
           });
         }
 
@@ -424,7 +470,5 @@ $(() => {
           `);
           makeResetWork();
         }
-
-
-
+}
 });
