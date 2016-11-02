@@ -23,6 +23,7 @@ $(() =>{
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
+  $('.logout').hide();
   $('.logout').on('click', logout);
 
 
