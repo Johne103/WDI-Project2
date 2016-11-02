@@ -304,8 +304,8 @@ $(function () {
           console.log('correct selected: ' + currentCurrency);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter += currentCountryPower;
-          $playerOnePower.html('Power: ' + $p1PowerCounter);
+          gv.players.player1.power += currentCountryPower;
+          $playerOnePower.html('Power: ' + gv.players.player1.power);
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
@@ -339,8 +339,8 @@ $(function () {
           console.log('correct selected: ' + currentCurrency);
 
           // Should update players amount of power upon answering question correctly
-          gv.players.player1.power += currentCountryPower;
-          $playerOnePower.html('Power: ' + gv.players.player1.power);
+          $p1PowerCounter += currentCountryPower;
+          $playerOnePower.html('Power: ' + $p1PowerCounter);
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
@@ -361,18 +361,10 @@ $(function () {
       });
     };
 
-<<<<<<< HEAD
-    function conquerCountry() {
-      // console.log(fnc_removeListener);
-      // currentIcon = null;
-      console.log("NO CLECK");
+    function conquerCountry(marker) {
+      google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+      console.log('NO CLECK NO CRY');
     }
-=======
-  function conquerCountry(marker) {
-    google.maps.event.clearListeners(gv.turnInfo.currentIcon);
-    console.log('NO CLECK NO CRY');
-  }
->>>>>>> development
 
     // functions to check if the turns have ended and to display gameOver screen when out of turns
     function gameOverChecker() {
@@ -389,17 +381,10 @@ $(function () {
       });
     }
 
-<<<<<<< HEAD
     function endGame() {
       console.log("GAME OVER!!");
-      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
+      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
       makeResetWork();
     }
-=======
-  function endGame() {
-    console.log("GAME OVER!!");
-    $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
-    makeResetWork();
->>>>>>> development
   }
 });

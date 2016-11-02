@@ -129,10 +129,6 @@ $(() => {
     return array;
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> development
   function quizQuestion(countryCode) {
 
     selectedCountries = shuffle(selectCountries(countryCode));
@@ -141,11 +137,8 @@ $(() => {
     //First Question
     ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
 
-<<<<<<< HEAD
-=======
     function ask1stQuestion(option1, option2, option3, option4) {
 
->>>>>>> development
       $("#quizPopup").html(`
         <p>What is the capital of ${countries[countryCode].name}? </p>
         <label>${option1}</label>
