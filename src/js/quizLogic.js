@@ -3,6 +3,11 @@ $(() => {
   let selectedCountries = [];
   let currentCountry = "";
   let currentCapital = "";
+  let currentPopulation = "";
+  let currentArea = "";
+  let currentRegion = "";
+  let currentCurrency = "";
+  let currentBorder = "";
   let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
@@ -51,11 +56,11 @@ $(() => {
     });
     currentCountry = countryData[index].name;
     currentCapital = countryData[index].capital;
-    // currentPopulation = countryData[index].population;
-    // currentArea = countryData[index].area;
-    // urrentRegion = countryData[index].region;
-    // currentCurrency = countryData[index].currency;
-    // currentBorder =countryData[index].border;
+    currentPopulation = countryData[index].population;
+    currentArea = countryData[index].area;
+    currentRegion = countryData[index].region;
+    currentCurrency = countryData[index].currency;
+    currentBorder = countryData[index].border;
 
     currentCountryPower = $('.countryPower').html();
     console.log(currentCountry);
@@ -206,7 +211,7 @@ $(() => {
               answerToQuestion = true;
               $answerGiven.html ('Yeh You Gave the Right Answer');
               console.log(`Answer: ${answerToQuestion}`);
-              console.log('correct selected: ' + currentCapital);
+              console.log('correct selected: ' + currentPopulation);
 
               // Should update players amount of power upon answering question correctly
               $p1PowerCounter++;
@@ -218,7 +223,7 @@ $(() => {
               answerToQuestion = false;
               $answerGiven.html ('Oh No You Gave the Wrong Answer');
               console.log(`Answer: ${answerToQuestion}`);
-              console.log('correct not selected: ' + currentCapital);
+              console.log('correct not selected: ' + currentPopulation);
               // should update number of turns left after question is answered
               $turnCounter--;
               $turnDisplay.html ('Turns left: ' + $turnCounter);
@@ -252,7 +257,7 @@ $(() => {
                 answerToQuestion = true;
                 $answerGiven.html ('Yeh You Gave the Right Answer');
                 console.log(`Answer: ${answerToQuestion}`);
-                console.log('correct selected: ' + currentCapital);
+                console.log('correct selected: ' + currentArea);
 
                 // Should update players amount of power upon answering question correctly
                 $p1PowerCounter++;
@@ -264,7 +269,7 @@ $(() => {
                 answerToQuestion = false;
                 $answerGiven.html ('Oh No You Gave the Wrong Answer');
                 console.log(`Answer: ${answerToQuestion}`);
-                console.log('correct not selected: ' + currentCapital);
+                console.log('correct not selected: ' + currentArea);
                 // should update number of turns left after question is answered
                 $turnCounter--;
                 $turnDisplay.html ('Turns left: ' + $turnCounter);
@@ -298,7 +303,7 @@ $(() => {
                   answerToQuestion = true;
                   $answerGiven.html ('Yeh You Gave the Right Answer');
                   console.log(`Answer: ${answerToQuestion}`);
-                  console.log('correct selected: ' + currentCapital);
+                  console.log('correct selected: ' + currentRegion);
 
                   // Should update players amount of power upon answering question correctly
                   $p1PowerCounter++;
@@ -310,13 +315,13 @@ $(() => {
                   answerToQuestion = false;
                   $answerGiven.html ('Oh No You Gave the Wrong Answer');
                   console.log(`Answer: ${answerToQuestion}`);
-                  console.log('correct not selected: ' + currentCapital);
+                  console.log('correct not selected: ' + currentRegion);
                   // should update number of turns left after question is answered
                   $turnCounter--;
                   $turnDisplay.html ('Turns left: ' + $turnCounter);
                 }
                 $('#quizPopup').hide();
-                // ask5thQuestion(selectedCountries[0].currency, selectedCountries[1].currency, selectedCountries[2].currency, selectedCountries[3].currency);
+                ask5thQuestion(selectedCountries[0].currency, selectedCountries[1].currency, selectedCountries[2].currency, selectedCountries[3].currency);
               });
           };
           //Fifth Question
@@ -341,7 +346,7 @@ $(() => {
                     answerToQuestion = true;
                     $answerGiven.html ('Yeh You Gave the Right Answer');
                     console.log(`Answer: ${answerToQuestion}`);
-                    console.log('correct selected: ' + currentCapital);
+                    console.log('correct selected: ' + currentCurrency);
 
                     // Should update players amount of power upon answering question correctly
                     $p1PowerCounter++;
@@ -353,7 +358,7 @@ $(() => {
                     answerToQuestion = false;
                     $answerGiven.html ('Oh No You Gave the Wrong Answer');
                     console.log(`Answer: ${answerToQuestion}`);
-                    console.log('correct not selected: ' + currentCapital);
+                    console.log('correct not selected: ' + currentCurrency);
                     // should update number of turns left after question is answered
                     $turnCounter--;
                     $turnDisplay.html ('Turns left: ' + $turnCounter);
