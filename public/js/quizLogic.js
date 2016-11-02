@@ -8,8 +8,8 @@ $(function () {
   var currentPopulation = "";
   var currentArea = "";
   var currentSubRegion = "";
-  var currentCurrency = "";
-  var currentBorder = "";
+  var currentCurrency = [];
+  var currentBorder = [];
   var currentCountryPower = 0;
   var isCountry = "";
   var answerToQuestion = "";
