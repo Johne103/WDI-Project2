@@ -14,7 +14,7 @@ $(function () {
   var $playerTwoPower = $('#playerTwoPower');
   var $turnDisplay = $('.turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
-  var $resetButton = $('#restart');
+  // let $resetButton = $('#restart');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
   var $turnCounter = 2;
@@ -287,16 +287,16 @@ $(function () {
     }
   }
 
-  // function makeResetWork() {
-  //   $resetButton.addListener('click', function() {
-  //     console.log("CLEKCK!");
-  //     // window.reload();
-  //   });
-  // }
+  function makeResetWork() {
+    $('#restart').click(function () {
+      console.log("CLEKCK!");
+      // window.reload();
+    });
+  }
 
   function endGame() {
     console.log("GAME OVER!!");
     $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
-    // makeResetWork();
+    makeResetWork();
   }
 });
