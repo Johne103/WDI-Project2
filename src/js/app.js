@@ -1,14 +1,47 @@
+const gv = {
+  main: {
+
+  },
+  turnInfo: {
+    currentIcon: {}
+  },
+  players: {
+    player1: {
+      avatar: ""
+    },
+    player2: {
+      avatar: ""
+    }
+  }
+};
+
+/*
+  Example players object
+  players: {
+    player1: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+    player2: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+  }
+}
+*/
+
 let map;
-let currentIcon;
-let player1_avatar;
 let fnc_removeListener;
 let infoWindow;
 let currentWindow = null;
+let currentCountryListener;
 
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-      url: player1_avatar, // url
+      url: gv.players.player1.avatar, // url
       scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -19,16 +52,19 @@ function changeIcon(ci) {
 $(() =>{
 
   let $main = $('main');
-
-
-
-  $('.register').on('click', showRegisterForm);
-  $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
-  $('.logout').on('click', logout);
 
+  let $registerButton = $('.register');
+  $registerButton.on('click', showRegisterForm);
+
+  let $login = $('.login');
+  $login.on('click', showLoginForm);
+
+  let $logoutbutton = $('.logout');
+  $logoutbutton.hide();
+  $logoutbutton.on('click', logout);
 
 
   $main.on('click', '.avatar', function() {
@@ -132,6 +168,9 @@ $(() =>{
       if(data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username);
       startGame();
+      $registerButton.hide();
+      $login.hide();
+      $logoutbutton.show();
     })
     .fail(showLoginForm);
   }
@@ -143,11 +182,11 @@ $(() =>{
     }).done((profile) => {
       let obj = profile.data[0];
       $main.parent().css('width', '25%');
-      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${player1_avatar}" >
+            <img src="${gv.players.player1.avatar }" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
@@ -212,6 +251,11 @@ $(() =>{
     if(event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
+
+    $registerButton.show();
+    $login.show();
+    $logoutbutton.hide();
+
   }
 
   let $mapDiv = $('#map');
@@ -220,7 +264,7 @@ $(() =>{
 
     center: { lat:0, lng: 0},
     zoom: 2,
-    
+
     styles:[{"featureType":"administrative.locality","elementType":"all","stylers":[{"hue":"#2c2e33"},{"saturation":7},{"lightness":19},{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#ffffff"},{"saturation":-100},{"lightness":100},{"visibility":"simplified"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#ffffff"},{"saturation":-100},{"lightness":100},{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":31},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":31},{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":-2},{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"hue":"#e9ebed"},{"saturation":-90},{"lightness":-8},{"visibility":"simplified"}]},{"featureType":"transit","elementType":"all","stylers":[{"hue":"#e9ebed"},{"saturation":10},{"lightness":69},{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#e9ebed"},{"saturation":-78},{"lightness":67},{"visibility":"simplified"}]}]
   });
 
@@ -229,7 +273,7 @@ $(() =>{
   function startGame() {
     for (let countryCode in countries){
 
-      var country = countries[countryCode];
+      let country = countries[countryCode];
       let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
       // let icon = {
       //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
@@ -266,9 +310,10 @@ $(() =>{
         position: latLng
       });
 
-      marker.addListener('click', function() {
+      let eventlistener = marker.addListener('click', function() {
 
-        currentIcon = this; // set global to variable.
+        gv.turnInfo.currentIcon = this; // set global to variable.
+
 
         if (currentWindow !== null) {
           currentWindow.close();

@@ -1,16 +1,47 @@
-'use strict';
+"use strict";
+
+var gv = {
+  main: {},
+  turnInfo: {
+    currentIcon: {}
+  },
+  players: {
+    player1: {
+      avatar: ""
+    },
+    player2: {
+      avatar: ""
+    }
+  }
+};
+
+/*
+  Example players object
+  players: {
+    player1: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+    player2: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+  }
+}
+*/
 
 var map = void 0;
-var currentIcon = void 0;
-var player1_avatar = void 0;
 var fnc_removeListener = void 0;
 var infoWindow = void 0;
 var currentWindow = null;
+var currentCountryListener = void 0;
 
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-    url: player1_avatar, // url
+    url: gv.players.player1.avatar, // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
     origin: new google.maps.Point(0, 0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
@@ -20,13 +51,19 @@ function changeIcon(ci) {
 $(function () {
 
   var $main = $('main');
-
-  $('.register').on('click', showRegisterForm);
-  $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
-  $('.logout').on('click', logout);
+
+  var $registerButton = $('.register');
+  $registerButton.on('click', showRegisterForm);
+
+  var $login = $('.login');
+  $login.on('click', showLoginForm);
+
+  var $logoutbutton = $('.logout');
+  $logoutbutton.hide();
+  $logoutbutton.on('click', logout);
 
   $main.on('click', '.avatar', function () {
     console.log(this);
@@ -50,12 +87,12 @@ $(function () {
 
   function displayAvatar(profile) {
     var obj = profile.data[0];
-    $avatars.append('\n      <div class="avatar" data-id="' + obj.id + '">\n        <img src="' + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + '" alt="profile image">\n          <div class="overlay">\n            <h4>' + obj.name + '</h4>\n          </div>\n      </div>\n    ');
+    $avatars.append("\n      <div class=\"avatar\" data-id=\"" + obj.id + "\">\n        <img src=\"" + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + "\" alt=\"profile image\">\n          <div class=\"overlay\">\n            <h4>" + obj.name + "</h4>\n          </div>\n      </div>\n    ");
   }
 
   function handleErrors(jqXHR) {
     console.log(jqXHR.status);
-    $main.html('You are a failure.');
+    $main.html("You are a failure.");
   }
 
   function getAvatars() {
@@ -75,7 +112,7 @@ $(function () {
   function showRegisterForm() {
     var $avatars = getAvatars();
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/user/register">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <div class="avatarHolder"></div>\n        <input type="hidden" name="characterId" id="characterId" value="" />\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html("\n      <h2>Register</h2>\n      <form method=\"post\" action=\"/api/user/register\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <input type=\"hidden\" name=\"characterId\" id=\"characterId\" value=\"\" />\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
     // $main.on(eventName, '.avatarHolder', function() {});
     $main.find('.avatarHolder').append($avatars);
   }
@@ -94,12 +131,15 @@ $(function () {
       method: method,
       data: data,
       beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+        if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username);
       startGame();
+      $registerButton.hide();
+      $login.hide();
+      $logoutbutton.show();
     }).fail(showLoginForm);
   }
 
@@ -110,15 +150,15 @@ $(function () {
     }).done(function (profile) {
       var obj = profile.data[0];
       $main.parent().css('width', '25%');
-      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      $main.html('\n        <div class="profileHolder">\n          <div class="profileImage">\n            <img src="' + player1_avatar + '" >\n          </div>\n          <h3>' + user + '</h3>\n          <p>' + obj.description + '</p>\n        </div>\n        ');
+      gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      $main.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player1.avatar + "\" >\n          </div>\n          <h3>" + user + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
       // showPlayers(data);
     }).fail(showLoginForm);
   }
 
   function showLoginForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Login</h2>\n      <form method="post" action="/api/user/login">\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html("\n      <h2>Login</h2>\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
   }
 
   // function showEditForm(user) {
@@ -141,10 +181,10 @@ $(function () {
     var token = localStorage.getItem('token');
 
     $.ajax({
-      url: '/api/users/' + id,
+      url: "/api/users/" + id,
       method: "DELETE",
       beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+        if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
     }).done(getAvatars).fail(showLoginForm);
   }
@@ -154,6 +194,10 @@ $(function () {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
+
+    $registerButton.show();
+    $login.show();
+    $logoutbutton.hide();
   }
 
   var $mapDiv = $('#map');
@@ -162,6 +206,7 @@ $(function () {
 
     center: { lat: 0, lng: 0 },
     zoom: 2,
+
     styles: [{ "featureType": "administrative.locality", "elementType": "all", "stylers": [{ "hue": "#2c2e33" }, { "saturation": 7 }, { "lightness": 19 }, { "visibility": "on" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "hue": "#ffffff" }, { "saturation": -100 }, { "lightness": 100 }, { "visibility": "off" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "hue": "#bbc0c4" }, { "saturation": -93 }, { "lightness": 31 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "hue": "#bbc0c4" }, { "saturation": -93 }, { "lightness": 31 }, { "visibility": "on" }] }, { "featureType": "road.arterial", "elementType": "labels", "stylers": [{ "hue": "#bbc0c4" }, { "saturation": -93 }, { "lightness": -2 }, { "visibility": "simplified" }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "hue": "#e9ebed" }, { "saturation": -90 }, { "lightness": -8 }, { "visibility": "simplified" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "hue": "#e9ebed" }, { "saturation": 10 }, { "lightness": 69 }, { "visibility": "on" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "hue": "#e9ebed" }, { "saturation": -78 }, { "lightness": 67 }, { "visibility": "simplified" }] }]
   });
 
@@ -169,8 +214,8 @@ $(function () {
 
   function startGame() {
     var _loop = function _loop(countryCode) {
-      country = countries[countryCode];
 
+      var country = countries[countryCode];
       var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
       // let icon = {
       //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
@@ -187,16 +232,17 @@ $(function () {
 
       marker.metadata = { type: "country", id: country.name };
 
-      var countryDetails = '\n        <div id=\'content\'>\n          <h1>' + country.name + '</h1>\n          <div id=\'countryInfo\'>\n              <ul>\n                <li>Power</li>\n                <li class="countryPower">' + country.power + '</li>\n                <li>Number of questions</li>\n                <li>' + country.questions.length + ('</li>\n                <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ');
+      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power</li>\n                <li class=\"countryPower\">" + country.power + "</li>\n                <li>Number of questions</li>\n                <li>" + country.questions.length + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
 
       infoWindow = new google.maps.InfoWindow({
         content: countryDetails,
         position: latLng
       });
 
-      marker.addListener('click', function () {
+      var eventlistener = marker.addListener('click', function () {
 
-        currentIcon = this; // set global to variable.
+        gv.turnInfo.currentIcon = this; // set global to variable.
+
 
         if (currentWindow !== null) {
           currentWindow.close();
@@ -208,8 +254,6 @@ $(function () {
     };
 
     for (var countryCode in countries) {
-      var country;
-
       _loop(countryCode);
     }
   }
@@ -221,6 +265,6 @@ $(function () {
 
   function showRules() {
     console.log("SHOW RULES...");
-    $main.html('\n      <div class="rulesContent"><p>\n\n  <strong>Object:</strong>\n  <br>score the most points to win the game. <br>\n\n  <strong>Setup:</strong>\n  <br>\n  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.\n<br>\n  <strong>Playing the game:</strong>\n<br>\n  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n  players take turns and accumulate points throughout the game based on answering the quiz correctly.\n\n  after comparing the scores between players, a winner is annouced.</p></div>\n    ');
+    $main.html("\n      <div class=\"rulesContent\"><p>\n\n  <strong>Object:</strong>\n  <br>score the most points to win the game. <br>\n\n  <strong>Setup:</strong>\n  <br>\n  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.\n<br>\n  <strong>Playing the game:</strong>\n<br>\n  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n  players take turns and accumulate points throughout the game based on answering the quiz correctly.\n\n  after comparing the scores between players, a winner is annouced.</p></div>\n    ");
   }
 });
