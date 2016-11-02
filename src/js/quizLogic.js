@@ -18,8 +18,8 @@ $(() => {
   let $turnDisplay = $('.turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
   // let $resetButton = $('#restart');
-  gv.players.player1.power = 10;
-  gv.players.player2.power = 10;
+  gv.players.player1.power = 0;
+  gv.players.player2.power = 0;
   let $turnCounter = 20;
 
   getArray(() => {
@@ -148,7 +148,7 @@ $(() => {
 
     selectedCountries = shuffle(selectCountries(countryCode));
 
-    let ask1stQuestion = function(option1, option2, option3, option4) {
+    function ask1stQuestion(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
         <p>What is the capital of ${countries[countryCode].name}? </p>
@@ -191,23 +191,26 @@ $(() => {
             console.log(`Answer: ${answerToQuestion}`);
             console.log('correct not selected: ' + currentCapital);
             // should update number of turns left after question is answered
-            // $turnCounter--;
+            $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
             //function to check if game has ended(out of turns)
             gameOverChecker();
+            closeWindow();
           }
           if ($turnCounter === 0) {
               $('#quizPopup').hide();
           } else {
+            console.log(currentIcon);
+          conquerCountry();
           ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
-    };
+    }
     //First Question
     ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
 
     //Second Question
-    let ask2ndQuestion = function(option1, option2, option3, option4) {
+    function ask2ndQuestion(option1, option2, option3, option4) {
       $("#quizPopup").html(`
         <p>What is the population of ${countries[countryCode].name}? </p>
         <label>${option1}</label>
@@ -239,10 +242,11 @@ $(() => {
               console.log(`Answer: ${answerToQuestion}`);
               console.log('correct not selected: ' + currentPopulation);
               // should update number of turns left after question is answered
-              // $turnCounter--;
+              $turnCounter--;
               $turnDisplay.html ('Turns left: ' + $turnCounter);
               //function to check if game has ended(out of turns)
               gameOverChecker();
+              closeWindow();
             }
             if ($turnCounter === 0) {
                 $('#quizPopup').hide();
@@ -250,9 +254,9 @@ $(() => {
             ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
             }
           });
-      };
+      }
       //Third Question
-      let ask3rdQuestion = function(option1, option2, option3, option4) {
+      function ask3rdQuestion(option1, option2, option3, option4) {
         $("#quizPopup").html(`
           <p>What is the area of ${countries[countryCode].name}? </p>
           <label>${option1}</label>
@@ -287,8 +291,11 @@ $(() => {
                 console.log(`Answer: ${answerToQuestion}`);
                 console.log('correct not selected: ' + currentArea);
                 // should update number of turns left after question is answered
-                // $turnCounter--;
+                $turnCounter--;
                 $turnDisplay.html ('Turns left: ' + $turnCounter);
+                //function to check if game has ended(out of turns)
+                gameOverChecker();
+                closeWindow();
               }
               if ($turnCounter === 0) {
                   $('#quizPopup').hide();
@@ -296,9 +303,9 @@ $(() => {
               ask4thQuestion(selectedCountries[0].region, selectedCountries[1].region, selectedCountries[2].region, selectedCountries[3].region);
               }
             });
-        };
+        }
         //Forth Question
-        let ask4thQuestion = function(option1, option2, option3, option4) {
+        function ask4thQuestion(option1, option2, option3, option4) {
           $("#quizPopup").html(`
             <p>In what region is ${countries[countryCode].name} located? </p>
             <label>${option1}</label>
@@ -335,11 +342,14 @@ $(() => {
                   // should update number of turns left after question is answered
                   $turnCounter--;
                   $turnDisplay.html ('Turns left: ' + $turnCounter);
+                  //function to check if game has ended(out of turns)
+                  gameOverChecker();
+                  closeWindow();
                 }
                 $('#quizPopup').hide();
                 ask5thQuestion(selectedCountries[0].currency, selectedCountries[1].currency, selectedCountries[2].currency, selectedCountries[3].currency);
               });
-          };
+          }
           //Fifth Question
           let ask5thQuestion = function(option1, option2, option3, option4) {
             $("#quizPopup").html(`
@@ -386,6 +396,11 @@ $(() => {
 
         }
 
+        function conquerCountry() {
+          // console.log(fnc_removeListener);
+          // currentIcon = null;
+          console.log("NO CLECK");
+        }
 
         // functions to check if the turns have ended and to display gameOver screen when out of turns
         function gameOverChecker() {
