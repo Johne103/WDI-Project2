@@ -27,26 +27,14 @@ $(() => {
       let countryCode = $(this).data('country');
       $('#quizPopup').show();
       quizQuestion(countryCode);
-      // findCountryByAlpha2Code(); //Takes an array and sets global varibles from that one country (2)
-      // findRandomCountry();
-      // selectCountries();
-      // shuffle();
-      // quizQuestion(countryCode);
+
     });
   });
-
-
-
 
   $('#quizPopup').on("click", '.stopBtn', closeWindow);
 
   function closeWindow () {
     $('#quizPopup').hide();
-  }
-
-
-  function init () {
-
   }
 
   function getArray(callback) {
@@ -139,18 +127,11 @@ $(() => {
     return array;
   }
 
-
-
-
-
-
   function quizQuestion(countryCode) {
 
     selectedCountries = shuffle(selectCountries(countryCode));
 
     let ask1stQuestion = function(option1, option2, option3, option4) {
-
-
 
       $("#quizPopup").html(`
         <p>What is the capital of ${countries[countryCode].name}? </p>
@@ -387,7 +368,6 @@ $(() => {
 
         }
 
-
         // functions to check if the turns have ended and to display gameOver screen when out of turns
         function gameOverChecker() {
           if ($turnCounter <= 0){
@@ -413,7 +393,4 @@ $(() => {
           `);
           makeResetWork();
         }
-
-
-
 });

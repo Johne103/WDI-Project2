@@ -29,11 +29,6 @@ $(function () {
       var countryCode = $(this).data('country');
       $('#quizPopup').show();
       quizQuestion(countryCode);
-      // findCountryByAlpha2Code(); //Takes an array and sets global varibles from that one country (2)
-      // findRandomCountry();
-      // selectCountries();
-      // shuffle();
-      // quizQuestion(countryCode);
     });
   });
 
@@ -42,8 +37,6 @@ $(function () {
   function closeWindow() {
     $('#quizPopup').hide();
   }
-
-  function init() {}
 
   function getArray(callback) {
     console.log("getArray started");
