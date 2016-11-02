@@ -6,8 +6,8 @@ $(() => {
   let currentPopulation = "";
   let currentArea = "";
   let currentSubRegion = "";
-  let currentCurrency = [];
-  let currentBorder = [];
+  let currentCurrency = "";
+  let currentBorder = "";
   let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
@@ -56,8 +56,8 @@ $(() => {
           region: country.region,
           subRegion: country.subregion,
           area: country.area,
-          borders: country.borders[0],
-          currencies: country.currencies[0],
+          borders: country.borders,
+          currencies: country.currencies,
           location: {
             lat: country.latlng[0],
             lng: country.latlng[1]
@@ -79,8 +79,8 @@ $(() => {
     currentPopulation = countryData[index].population;
     currentArea = countryData[index].area;
     currentSubRegion = countryData[index].subRegion;
-    currentCurrency = countryData[index].currencies;
-    currentBorder = countryData[index].borders;
+    currentCurrency = countryData[index].currency;
+    currentBorder = countryData[index].border;
 
     currentCountryPower = $('.countryPower').html();
     currentCountryPower = parseFloat(currentCountryPower);
@@ -190,9 +190,6 @@ $(() => {
             $('#quizPopup').hide();
           } else {
             conquerCountry();
-
-            selectedCountries = shuffle(selectCountries(countryCode));
-
             ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
@@ -240,9 +237,6 @@ $(() => {
             if ($turnCounter === 0) {
                 $('#quizPopup').hide();
             } else {
-
-            selectedCountries = shuffle(selectCountries(countryCode));
-
             ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
             }
           });
@@ -292,9 +286,6 @@ $(() => {
               if ($turnCounter === 0) {
                   $('#quizPopup').hide();
               } else {
-
-              selectedCountries = shuffle(selectCountries(countryCode));
-
               ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
               }
             });
@@ -344,10 +335,7 @@ $(() => {
                 if ($turnCounter === 0) {
                     $('#quizPopup').hide();
                 } else {
-
-                  selectedCountries = shuffle(selectCountries(countryCode));
-
-                  ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
+                  ask5thQuestion(selectedCountries[0].currencies[0], selectedCountries[1].currencies[0], selectedCountries[2].currencies[0], selectedCountries[3].currencies[0]);
                 }
               });
           }
@@ -393,10 +381,7 @@ $(() => {
                   if ($turnCounter === 0) {
                       $('#quizPopup').hide();
                   } else {
-
-                  selectedCountries = shuffle(selectCountries(countryCode));
-
-                  ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
+                  ask6thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
                   }
                 });
             };
@@ -444,9 +429,6 @@ $(() => {
                     // if ($turnCounter === 0) {
                         $('#quizPopup').hide();
                     // } else {
-
-                    // selectedCountries = shuffle(selectCountries(countryCode));
-
                     // ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
                     // }
                 });
