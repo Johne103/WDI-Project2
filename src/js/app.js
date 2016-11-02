@@ -318,7 +318,27 @@ $(() =>{
 
     }
   }
+  $('#rulesLink').on("click", showRules);
 
+  function showRules () {
+    console.log("SHOW RULES...");
+    $main.html(`
+      <div class="rulesContent"><p>
 
+  <strong>Object:</strong>
+  <br>score the most points to win the game. <br>
+
+  <strong>Setup:</strong>
+  <br>
+  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.
+<br>
+  <strong>Playing the game:</strong>
+<br>
+  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
+  players take turns and accumulate points throughout the game based on answering the quiz correctly.
+
+  after comparing the scores between players, a winner is annouced.</p></div>
+    `);
+  }
 
 });
