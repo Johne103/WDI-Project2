@@ -1,5 +1,7 @@
+let map;
 let currentIcon;
 let player1_avatar;
+let fnc_removeListener;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -208,7 +210,7 @@ $(() =>{
 
   let $mapDiv = $('#map');
 
-  let map = new  google.maps.Map($mapDiv[0], {
+   map = new  google.maps.Map($mapDiv[0], {
 
     center: { lat:0, lng: 0},
     zoom: 2,
@@ -266,8 +268,14 @@ $(() =>{
         }
         infoWindow.open(map, marker);
         currentWindow = infoWindow;
+        // fnc_removeListener = clearClick(this, marker);
       });
+
     }
   }
+
+  // function clearClick(ci, marker) {
+  //   marker.removeListener();
+  // }
 
 });

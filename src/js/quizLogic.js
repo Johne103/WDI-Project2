@@ -188,6 +188,8 @@ $(() => {
           if ($turnCounter === 0) {
               $('#quizPopup').hide();
           } else {
+            console.log(currentIcon);
+          conquerCountry();
           ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
@@ -382,6 +384,11 @@ $(() => {
 
         }
 
+        function conquerCountry() {
+          // console.log(fnc_removeListener);
+          // currentIcon = null;
+          console.log("NO CLECK");
+        }
 
         // functions to check if the turns have ended and to display gameOver screen when out of turns
         function gameOverChecker() {
