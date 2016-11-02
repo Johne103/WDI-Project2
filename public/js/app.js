@@ -1,5 +1,17 @@
 'use strict';
 
+var currentIcon = void 0;
+
+function changeIcon(ci) {
+  console.log(ci);
+  ci.setIcon({
+    url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/90/5261a86cacb99.jpg', // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0, 0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  });
+}
+
 $(function () {
 
   var $main = $('main');
@@ -33,7 +45,8 @@ $(function () {
   }
 
   function getAvatars() {
-    var characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    var characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
 
     var $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
 
@@ -77,8 +90,8 @@ $(function () {
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
-      console.log(data.user);
       showPlayerProfiles(data.user.characterId, data.user.username);
+      startGame();
     }).fail(showLoginForm);
   }
 
@@ -124,7 +137,7 @@ $(function () {
       beforeSend: function beforeSend(jqXHR) {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
-    }).done(getAvatarss).fail(showLoginForm);
+    }).done(getAvatars).fail(showLoginForm);
   }
 
   // LOGOUT
@@ -142,39 +155,67 @@ $(function () {
     styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
   });
 
+<<<<<<< HEAD
   var currentWindow = null;
 
   var _loop = function _loop(countryCode) {
     country = countries[countryCode];
+=======
+  map.setOptions({ maxZoom: 7 });
 
+  function startGame() {
+    var currentWindow = null;
 
-    var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+    var _loop = function _loop(countryCode) {
+      country = countries[countryCode];
 
+      var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+      var icon = {
+        url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
+        scaledSize: new google.maps.Size(40, 40), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+      };
+      var marker = new google.maps.Marker({
+        map: map,
+        position: latLng,
+        icon: icon
+      });
+>>>>>>> 8160dbda0d66dc7bea64d09bc8129cf858453d6c
+
+      marker.metadata = { type: "country", id: country.name };
+
+      var countryDetails = '\n        <div id=\'content\'>\n          <h1>' + country.name + '</h1>\n          <div id=\'countryInfo\'>\n              <ul>\n                <li>Power</li>\n                <li class="countryPower">' + country.power + '</li>\n                <li>Number of questions</li>\n                <li>' + country.questions.length + ('</li>\n                <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ');
+
+<<<<<<< HEAD
     var marker = new google.maps.Marker({
       map: map,
       position: latLng,
       icon: '/images/grayMarker.png'
     });
+=======
+      var infoWindow = new google.maps.InfoWindow({
+        content: countryDetails,
+        position: latLng
+      });
+>>>>>>> 8160dbda0d66dc7bea64d09bc8129cf858453d6c
 
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n\n              <li>Power: ' + country.power + '</li>\n              <li>Number of questions: ' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
+      marker.addListener('click', function () {
 
-    var infoWindow = new google.maps.InfoWindow({
-      content: countryDetails,
-      position: latLng
-    });
+        currentIcon = this; // set global to variable.
 
-    marker.addListener('click', function () {
-      if (currentWindow !== null) {
-        currentWindow.close();
-      }
-      infoWindow.open(map, marker);
-      currentWindow = infoWindow;
-    });
-  };
+        if (currentWindow !== null) {
+          currentWindow.close();
+        }
+        infoWindow.open(map, marker);
+        currentWindow = infoWindow;
+      });
+    };
 
-  for (var countryCode in countries) {
-    var country;
+    for (var countryCode in countries) {
+      var country;
 
-    _loop(countryCode);
+      _loop(countryCode);
+    }
   }
 });
