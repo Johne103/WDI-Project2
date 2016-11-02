@@ -1,14 +1,44 @@
-'use strict';
+"use strict";
+
+var gv = {
+  main: {},
+  turnInfo: {
+    currentIcon: {}
+  },
+  players: {
+    player1: {
+      avatar: ""
+    },
+    player2: {
+      avatar: ""
+    }
+  }
+};
+
+/*
+  Example players object
+  players: {
+    player1: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+    player2: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+  }
+}
+*/
 
 var map = void 0;
-var currentIcon = void 0;
-var player1_avatar = void 0;
 var fnc_removeListener = void 0;
 
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-    url: player1_avatar, // url
+    url: gv.players.player1.avatar, // url
     scaledSize: new google.maps.Size(40, 40), // scaled size
     origin: new google.maps.Point(0, 0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
@@ -18,13 +48,19 @@ function changeIcon(ci) {
 $(function () {
 
   var $main = $('main');
-
-  $('.register').on('click', showRegisterForm);
-  $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
-  $('.logout').on('click', logout);
+
+  var $registerButton = $('.register');
+  $registerButton.on('click', showRegisterForm);
+
+  var $login = $('.login');
+  $login.on('click', showLoginForm);
+
+  var $logoutbutton = $('.logout');
+  $logoutbutton.hide();
+  $logoutbutton.on('click', logout);
 
   $main.on('click', '.avatar', function () {
     console.log(this);
@@ -57,10 +93,10 @@ $(function () {
         method: "GET"
       }).done(function (profile) {
         var obj = profile.data[0];
-        $avatars.append('\n          <div class="avatar" data-id="' + obj.id + '">\n            <img src="' + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + '" alt="profile image">\n              <div class="overlay">\n                <h4>' + obj.name + '</h4>\n              </div>\n          </div>\n        ');
+        $avatars.append("\n          <div class=\"avatar\" data-id=\"" + obj.id + "\">\n            <img src=\"" + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + "\" alt=\"profile image\">\n              <div class=\"overlay\">\n                <h4>" + obj.name + "</h4>\n              </div>\n          </div>\n        ");
       }).fail(function (jqXHR) {
         console.log(jqXHR.status);
-        $main.html('You are a failure.');
+        $main.html("You are a failure.");
       });
     }
     return $avatars;
@@ -69,7 +105,7 @@ $(function () {
   function showRegisterForm() {
     var $avatars = getAvatars();
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Register</h2>\n      <form method="post" action="/api/user/register">\n        <div class="form-group">\n          <input class="form-control" name="username" placeholder="Username">\n        </div>\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">\n        </div>\n        <div class="avatarHolder"></div>\n        <input type="hidden" name="characterId" id="characterId" value="" />\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html("\n      <h2>Register</h2>\n      <form method=\"post\" action=\"/api/user/register\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <input type=\"hidden\" name=\"characterId\" id=\"characterId\" value=\"\" />\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
     // $main.on(eventName, '.avatarHolder', function() {});
     $main.find('.avatarHolder').append($avatars);
   }
@@ -88,12 +124,15 @@ $(function () {
       method: method,
       data: data,
       beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+        if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username);
       startGame();
+      $registerButton.hide();
+      $login.hide();
+      $logoutbutton.show();
     }).fail(showLoginForm);
   }
 
@@ -104,15 +143,15 @@ $(function () {
     }).done(function (profile) {
       var obj = profile.data[0];
       $main.parent().css('width', '25%');
-      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      $main.html('\n        <div class="profileHolder">\n          <div class="profileImage">\n            <img src="' + player1_avatar + '" >\n          </div>\n          <h3>' + user + '</h3>\n          <p>' + obj.description + '</p>\n        </div>\n        ');
+      gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      $main.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player1.avatar + "\" >\n          </div>\n          <h3>" + user + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
       // showPlayers(data);
     }).fail(showLoginForm);
   }
 
   function showLoginForm() {
     if (event) event.preventDefault();
-    $main.html('\n      <h2>Login</h2>\n      <form method="post" action="/api/user/login">\n        <div class="form-group">\n          <input class="form-control" name="email" placeholder="Email">\n        </div>\n        <div class="form-group">\n          <input class="form-control" type="password" name="password" placeholder="Password">\n        </div>\n        <button class="btn btn-primary">Register</button>\n      </form>\n    ');
+    $main.html("\n      <h2>Login</h2>\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
   }
 
   // function showEditForm(user) {
@@ -135,10 +174,10 @@ $(function () {
     var token = localStorage.getItem('token');
 
     $.ajax({
-      url: '/api/users/' + id,
+      url: "/api/users/" + id,
       method: "DELETE",
       beforeSend: function beforeSend(jqXHR) {
-        if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
+        if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
     }).done(getAvatars).fail(showLoginForm);
   }
@@ -148,6 +187,10 @@ $(function () {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
+
+    $registerButton.show();
+    $login.show();
+    $logoutbutton.hide();
   }
 
   var $mapDiv = $('#map');
@@ -183,7 +226,7 @@ $(function () {
 
       marker.metadata = { type: "country", id: country.name };
 
-      var countryDetails = '\n        <div id=\'content\'>\n          <h1>' + country.name + '</h1>\n          <div id=\'countryInfo\'>\n              <ul>\n                <li>Power</li>\n                <li class="countryPower">' + country.power + '</li>\n                <li>Number of questions</li>\n                <li>' + country.questions.length + ('</li>\n                <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ');
+      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power</li>\n                <li class=\"countryPower\">" + country.power + "</li>\n                <li>Number of questions</li>\n                <li>" + country.questions.length + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
 
       var infoWindow = new google.maps.InfoWindow({
         content: countryDetails,
@@ -192,7 +235,7 @@ $(function () {
 
       marker.addListener('click', function () {
 
-        currentIcon = this; // set global to variable.
+        gv.turnInfo.currentIcon = this; // set global to variable.
 
         if (currentWindow !== null) {
           currentWindow.close();
