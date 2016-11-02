@@ -55,8 +55,8 @@ $(function () {
           region: country.region,
           subRegion: country.subregion,
           area: country.area,
-          borders: country.borders,
-          currencies: country.currencies,
+          borders: country.borders[0],
+          currencies: country.currencies[0],
           location: {
             lat: country.latlng[0],
             lng: country.latlng[1]
@@ -78,8 +78,8 @@ $(function () {
     currentPopulation = countryData[index].population;
     currentArea = countryData[index].area;
     currentSubRegion = countryData[index].subRegion;
-    currentCurrency = countryData[index].currency;
-    currentBorder = countryData[index].border;
+    currentCurrency = countryData[index].currencies;
+    currentBorder = countryData[index].borders;
 
     currentCountryPower = $('.countryPower').html();
     currentCountryPower = parseFloat(currentCountryPower);
@@ -177,6 +177,9 @@ $(function () {
           $('#quizPopup').hide();
         } else {
           conquerCountry();
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+
           ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
         }
       });
@@ -212,6 +215,9 @@ $(function () {
         if ($turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+
           ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
         }
       });
@@ -249,6 +255,9 @@ $(function () {
         if ($turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+
           ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
         }
       });
@@ -286,48 +295,16 @@ $(function () {
         if ($turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
-          ask5thQuestion(selectedCountries[0].currencies[0], selectedCountries[1].currencies[0], selectedCountries[2].currencies[0], selectedCountries[3].currencies[0]);
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+
+          ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
         }
       });
     }
     //Fifth Question
     var ask5thQuestion = function ask5thQuestion(option1, option2, option3, option4) {
       $("#quizPopup").html("\n              <p>Which currency is used in " + countries[countryCode].name + "? </p>\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              <button class=\"stopBtn\">Stop Questions</button>\n              ");
-
-      //Check for correct answer and return true or false.
-      $('input:radio[name="answer"]').change(function () {
-        if ($(this).val() == currentCurrency) {
-          answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct selected: ' + currentCurrency);
-
-          // Should update players amount of power upon answering question correctly
-          $p1PowerCounter += currentCountryPower;
-          $playerOnePower.html('Power: ' + $p1PowerCounter);
-          // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
-        } else {
-          answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct not selected: ' + currentCurrency);
-          // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
-        }
-        if ($turnCounter === 0) {
-          $('#quizPopup').hide();
-        } else {
-          ask6thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
-        }
-      });
-    };
-
-    //Sixth Question
-    var ask6thQuestion = function ask6thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n                <label>" + option1 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                <label>" + option2 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                <label>" + option3 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                <label>" + option4 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -352,26 +329,59 @@ $(function () {
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
         }
+        if ($turnCounter === 0) {
+          $('#quizPopup').hide();
+        } else {
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+
+          ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
+        }
+      });
+    };
+
+    //Sixth Question
+    var ask6thQuestion = function ask6thQuestion(option1, option2, option3, option4) {
+      $("#quizPopup").html("\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n                <label>" + option1 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                <label>" + option2 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                <label>" + option3 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                <label>" + option4 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
+
+      //Check for correct answer and return true or false.
+      $('input:radio[name="answer"]').change(function () {
+        if ($(this).val() == currentCurrency) {
+          answerToQuestion = true;
+          $answerGiven.html('Yeh You Gave the Right Answer');
+          console.log("Answer: " + answerToQuestion);
+          console.log('correct selected: ' + currentCurrency);
+
+          // Should update players amount of power upon answering question correctly
+          $p1PowerCounter += currentCountryPower;
+          $playerOnePower.html('Power: ' + $p1PowerCounter);
+          // should update number of turns left after question is answered
+          $turnCounter--;
+          $turnDisplay.html('Turns left: ' + $turnCounter);
+        } else {
+          answerToQuestion = false;
+          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          console.log("Answer: " + answerToQuestion);
+          console.log('correct not selected: ' + currentCurrency);
+          // should update number of turns left after question is answered
+          $turnCounter--;
+          $turnDisplay.html('Turns left: ' + $turnCounter);
+        }
         // if ($turnCounter === 0) {
         $('#quizPopup').hide();
         // } else {
+
+        // selectedCountries = shuffle(selectCountries(countryCode));
+
         // ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
         // }
       });
     };
 
-<<<<<<< HEAD
-    function conquerCountry() {
-      // console.log(fnc_removeListener);
-      // currentIcon = null;
-      console.log("NO CLECK");
+    function conquerCountry(marker) {
+      google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+      console.log('NO CLECK NO CRY');
     }
-=======
-  function conquerCountry(marker) {
-    google.maps.event.clearListeners(gv.turnInfo.currentIcon);
-    console.log('NO CLECK NO CRY');
-  }
->>>>>>> development
 
     // functions to check if the turns have ended and to display gameOver screen when out of turns
     function gameOverChecker() {
@@ -388,17 +398,10 @@ $(function () {
       });
     }
 
-<<<<<<< HEAD
     function endGame() {
       console.log("GAME OVER!!");
-      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
+      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
       makeResetWork();
     }
-=======
-  function endGame() {
-    console.log("GAME OVER!!");
-    $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
-    makeResetWork();
->>>>>>> development
   }
 });
