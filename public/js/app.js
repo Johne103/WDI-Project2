@@ -3,6 +3,7 @@
 var gv = {
   main: {},
   turnInfo: {
+    turn: 1, // 1 = player 1, 2 = player 2
     currentIcon: {}
   },
   players: {
@@ -10,7 +11,7 @@ var gv = {
       avatar: ""
     },
     player2: {
-      avatar: ""
+      avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
     }
   }
 };
@@ -38,8 +39,8 @@ var fnc_removeListener = void 0;
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-    url: gv.players.player1.avatar, // url
-    scaledSize: new google.maps.Size(40, 40), // scaled size
+    url: gv.players['player' + gv.turnInfo.turn].avatar, // url
+    scaledSize: new google.maps.Size(50, 50), // scaled size
     origin: new google.maps.Point(0, 0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   });
@@ -212,12 +213,6 @@ $(function () {
       country = countries[countryCode];
 
       var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      // let icon = {
-      //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
-      //     scaledSize: new google.maps.Size(40, 40), // scaled size
-      //     origin: new google.maps.Point(0,0), // origin
-      //     anchor: new google.maps.Point(0, 0) // anchor
-      // };
       var marker = new google.maps.Marker({
         map: map,
         position: latLng
