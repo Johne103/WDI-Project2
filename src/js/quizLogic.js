@@ -51,6 +51,12 @@ $(() => {
     });
     currentCountry = countryData[index].name;
     currentCapital = countryData[index].capital;
+    // currentPopulation = countryData[index].population;
+    // currentArea = countryData[index].area;
+    // urrentRegion = countryData[index].region;
+    // currentCurrency = countryData[index].currency;
+    // currentBorder =countryData[index].border;
+
     currentCountryPower = $('.countryPower').html();
     console.log(currentCountry);
     currentCountryPower = parseFloat(currentCountryPower);
@@ -196,7 +202,7 @@ $(() => {
         //Check for correct answer and return true or false.
         $('input:radio[name="answer"]').change(
           function() {
-            if ($(this).val() == currentCapital) {
+            if ($(this).val() == currentPopulation) {
               answerToQuestion = true;
               $answerGiven.html ('Yeh You Gave the Right Answer');
               console.log(`Answer: ${answerToQuestion}`);
@@ -242,7 +248,7 @@ $(() => {
           //Check for correct answer and return true or false.
           $('input:radio[name="answer"]').change(
             function() {
-              if ($(this).val() == currentCapital) {
+              if ($(this).val() == currentArea) {
                 answerToQuestion = true;
                 $answerGiven.html ('Yeh You Gave the Right Answer');
                 console.log(`Answer: ${answerToQuestion}`);
@@ -288,7 +294,7 @@ $(() => {
             //Check for correct answer and return true or false.
             $('input:radio[name="answer"]').change(
               function() {
-                if ($(this).val() == currentCapital) {
+                if ($(this).val() == currentRegion) {
                   answerToQuestion = true;
                   $answerGiven.html ('Yeh You Gave the Right Answer');
                   console.log(`Answer: ${answerToQuestion}`);
@@ -310,13 +316,13 @@ $(() => {
                   $turnDisplay.html ('Turns left: ' + $turnCounter);
                 }
                 $('#quizPopup').hide();
-                // ask5thQuestion(selectedCountries[0].border, selectedCountries[1].border, selectedCountries[2].border, selectedCountries[3].border);
+                // ask5thQuestion(selectedCountries[0].currency, selectedCountries[1].currency, selectedCountries[2].currency, selectedCountries[3].currency);
               });
           };
           //Fifth Question
           let ask5thQuestion = function(option1, option2, option3, option4) {
             $("#quizPopup").html(`
-              <p>Name a country bordering ${countries[countryCode].name}? </p>
+              <p>What currency is used Int32Array() ${countries[countryCode].name}? </p>
               <label>${option1}</label>
               <input type="radio" name="answer" value="${option1}">
               <label>${option2}</label>
@@ -331,7 +337,7 @@ $(() => {
               //Check for correct answer and return true or false.
               $('input:radio[name="answer"]').change(
                 function() {
-                  if ($(this).val() == currentCapital) {
+                  if ($(this).val() == currentCurrency) {
                     answerToQuestion = true;
                     $answerGiven.html ('Yeh You Gave the Right Answer');
                     console.log(`Answer: ${answerToQuestion}`);
