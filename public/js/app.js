@@ -222,7 +222,8 @@ $(function () {
       // };
       var marker = new google.maps.Marker({
         map: map,
-        position: latLng
+        position: latLng,
+        icon: "images/grayMarker.png"
 
       });
 
@@ -257,4 +258,5 @@ $(function () {
   // function clearClick(ci, marker) {
   //   marker.removeListener();
   // }
+
 });

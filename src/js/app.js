@@ -280,6 +280,7 @@ $(() =>{
       let marker = new google.maps.Marker({
         map: map,
         position: latLng,
+        icon:"images/grayMarker.png"
 
       });
 
@@ -324,5 +325,6 @@ $(() =>{
   // function clearClick(ci, marker) {
   //   marker.removeListener();
   // }
+
 
 });
