@@ -169,7 +169,7 @@ $(() => {
             $p1PowerCounter += currentCountryPower;
             $playerOnePower.html ('Power: ' + $p1PowerCounter);
             // should update number of turns left after question is answered
-            $turnCounter--;
+            // $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
             changeIcon(currentIcon);
             //function to check if game has ended(out of turns)
@@ -181,7 +181,7 @@ $(() => {
             console.log(`Answer: ${answerToQuestion}`);
             console.log('correct not selected: ' + currentCapital);
             // should update number of turns left after question is answered
-            $turnCounter--;
+            // $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
             //function to check if game has ended(out of turns)
             gameOverChecker();
@@ -221,20 +221,15 @@ $(() => {
               console.log('correct selected: ' + currentPopulation);
 
               // Should update players amount of power upon answering question correctly
-              $p1PowerCounter++;
+              $p1PowerCounter += currentCountryPower;
               $playerOnePower.html ('Power: ' + $p1PowerCounter);
-              // should update number of turns left after question is answered
-              $turnCounter--;
-              $turnDisplay.html ('Turns left: ' + $turnCounter);
-              //function to check if game has ended(out of turns)
-              gameOverChecker();
             } else {
               answerToQuestion = false;
               $answerGiven.html ('Oh No You Gave the Wrong Answer');
               console.log(`Answer: ${answerToQuestion}`);
               console.log('correct not selected: ' + currentPopulation);
               // should update number of turns left after question is answered
-              $turnCounter--;
+              // $turnCounter--;
               $turnDisplay.html ('Turns left: ' + $turnCounter);
               //function to check if game has ended(out of turns)
               gameOverChecker();
@@ -271,10 +266,10 @@ $(() => {
                 console.log('correct selected: ' + currentArea);
 
                 // Should update players amount of power upon answering question correctly
-                $p1PowerCounter++;
+                $p1PowerCounter += currentCountryPower;
                 $playerOnePower.html ('Power: ' + $p1PowerCounter);
                 // should update number of turns left after question is answered
-                $turnCounter--;
+                // $turnCounter--;
                 $turnDisplay.html ('Turns left: ' + $turnCounter);
               } else {
                 answerToQuestion = false;
@@ -282,7 +277,7 @@ $(() => {
                 console.log(`Answer: ${answerToQuestion}`);
                 console.log('correct not selected: ' + currentArea);
                 // should update number of turns left after question is answered
-                $turnCounter--;
+                // $turnCounter--;
                 $turnDisplay.html ('Turns left: ' + $turnCounter);
               }
               if ($turnCounter === 0) {
@@ -317,7 +312,7 @@ $(() => {
                   console.log('correct selected: ' + currentRegion);
 
                   // Should update players amount of power upon answering question correctly
-                  $p1PowerCounter++;
+                  $p1PowerCounter += currentCountryPower;
                   $playerOnePower.html ('Power: ' + $p1PowerCounter);
                   // should update number of turns left after question is answered
                   $turnCounter--;
@@ -360,7 +355,7 @@ $(() => {
                     console.log('correct selected: ' + currentCurrency);
 
                     // Should update players amount of power upon answering question correctly
-                    $p1PowerCounter++;
+                    $p1PowerCounter += currentCountryPower;
                     $playerOnePower.html ('Power: ' + $p1PowerCounter);
                     // should update number of turns left after question is answered
                     $turnCounter--;
