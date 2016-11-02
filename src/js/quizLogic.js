@@ -144,6 +144,7 @@ $(() => {
             // should update number of turns left after question is answered
             $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
+            changeIcon(currentIcon);
           } else {
             answerToQuestion = false;
             $answerGiven.html ('Oh No You Gave the Wrong Answer');
