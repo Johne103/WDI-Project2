@@ -4,6 +4,7 @@ var map = void 0;
 var currentIcon = void 0;
 var player1_avatar = void 0;
 var fnc_removeListener = void 0;
+var currentCountryListener = void 0;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -166,8 +167,8 @@ $(function () {
     var currentWindow = null;
 
     var _loop = function _loop(countryCode) {
-      country = countries[countryCode];
 
+      var country = countries[countryCode];
       var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
       // let icon = {
       //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
@@ -190,9 +191,10 @@ $(function () {
         position: latLng
       });
 
-      marker.addListener('click', function () {
+      var eventlistener = marker.addListener('click', function () {
 
         currentIcon = this; // set global to variable.
+
 
         if (currentWindow !== null) {
           currentWindow.close();
@@ -204,8 +206,6 @@ $(function () {
     };
 
     for (var countryCode in countries) {
-      var country;
-
       _loop(countryCode);
     }
   }

@@ -395,10 +395,10 @@ $(() => {
 
         }
 
-        function conquerCountry() {
+        function conquerCountry(marker) {
           // console.log(fnc_removeListener);
-          // currentIcon = null;
-          console.log("NO CLECK");
+          google.maps.event.clearListeners(currentIcon);
+          console.log("The Marker: ", marker);
         }
 
         // functions to check if the turns have ended and to display gameOver screen when out of turns

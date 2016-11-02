@@ -2,6 +2,7 @@ let map;
 let currentIcon;
 let player1_avatar;
 let fnc_removeListener;
+let currentCountryListener;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -224,7 +225,7 @@ $(() =>{
     let currentWindow = null;
     for (let countryCode in countries){
 
-      var country = countries[countryCode];
+      let country = countries[countryCode];
       let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
       // let icon = {
       //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
@@ -260,9 +261,10 @@ $(() =>{
         position: latLng
       });
 
-      marker.addListener('click', function() {
+      let eventlistener = marker.addListener('click', function() {
 
         currentIcon = this; // set global to variable.
+
 
         if (currentWindow !== null) {
           currentWindow.close();
