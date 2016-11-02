@@ -1,5 +1,30 @@
 'use strict';
 
+var globalVariables = {
+  main: {},
+  turnInfo: {},
+  game: {
+    players: {}
+  }
+};
+
+/*
+  Example players object
+  players: {
+    player1: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+    player2: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+  }
+}
+*/
+
 var currentIcon = void 0;
 var player1_avatar = void 0;
 
@@ -16,14 +41,19 @@ function changeIcon(ci) {
 $(function () {
 
   var $main = $('main');
-
-  $('.register').on('click', showRegisterForm);
-  $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
-  $('.logout').hide();
-  $('.logout').on('click', logout);
+
+  var $registerButton = $('.register');
+  $registerButton.on('click', showRegisterForm);
+
+  var $login = $('.login');
+  $login.on('click', showLoginForm);
+
+  var $logoutbutton = $('.logout');
+  $logoutbutton.hide();
+  $logoutbutton.on('click', logout);
 
   $main.on('click', '.avatar', function () {
     console.log(this);
@@ -93,6 +123,9 @@ $(function () {
       if (data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username);
       startGame();
+      $registerButton.hide();
+      $login.hide();
+      $logoutbutton.show();
     }).fail(showLoginForm);
   }
 
@@ -147,12 +180,15 @@ $(function () {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
+
+    $registerButton.show();
+    $login.show();
+    $logoutbutton.hide();
   }
 
   var $mapDiv = $('#map');
 
   var map = new google.maps.Map($mapDiv[0], {
-
     center: { lat: 0, lng: 0 },
     zoom: 2,
     styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
