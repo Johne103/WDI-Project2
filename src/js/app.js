@@ -1,13 +1,45 @@
+const gv = {
+  main: {
+
+  },
+  turnInfo: {
+    currentIcon: {}
+  },
+  players: {
+    player1: {
+      avatar: ""
+    },
+    player2: {
+      avatar: ""
+    }
+  }
+};
+
+/*
+  Example players object
+  players: {
+    player1: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+    player2: {
+      turnLimit: 20;
+      power: 20;
+      avatar: ;
+    }
+  }
+}
+*/
+
 let map;
-let currentIcon;
-let player1_avatar;
 let fnc_removeListener;
 let currentCountryListener;
 
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-      url: player1_avatar, // url
+      url: gv.players.player1.avatar, // url
       scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -18,16 +50,19 @@ function changeIcon(ci) {
 $(() =>{
 
   let $main = $('main');
-
-
-
-  $('.register').on('click', showRegisterForm);
-  $('.login').on('click', showLoginForm);
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
-  $('.logout').on('click', logout);
 
+  let $registerButton = $('.register');
+  $registerButton.on('click', showRegisterForm);
+
+  let $login = $('.login');
+  $login.on('click', showLoginForm);
+
+  let $logoutbutton = $('.logout');
+  $logoutbutton.hide();
+  $logoutbutton.on('click', logout);
 
 
   $main.on('click', '.avatar', function() {
@@ -127,6 +162,9 @@ $(() =>{
       if(data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username);
       startGame();
+      $registerButton.hide();
+      $login.hide();
+      $logoutbutton.show();
     })
     .fail(showLoginForm);
   }
@@ -138,11 +176,11 @@ $(() =>{
     }).done((profile) => {
       let obj = profile.data[0];
       $main.parent().css('width', '25%');
-      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${player1_avatar}" >
+            <img src="${gv.players.player1.avatar }" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
@@ -207,6 +245,11 @@ $(() =>{
     if(event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
+
+    $registerButton.show();
+    $login.show();
+    $logoutbutton.hide();
+
   }
 
   let $mapDiv = $('#map');
@@ -263,7 +306,7 @@ $(() =>{
 
       let eventlistener = marker.addListener('click', function() {
 
-        currentIcon = this; // set global to variable.
+        gv.turnInfo.currentIcon = this; // set global to variable.
 
 
         if (currentWindow !== null) {
