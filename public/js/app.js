@@ -1,7 +1,9 @@
 'use strict';
 
+var map = void 0;
 var currentIcon = void 0;
 var player1_avatar = void 0;
+var fnc_removeListener = void 0;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -150,7 +152,7 @@ $(function () {
 
   var $mapDiv = $('#map');
 
-  var map = new google.maps.Map($mapDiv[0], {
+  map = new google.maps.Map($mapDiv[0], {
 
     center: { lat: 0, lng: 0 },
     zoom: 2,
@@ -197,6 +199,7 @@ $(function () {
         }
         infoWindow.open(map, marker);
         currentWindow = infoWindow;
+        // fnc_removeListener = clearClick(this, marker);
       });
     };
 
@@ -206,4 +209,8 @@ $(function () {
       _loop(countryCode);
     }
   }
+
+  // function clearClick(ci, marker) {
+  //   marker.removeListener();
+  // }
 });
