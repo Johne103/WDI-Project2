@@ -1,14 +1,16 @@
 #quizPopup {
 
-  height: 300px;
-  width: 60%;
-  border-radius: 20px;
+  height: 200px;
+  width: 50%;
+  border-radius: 50px;
   display: none;
   background-color: white;
   color: gray;
-  font-family: knewave, fantasy;
-  font-size: 33px;
+
+  font-family: "classic-comic";
+  font-size: 20px;
   margin: 40px;
+  padding: 20px;
   opacity: 0.9;
   position: absolute;
   top: 100px;
@@ -16,18 +18,19 @@
   z-index: 10;
 
   label {
-    font-family: courier;
+    font-family: helvetica;
+    font-size: 9px;
     font-size: 20px;
     color: gray;
   }
 
 
   .stopBtn {
-    font-family: knewave, fantasy;
-    font-size: 15px;
-    width: 120px;
+    font-family: "classic-comic";
+    font-size: 11px;
+    width: 100px;
     height: 50px;
-    border-radius: 20px;
+    border-radius: 15px;
   }
 
 }
