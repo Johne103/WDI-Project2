@@ -28,7 +28,7 @@ $(function () {
     $('#map').on('click', '.conquer', function () {
       var countryCode = $(this).data('country');
       $('#quizPopup').show();
-      // infoWindow.hide();
+      infoWindow.close();
       quizQuestion(countryCode);
       // findCountryByAlpha2Code(); //Takes an array and sets global varibles from that one country (2)
       // findRandomCountry();
