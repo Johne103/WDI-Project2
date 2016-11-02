@@ -1,9 +1,10 @@
 let currentIcon;
+let player1_avatar;
 
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-      url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/90/5261a86cacb99.jpg', // url
+      url: player1_avatar, // url
       scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -14,7 +15,6 @@ function changeIcon(ci) {
 $(() =>{
 
   let $main = $('main');
-  let $avatars = getAvatars();
 
 
 
@@ -50,7 +50,6 @@ $(() =>{
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     const characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
-
     let $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
 
     for(let i = 0; i<characters.length; i++){
@@ -78,6 +77,7 @@ $(() =>{
   }
 
   function showRegisterForm() {
+    let $avatars = getAvatars();
     if(event) event.preventDefault();
     $main.html(`
       <h2>Register</h2>
@@ -135,10 +135,11 @@ $(() =>{
     }).done((profile) => {
       let obj = profile.data[0];
       $main.parent().css('width', '25%');
+      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" >
+            <img src="${player1_avatar}" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
@@ -147,21 +148,6 @@ $(() =>{
       // showPlayers(data);
     }).fail(showLoginForm);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   function showLoginForm() {
     if(event) event.preventDefault();
@@ -225,7 +211,9 @@ $(() =>{
   let map = new  google.maps.Map($mapDiv[0], {
 
     center: { lat:0, lng: 0},
-    zoom: 2
+    zoom: 2,
+    styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+
   });
 
   map.setOptions({ maxZoom: 7});
@@ -236,16 +224,16 @@ $(() =>{
 
       var country = countries[countryCode];
       let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      let icon = {
-          url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
-          scaledSize: new google.maps.Size(40, 40), // scaled size
-          origin: new google.maps.Point(0,0), // origin
-          anchor: new google.maps.Point(0, 0) // anchor
-      };
+      // let icon = {
+      //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
+      //     scaledSize: new google.maps.Size(40, 40), // scaled size
+      //     origin: new google.maps.Point(0,0), // origin
+      //     anchor: new google.maps.Point(0, 0) // anchor
+      // };
       let marker = new google.maps.Marker({
         map: map,
-        position: latLng,
-        icon,
+        position: latLng
+        style:
       });
 
       marker.metadata = {type: "country", id: country.name};
