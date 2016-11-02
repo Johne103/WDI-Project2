@@ -18,8 +18,8 @@ $(() => {
   let $turnDisplay = $('.turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
   // let $resetButton = $('#restart');
-  let $p1PowerCounter = 10;
-  let $p2PowerCounter = 10;
+  gv.players.player1.power = 10;
+  gv.players.player2.power = 10;
   let $turnCounter = 20;
 
   getArray(() => {
@@ -150,8 +150,6 @@ $(() => {
 
     let ask1stQuestion = function(option1, option2, option3, option4) {
 
-
-
       $("#quizPopup").html(`
         <p>What is the capital of ${countries[countryCode].name}? </p>
         <label>${option1}</label>
@@ -177,12 +175,13 @@ $(() => {
             console.log('correct selected: ' + currentCapital);
 
             // Should update players amount of power upon answering question correctly
-            $p1PowerCounter += currentCountryPower;
-            $playerOnePower.html ('Power: ' + $p1PowerCounter);
+            gv.players.player1.power += currentCountryPower;
+            $playerOnePower.html ('Power: ' + gv.players.player1.power);
             // should update number of turns left after question is answered
             // $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
-            changeIcon(currentIcon);
+            console.log(gv.turnInfo.currentIcon);
+            changeIcon(gv.turnInfo.currentIcon);
             //function to check if game has ended(out of turns)
             gameOverChecker();
           } else {
@@ -232,8 +231,8 @@ $(() => {
               console.log('correct selected: ' + currentPopulation);
 
               // Should update players amount of power upon answering question correctly
-              $p1PowerCounter += currentCountryPower;
-              $playerOnePower.html ('Power: ' + $p1PowerCounter);
+              gv.players.player1.power += currentCountryPower;
+              $playerOnePower.html ('Power: ' + gv.players.player1.power);
             } else {
               answerToQuestion = false;
               $answerGiven.html ('Oh No You Gave the Wrong Answer');
@@ -277,8 +276,8 @@ $(() => {
                 console.log('correct selected: ' + currentArea);
 
                 // Should update players amount of power upon answering question correctly
-                $p1PowerCounter += currentCountryPower;
-                $playerOnePower.html ('Power: ' + $p1PowerCounter);
+                gv.players.player1.power += currentCountryPower;
+                $playerOnePower.html ('Power: ' + gv.players.player1.power);
                 // should update number of turns left after question is answered
                 // $turnCounter--;
                 $turnDisplay.html ('Turns left: ' + $turnCounter);
@@ -323,8 +322,8 @@ $(() => {
                   console.log('correct selected: ' + currentRegion);
 
                   // Should update players amount of power upon answering question correctly
-                  $p1PowerCounter += currentCountryPower;
-                  $playerOnePower.html ('Power: ' + $p1PowerCounter);
+                  gv.players.player1.power += currentCountryPower;
+                  $playerOnePower.html ('Power: ' + gv.players.player1.power);
                   // should update number of turns left after question is answered
                   $turnCounter--;
                   $turnDisplay.html ('Turns left: ' + $turnCounter);
@@ -366,8 +365,8 @@ $(() => {
                     console.log('correct selected: ' + currentCurrency);
 
                     // Should update players amount of power upon answering question correctly
-                    $p1PowerCounter += currentCountryPower;
-                    $playerOnePower.html ('Power: ' + $p1PowerCounter);
+                    gv.players.player1.power += currentCountryPower;
+                    $playerOnePower.html ('Power: ' + gv.players.player1.power);
                     // should update number of turns left after question is answered
                     $turnCounter--;
                     $turnDisplay.html ('Turns left: ' + $turnCounter);
@@ -407,8 +406,8 @@ $(() => {
           console.log("GAME OVER!!");
           $gameOverScreen.html(`
             <h2>Game Over</h2>
-            <p id="playerOneFinalScore">Player One has `+ $p1PowerCounter +`</p>
-            <p id="playeTwoFinalScore">Player Two has `+ $p2PowerCounter +`</p>
+            <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
+            <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
             <button id="restart">Restart</button>
           `);
           makeResetWork();

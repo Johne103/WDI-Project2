@@ -1,12 +1,17 @@
-const globalVariables = {
+const gv = {
   main: {
 
   },
   turnInfo: {
-
+    currentIcon: {}
   },
-  game: {
-    players: {},
+  players: {
+    player1: {
+      avatar: ""
+    },
+    player2: {
+      avatar: ""
+    }
   }
 };
 
@@ -28,13 +33,10 @@ const globalVariables = {
 */
 
 
-let currentIcon;
-let player1_avatar;
-
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-      url: player1_avatar, // url
+      url: gv.players.player1.avatar, // url
       scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -171,11 +173,11 @@ $(() =>{
     }).done((profile) => {
       let obj = profile.data[0];
       $main.parent().css('width', '25%');
-      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${player1_avatar}" >
+            <img src="${gv.players.player1.avatar }" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
@@ -300,7 +302,7 @@ $(() =>{
 
       marker.addListener('click', function() {
 
-        currentIcon = this; // set global to variable.
+        gv.turnInfo.currentIcon = this; // set global to variable.
 
         if (currentWindow !== null) {
           currentWindow.close();
