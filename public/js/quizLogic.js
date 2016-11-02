@@ -19,7 +19,6 @@ $(function () {
   var $answerGiven = $('.answerGiven');
   var $turnDisplay = $('.turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
-  // let $resetButton = $('#restart');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
   var $turnCounter = 20;
@@ -341,7 +340,6 @@ $(function () {
   function makeResetWork() {
     $('#restart').click(function () {
       console.log("CLEKCK!");
-      // window.reload();
     });
   }
 

@@ -289,10 +289,8 @@ $(() =>{
           <h1>`+ country.name + `</h1>
           <div id='countryInfo'>
               <ul>
-                <li>Power</li>
+                <li>Power to be gained per question</li>
                 <li class="countryPower">`+ country.power +`</li>
-                <li>Number of questions</li>
-                <li>`+ country.questions.length +`</li>
                 <button class="conquer" data-country="${countryCode}">Conquer</button>
               </ul>
           </div>
@@ -314,14 +312,10 @@ $(() =>{
         }
         infoWindow.open(map, marker);
         currentWindow = infoWindow;
-        // fnc_removeListener = clearClick(this, marker);
       });
 
     }
   }
 
-  // function clearClick(ci, marker) {
-  //   marker.removeListener();
-  // }
 
 });
