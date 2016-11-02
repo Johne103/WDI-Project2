@@ -35,6 +35,7 @@ const gv = {
 let map;
 let fnc_removeListener;
 let currentCountryListener;
+let infoWindow = null;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -299,12 +300,12 @@ $(() =>{
         </div>
         `;
 
-      let infoWindow = new google.maps.InfoWindow({
-        content: countryDetails,
-        position: latLng
-      });
-
       let eventlistener = marker.addListener('click', function() {
+
+        infoWindow = new google.maps.InfoWindow({
+          content: countryDetails,
+          position: latLng
+        });
 
         gv.turnInfo.currentIcon = this; // set global to variable.
 

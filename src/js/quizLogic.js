@@ -26,6 +26,7 @@ $(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');
       $('#quizPopup').show();
+      infoWindow.close();
       quizQuestion(countryCode);
 
     });
