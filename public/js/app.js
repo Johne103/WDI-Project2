@@ -176,6 +176,7 @@ $(function () {
       var marker = new google.maps.Marker({
         map: map,
         position: latLng
+
       });
 
       marker.metadata = { type: "country", id: country.name };
