@@ -235,6 +235,7 @@ $(() =>{
       let marker = new google.maps.Marker({
         map: map,
         position: latLng,
+        // icon: url("../images/grayMarker.png")
 
       });
 
@@ -280,3 +281,25 @@ $(() =>{
   // }
 
 });
+
+
+$('#rulesLink').on("click", showRules);
+
+function showRules () {
+  $('.rules').show();
+  $main.html(`
+    <p> conquiztador:
+
+object: score the most points to win the game.
+
+setup:
+choose a player from the list . choose a country as you headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.
+
+playing the game:
+
+click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
+players take turns and accumulate points throughout the game based on answering the quiz correctly.
+
+after comparing the scores between players, a winner is annouced.</p>
+  `);
+}

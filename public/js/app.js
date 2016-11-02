@@ -178,7 +178,6 @@ $(function () {
       var marker = new google.maps.Marker({
         map: map,
         position: latLng
-
       });
 
       marker.metadata = { type: "country", id: country.name };
@@ -214,3 +213,10 @@ $(function () {
   //   marker.removeListener();
   // }
 });
+
+$('#rulesLink').on("click", showRules);
+
+function showRules() {
+  $('.rules').show();
+  $main.html('\n    <p> conquiztador:\n\nobject: score the most points to win the game.\n\nsetup:\nchoose a player from the list . choose a country as you headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.\n\nplaying the game:\n\nclick on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\nplayers take turns and accumulate points throughout the game based on answering the quiz correctly.\n\nafter comparing the scores between players, a winner is annouced.</p>\n  ');
+}

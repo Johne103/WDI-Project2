@@ -26,6 +26,7 @@ $(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');
       $('#quizPopup').show();
+      // infoWindow.hide();
       quizQuestion(countryCode);
       // findCountryByAlpha2Code(); //Takes an array and sets global varibles from that one country (2)
       // findRandomCountry();
@@ -34,9 +35,6 @@ $(() => {
       // quizQuestion(countryCode);
     });
   });
-
-
-
 
   $('#quizPopup').on("click", '.stopBtn', closeWindow);
 
@@ -140,16 +138,11 @@ $(() => {
   }
 
 
-
-
-
-
   function quizQuestion(countryCode) {
 
     selectedCountries = shuffle(selectCountries(countryCode));
 
     function ask1stQuestion(option1, option2, option3, option4) {
-
 
 
       $("#quizPopup").html(`
