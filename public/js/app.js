@@ -1,5 +1,17 @@
 'use strict';
 
+var currentIcon = void 0;
+
+function changeIcon(ci) {
+  console.log(ci);
+  ci.setIcon({
+    url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/90/5261a86cacb99.jpg', // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0, 0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  });
+}
+
 $(function () {
 
   var $main = $('main');
@@ -33,7 +45,8 @@ $(function () {
   }
 
   function getAvatars() {
-    var characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    var characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
 
     var $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
 
@@ -77,8 +90,8 @@ $(function () {
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
-      console.log(data.user);
       showPlayerProfiles(data.user.characterId, data.user.username);
+      startGame();
     }).fail(showLoginForm);
   }
 
@@ -142,40 +155,52 @@ $(function () {
     zoom: 2
   });
 
-  map.setOptions({ maxZoom: 5 });
+  map.setOptions({ maxZoom: 7 });
 
-  var currentWindow = null;
+  function startGame() {
+    var currentWindow = null;
 
-  var _loop = function _loop(countryCode) {
-    country = countries[countryCode];
+    var _loop = function _loop(countryCode) {
+      country = countries[countryCode];
 
+      var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+      var icon = {
+        url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
+        scaledSize: new google.maps.Size(40, 40), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+      };
+      var marker = new google.maps.Marker({
+        map: map,
+        position: latLng,
+        icon: icon
+      });
 
-    var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+      marker.metadata = { type: "country", id: country.name };
 
-    var marker = new google.maps.Marker({
-      map: map,
-      position: latLng
-    });
+      var countryDetails = '\n        <div id=\'content\'>\n          <h1>' + country.name + '</h1>\n          <div id=\'countryInfo\'>\n              <ul>\n                <li>Power</li>\n                <li class="countryPower">' + country.power + '</li>\n                <li>Number of questions</li>\n                <li>' + country.questions.length + ('</li>\n                <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ');
 
-    var countryDetails = '\n      <div id=\'content\'>\n        <h1>' + country.name + '</h1>\n        <div id=\'countryInfo\'>\n            <ul>\n              <li>Power</li>\n              <li class="countryPower">' + country.power + '</li>\n              <li>Number of questions</li>\n              <li>' + country.questions.length + ('</li>\n              <button class="conquer" data-country="' + countryCode + '">Conquer</button>\n            </ul>\n        </div>\n      </div>\n      ');
+      var infoWindow = new google.maps.InfoWindow({
+        content: countryDetails,
+        position: latLng
+      });
 
-    var infoWindow = new google.maps.InfoWindow({
-      content: countryDetails,
-      position: latLng
-    });
+      marker.addListener('click', function () {
 
-    marker.addListener('click', function () {
-      if (currentWindow !== null) {
-        currentWindow.close();
-      }
-      infoWindow.open(map, marker);
-      currentWindow = infoWindow;
-    });
-  };
+        currentIcon = this; // set global to variable.
 
-  for (var countryCode in countries) {
-    var country;
+        if (currentWindow !== null) {
+          currentWindow.close();
+        }
+        infoWindow.open(map, marker);
+        currentWindow = infoWindow;
+      });
+    };
 
-    _loop(countryCode);
+    for (var countryCode in countries) {
+      var country;
+
+      _loop(countryCode);
+    }
   }
 });
