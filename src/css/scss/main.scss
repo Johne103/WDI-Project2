@@ -3,12 +3,10 @@
 @import '_variables';
 @import '_mixins';
 
-* {
-  box-sizing: border-box;
-  font-family: "classic-comic";
-  color: white;
-  font-size: 18px;
-}
+// * {
+//   box-sizing: border-box;
+//
+// }
 body, html{
   height: 100%;
   margin: 0;
@@ -21,6 +19,7 @@ body, html{
   position: relative;
   z-index: 2;
   background-color: #0d0c47;
+  color: white;
 
   overflow: auto;
   transition: all 0.5s;
@@ -29,21 +28,23 @@ body, html{
     width: 100%;
     height: 27%;
     overflow: hidden;
-    background-image: url("../images/conquizL.png");
-    background-size: contain;
   }
 }
 
-nav {
-  font-family: knewave, fantasy;
-  font-size: 35px;
-}
-
-.navbar-brand {
-  font-family: knewave, fantasy;
-  font-size: 50px;
+a {
+  color: yellow;
+  font-family: "classic-comic";
+  font-size: 18px;
+  padding: 10px;
 
 }
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+
 
 // Import sections
 
