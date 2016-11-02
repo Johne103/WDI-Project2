@@ -18,6 +18,8 @@ $(function () {
   var $playerTwoPower = $('#playerTwoPower');
   var $answerGiven = $('.answerGiven');
   var $turnDisplay = $('.turnDisplay');
+  var $gameOverScreen = $('#gameOverDiv');
+  var $resetButton = $('#restart');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
   var $turnCounter = 2;
@@ -152,6 +154,9 @@ $(function () {
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
+          changeIcon(currentIcon);
+          //function to check if game has ended(out of turns)
+          gameOverChecker();
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
@@ -161,6 +166,8 @@ $(function () {
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
+          //function to check if game has ended(out of turns)
+          gameOverChecker();
         }
         if ($turnCounter === 0) {
           $('#quizPopup').hide();
@@ -190,6 +197,8 @@ $(function () {
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
+          //function to check if game has ended(out of turns)
+          gameOverChecker();
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
@@ -198,6 +207,8 @@ $(function () {
           // should update number of turns left after question is answered
           $turnCounter--;
           $turnDisplay.html('Turns left: ' + $turnCounter);
+          //function to check if game has ended(out of turns)
+          gameOverChecker();
         }
         if ($turnCounter === 0) {
           $('#quizPopup').hide();
@@ -302,5 +313,26 @@ $(function () {
         // ask5thQuestion(selectedCountries[0].border, selectedCountries[1].border, selectedCountries[2].border, selectedCountries[3].border);
       });
     };
+  }
+
+  // functions to check if the turns have ended and to display gameOver screen when out of turns
+  function gameOverChecker() {
+    if ($turnCounter <= 0) {
+      console.log("GAME OVER MAN");
+      endGame();
+    }
+  }
+
+  // function makeResetWork() {
+  //   $resetButton.addListener('click', function() {
+  //     console.log("CLEKCK!");
+  //     // window.reload();
+  //   });
+  // }
+
+  function endGame() {
+    console.log("GAME OVER!!");
+    $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
+    // makeResetWork();
   }
 });

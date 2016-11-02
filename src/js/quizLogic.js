@@ -16,6 +16,8 @@ $(() => {
   let $playerTwoPower = $('#playerTwoPower');
   let $answerGiven = $('.answerGiven');
   let $turnDisplay = $('.turnDisplay');
+  let $gameOverScreen = $('#gameOverDiv');
+  let $resetButton = $('#restart');
   let $p1PowerCounter = 10;
   let $p2PowerCounter = 10;
   let $turnCounter = 2;
@@ -169,6 +171,9 @@ $(() => {
             // should update number of turns left after question is answered
             $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
+            changeIcon(currentIcon);
+            //function to check if game has ended(out of turns)
+            gameOverChecker();
           } else {
             answerToQuestion = false;
             $answerGiven.html ('Oh No You Gave the Wrong Answer');
@@ -178,6 +183,8 @@ $(() => {
             // should update number of turns left after question is answered
             $turnCounter--;
             $turnDisplay.html ('Turns left: ' + $turnCounter);
+            //function to check if game has ended(out of turns)
+            gameOverChecker();
           }
           if ($turnCounter === 0) {
               $('#quizPopup').hide();
@@ -219,6 +226,8 @@ $(() => {
               // should update number of turns left after question is answered
               $turnCounter--;
               $turnDisplay.html ('Turns left: ' + $turnCounter);
+              //function to check if game has ended(out of turns)
+              gameOverChecker();
             } else {
               answerToQuestion = false;
               $answerGiven.html ('Oh No You Gave the Wrong Answer');
@@ -227,6 +236,8 @@ $(() => {
               // should update number of turns left after question is answered
               $turnCounter--;
               $turnDisplay.html ('Turns left: ' + $turnCounter);
+              //function to check if game has ended(out of turns)
+              gameOverChecker();
             }
             if ($turnCounter === 0) {
                 $('#quizPopup').hide();
@@ -369,4 +380,34 @@ $(() => {
             };
 
         }
+
+
+        // functions to check if the turns have ended and to display gameOver screen when out of turns
+        function gameOverChecker() {
+          if ($turnCounter <= 0){
+            console.log("GAME OVER MAN");
+            endGame();
+          }
+        }
+
+        // function makeResetWork() {
+        //   $resetButton.addListener('click', function() {
+        //     console.log("CLEKCK!");
+        //     // window.reload();
+        //   });
+        // }
+
+        function endGame() {
+          console.log("GAME OVER!!");
+          $gameOverScreen.html(`
+            <h2>Game Over</h2>
+            <p id="playerOneFinalScore">Player One has `+ $p1PowerCounter +`</p>
+            <p id="playeTwoFinalScore">Player Two has `+ $p2PowerCounter +`</p>
+            <button id="restart">Restart</button>
+          `);
+          // makeResetWork();
+        }
+
+
+
 });

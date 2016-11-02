@@ -1,7 +1,21 @@
+let currentIcon;
+
+function changeIcon(ci) {
+  console.log(ci);
+  ci.setIcon({
+      url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/90/5261a86cacb99.jpg', // url
+      scaledSize: new google.maps.Size(40, 40), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+  });
+}
+
+
 $(() =>{
 
   let $main = $('main');
   let $avatars = getAvatars();
+
 
 
   $('.register').on('click', showRegisterForm);
@@ -34,7 +48,8 @@ $(() =>{
   }
 
   function getAvatars() {
-    const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+    const characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
 
     let $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
 
@@ -107,8 +122,8 @@ $(() =>{
     })
     .done((data) => {
       if(data.token) localStorage.setItem('token', data.token);
-      console.log(data.user);
       showPlayerProfiles(data.user.characterId, data.user.username);
+      startGame();
     })
     .fail(showLoginForm);
   }
@@ -193,7 +208,7 @@ $(() =>{
         if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
       }
     })
-    .done(getAvatarss)
+    .done(getAvatars)
     .fail(showLoginForm);
   }
 
@@ -213,48 +228,59 @@ $(() =>{
     zoom: 2
   });
 
-  map.setOptions({ maxZoom: 5});
+  map.setOptions({ maxZoom: 7});
 
-  let currentWindow = null;
+  function startGame() {
+    let currentWindow = null;
+    for (let countryCode in countries){
 
-  for (let countryCode in countries){
-    var country = countries[countryCode];
+      var country = countries[countryCode];
+      let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+      let icon = {
+          url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
+          scaledSize: new google.maps.Size(40, 40), // scaled size
+          origin: new google.maps.Point(0,0), // origin
+          anchor: new google.maps.Point(0, 0) // anchor
+      };
+      let marker = new google.maps.Marker({
+        map: map,
+        position: latLng,
+        icon,
+      });
 
-    let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+      marker.metadata = {type: "country", id: country.name};
 
-    let marker = new google.maps.Marker({
-      map: map,
-      position: latLng
-    });
-
-    let countryDetails = `
-      <div id='content'>
-        <h1>`+ country.name + `</h1>
-        <div id='countryInfo'>
-            <ul>
-              <li>Power</li>
-              <li class="countryPower">`+ country.power +`</li>
-              <li>Number of questions</li>
-              <li>`+ country.questions.length +`</li>
-              <button class="conquer" data-country="${countryCode}">Conquer</button>
-            </ul>
+      let countryDetails = `
+        <div id='content'>
+          <h1>`+ country.name + `</h1>
+          <div id='countryInfo'>
+              <ul>
+                <li>Power</li>
+                <li class="countryPower">`+ country.power +`</li>
+                <li>Number of questions</li>
+                <li>`+ country.questions.length +`</li>
+                <button class="conquer" data-country="${countryCode}">Conquer</button>
+              </ul>
+          </div>
         </div>
-      </div>
-      `;
+        `;
 
-    let infoWindow = new google.maps.InfoWindow({
-      content: countryDetails,
-      position: latLng
-    });
+      let infoWindow = new google.maps.InfoWindow({
+        content: countryDetails,
+        position: latLng
+      });
 
+      marker.addListener('click', function() {
 
-    marker.addListener('click', function() {
-      if (currentWindow !== null) {
-        currentWindow.close();
-      }
-      infoWindow.open(map, marker);
-      currentWindow = infoWindow;
-    });
+        currentIcon = this; // set global to variable.
 
+        if (currentWindow !== null) {
+          currentWindow.close();
+        }
+        infoWindow.open(map, marker);
+        currentWindow = infoWindow;
+      });
+    }
   }
+
 });
