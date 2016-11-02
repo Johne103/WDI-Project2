@@ -326,9 +326,8 @@ $(function () {
   }
 
   function conquerCountry(marker) {
-    // console.log(fnc_removeListener);
-    google.maps.event.clearListeners(currentIcon);
-    console.log("The Marker: ", marker);
+    google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+    console.log('NO CLECK NO CRY');
   }
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
