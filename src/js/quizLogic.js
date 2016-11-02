@@ -346,7 +346,12 @@ $(() => {
           }
         }
 
-
+        // function makeResetWork() {
+        //   $resetButton.addListener('click', function() {
+        //     console.log("CLEKCK!");
+        //     // window.reload();
+        //   });
+        // }
 
         function endGame() {
           console.log("GAME OVER!!");
@@ -356,11 +361,9 @@ $(() => {
             <p id="playeTwoFinalScore">Player Two has `+ $p2PowerCounter +`</p>
             <button id="restart">Restart</button>
           `);
-          // $resetButton.click(function(e) {
-          //   console.log("CLEKCK!");
-          //   window.reload();
-          // });
+          // makeResetWork();
         }
+
 
 
 });

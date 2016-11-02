@@ -287,12 +287,16 @@ $(function () {
     }
   }
 
+  // function makeResetWork() {
+  //   $resetButton.addListener('click', function() {
+  //     console.log("CLEKCK!");
+  //     // window.reload();
+  //   });
+  // }
+
   function endGame() {
     console.log("GAME OVER!!");
     $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + $p1PowerCounter + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + $p2PowerCounter + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
-    // $resetButton.click(function(e) {
-    //   console.log("CLEKCK!");
-    //   window.reload();
-    // });
+    // makeResetWork();
   }
 });
