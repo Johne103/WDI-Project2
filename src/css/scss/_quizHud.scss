@@ -19,3 +19,10 @@
     color: gray;
   }
 }
+#gameOverDiv {
+  position: absolute;
+  top: 340px;
+  left: 50%;
+  background-color: grey;
+  z-index: 12;
+}

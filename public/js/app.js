@@ -137,7 +137,7 @@ $(function () {
       beforeSend: function beforeSend(jqXHR) {
         if (token) return jqXHR.setRequestHeader('Authorization', 'Bearer ' + token);
       }
-    }).done(getAvatarss).fail(showLoginForm);
+    }).done(getAvatars).fail(showLoginForm);
   }
 
   // LOGOUT
