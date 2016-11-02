@@ -1,9 +1,10 @@
 let currentIcon;
+let player1_avatar;
 
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-      url: 'http://i.annihil.us/u/prod/marvel/i/mg/9/90/5261a86cacb99.jpg', // url
+      url: player1_avatar, // url
       scaledSize: new google.maps.Size(40, 40), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -14,7 +15,6 @@ function changeIcon(ci) {
 $(() =>{
 
   let $main = $('main');
-  let $avatars = getAvatars();
 
 
 
@@ -50,7 +50,6 @@ $(() =>{
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     const characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
-
     let $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
 
     for(let i = 0; i<characters.length; i++){
@@ -78,6 +77,7 @@ $(() =>{
   }
 
   function showRegisterForm() {
+    let $avatars = getAvatars();
     if(event) event.preventDefault();
     $main.html(`
       <h2>Register</h2>
@@ -135,10 +135,11 @@ $(() =>{
     }).done((profile) => {
       let obj = profile.data[0];
       $main.parent().css('width', '25%');
+      player1_avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" >
+            <img src="${player1_avatar}" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
@@ -236,16 +237,15 @@ $(() =>{
 
       var country = countries[countryCode];
       let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      let icon = {
-          url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
-          scaledSize: new google.maps.Size(40, 40), // scaled size
-          origin: new google.maps.Point(0,0), // origin
-          anchor: new google.maps.Point(0, 0) // anchor
-      };
+      // let icon = {
+      //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
+      //     scaledSize: new google.maps.Size(40, 40), // scaled size
+      //     origin: new google.maps.Point(0,0), // origin
+      //     anchor: new google.maps.Point(0, 0) // anchor
+      // };
       let marker = new google.maps.Marker({
         map: map,
-        position: latLng,
-        icon,
+        position: latLng
       });
 
       marker.metadata = {type: "country", id: country.name};

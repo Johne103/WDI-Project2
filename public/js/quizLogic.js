@@ -22,7 +22,7 @@ $(function () {
   var $resetButton = $('#restart');
   var $p1PowerCounter = 10;
   var $p2PowerCounter = 10;
-  var $turnCounter = 2;
+  var $turnCounter = 20;
 
   // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
   $.get("https://restcountries.eu/rest/v1/all").done(function (data) {
