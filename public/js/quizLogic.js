@@ -24,33 +24,57 @@ $(function () {
   var $p2PowerCounter = 10;
   var $turnCounter = 20;
 
-  // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
-  $.get("https://restcountries.eu/rest/v1/all").done(function (data) {
-    // Creating power counters for players and display for number of turns left
-    // must be moved inside game start function once that is made
-    $playerOnePower.html('Power: ' + $p1PowerCounter);
-    $playerTwoPower.html('Power: ' + $p2PowerCounter);
-    $turnDisplay.html('Turns left: ' + $turnCounter);
-    //
-    countryData = data.map(function (country) {
-      return {
-        name: country.name,
-        capital: country.capital,
-        id: country.alpha2Code,
-        population: country.population,
-        region: country.region,
-        subRegion: country.subregion,
-        area: country.area,
-        borders: country.borders,
-        currencies: country.currencies,
-        location: {
-          lat: country.latlng[0],
-          lng: country.latlng[1]
-        }
-      };
+  getArray(function () {
+    $('#map').on('click', '.conquer', function () {
+      var countryCode = $(this).data('country');
+      $('#quizPopup').show();
+      quizQuestion(countryCode);
+      // findCountryByAlpha2Code(); //Takes an array and sets global varibles from that one country (2)
+      // findRandomCountry();
+      // selectCountries();
+      // shuffle();
+      // quizQuestion(countryCode);
     });
   });
 
+  $('#quizPopup').on("click", '.stopBtn', closeWindow);
+
+  function closeWindow() {
+    $('#quizPopup').hide();
+  }
+
+  function init() {}
+
+  function getArray(callback) {
+    console.log("getArray started");
+    // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
+    $.get("https://restcountries.eu/rest/v1/all").done(function (data) {
+      // console.log(`Data: ${data}`); // Got an array
+      // Creating power counters for players and display for number of turns left
+      // must be moved inside game start function once that is made
+      //
+      countryData = data.map(function (country) {
+        return {
+          name: country.name,
+          capital: country.capital,
+          id: country.alpha2Code,
+          population: country.population,
+          region: country.region,
+          subRegion: country.subregion,
+          area: country.area,
+          borders: country.borders,
+          currencies: country.currencies,
+          location: {
+            lat: country.latlng[0],
+            lng: country.latlng[1]
+          }
+        };
+      });
+
+      // data has come back from the server...
+      return callback();
+    });
+  }
   //Select current coountry with alpha2Code and a holders currentCountry & currentCapital.
   function findCountryByAlpha2Code(alpha2Code) {
     var index = countryData.findIndex(function (country) {
@@ -65,10 +89,7 @@ $(function () {
     currentBorder = countryData[index].border;
 
     currentCountryPower = $('.countryPower').html();
-    console.log(currentCountry);
     currentCountryPower = parseFloat(currentCountryPower);
-    console.log(currentCountryPower);
-    console.log(currentCapital);
     return countryData[index];
   }
 
@@ -82,6 +103,7 @@ $(function () {
 
   //Select first four countries from randam array and check for duplicate selectioins.
   function selectCountries(alpha2Code) {
+    selectedCountries = [];
     selectedCountries.push(findCountryByAlpha2Code(alpha2Code));
     for (var i = 0; i < 3; i++) {
       var country = findRandomCountry();
@@ -114,26 +136,9 @@ $(function () {
     return array;
   }
 
-  $('#map').on('click', '.conquer', function () {
-    var countryCode = $(this).data('country');
-    $('#quizPopup').show();
-    quizQuestion(countryCode);
-  });
-
-  $('#quizPopup').on("click", '.stopBtn', closeWindow);
-
-  function closeWindow() {
-    $('#quizPopup').hide();
-  }
-
   function quizQuestion(countryCode) {
-    selectCountries(countryCode);
-    selectedCountries = shuffle(selectedCountries);
-    // console.log(selectedCountries);
 
-    var isCountry = currentCountry;
-    console.log("isCountry: " + isCountry);
-    console.log("currentCountry: " + currentCountry);
+    selectedCountries = shuffle(selectCountries(countryCode));
 
     var ask1stQuestion = function ask1stQuestion(option1, option2, option3, option4) {
 
