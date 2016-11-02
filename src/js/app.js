@@ -34,9 +34,8 @@ const gv = {
 
 let map;
 let fnc_removeListener;
-let infoWindow;
-let currentWindow = null;
 let currentCountryListener;
+let infoWindow = null;
 
 function changeIcon(ci) {
   console.log(ci);
@@ -87,23 +86,6 @@ $(() =>{
     showLoginForm();
   }
 
-  function displayAvatar(profile){
-    let obj = profile.data[0];
-    $avatars.append(`
-      <div class="avatar" data-id="${obj.id}">
-        <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" alt="profile image">
-          <div class="overlay">
-            <h4>${obj.name}</h4>
-          </div>
-      </div>
-    `);
-  }
-
-  function handleErrors(jqXHR){
-    console.log(jqXHR.status);
-    $main.html(`You are a failure.`);
-  }
-
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     const characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
@@ -114,8 +96,21 @@ $(() =>{
         url: "/api/profile/"+ characters[i],
         method: "GET"
       })
-      .done(displayAvatar)
-      .fail(handleErrors);
+      .done(function(profile){
+        let obj = profile.data[0]
+        $avatars.append(`
+          <div class="avatar" data-id="${obj.id}">
+            <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" alt="profile image">
+              <div class="overlay">
+                <h4>${obj.name}</h4>
+              </div>
+          </div>
+        `);
+      })
+      .fail(function(jqXHR){
+        console.log(jqXHR.status);
+        $main.html(`You are a failure.`);
+      });
     }
     return $avatars;
   }
@@ -264,13 +259,14 @@ $(() =>{
 
     center: { lat:0, lng: 0},
     zoom: 2,
+    styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
 
-    styles:[{"featureType":"administrative.locality","elementType":"all","stylers":[{"hue":"#2c2e33"},{"saturation":7},{"lightness":19},{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#ffffff"},{"saturation":-100},{"lightness":100},{"visibility":"simplified"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#ffffff"},{"saturation":-100},{"lightness":100},{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":31},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":31},{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":-2},{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"hue":"#e9ebed"},{"saturation":-90},{"lightness":-8},{"visibility":"simplified"}]},{"featureType":"transit","elementType":"all","stylers":[{"hue":"#e9ebed"},{"saturation":10},{"lightness":69},{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#e9ebed"},{"saturation":-78},{"lightness":67},{"visibility":"simplified"}]}]
   });
 
   map.setOptions({ maxZoom: 7});
 
   function startGame() {
+    let currentWindow = null;
     for (let countryCode in countries){
 
       let country = countries[countryCode];
@@ -284,7 +280,6 @@ $(() =>{
       let marker = new google.maps.Marker({
         map: map,
         position: latLng,
-        icon: "/images/grayMarker.png"
 
       });
 
@@ -305,12 +300,12 @@ $(() =>{
         </div>
         `;
 
-      infoWindow = new google.maps.InfoWindow({
-        content: countryDetails,
-        position: latLng
-      });
-
       let eventlistener = marker.addListener('click', function() {
+
+        infoWindow = new google.maps.InfoWindow({
+          content: countryDetails,
+          position: latLng
+        });
 
         gv.turnInfo.currentIcon = this; // set global to variable.
 
@@ -329,26 +324,5 @@ $(() =>{
   // function clearClick(ci, marker) {
   //   marker.removeListener();
   // }
-  $('#rulesLink').on("click", showRules);
 
-  function showRules () {
-    console.log("SHOW RULES...");
-    $main.html(`
-      <div class="rulesContent"><p>
-
-  <strong>Object:</strong>
-  <br>score the most points to win the game. <br>
-
-  <strong>Setup:</strong>
-  <br>
-  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.
-<br>
-  <strong>Playing the game:</strong>
-<br>
-  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-  players take turns and accumulate points throughout the game based on answering the quiz correctly.
-
-  after comparing the scores between players, a winner is annouced.</p></div>
-    `);
-  }
 });
