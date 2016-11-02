@@ -3,6 +3,7 @@
 var gv = {
   main: {},
   turnInfo: {
+    turn: 1, // 1 = player 1, 2 = player 2
     currentIcon: {}
   },
   players: {
@@ -10,7 +11,7 @@ var gv = {
       avatar: ""
     },
     player2: {
-      avatar: ""
+      avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
     }
   }
 };
@@ -40,8 +41,8 @@ var infoWindow = null;
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
-    url: gv.players.player1.avatar, // url
-    scaledSize: new google.maps.Size(40, 40), // scaled size
+    url: gv.players['player' + gv.turnInfo.turn].avatar, // url
+    scaledSize: new google.maps.Size(50, 50), // scaled size
     origin: new google.maps.Point(0, 0), // origin
     anchor: new google.maps.Point(0, 0) // anchor
   });
@@ -214,21 +215,16 @@ $(function () {
 
       var country = countries[countryCode];
       var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      // let icon = {
-      //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
-      //     scaledSize: new google.maps.Size(40, 40), // scaled size
-      //     origin: new google.maps.Point(0,0), // origin
-      //     anchor: new google.maps.Point(0, 0) // anchor
-      // };
       var marker = new google.maps.Marker({
         map: map,
-        position: latLng
+        position: latLng,
+        icon: "images/grayMarker.png"
 
       });
 
       marker.metadata = { type: "country", id: country.name };
 
-      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power</li>\n                <li class=\"countryPower\">" + country.power + "</li>\n                <li>Number of questions</li>\n                <li>" + country.questions.length + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
+      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
 
       var eventlistener = marker.addListener('click', function () {
 
@@ -236,7 +232,7 @@ $(function () {
           content: countryDetails,
           position: latLng
         });
-
+        $('.cPower').html("" + country.power);
         gv.turnInfo.currentIcon = this; // set global to variable.
 
 
@@ -245,7 +241,6 @@ $(function () {
         }
         infoWindow.open(map, marker);
         currentWindow = infoWindow;
-        // fnc_removeListener = clearClick(this, marker);
       });
     };
 
@@ -253,8 +248,10 @@ $(function () {
       _loop(countryCode);
     }
   }
+  $('#rulesLink').on("click", showRules);
 
-  // function clearClick(ci, marker) {
-  //   marker.removeListener();
-  // }
+  function showRules() {
+    console.log("SHOW RULES...");
+    $main.html("\n      <div class=\"rulesContent\"><p>\n\n  <strong>Object:</strong>\n  <br>score the most points to win the game. <br>\n\n  <strong>Setup:</strong>\n  <br>\n  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.\n<br>\n  <strong>Playing the game:</strong>\n<br>\n  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n  players take turns and accumulate points throughout the game based on answering the quiz correctly.\n\n  after comparing the scores between players, a winner is annouced.</p></div>\n    ");
+  }
 });

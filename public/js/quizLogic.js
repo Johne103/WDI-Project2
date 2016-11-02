@@ -14,15 +14,22 @@ $(function () {
   var isCountry = "";
   var answerToQuestion = "";
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
-  var $playerOnePower = $('#playerOnePower');
-  var $playerTwoPower = $('#playerTwoPower');
+  gv.players.player1.powerDiv = $('#playerOnePower');
+  gv.players.player2.powerDiv = $('#playerTwoPower');
   var $answerGiven = $('.answerGiven');
   var $turnDisplay = $('.turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
-  // let $resetButton = $('#restart');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
-  var $turnCounter = 20;
+  gv.players.player1.turnCounter = 20;
+  gv.players.player2.turnCounter = 20;
+
+  function processTurn() {
+    gv.players["player" + gv.turnInfo.turn].turnCounter--;
+    $turnDisplay.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
+    gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn - 1;
+    console.log(gv.turnInfo.turn, gv.turnInfo.turn === 1);
+  }
 
   getArray(function () {
     $('#map').on('click', '.conquer', function () {
@@ -82,7 +89,8 @@ $(function () {
     currentCurrency = countryData[index].currency;
     currentBorder = countryData[index].border;
 
-    currentCountryPower = $('.countryPower').html();
+    currentCountryPower = $('html').find('.cPower').html();
+    // console.log('find: ' + currentCountryPower[0], currentCountryPower);
     currentCountryPower = parseFloat(currentCountryPower);
     return countryData[index];
   }
@@ -132,7 +140,6 @@ $(function () {
   }
 
   function quizQuestion(countryCode) {
-
     selectedCountries = shuffle(selectCountries(countryCode));
 
     //First Question
@@ -152,11 +159,12 @@ $(function () {
           console.log('correct selected: ' + currentCapital);
 
           // Should update players amount of power upon answering question correctly
-          gv.players.player1.power += currentCountryPower;
-          $playerOnePower.html('Power: ' + gv.players.player1.power);
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          console.log(currentCountryPower, gv.players.player1.power);
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
           // should update number of turns left after question is answered
-          // $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
+          // gv.players.player1.turnCounter--;
+          $turnDisplay.html('Turns left: ' + gv.players['player' + gv.turnInfo.turn].turnCounter);
           console.log(gv.turnInfo.currentIcon);
           changeIcon(gv.turnInfo.currentIcon);
           //function to check if game has ended(out of turns)
@@ -168,13 +176,12 @@ $(function () {
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentCapital);
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
+          processTurn(gv.turnInfo.turn);
           //function to check if game has ended(out of turns)
           gameOverChecker();
           closeWindow();
         }
-        if ($turnCounter === 0) {
+        if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
           conquerCountry();
@@ -196,21 +203,20 @@ $(function () {
           console.log('correct selected: ' + currentPopulation);
 
           // Should update players amount of power upon answering question correctly
-          gv.players.player1.power += currentCountryPower;
-          $playerOnePower.html('Power: ' + gv.players.player1.power);
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentPopulation);
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
+          processTurn();
           //function to check if game has ended(out of turns)
           gameOverChecker();
           closeWindow();
         }
-        if ($turnCounter === 0) {
+        if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
           ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
@@ -230,24 +236,22 @@ $(function () {
           console.log('correct selected: ' + currentArea);
 
           // Should update players amount of power upon answering question correctly
-          gv.players.player1.power += currentCountryPower;
-          $playerOnePower.html('Power: ' + gv.players.player1.power);
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
           // should update number of turns left after question is answered
-          // $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
+          // gv.players.player1.turnCounter--;
+          $turnDisplay.html('Turns left: ' + gv.players['player' + gv.turnInfo.turn].turnCounter);
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentArea);
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
           //function to check if game has ended(out of turns)
           gameOverChecker();
           closeWindow();
         }
-        if ($turnCounter === 0) {
+        if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
           ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
@@ -267,27 +271,27 @@ $(function () {
           console.log('correct selected: ' + currentSubRegion);
 
           // Should update players amount of power upon answering question correctly
-          gv.players.player1.power += currentCountryPower;
-          $playerOnePower.html('Power: ' + gv.players.player1.power);
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentRegion);
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
+          // processTurn();
           //function to check if game has ended(out of turns)
+          processTurn();
           gameOverChecker();
           closeWindow();
         }
-        if ($turnCounter === 0) {
+        if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
-          ask5thQuestion(selectedCountries[0].currencies[0], selectedCountries[1].currencies[0], selectedCountries[2].currencies[0], selectedCountries[3].currencies[0]);
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+          ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
         }
       });
     }
@@ -300,28 +304,25 @@ $(function () {
         if ($(this).val() == currentCurrency) {
           answerToQuestion = true;
           $answerGiven.html('Yeh You Gave the Right Answer');
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct selected: ' + currentCurrency);
 
           // Should update players amount of power upon answering question correctly
-          gv.players.player1.power += currentCountryPower;
-          $playerOnePower.html('Power: ' + gv.players.player1.power);
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct not selected: ' + currentCurrency);
+          processTurn();
+          gameOverChecker();
+          closeWindow();
           // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
         }
-        if ($turnCounter === 0) {
+        if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
-          ask6thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
+
+          selectedCountries = shuffle(selectCountries(countryCode));
+          ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
         }
       });
     };
@@ -339,25 +340,20 @@ $(function () {
           console.log('correct selected: ' + currentCurrency);
 
           // Should update players amount of power upon answering question correctly
-          $p1PowerCounter += currentCountryPower;
-          $playerOnePower.html('Power: ' + $p1PowerCounter);
-          // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentCurrency);
-          // should update number of turns left after question is answered
-          $turnCounter--;
-          $turnDisplay.html('Turns left: ' + $turnCounter);
         }
         // if ($turnCounter === 0) {
         $('#quizPopup').hide();
         // } else {
         // ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
         // }
+        processTurn();
       });
     };
 
@@ -368,7 +364,7 @@ $(function () {
 
     // functions to check if the turns have ended and to display gameOver screen when out of turns
     function gameOverChecker() {
-      if ($turnCounter <= 0) {
+      if (gv.players['player' + gv.turnInfo.turn].turnCounter <= 0) {
         console.log("GAME OVER MAN");
         endGame();
       }
@@ -377,13 +373,12 @@ $(function () {
     function makeResetWork() {
       $('#restart').click(function () {
         console.log("CLEKCK!");
-        // window.reload();
       });
     }
 
     function endGame() {
       console.log("GAME OVER!!");
-      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
+      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players['player' + gv.turnInfo.turn].power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
       makeResetWork();
     }
   }
