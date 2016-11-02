@@ -198,11 +198,10 @@ $(() => {
             closeWindow();
           }
           if ($turnCounter === 0) {
-              $('#quizPopup').hide();
+            $('#quizPopup').hide();
           } else {
-            console.log(currentIcon);
-          conquerCountry();
-          ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+            conquerCountry();
+            ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
     }
@@ -222,7 +221,7 @@ $(() => {
         <label>${option4}</label>
         <input type="radio" name="answer" value="${option4}">
         <button class="stopBtn">Stop Questions</button>
-        `);
+      `);
 
         //Check for correct answer and return true or false.
         $('input:radio[name="answer"]').change(

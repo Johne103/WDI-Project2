@@ -179,7 +179,6 @@ $(function () {
         if ($turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
-          console.log(currentIcon);
           conquerCountry();
           ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
         }
@@ -190,7 +189,7 @@ $(function () {
 
     //Second Question
     function ask2ndQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        <button class=\"stopBtn\">Stop Questions</button>\n        ");
+      $("#quizPopup").html("\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        <button class=\"stopBtn\">Stop Questions</button>\n      ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
