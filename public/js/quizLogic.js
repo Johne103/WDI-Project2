@@ -27,6 +27,7 @@ $(function () {
     $('#map').on('click', '.conquer', function () {
       var countryCode = $(this).data('country');
       $('#quizPopup').show();
+      infoWindow.close();
       quizQuestion(countryCode);
     });
   });
