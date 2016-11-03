@@ -55,6 +55,7 @@ let $main = null;
 let $main2 = null;
 
 let markers = [];
+let rulesShowing = false;
 
 function clearMarkers() {
   markers.forEach((marker) => {
@@ -366,35 +367,34 @@ $(() =>{
 
     center: { lat:0, lng: 0},
     zoom: 2,
-    styles:[{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]
-  });
+    styles:[{"stylers":[{"saturation":-100},{"gamma":1}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"water","stylers":[{"visibility":"on"},{"saturation":50},{"gamma":0},{"hue":"#50a5d1"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"color":"#333333"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"weight":0.5},{"color":"#333333"}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"gamma":1},{"saturation":50}]}]  });
 
   map.setOptions({ maxZoom: 7});
 
 
   $('#rulesLink').on("click", showRules);
-
-
+  $main.on("click", '.exitRules', () => {
+    $('.rulesContent').hide();
+    $(".rules").show();
+  });
 
   function showRules () {
-    console.log("SHOW RULES...");
-    $main.html(`
-      <div class="rulesContent"><p>
-
-  <strong class="rulesT">Object:</strong>
-  <br>Score the most points to win the game. <br>
-
-  <strong class="rulesT">Setup:</strong>
-  <br>
-  Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
-<br>
-  <strong class="rulesT">Playing the game:</strong>
-<br>
-  Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-  Players take turns and accumulate points throughout the game based on answering the quiz correctly.
-
-  After comparing the scores, a winner is annouced.</p></div>
-    `);
+      $main.html(`
+      <div class="rulesContent">
+      <button class="exitRules" >x</button>
+      <p>
+      <strong class="rulesT">Object:</strong>
+      <br>Score the most points to win the game. <br>
+      <strong class="rulesT">Setup:</strong>
+      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
+      <br>
+      <strong class="rulesT">Playing the game:</strong>
+      <br>
+      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
+      Players take turns and accumulate points throughout the game based on answering the quiz correctly.
+      After comparing the scores, a winner is annouced.</p></div>
+      `);
+      $(".rules").hide();
   }
 
 });

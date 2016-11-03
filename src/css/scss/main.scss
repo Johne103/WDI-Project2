@@ -127,6 +127,14 @@ img {
   color: white;
   text-align: center;
 
+  .exitRules{
+
+    background-color: white;
+  }
+
+}
+.exitRules {
+  float: right;
 }
 
 .rulesT {
@@ -136,6 +144,13 @@ font-size: 14px;
 margin: 5px;
 text-align: center;
 
+}
+
+#restart {
+
+  border-radius: 15px;
+  padding:10px;
+  width: 100%;
 }
 
 #content{
