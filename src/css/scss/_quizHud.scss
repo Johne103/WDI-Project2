@@ -48,12 +48,23 @@ form {
     color:yellow
   }
 
+}
+
+
+.stopBtn {
+
+  border-radius: 5px;
+  font-size: 12px;
+  background-color: white;
+
+
   .stopBtn:hover {
-    background-color: #EF677B;
+    background-color: white;
   }
 
-
 }
+
+
 
 #gameOverDiv {
   position: absolute;
