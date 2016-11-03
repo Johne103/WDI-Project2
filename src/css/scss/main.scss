@@ -93,6 +93,10 @@ a:hover {
   color:white;
 }
 
+a:active {
+  color:white;
+}
+
 .btn {
 
   background-color: #0d0c47;
@@ -139,6 +143,7 @@ img {
   margin-top: 20px;
   margin-left: 40px;
   color:red;
+  border-radius: 5px;
 }
 
 .cPower {
