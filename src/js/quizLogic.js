@@ -67,7 +67,7 @@ $(() => {
   }
 
   function endGame() {
-    let winner = gv.players.player1.power > gv.players.player2.power ? player1 : player2;
+    let winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
     let draw = gv.players.player1.power === gv.players.player2.power;
     let winStr = draw ? "It's a tie!" : `${winner} wins!`;
     clearMarkers();
