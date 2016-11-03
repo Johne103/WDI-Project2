@@ -3,9 +3,9 @@
 @import '_variables';
 @import '_mixins';
 
-// * {
-//   box-sizing: border-box;
-// }
+* {
+  box-sizing: border-box;
+}
 body, html{
   height: 100%;
   margin: 0;
@@ -93,6 +93,11 @@ a:hover {
   color:white;
 }
 
+a:active {
+  color:white;
+}
+
+
 .btn {
 
   background-color: #0d0c47;
@@ -112,7 +117,7 @@ img {
   text-align: center;
 }
 .rulesContent {
-  font-size: 11px;
+  font-size: 12px;
   font-family: helvetica;
 }
 
@@ -139,10 +144,19 @@ img {
   margin-top: 20px;
   margin-left: 40px;
   color:red;
+  border-radius: 5px;
 }
 
 .cPower {
   display: none;
+}
+
+.rulesT {
+
+border: 1px dotted white;
+padding: 2px;
+font-size: 14px;
+
 }
 // Import sections
 
