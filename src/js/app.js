@@ -243,7 +243,7 @@ $(() =>{
         <div class="form-group">
           <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-primary">Login</button>
       </form>
     `);
   }

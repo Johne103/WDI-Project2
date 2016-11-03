@@ -187,7 +187,7 @@ $(function () {
 
   function showLoginForm() {
     if (event) event.preventDefault();
-    $main.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    $main.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Login</button>\n      </form>\n    ");
   }
 
   // DELETE
