@@ -21,6 +21,7 @@ var gv = {
     "magneto": "rgba(64,38,85,1)",
     "apocalypse": "rgba(193,97,21,1)",
     "venom": "rgba(191,157,24,1)",
+    "elektra": "rgba(191,157,24,1)",
     "spider-man": "rgba(191,157,24,1)",
     "loki": "rgba(139,139,139,1)",
     "doctor octopus": "rgba(194,94,19,1)",
@@ -50,6 +51,67 @@ var map = void 0;
 var fnc_removeListener = void 0;
 var currentCountryListener = void 0;
 var infoWindow = null;
+var $main = null;
+var $main2 = null;
+
+var markers = [];
+var rulesShowing = false;
+
+function clearMarkers() {
+  markers.forEach(function (marker) {
+    marker.setMap(null);
+  });
+
+  markers = [];
+}
+
+function startGame() {
+  if (event) event.preventDefault();
+  $(this).remove();
+  var currentWindow = null;
+  clearMarkers();
+  $main2.parent().css("opacity", "0.7");
+
+  var _loop = function _loop(countryCode) {
+
+    var country = countries[countryCode];
+    var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+    var marker = new google.maps.Marker({
+      map: map,
+      position: latLng,
+      icon: "images/grayMarker.png"
+
+    });
+
+    marker.metadata = { type: "country", id: country.name };
+
+    markers.push(marker);
+
+    var countryDetails = "\n      <div id='content' >\n        <h1>" + country.name + "</h1>\n        <div id='countryInfo'>\n            <ul>\n              <li>Power to be gained per question</li>\n              <li class=\"countryPower\">" + country.power + ("</li>\n              <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer?</button>\n            </ul>\n        </div>\n      </div>\n      ");
+
+    var eventlistener = marker.addListener('click', function () {
+
+      infoWindow = new google.maps.InfoWindow({
+        content: countryDetails,
+        position: new google.maps.LatLng(latLng.lat, latLng.lng)
+      });
+
+      $('.cPower').html("" + country.power);
+      gv.turnInfo.currentIcon = this; // set global to variable.
+
+
+      if (currentWindow !== null) {
+        currentWindow.close();
+      }
+      infoWindow.open(map, marker);
+      currentWindow = infoWindow;
+    });
+  };
+
+  for (var countryCode in countries) {
+    _loop(countryCode);
+  }
+}
 
 function changeIcon(ci) {
   console.log(ci);
@@ -63,12 +125,14 @@ function changeIcon(ci) {
 
 $(function () {
 
-  var $main = $('#hud main');
-  var $main2 = $('#hud2 main');
+  $main = $('#hud main');
+  $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
-  $main.on('click', 'button.delete', deleteUser);
-  $main.on('click', 'button.edit', getAvatars);
+  $main.on('click', '.delete', deleteUser);
+  $main.on('click', '.edit', getAvatars);
+
+  $('html').on('click', '.startGame', startGame);
 
   var $registerButton = $('.register');
   $registerButton.on('click', showRegisterForm);
@@ -102,7 +166,7 @@ $(function () {
 
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
-    var characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
+    var characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
     var $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
 
     for (var i = 0; i < characters.length; i++) {
@@ -146,15 +210,14 @@ $(function () {
       }
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
-      showPlayerProfiles(data.user.characterId, data.user.username);
-      startGame();
+      showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
       $logoutbutton.show();
     }).fail(showLoginForm);
   }
 
-  function showPlayerProfiles(id, user) {
+  function showPlayerProfiles(id, user, userID) {
     $.ajax({
       url: "/api/profile/show/" + id,
       method: 'GET'
@@ -166,17 +229,21 @@ $(function () {
       });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player1.avatar + "\" >\n          </div>\n          <h3>" + user + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
+      $main.append("\n          <a class=\"nav-link edit\">Edit</a>\n          <a class=\"nav-link delete\" data-id=\"" + userID + "\">Delete</a>\n        ");
+      $('html').append("\n          <a class=\"startGame\" href=\"#\">I WANT WAR</a>\n        ");
     }).fail(showLoginForm);
 
-    var characters = ['venom', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto'];
-    var rndCharacter = characters[Math.floor(Math.random() * characters.length)];
-    console.log(rndCharacter);
+    var characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+    var rndNum = Math.floor(Math.random() * characters.length);
+    var rndCharacter = characters[rndNum];
+    console.log(rndNum, rndCharacter);
     // Player 2
     $.ajax({
       url: "/api/profile/" + rndCharacter,
       method: 'GET'
     }).done(function (profile) {
       var obj = profile.data[0];
+      console.log(obj);
       gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main2.parent().css({
         'background-color': gv.heroes[obj.name.toLowerCase()]
@@ -196,12 +263,12 @@ $(function () {
     var token = localStorage.getItem('token');
 
     $.ajax({
-      url: "/api/users/" + id,
+      url: "/api/user/" + id,
       method: "DELETE",
       beforeSend: function beforeSend(jqXHR) {
         if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
-    }).done(getAvatars).fail(showLoginForm);
+    }).done(logout).fail(showLoginForm);
   }
 
   // LOGOUT
@@ -209,7 +276,7 @@ $(function () {
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
-
+    clearMarkers();
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
@@ -221,60 +288,19 @@ $(function () {
 
     center: { lat: 0, lng: 0 },
     zoom: 2,
-    styles: [{ "featureType": "landscape", "stylers": [{ "saturation": -100 }, { "lightness": 65 }, { "visibility": "on" }] }, { "featureType": "poi", "stylers": [{ "saturation": -100 }, { "lightness": 51 }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "stylers": [{ "saturation": -100 }, { "visibility": "simplified" }] }, { "featureType": "road.arterial", "stylers": [{ "saturation": -100 }, { "lightness": 30 }, { "visibility": "on" }] }, { "featureType": "road.local", "stylers": [{ "saturation": -100 }, { "lightness": 40 }, { "visibility": "on" }] }, { "featureType": "transit", "stylers": [{ "saturation": -100 }, { "visibility": "simplified" }] }, { "featureType": "administrative.province", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "labels", "stylers": [{ "visibility": "on" }, { "lightness": -25 }, { "saturation": -100 }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "hue": "#ffff00" }, { "lightness": -25 }, { "saturation": -97 }] }]
-  });
+    styles: [{ "stylers": [{ "saturation": -100 }, { "gamma": 1 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.business", "elementType": "labels.text", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.business", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.place_of_worship", "elementType": "labels.text", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.place_of_worship", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "water", "stylers": [{ "visibility": "on" }, { "saturation": 50 }, { "gamma": 0 }, { "hue": "#50a5d1" }] }, { "featureType": "administrative.neighborhood", "elementType": "labels.text.fill", "stylers": [{ "color": "#333333" }] }, { "featureType": "road.local", "elementType": "labels.text", "stylers": [{ "weight": 0.5 }, { "color": "#333333" }] }, { "featureType": "transit.station", "elementType": "labels.icon", "stylers": [{ "gamma": 1 }, { "saturation": 50 }] }] });
 
   map.setOptions({ maxZoom: 7 });
 
-  function startGame() {
-    var currentWindow = null;
-    $main2.parent().css("opacity", "0.7");
-
-    var _loop = function _loop(countryCode) {
-
-      var country = countries[countryCode];
-      var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      var marker = new google.maps.Marker({
-        map: map,
-        position: latLng,
-        icon: "images/grayMarker.png"
-
-      });
-
-      marker.metadata = { type: "country", id: country.name };
-
-      var countryDetails = "\n        <div id='content' >\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer?</button>\n              </ul>\n          </div>\n        </div>\n        ");
-
-      var eventlistener = marker.addListener('click', function () {
-
-        infoWindow = new google.maps.InfoWindow({
-          content: countryDetails,
-          position: new google.maps.LatLng(latLng.lat, latLng.lng)
-        });
-
-        $('.cPower').html("" + country.power);
-        gv.turnInfo.currentIcon = this; // set global to variable.
-
-
-        if (currentWindow !== null) {
-          currentWindow.close();
-        }
-        infoWindow.open(map, marker);
-        currentWindow = infoWindow;
-      });
-    };
-
-    for (var countryCode in countries) {
-      _loop(countryCode);
-    }
-  }
   $('#rulesLink').on("click", showRules);
-  // $('.rules').toggle();
-
+  $main.on("click", '.exitRules', function () {
+    $('.rulesContent').hide();
+    $(".rules").show();
+  });
 
   function showRules() {
 
-    console.log("SHOW RULES...");
-    $main.html("\n      <div class=\"rulesContent\"><p>\n\n  <strong class=\"rulesT\">Object:</strong>\n  <br>Score the most points to win the game. <br>\n\n  <strong class=\"rulesT\">Setup:</strong>\n  <br>\n  Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n<br>\n  <strong class=\"rulesT\">Playing the game:</strong>\n<br>\n  Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n  Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n\n  After comparing the scores, a winner is annouced.</p></div>\n    ");
+    $main.html("\n      <div class=\"rulesContent\">\n      <button class=\"exitRules\" >x</button>\n      <p>\n      <strong class=\"rulesT\">Object:</strong>\n      <br>Score the most points to win the game. <br>\n      <strong class=\"rulesT\">Setup:</strong>\n      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n      <br>\n      <strong class=\"rulesT\">Playing the game:</strong>\n      <br>\n      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n      Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n      After comparing the scores, a winner is annouced.</p></div>\n      ");
+    $(".rules").hide();
   }
 });

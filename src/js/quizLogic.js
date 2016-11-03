@@ -1,4 +1,5 @@
 $(() => {
+
   let countryData = [];
   let selectedCountries = [];
   let currentCountry = "";
@@ -17,13 +18,13 @@ $(() => {
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
   let $answerGiven = $('.answerGiven');
   let $turnDisplay = $('.turnDisplay');
-  gv.players.player1.turnDisplayDiv = $('#hud .playerPower');
-  gv.players.player2.turnDisplayDiv = $('#hud2 .playerPower');
+  gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
+  gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 3;
-  gv.players.player2.turnCounter = 3;
+  gv.players.player1.turnCounter = 1;
+  gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
 
@@ -36,16 +37,34 @@ $(() => {
 
   function makeResetWork() {
     $('#restart').click( function() {
-      console.log("CLEKCK!");
+      gv.players.player1.powerDiv.html('');
+      gv.players.player2.powerDiv.html('');
+
+      $answerGiven.html('');
+      $turnDisplay.html('');
+
+      gv.players.player1.turnDisplayDiv.html('');
+      gv.players.player2.turnDisplayDiv.html('');
+
+      gv.players.player1.power = 0;
+      gv.players.player2.power = 0;
+      gv.players.player1.turnCounter = 1;
+      gv.players.player2.turnCounter = 1;
+
+      $gameOverScreen.hide();
+
+      startGame();
     });
   }
 
   function endGame() {
     console.log("GAME OVER!!");
+    clearMarkers();
+    $gameOverScreen.show();
     $gameOverScreen.html(`
       <h2>Game Over</h2>
-      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
-      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
+      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +` points</p>
+      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +` points</p>
       <button id="restart">Restart</button>
     `);
     makeResetWork();
@@ -59,20 +78,16 @@ $(() => {
   }
 
   function processTurn() {
-    gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player"+gv.turnInfo.turn].turnCounter--;
     gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.html ('Turns left: ' + gv.players["player"+gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn -1;
 
     console.log(gv.turnInfo.turn);
-    gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '1');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
     closeWindow();
   }
 
-
-  function initialize(){
-
-  }
 
   getArray(() => {
     $('#map').on('click', '.conquer', function() {
@@ -217,7 +232,7 @@ $(() => {
           <label>${option4}</label>
           <input type="radio" name="answer" value="${option4}">
         </div>
-        <button class="stopBtn">Give Up</button>
+        <button class="stopBtn">Retreat</button>
 
         `);
 
@@ -273,7 +288,7 @@ $(() => {
         <input type="radio" name="answer" value="${option4}">
 
         </div>
-        <button class="stopBtn">Give Up</button>
+        <button class="stopBtn">Retreat</button>
       `);
 
         //Check for correct answer and return true or false.
@@ -323,7 +338,7 @@ $(() => {
             <label>${option4} sqm</label>
             <input type="radio" name="answer" value="${option4}">
           </div>
-          <button class="stopBtn">Give Up</button>
+          <button class="stopBtn">Retreat</button>
           `);
 
 
@@ -381,7 +396,7 @@ $(() => {
               <label>${option4}</label>
               <input type="radio" name="answer" value="${option4}">
             </div>
-            <button class="stopBtn">Give Up</button>
+            <button class="stopBtn">Retreat</button>
             `);
 
 
@@ -439,7 +454,7 @@ $(() => {
                 <label>${option4}</label>
                 <input type="radio" name="answer" value="${option4}">
               </div>
-              <button class="stopBtn">Give Up</button>
+              <button class="stopBtn">Retreat</button>
               `
             );
               //Check for correct answer and return true or false.
@@ -497,7 +512,7 @@ $(() => {
                   <input type="radio" name="answer" value="${option4}">
                 </div>
 
-                <button class="stopBtn">Give Up</button>
+                <button class="stopBtn">Retreat</button>
                 `);
 
 
