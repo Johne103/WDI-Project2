@@ -407,6 +407,8 @@ $(() => {
     showLoginForm();
     clearMarkers();
     $('#showPlayerTurn').hide();
+    $('#gameOverDiv').hide();
+    $('#quizPopup').hide();
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
@@ -436,7 +438,7 @@ $(() => {
 
   function showRules () {
 
-      gv.main.mainP1.html(`
+      gv.main.mainP1.append(`
       <div class="rulesContent">
       <button class="exitRules" >x</button>
       <p>

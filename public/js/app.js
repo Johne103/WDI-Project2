@@ -317,6 +317,8 @@ $(function () {
     showLoginForm();
     clearMarkers();
     $('#showPlayerTurn').hide();
+    $('#gameOverDiv').hide();
+    $('#quizPopup').hide();
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
@@ -345,7 +347,7 @@ $(function () {
 
   function showRules() {
 
-    gv.main.mainP1.html("\n      <div class=\"rulesContent\">\n      <button class=\"exitRules\" >x</button>\n      <p>\n      <strong class=\"rulesT\">Object:</strong>\n      <br>Score the most points to win the game. <br>\n      <strong class=\"rulesT\">Setup:</strong>\n      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n      <br>\n      <strong class=\"rulesT\">Playing the game:</strong>\n      <br>\n      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n      Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n      After comparing the scores, a winner is annouced.</p></div>\n      ");
+    gv.main.mainP1.append("\n      <div class=\"rulesContent\">\n      <button class=\"exitRules\" >x</button>\n      <p>\n      <strong class=\"rulesT\">Object:</strong>\n      <br>Score the most points to win the game. <br>\n      <strong class=\"rulesT\">Setup:</strong>\n      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n      <br>\n      <strong class=\"rulesT\">Playing the game:</strong>\n      <br>\n      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n      Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n      After comparing the scores, a winner is annouced.</p></div>\n      ");
     $(".rules").hide();
   }
 });
