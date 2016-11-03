@@ -65,6 +65,7 @@ function clearMarkers() {
 
 function startGame() {
   let currentWindow = null;
+  $('#gameLogo').hide();
   clearMarkers();
   $main2.parent().css("opacity", "0.7");
   for (let countryCode in countries){
