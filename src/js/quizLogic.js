@@ -24,6 +24,39 @@ $(() => {
   gv.players.player1.turnCounter = 3;
   gv.players.player2.turnCounter = 3;
 
+  // functions to check if the turns have ended and to display gameOver screen when out of turns
+
+  function conquerCountry(marker) {
+    google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+    console.log('NO CLECK NO CRY');
+  }
+
+
+
+  function makeResetWork() {
+    $('#restart').click( function() {
+      console.log("CLEKCK!");
+    });
+  }
+
+  function endGame() {
+    console.log("GAME OVER!!");
+    $gameOverScreen.html(`
+      <h2>Game Over</h2>
+      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
+      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
+      <button id="restart">Restart</button>
+    `);
+    makeResetWork();
+  }
+
+  function gameOverChecker() {
+    if (gv.players.player2.turnCounter <= 0){
+      console.log("GAME OVER MAN");
+      endGame();
+    }
+  }
+
   function processTurn() {
     gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player"+gv.turnInfo.turn].turnCounter--;
@@ -49,7 +82,7 @@ $(() => {
 
   function closeWindow () {
     $('#quizPopup').hide();
-    // processTurn(gv.turnInfo.turn);
+    gameOverChecker();
   }
 
   function getArray(callback) {
@@ -188,7 +221,7 @@ $(() => {
             gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
             changeIcon(gv.turnInfo.currentIcon);
             //function to check if game has ended(out of turns)
-            gameOverChecker();
+            conquerCountry();
           } else {
             answerToQuestion = false;
             $answerGiven.html ('Oh No You Gave the Wrong Answer');
@@ -201,7 +234,7 @@ $(() => {
           if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
             $('#quizPopup').hide();
           } else {
-            conquerCountry();
+
             ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
@@ -471,34 +504,5 @@ $(() => {
                 });
             };
 
-        function conquerCountry(marker) {
-          google.maps.event.clearListeners(gv.turnInfo.currentIcon);
-          console.log('NO CLECK NO CRY');
-        }
-
-        // functions to check if the turns have ended and to display gameOver screen when out of turns
-        function gameOverChecker() {
-          if (gv.players.player2.turnCounter <= 0){
-            console.log("GAME OVER MAN");
-            endGame();
-          }
-        }
-
-        function makeResetWork() {
-          $('#restart').click( function() {
-            console.log("CLEKCK!");
-          });
-        }
-
-        function endGame() {
-          console.log("GAME OVER!!");
-          $gameOverScreen.html(`
-            <h2>Game Over</h2>
-            <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
-            <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
-            <button id="restart">Restart</button>
-          `);
-          makeResetWork();
-        }
 }
 });
