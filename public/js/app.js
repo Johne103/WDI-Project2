@@ -125,8 +125,8 @@ function changeIcon(ci) {
 
 $(function () {
 
-  $main = $('#hud main');
-  $main2 = $('#hud2 main');
+  var $main = $('#hud main');
+  var $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
   $main.on('click', '.delete', deleteUser);
@@ -273,6 +273,7 @@ $(function () {
 
   // LOGOUT
   function logout() {
+
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
@@ -280,6 +281,10 @@ $(function () {
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
+    $main.parent().css({
+      'width': '45%',
+      'background-color': "#1234f4"
+    });
   }
 
   var $mapDiv = $('#map');

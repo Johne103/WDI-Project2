@@ -132,10 +132,10 @@ function changeIcon(ci) {
 }
 
 
-$(() =>{
+$(() => {
 
-  $main = $('#hud main');
-  $main2 = $('#hud2 main');
+  let $main = $('#hud main');
+  let $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
   $main.on('click', '.delete', deleteUser);
@@ -349,6 +349,7 @@ $(() =>{
 
 // LOGOUT
   function logout() {
+
     if(event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
@@ -356,7 +357,10 @@ $(() =>{
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
-
+    $main.parent().css({
+      'width': '45%',
+      'background-color': "#1234f4"
+    });
   }
 
   let $mapDiv = $('#map');
