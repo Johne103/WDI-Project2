@@ -122,6 +122,8 @@ function changeIcon(ci) {
   });
 }
 
+// Document on load
+
 $(function () {
 
   $main = $('#hud main');

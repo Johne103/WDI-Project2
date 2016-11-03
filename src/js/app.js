@@ -130,6 +130,7 @@ function changeIcon(ci) {
   });
 }
 
+// Document on load
 
 $(() =>{
 
