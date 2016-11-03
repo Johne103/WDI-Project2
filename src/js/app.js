@@ -407,6 +407,8 @@ $(() => {
     showLoginForm();
     clearMarkers();
     $('#showPlayerTurn').hide();
+    $('#gameOverDiv').hide();
+    $('#quizPopup').hide();
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
