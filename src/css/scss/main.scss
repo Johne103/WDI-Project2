@@ -19,7 +19,6 @@ body, html{
   z-index: 2;
   background-color: #0d0c47;
   color: white;
-
   overflow: auto;
   transition: all 0.5s;
 
@@ -34,10 +33,25 @@ body, html{
 a {
   color: yellow;
   font-family: knewave;
-  font-size: 16px;
-  margin: 10px;
+  font-size: 22px;
+  margin: 15px;
   list-style: none;
 
+}
+
+a:hover {
+
+  color:white;
+}
+
+.btn {
+
+  background-color: #0d0c47;
+  color:yellow;
+}
+
+.btn:hover{
+  background-color: #0d0c47;
 }
 
 img {
@@ -48,6 +62,31 @@ img {
 .rulesContent {
   font-size: 11px;
   font-family: helvetica;
+}
+
+#content{
+
+  font-family: knewave;
+  font-size: 18px;
+  color: gray;
+
+  ul {
+    font-size: 18px;
+
+  }
+
+  h1{
+    font-size: 28px;
+    color: red;
+  }
+}
+
+.conquer {
+  color: #0d0c47;
+  background-color: white;
+  margin-top: 20px;
+  margin-left: 40px;
+  color:red;
 }
 
 // Import sections

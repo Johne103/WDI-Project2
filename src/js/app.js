@@ -37,6 +37,7 @@ let fnc_removeListener;
 let currentCountryListener;
 let infoWindow = null;
 
+
 function changeIcon(ci) {
   console.log(ci);
   ci.setIcon({
@@ -89,7 +90,7 @@ $(() =>{
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     const characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
-    let $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
+    let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
 
     for(let i = 0; i<characters.length; i++){
       $.ajax({
@@ -97,7 +98,7 @@ $(() =>{
         method: "GET"
       })
       .done(function(profile){
-        let obj = profile.data[0]
+        let obj = profile.data[0];
         $avatars.append(`
           <div class="avatar" data-id="${obj.id}">
             <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" alt="profile image">
@@ -119,7 +120,6 @@ $(() =>{
     let $avatars = getAvatars();
     if(event) event.preventDefault();
     $main.html(`
-      <h2>Register</h2>
       <form method="post" action="/api/user/register">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username">
@@ -194,7 +194,6 @@ $(() =>{
   function showLoginForm() {
     if(event) event.preventDefault();
     $main.html(`
-      <h2>Login</h2>
       <form method="post" action="/api/user/login">
         <div class="form-group">
           <input class="form-control" name="email" placeholder="Email">
@@ -206,22 +205,6 @@ $(() =>{
       </form>
     `);
   }
-
-  // function showEditForm(user) {
-  //   if(event) event.preventDefault();
-  //   $main.html(`
-  //     <h2>Edit User</h2>
-  //     <form method="put" action="/api/user/${user._id}">
-  //       <div class="form-group">
-  //         <input class="form-control" name="username" placeholder="Username" value="${user.username}">
-  //       </div>
-  //       <button class="btn btn-primary">Update</button>
-  //     </form>
-  //   `);
-  // }
-
-
-
 
 
 // DELETE
@@ -271,12 +254,6 @@ $(() =>{
 
       let country = countries[countryCode];
       let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      // let icon = {
-      //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
-      //     scaledSize: new google.maps.Size(40, 40), // scaled size
-      //     origin: new google.maps.Point(0,0), // origin
-      //     anchor: new google.maps.Point(0, 0) // anchor
-      // };
       let marker = new google.maps.Marker({
         map: map,
         position: latLng,
@@ -287,7 +264,7 @@ $(() =>{
       marker.metadata = {type: "country", id: country.name};
 
       let countryDetails = `
-        <div id='content'>
+        <div id='content' >
           <h1>`+ country.name + `</h1>
           <div id='countryInfo'>
               <ul>
@@ -303,7 +280,7 @@ $(() =>{
 
         infoWindow = new google.maps.InfoWindow({
           content: countryDetails,
-          position: latLng
+          position: new google.maps.LatLng(latLng.lat, latLng.lng)
         });
 
         gv.turnInfo.currentIcon = this; // set global to variable.
@@ -314,6 +291,7 @@ $(() =>{
         }
         infoWindow.open(map, marker);
         currentWindow = infoWindow;
+
       });
 
     }
@@ -326,18 +304,18 @@ $(() =>{
       <div class="rulesContent"><p>
 
   <strong>Object:</strong>
-  <br>score the most points to win the game. <br>
+  <br>Score the most points to win the game. <br>
 
   <strong>Setup:</strong>
   <br>
-  choose a player from the list . choose a country as your headquarters. you have 20 turns and 10 points to start. countries have different values based on power structures.
+  Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
 <br>
   <strong>Playing the game:</strong>
 <br>
-  click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-  players take turns and accumulate points throughout the game based on answering the quiz correctly.
+  Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
+  Players take turns and accumulate points throughout the game based on answering the quiz correctly.
 
-  after comparing the scores between players, a winner is annouced.</p></div>
+  After comparing the scores, a winner is annouced.</p></div>
     `);
   }
 

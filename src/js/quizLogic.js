@@ -21,17 +21,19 @@ $(() => {
   gv.players.player2.power = 0;
   let $turnCounter = 20;
 
+
+  function initialize(){
+
+  }
+
   getArray(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');
       $('#quizPopup').show();
       infoWindow.close();
       quizQuestion(countryCode);
-
     });
   });
-
-  $('#quizPopup').on("click", '.stopBtn', closeWindow);
 
   function closeWindow () {
     $('#quizPopup').hide();
@@ -42,10 +44,7 @@ $(() => {
     // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
     $.get("https://restcountries.eu/rest/v1/all")
     .done(function(data) {
-      // console.log(`Data: ${data}`); // Got an array
-      // Creating power counters for players and display for number of turns left
-      // must be moved inside game start function once that is made
-      //
+
       countryData = data.map((country) => {
         return {
           name: country.name,
@@ -68,6 +67,7 @@ $(() => {
       return callback();
     });
   }
+
   //Select current coountry with alpha2Code and a holders currentCountry & currentCapital.
   function findCountryByAlpha2Code(alpha2Code) {
     let index = countryData.findIndex((country) => {
@@ -148,9 +148,9 @@ $(() => {
         <input type="radio" name="answer" value="${option3}">
         <label>${option4}</label>
         <input type="radio" name="answer" value="${option4}">
-        <button class="stopBtn">Stop Questions</button>
 
         `);
+
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(
@@ -209,7 +209,6 @@ $(() => {
         <input type="radio" name="answer" value="${option3}">
         <label>${option4}</label>
         <input type="radio" name="answer" value="${option4}">
-        <button class="stopBtn">Stop Questions</button>
       `);
 
         //Check for correct answer and return true or false.
@@ -258,8 +257,8 @@ $(() => {
           <input type="radio" name="answer" value="${option3}">
           <label>${option4}</label>
           <input type="radio" name="answer" value="${option4}">
-          <button class="stopBtn">Stop Questions</button>
           `);
+
 
           //Check for correct answer and return true or false.
           $('input:radio[name="answer"]').change(
@@ -310,8 +309,8 @@ $(() => {
             <input type="radio" name="answer" value="${option3}">
             <label>${option4}</label>
             <input type="radio" name="answer" value="${option4}">
-            <button class="stopBtn">Stop Questions</button>
             `);
+
 
             //Check for correct answer and return true or false.
             $('input:radio[name="answer"]').change(
@@ -362,8 +361,8 @@ $(() => {
               <input type="radio" name="answer" value="${option3}">
               <label>${option4}</label>
               <input type="radio" name="answer" value="${option4}">
-              <button class="stopBtn">Stop Questions</button>
               `);
+
 
               //Check for correct answer and return true or false.
               $('input:radio[name="answer"]').change(
@@ -413,8 +412,8 @@ $(() => {
                 <input type="radio" name="answer" value="${option3}">
                 <label>${option4}</label>
                 <input type="radio" name="answer" value="${option4}">
-                <button class="stopBtn">Stop Questions</button>
                 `);
+
 
                 //Check for correct answer and return true or false.
                 $('input:radio[name="answer"]').change(

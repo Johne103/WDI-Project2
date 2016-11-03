@@ -87,7 +87,7 @@ $(function () {
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
     var characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
-    var $avatars = $('<div class="avatarSelection"><h3>Choose your avatar</h3></div>');
+    var $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
 
     for (var i = 0; i < characters.length; i++) {
       $.ajax({
@@ -107,7 +107,7 @@ $(function () {
   function showRegisterForm() {
     var $avatars = getAvatars();
     if (event) event.preventDefault();
-    $main.html("\n      <h2>Register</h2>\n      <form method=\"post\" action=\"/api/user/register\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <input type=\"hidden\" name=\"characterId\" id=\"characterId\" value=\"\" />\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    $main.html("\n      <form method=\"post\" action=\"/api/user/register\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <input type=\"hidden\" name=\"characterId\" id=\"characterId\" value=\"\" />\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
     // $main.on(eventName, '.avatarHolder', function() {});
     $main.find('.avatarHolder').append($avatars);
   }
@@ -153,22 +153,8 @@ $(function () {
 
   function showLoginForm() {
     if (event) event.preventDefault();
-    $main.html("\n      <h2>Login</h2>\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    $main.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
   }
-
-  // function showEditForm(user) {
-  //   if(event) event.preventDefault();
-  //   $main.html(`
-  //     <h2>Edit User</h2>
-  //     <form method="put" action="/api/user/${user._id}">
-  //       <div class="form-group">
-  //         <input class="form-control" name="username" placeholder="Username" value="${user.username}">
-  //       </div>
-  //       <button class="btn btn-primary">Update</button>
-  //     </form>
-  //   `);
-  // }
-
 
   // DELETE
   function deleteUser() {
@@ -214,12 +200,6 @@ $(function () {
 
       var country = countries[countryCode];
       var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      // let icon = {
-      //     url: "http://i.annihil.us/u/prod/marvel/i/mg/2/60/537bcaef0f6cf.jpg", // url
-      //     scaledSize: new google.maps.Size(40, 40), // scaled size
-      //     origin: new google.maps.Point(0,0), // origin
-      //     anchor: new google.maps.Point(0, 0) // anchor
-      // };
       var marker = new google.maps.Marker({
         map: map,
         position: latLng,
@@ -229,13 +209,13 @@ $(function () {
 
       marker.metadata = { type: "country", id: country.name };
 
-      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
+      var countryDetails = "\n        <div id='content' >\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
 
       var eventlistener = marker.addListener('click', function () {
 
         infoWindow = new google.maps.InfoWindow({
           content: countryDetails,
-          position: latLng
+          position: new google.maps.LatLng(latLng.lat, latLng.lng)
         });
 
         gv.turnInfo.currentIcon = this; // set global to variable.
@@ -252,5 +232,11 @@ $(function () {
     for (var countryCode in countries) {
       _loop(countryCode);
     }
+  }
+  $('#rulesLink').on("click", showRules);
+
+  function showRules() {
+    console.log("SHOW RULES...");
+    $main.html("\n      <div class=\"rulesContent\"><p>\n\n  <strong>Object:</strong>\n  <br>Score the most points to win the game. <br>\n\n  <strong>Setup:</strong>\n  <br>\n  Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n<br>\n  <strong>Playing the game:</strong>\n<br>\n  Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n  Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n\n  After comparing the scores, a winner is annouced.</p></div>\n    ");
   }
 });
