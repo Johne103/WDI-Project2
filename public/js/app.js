@@ -283,7 +283,7 @@ $(function () {
     $logoutbutton.hide();
     $main.parent().css({
       'width': '45%',
-      'background-color': "#1234f4"
+      'background-color': "#0d0c47"
     });
   }
 
