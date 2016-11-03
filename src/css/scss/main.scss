@@ -119,6 +119,24 @@ img {
 .rulesContent {
   font-size: 12px;
   font-family: helvetica;
+  height: 300px;
+  width: 300px;
+  background-color: gray;
+  border-radius: 30px;
+  margin:15px;
+  padding:20px;
+  color: white;
+  text-align: center;
+
+}
+
+.rulesT {
+
+padding: 2px;
+font-size: 14px;
+margin: 5px;
+text-align: center;
+
 }
 
 #content{
@@ -151,13 +169,6 @@ img {
   display: none;
 }
 
-.rulesT {
-
-border: 1px dotted white;
-padding: 2px;
-font-size: 14px;
-
-}
 // Import sections
 
 @import '_map';
