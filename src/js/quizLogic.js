@@ -200,7 +200,6 @@ $(() => {
     function ask1stQuestion(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
-        <h3>Question 1</h3>
         <p>What is the capital of ${countries[countryCode].name}? </p>
         <div class="qHolder">
           <label>${option1}</label>
@@ -218,7 +217,7 @@ $(() => {
           <label>${option4}</label>
           <input type="radio" name="answer" value="${option4}">
         </div>
-        <button class="stopBtn">Stop Questions</button>
+        <button class="stopBtn">Give Up</button>
 
         `);
 
@@ -259,7 +258,6 @@ $(() => {
     //Second Question
     function ask2ndQuestion(option1, option2, option3, option4) {
       $("#quizPopup").html(`
-        <h3>Question 2</h3>
         <p>What is the population of ${countries[countryCode].name}? </p>
         </div>
         <div class="qHolder"><label>${option1}</label>
@@ -275,7 +273,7 @@ $(() => {
         <input type="radio" name="answer" value="${option4}">
 
         </div>
-        <button class="stopBtn">Stop Questions</button>
+        <button class="stopBtn">Give Up</button>
       `);
 
         //Check for correct answer and return true or false.
@@ -307,9 +305,7 @@ $(() => {
       //Third Question
       function ask3rdQuestion(option1, option2, option3, option4) {
         $("#quizPopup").html(`
-          <h3>Question 3</h3>
           <p>What is the area of ${countries[countryCode].name}? </p>
-
 
           <div class="qHolder">
             <label>${option1} sqm</label>
@@ -327,7 +323,7 @@ $(() => {
             <label>${option4} sqm</label>
             <input type="radio" name="answer" value="${option4}">
           </div>
-          <button class="stopBtn">Stop Questions</button>
+          <button class="stopBtn">Give Up</button>
           `);
 
 
@@ -367,7 +363,6 @@ $(() => {
         //Forth Question
         function ask4thQuestion(option1, option2, option3, option4) {
           $("#quizPopup").html(`
-            <h3>Question 4</h3>
             <p>In what subregion is ${countries[countryCode].name} located? </p>
 
             <div class="qHolder">
@@ -386,7 +381,7 @@ $(() => {
               <label>${option4}</label>
               <input type="radio" name="answer" value="${option4}">
             </div>
-            <button class="stopBtn">Stop Questions</button>
+            <button class="stopBtn">Give Up</button>
             `);
 
 
@@ -426,7 +421,6 @@ $(() => {
           //Fifth Question
           let ask5thQuestion = function(option1, option2, option3, option4) {
             $("#quizPopup").html(`
-              <h3>Question 5</h3>
               <p>Which currency is used in ${countries[countryCode].name}? </p>
 
               <div class="qHolder">
@@ -445,7 +439,7 @@ $(() => {
                 <label>${option4}</label>
                 <input type="radio" name="answer" value="${option4}">
               </div>
-              <button class="stopBtn">Stop Questions</button>
+              <button class="stopBtn">Give Up</button>
               `
             );
               //Check for correct answer and return true or false.
@@ -485,7 +479,7 @@ $(() => {
               $("#quizPopup").html(`
                 <h3>Question 6</h3>
                 <p>How many countries border ${countries[countryCode].name}? </p>
-
+                
                 <div class="qHolder">
                   <label>${option1}</label>
                   <input type="radio" name="answer" value="${option1}">
@@ -503,7 +497,7 @@ $(() => {
                   <input type="radio" name="answer" value="${option4}">
                 </div>
 
-                <button class="stopBtn">Stop Questions</button>
+                <button class="stopBtn">Give Up</button>
                 `);
 
 

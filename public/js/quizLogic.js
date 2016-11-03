@@ -189,7 +189,7 @@ $(function () {
 
     function ask1stQuestion(option1, option2, option3, option4) {
 
-      $("#quizPopup").html("\n        <h3>Question 1</h3>\n        <p>What is the capital of " + countries[countryCode].name + "? </p>\n        <div class=\"qHolder\">\n          <label>" + option1 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option2 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option3 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option4 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        </div>\n        <button class=\"stopBtn\">Stop Questions</button>\n\n        ");
+      $("#quizPopup").html("\n        <p>What is the capital of " + countries[countryCode].name + "? </p>\n        <div class=\"qHolder\">\n          <label>" + option1 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option2 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option3 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option4 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        </div>\n        <button class=\"stopBtn\">Give Up</button>\n\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -224,7 +224,7 @@ $(function () {
 
     //Second Question
     function ask2ndQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n        <h3>Question 2</h3>\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        </div>\n        <div class=\"qHolder\"><label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        </div>\n        <button class=\"stopBtn\">Stop Questions</button>\n      ");
+      $("#quizPopup").html("\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        </div>\n        <div class=\"qHolder\"><label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n\n        </div>\n        <button class=\"stopBtn\">Give Up</button>\n      ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -253,7 +253,11 @@ $(function () {
     }
     //Third Question
     function ask3rdQuestion(option1, option2, option3, option4) {
+<<<<<<< HEAD
       $("#quizPopup").html("\n          <h3>Question 3</h3>\n          <p>What is the area of " + countries[countryCode].name + "? </p>\n\n\n          <div class=\"qHolder\">\n            <label>" + option1 + " sqm</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option2 + " sqKm</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option3 + " sqm</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option4 + " sqm</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n          </div>\n          <button class=\"stopBtn\">Stop Questions</button>\n          ");
+=======
+      $("#quizPopup").html("\n          <p>What is the area of " + countries[countryCode].name + "? </p>\n\n          <div class=\"qHolder\">\n            <label>" + option1 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option2 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option3 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option4 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n          </div>\n          <button class=\"stopBtn\">Give Up</button>\n          ");
+>>>>>>> development
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -289,7 +293,7 @@ $(function () {
     }
     //Forth Question
     function ask4thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n            <h3>Question 4</h3>\n            <p>In what subregion is " + countries[countryCode].name + " located? </p>\n\n            <div class=\"qHolder\">\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n            </div>\n            <button class=\"stopBtn\">Stop Questions</button>\n            ");
+      $("#quizPopup").html("\n            <p>In what subregion is " + countries[countryCode].name + " located? </p>\n\n            <div class=\"qHolder\">\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n            </div>\n            <button class=\"stopBtn\">Give Up</button>\n            ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -325,7 +329,12 @@ $(function () {
     }
     //Fifth Question
     var ask5thQuestion = function ask5thQuestion(option1, option2, option3, option4) {
+<<<<<<< HEAD
       $("#quizPopup").html("\n              <h3>Question 5</h3>\n              <p>Which currency is used in " + countries[countryCode].name + "? </p>\n\n              <div class=\"qHolder\">\n                <label>" + option1 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option2 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option3 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option4 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              </div>\n              <button class=\"stopBtn\">Stop Questions</button>\n              ");
+=======
+      $("#quizPopup").html("\n              <p>Which currency is used in " + countries[countryCode].name + "? </p>\n\n              <div class=\"qHolder\">\n                <label>" + option1 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option2 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option3 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option4 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              </div>\n              <button class=\"stopBtn\">Give Up</button>\n              ");
+
+>>>>>>> development
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentCurrency) {
@@ -357,7 +366,11 @@ $(function () {
 
     //Sixth Question
     var ask6thQuestion = function ask6thQuestion(option1, option2, option3, option4) {
+<<<<<<< HEAD
       $("#quizPopup").html("\n                <h3>Question 6</h3>\n                <p>How many countries border " + countries[countryCode].name + "? </p>\n\n                <div class=\"qHolder\">\n                  <label>" + option1 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option2 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option3 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option4 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                </div>\n\n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
+=======
+      $("#quizPopup").html("\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n\n                <div class=\"qHolder\">\n                  <label>" + option1 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option2 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option3 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option4 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                </div>\n\n                <button class=\"stopBtn\">Give Up</button>\n                ");
+>>>>>>> development
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {

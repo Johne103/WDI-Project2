@@ -3,9 +3,9 @@
 @import '_variables';
 @import '_mixins';
 
-// * {
-//   box-sizing: border-box;
-// }
+* {
+  box-sizing: border-box;
+}
 body, html{
   height: 100%;
   margin: 0;
@@ -20,17 +20,21 @@ nav {
 
   display:block;
 
-  background-color: rgba(250,0,6,1);
+  // background-color: rgba(250,0,6,1);
 
     a {
       width:48%;
       margin: 10px 0px;
 
-      color: rgba(255,255,255,1);
-      font-family: "classic-comic";
+      color: yellow;
+      font-family: knewave;
       text-align: center;
       &.logout {
         width: 100%;
+      }
+
+      a:hover{
+        color:yellow;
       }
     }
 }
@@ -41,7 +45,7 @@ nav {
   position: relative;
   z-index: 2;
 
-  background-color: #1d1d1d;
+  background-color: #0d0c47;
   background-image: url('/images/speck.png');
   background-repeat: repeat;
   color: white;
@@ -62,7 +66,7 @@ nav {
   top: 0;
   right: 0;
   z-index: 2;
-  background-color: #1d1d1d;
+  background-color: #0d0c47;
   background-image: url('/images/speck.png');
   background-repeat: repeat;
   color: white;
@@ -89,6 +93,11 @@ a:hover {
   color:white;
 }
 
+a:active {
+  color:white;
+}
+
+
 .btn {
 
   background-color: #0d0c47;
@@ -108,7 +117,7 @@ img {
   text-align: center;
 }
 .rulesContent {
-  font-size: 11px;
+  font-size: 12px;
   font-family: helvetica;
 }
 
@@ -135,10 +144,19 @@ img {
   margin-top: 20px;
   margin-left: 40px;
   color:red;
+  border-radius: 5px;
 }
 
 .cPower {
   display: none;
+}
+
+.rulesT {
+
+border: 1px dotted white;
+padding: 2px;
+font-size: 14px;
+
 }
 // Import sections
 
