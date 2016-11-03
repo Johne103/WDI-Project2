@@ -127,8 +127,8 @@ function changeIcon(ci) {
 
 $(function () {
 
-  $main = $('#hud main');
-  $main2 = $('#hud2 main');
+  var $main = $('#hud main');
+  var $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
   $main.on('click', '.delete', deleteUser);
@@ -275,6 +275,7 @@ $(function () {
 
   // LOGOUT
   function logout() {
+
     if (event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
@@ -283,6 +284,10 @@ $(function () {
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
+    $main.parent().css({
+      'width': '45%',
+      'background-color': "#0d0c47"
+    });
   }
 
   var $mapDiv = $('#map');
@@ -302,6 +307,7 @@ $(function () {
   });
 
   function showRules() {
+
     $main.html("\n      <div class=\"rulesContent\">\n      <button class=\"exitRules\" >x</button>\n      <p>\n      <strong class=\"rulesT\">Object:</strong>\n      <br>Score the most points to win the game. <br>\n      <strong class=\"rulesT\">Setup:</strong>\n      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n      <br>\n      <strong class=\"rulesT\">Playing the game:</strong>\n      <br>\n      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n      Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n      After comparing the scores, a winner is annouced.</p></div>\n      ");
     $(".rules").hide();
   }
