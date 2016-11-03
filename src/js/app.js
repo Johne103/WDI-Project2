@@ -336,7 +336,7 @@ $(() =>{
     if(event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
-
+    clearMarkers();
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
