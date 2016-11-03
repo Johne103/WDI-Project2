@@ -34,7 +34,7 @@ $(() => {
 
   $gameOverScreen.hide();
   $turnIndicator.hide();
-  
+
   function conquerCountry(marker) {
     google.maps.event.clearListeners(gv.turnInfo.currentIcon);
     console.log('NO CLECK NO CRY');
@@ -102,6 +102,17 @@ $(() => {
     closeWindow();
   }
 
+  function checkAI() {
+    if (gv.turnInfo.turn === 2) {
+      runAI();
+    }
+  }
+
+  function runAI(){
+    // get random country.
+  }
+
+  console.log(getArray());
 
   getArray(() => {
     $('#map').on('click', '.conquer', function() {

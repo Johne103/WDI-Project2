@@ -97,6 +97,18 @@ $(function () {
     closeWindow();
   }
 
+  function checkAI() {
+    if (gv.turnInfo.turn === 2) {
+      runAI();
+    }
+  }
+
+  function runAI() {
+    // get random country.
+  }
+
+  console.log(getArray());
+
   getArray(function () {
     $('#map').on('click', '.conquer', function () {
       var countryCode = $(this).data('country');
