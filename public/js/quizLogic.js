@@ -44,6 +44,7 @@ $(function () {
 
   function closeWindow() {
     $('#quizPopup').hide();
+    processTurn(gv.turnInfo.turn);
   }
 
   function getArray(callback) {
