@@ -377,6 +377,7 @@ $(() =>{
   });
 
   function showRules () {
+
       $main.html(`
       <div class="rulesContent">
       <button class="exitRules" >x</button>
