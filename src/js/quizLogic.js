@@ -1,4 +1,5 @@
 $(() => {
+
   let countryData = [];
   let selectedCountries = [];
   let currentCountry = "";
@@ -21,8 +22,8 @@ $(() => {
   let $gameOverScreen = $('#gameOverDiv');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 3;
-  gv.players.player2.turnCounter = 3;
+  gv.players.player1.turnCounter = 1;
+  gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
 
@@ -35,12 +36,31 @@ $(() => {
 
   function makeResetWork() {
     $('#restart').click( function() {
-      console.log("CLEKCK!");
+      gv.players.player1.powerDiv.html('');
+      gv.players.player2.powerDiv.html('');
+
+      $answerGiven.html('');
+      $turnDisplay.html('');
+
+      gv.players.player1.turnDisplayDiv.html('');
+      gv.players.player2.turnDisplayDiv.html('');
+
+      gv.players.player1.power = 0;
+      gv.players.player2.power = 0;
+      gv.players.player1.turnCounter = 1;
+      gv.players.player2.turnCounter = 1;
+
+      $gameOverScreen.hide();
+
+      google.maps.event.clearInstanceListeners(map);
+
+      startGame();
     });
   }
 
   function endGame() {
     console.log("GAME OVER!!");
+    $gameOverScreen.show();
     $gameOverScreen.html(`
       <h2>Game Over</h2>
       <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
@@ -68,10 +88,6 @@ $(() => {
     closeWindow();
   }
 
-
-  function initialize(){
-
-  }
 
   getArray(() => {
     $('#map').on('click', '.conquer', function() {

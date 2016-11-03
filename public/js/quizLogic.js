@@ -1,6 +1,7 @@
 "use strict";
 
 $(function () {
+
   var countryData = [];
   var selectedCountries = [];
   var currentCountry = "";
@@ -23,8 +24,8 @@ $(function () {
   var $gameOverScreen = $('#gameOverDiv');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 3;
-  gv.players.player2.turnCounter = 3;
+  gv.players.player1.turnCounter = 1;
+  gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
 
@@ -35,12 +36,31 @@ $(function () {
 
   function makeResetWork() {
     $('#restart').click(function () {
-      console.log("CLEKCK!");
+      gv.players.player1.powerDiv.html('');
+      gv.players.player2.powerDiv.html('');
+
+      $answerGiven.html('');
+      $turnDisplay.html('');
+
+      gv.players.player1.turnDisplayDiv.html('');
+      gv.players.player2.turnDisplayDiv.html('');
+
+      gv.players.player1.power = 0;
+      gv.players.player2.power = 0;
+      gv.players.player1.turnCounter = 1;
+      gv.players.player2.turnCounter = 1;
+
+      $gameOverScreen.hide();
+
+      google.maps.event.clearInstanceListeners(map);
+
+      startGame();
     });
   }
 
   function endGame() {
     console.log("GAME OVER!!");
+    $gameOverScreen.show();
     $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
@@ -62,8 +82,6 @@ $(function () {
     gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
     closeWindow();
   }
-
-  function initialize() {}
 
   getArray(function () {
     $('#map').on('click', '.conquer', function () {

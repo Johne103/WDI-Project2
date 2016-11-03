@@ -50,6 +50,64 @@ var map = void 0;
 var fnc_removeListener = void 0;
 var currentCountryListener = void 0;
 var infoWindow = null;
+var $main = null;
+var $main2 = null;
+
+var markers = [];
+
+function clearMarkers() {
+  markers.forEach(function (marker) {
+    marker.setMap(null);
+  });
+
+  markers = [];
+}
+
+function startGame() {
+  var currentWindow = null;
+  clearMarkers();
+  $main2.parent().css("opacity", "0.7");
+
+  var _loop = function _loop(countryCode) {
+
+    var country = countries[countryCode];
+    var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+    var marker = new google.maps.Marker({
+      map: map,
+      position: latLng,
+      icon: "images/grayMarker.png"
+
+    });
+
+    marker.metadata = { type: "country", id: country.name };
+
+    markers.push(marker);
+
+    var countryDetails = "\n      <div id='content' >\n        <h1>" + country.name + "</h1>\n        <div id='countryInfo'>\n            <ul>\n              <li>Power to be gained per question</li>\n              <li class=\"countryPower\">" + country.power + ("</li>\n              <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer?</button>\n            </ul>\n        </div>\n      </div>\n      ");
+
+    var eventlistener = marker.addListener('click', function () {
+
+      infoWindow = new google.maps.InfoWindow({
+        content: countryDetails,
+        position: new google.maps.LatLng(latLng.lat, latLng.lng)
+      });
+
+      $('.cPower').html("" + country.power);
+      gv.turnInfo.currentIcon = this; // set global to variable.
+
+
+      if (currentWindow !== null) {
+        currentWindow.close();
+      }
+      infoWindow.open(map, marker);
+      currentWindow = infoWindow;
+    });
+  };
+
+  for (var countryCode in countries) {
+    _loop(countryCode);
+  }
+}
 
 function changeIcon(ci) {
   console.log(ci);
@@ -63,8 +121,8 @@ function changeIcon(ci) {
 
 $(function () {
 
-  var $main = $('#hud main');
-  var $main2 = $('#hud2 main');
+  $main = $('#hud main');
+  $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
@@ -227,48 +285,6 @@ $(function () {
 
   map.setOptions({ maxZoom: 7 });
 
-  function startGame() {
-    var currentWindow = null;
-    $main2.parent().css("opacity", "0.7");
-
-    var _loop = function _loop(countryCode) {
-
-      var country = countries[countryCode];
-      var latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      var marker = new google.maps.Marker({
-        map: map,
-        position: latLng,
-        icon: "images/grayMarker.png"
-
-      });
-
-      marker.metadata = { type: "country", id: country.name };
-
-      var countryDetails = "\n        <div id='content' >\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer?</button>\n              </ul>\n          </div>\n        </div>\n        ");
-
-      var eventlistener = marker.addListener('click', function () {
-
-        infoWindow = new google.maps.InfoWindow({
-          content: countryDetails,
-          position: new google.maps.LatLng(latLng.lat, latLng.lng)
-        });
-
-        $('.cPower').html("" + country.power);
-        gv.turnInfo.currentIcon = this; // set global to variable.
-
-
-        if (currentWindow !== null) {
-          currentWindow.close();
-        }
-        infoWindow.open(map, marker);
-        currentWindow = infoWindow;
-      });
-    };
-
-    for (var countryCode in countries) {
-      _loop(countryCode);
-    }
-  }
   $('#rulesLink').on("click", showRules);
 
   function showRules() {
