@@ -182,7 +182,7 @@ $(function () {
 
         var selected = characterId === obj.id ? "selected" : "";
         if (selected === "selected") {
-          alert('yo dis is sick!');
+          // alert('yo dis is sick!');
           $hiddenField.val(obj.id);
         }
         $avatars.append("\n          <div class=\"avatar " + selected + "\" data-id=\"" + obj.id + "\">\n            <img src=\"" + (obj.thumbnail.path + '.' + obj.thumbnail.extension) + "\" alt=\"profile image\">\n              <div class=\"overlay\">\n                <h4>" + obj.name + "</h4>\n              </div>\n          </div>\n        ");
@@ -275,6 +275,8 @@ $(function () {
     var id = $(this).data('id');
     var token = localStorage.getItem('token');
 
+    $('html').find('.startGame').remove();
+
     $.ajax({
       url: "/api/user/" + id,
       method: "GET",
@@ -296,6 +298,8 @@ $(function () {
     var id = $(this).data('id');
     var token = localStorage.getItem('token');
 
+    $('html').find('.startGame').remove();
+
     $.ajax({
       url: "/api/user/" + id,
       method: "DELETE",
@@ -312,6 +316,7 @@ $(function () {
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
+    $('#showPlayerTurn').hide();
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();

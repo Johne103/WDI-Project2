@@ -195,7 +195,7 @@ $(() => {
 
         let selected = characterId === obj.id ? "selected" : "";
         if (selected === "selected") {
-          alert('yo dis is sick!');
+          // alert('yo dis is sick!');
           $hiddenField.val(obj.id);
         }
         $avatars.append(`
@@ -348,6 +348,8 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
+    $('html').find('.startGame').remove();
+
     $.ajax({
       url: `/api/user/${id}`,
       method: "GET",
@@ -383,6 +385,8 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
+    $('html').find('.startGame').remove();
+
     $.ajax({
       url: `/api/user/${id}`,
       method: "DELETE",
@@ -402,6 +406,7 @@ $(() => {
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
+    $('#showPlayerTurn').hide();
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
