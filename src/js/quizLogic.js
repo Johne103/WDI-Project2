@@ -49,7 +49,7 @@ $(() => {
 
   function closeWindow () {
     $('#quizPopup').hide();
-    processTurn(gv.turnInfo.turn);
+    // processTurn(gv.turnInfo.turn);
   }
 
   function getArray(callback) {
@@ -411,7 +411,7 @@ $(() => {
                   if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                       $('#quizPopup').hide();
                   } else {
-            
+
                     selectedCountries = shuffle(selectCountries(countryCode));
                     ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
                   }
@@ -440,7 +440,7 @@ $(() => {
                   <label>${option4}</label>
                   <input type="radio" name="answer" value="${option4}">
                 </div>
-                
+
                 <button class="stopBtn">Stop Questions</button>
                 `);
 
@@ -478,7 +478,7 @@ $(() => {
 
         // functions to check if the turns have ended and to display gameOver screen when out of turns
         function gameOverChecker() {
-          if (gv.players['player' + gv.turnInfo.turn].turnCounter <= 0){
+          if (gv.players.player2.turnCounter <= 0){
             console.log("GAME OVER MAN");
             endGame();
           }
@@ -494,7 +494,7 @@ $(() => {
           console.log("GAME OVER!!");
           $gameOverScreen.html(`
             <h2>Game Over</h2>
-            <p id="playerOneFinalScore">Player One has `+ gv.players['player' + gv.turnInfo.turn].power +`</p>
+            <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
             <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
             <button id="restart">Restart</button>
           `);
