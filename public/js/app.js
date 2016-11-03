@@ -13,6 +13,19 @@ var gv = {
     player2: {
       avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
     }
+  },
+  heroes: {
+    "wolverine": "rgba(55,174,182,1)",
+    "deadpool": "rgba(55,174,182,1)",
+    "hulk": "rgba(64,38,85,1)",
+    "magneto": "rgba(64,38,85,1)",
+    "apocalypse": "rgba(193,97,21,1)",
+    "venom": "rgba(191,157,24,1)",
+    "spider-man": "rgba(191,157,24,1)",
+    "loki": "rgba(139,139,139,1)",
+    "doctor octopus": "rgba(194,94,19,1)",
+    "star-lord": "rgba(140,37,22,1)",
+    "doctor doom": "rgba(40,107,152,1)"
   }
 };
 
@@ -50,7 +63,9 @@ function changeIcon(ci) {
 
 $(function () {
 
-  var $main = $('main');
+  var $main = $('#hud main');
+  var $main2 = $('#hud2 main');
+
   $main.on('submit', 'form', handleForm);
   $main.on('click', 'button.delete', deleteUser);
   $main.on('click', 'button.edit', getAvatars);
@@ -145,10 +160,28 @@ $(function () {
       method: 'GET'
     }).done(function (profile) {
       var obj = profile.data[0];
-      $main.parent().css('width', '25%');
+      $main.parent().css({
+        'width': '15%',
+        'background-color': gv.heroes[obj.name.toLowerCase()]
+      });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player1.avatar + "\" >\n          </div>\n          <h3>" + user + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
-      // showPlayers(data);
+    }).fail(showLoginForm);
+
+    var characters = ['venom', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto'];
+    var rndCharacter = characters[Math.floor(Math.random() * characters.length)];
+    console.log(rndCharacter);
+    // Player 2
+    $.ajax({
+      url: "/api/profile/" + rndCharacter,
+      method: 'GET'
+    }).done(function (profile) {
+      var obj = profile.data[0];
+      gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      $main2.parent().css({
+        'background-color': gv.heroes[obj.name.toLowerCase()]
+      });
+      $main2.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player2.avatar + "\" >\n          </div>\n          <h3>" + obj.name + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
     }).fail(showLoginForm);
   }
 
@@ -210,6 +243,7 @@ $(function () {
 
   function startGame() {
     var currentWindow = null;
+    $main2.parent().css("opacity", "0.7");
 
     var _loop = function _loop(countryCode) {
 
@@ -232,6 +266,7 @@ $(function () {
           content: countryDetails,
           position: latLng
         });
+
         $('.cPower').html("" + country.power);
         gv.turnInfo.currentIcon = this; // set global to variable.
 

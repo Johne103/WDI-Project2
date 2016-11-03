@@ -14,21 +14,27 @@ $(function () {
   var isCountry = "";
   var answerToQuestion = "";
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
-  gv.players.player1.powerDiv = $('#playerOnePower');
-  gv.players.player2.powerDiv = $('#playerTwoPower');
+  gv.players.player1.powerDiv = $('#hud .playerPower');
+  gv.players.player2.powerDiv = $('#hud2 .playerPower');
   var $answerGiven = $('.answerGiven');
   var $turnDisplay = $('.turnDisplay');
+  gv.players.player1.turnDisplayDiv = $('#hud .playerPower');
+  gv.players.player2.turnDisplayDiv = $('#hud2 .playerPower');
   var $gameOverScreen = $('#gameOverDiv');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 20;
-  gv.players.player2.turnCounter = 20;
+  gv.players.player1.turnCounter = 3;
+  gv.players.player2.turnCounter = 3;
 
   function processTurn() {
+    gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player" + gv.turnInfo.turn].turnCounter--;
-    $turnDisplay.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
+    gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn - 1;
-    console.log(gv.turnInfo.turn, gv.turnInfo.turn === 1);
+
+    console.log(gv.turnInfo.turn);
+    gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '1');
+    closeWindow();
   }
 
   getArray(function () {
@@ -40,7 +46,7 @@ $(function () {
     });
   });
 
-  $('#quizPopup').on("click", '.stopBtn', closeWindow);
+  $('#quizPopup').on("click", '.stopBtn', processTurn);
 
   function closeWindow() {
     $('#quizPopup').hide();
@@ -147,7 +153,7 @@ $(function () {
 
     function ask1stQuestion(option1, option2, option3, option4) {
 
-      $("#quizPopup").html("\n        <h3>Question 1</h3>\n        <p>What is the capital of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        <button class=\"stopBtn\">Stop Questions</button>\n\n        ");
+      $("#quizPopup").html("\n        <h3>Question 1</h3>\n        <p>What is the capital of " + countries[countryCode].name + "? </p>\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option1 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option2 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option3 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        </div>\n        <div class=\"qHolder\">\n          <label>" + option4 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        </div>\n        <button class=\"stopBtn\">Stop Questions</button>\n\n        ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -155,17 +161,9 @@ $(function () {
           answerToQuestion = true;
           $answerGiven.html('Yeh You Gave the Right Answer');
           // $main.html(`Oh Yes.`);
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct selected: ' + currentCapital);
-
           // Should update players amount of power upon answering question correctly
           gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-          console.log(currentCountryPower, gv.players.player1.power);
           gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-          // should update number of turns left after question is answered
-          // gv.players.player1.turnCounter--;
-          $turnDisplay.html('Turns left: ' + gv.players['player' + gv.turnInfo.turn].turnCounter);
-          console.log(gv.turnInfo.currentIcon);
           changeIcon(gv.turnInfo.currentIcon);
           //function to check if game has ended(out of turns)
           gameOverChecker();
@@ -173,13 +171,10 @@ $(function () {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           // $main.html(`Oh No.`);
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct not selected: ' + currentCapital);
           // should update number of turns left after question is answered
           processTurn(gv.turnInfo.turn);
           //function to check if game has ended(out of turns)
           gameOverChecker();
-          closeWindow();
         }
         if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
@@ -193,15 +188,13 @@ $(function () {
 
     //Second Question
     function ask2ndQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n        <h3>Question 2</h3>\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        <label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        <label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        <label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        <label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        <button class=\"stopBtn\">Stop Questions</button>\n      ");
+      $("#quizPopup").html("\n        <h3>Question 2</h3>\n        <p>What is the population of " + countries[countryCode].name + "? </p>\n        </div>\n        <div class=\"qHolder\"><label>" + option1 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option2 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option3 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n        </div>\n        <div class=\"qHolder\"><label>" + option4 + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n        </div>\n        <button class=\"stopBtn\">Stop Questions</button>\n      ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentPopulation) {
           answerToQuestion = true;
           $answerGiven.html('Yeh You Gave the Right Answer');
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct selected: ' + currentPopulation);
 
           // Should update players amount of power upon answering question correctly
           gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
@@ -209,13 +202,10 @@ $(function () {
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
-          console.log("Answer: " + answerToQuestion);
-          console.log('correct not selected: ' + currentPopulation);
           // should update number of turns left after question is answered
           processTurn();
           //function to check if game has ended(out of turns)
           gameOverChecker();
-          closeWindow();
         }
         if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
@@ -227,7 +217,7 @@ $(function () {
     }
     //Third Question
     function ask3rdQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n          <h3>Question 3</h3>\n          <p>What is the area of " + countries[countryCode].name + "? </p>\n          <label>" + option1 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n          <label>" + option2 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n          <label>" + option3 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n          <label>" + option4 + "</label>\n          <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n          <button class=\"stopBtn\">Stop Questions</button>\n          ");
+      $("#quizPopup").html("\n          <h3>Question 3</h3>\n          <p>What is the area of " + countries[countryCode].name + "? </p>\n\n          <div class=\"qHolder\">\n            <label>" + option1 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option2 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option3 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n          </div>\n          <div class=\"qHolder\">\n            <label>" + option4 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n          </div>\n          <button class=\"stopBtn\">Stop Questions</button>\n          ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -242,7 +232,6 @@ $(function () {
           gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
           // should update number of turns left after question is answered
           // gv.players.player1.turnCounter--;
-          $turnDisplay.html('Turns left: ' + gv.players['player' + gv.turnInfo.turn].turnCounter);
         } else {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
@@ -250,25 +239,13 @@ $(function () {
           console.log('correct not selected: ' + currentArea);
           // should update number of turns left after question is answered
           //function to check if game has ended(out of turns)
+          processTurn();
           gameOverChecker();
-          closeWindow();
         }
         if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
 
-          if (selectedCountries[0].subRegion === undefined || selectedCountries[0].subRegion === null) {
-            selectedCountries[0].subRegion = "XXX";
-          }
-          if (selectedCountries[1].subRegion === undefined || selectedCountries[1].subRegion === null) {
-            selectedCountries[1].subRegion = 'YYY';
-          }
-          if (selectedCountries[2].subRegion === undefined || selectedCountries[2].subRegion === null) {
-            selectedCountries[2].subRegion = 'ZZZ';
-          }
-          if (selectedCountries[3].subRegion === undefined || selectedCountries[3].subRegion === null) {
-            selectedCountries[3].subRegion = 'PPP';
-          }
           selectedCountries = shuffle(selectCountries(countryCode));
           ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
         }
@@ -276,7 +253,7 @@ $(function () {
     }
     //Forth Question
     function ask4thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n            <h3>Question 4</h3>\n            <p>In what subregion is " + countries[countryCode].name + " located? </p>\n            <label>" + option1 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n            <label>" + option2 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n            <label>" + option3 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n            <label>" + option4 + "</label>\n            <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n            <button class=\"stopBtn\">Stop Questions</button>\n            ");
+      $("#quizPopup").html("\n            <h3>Question 4</h3>\n            <p>In what subregion is " + countries[countryCode].name + " located? </p>\n\n            <div class=\"qHolder\">\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n            </div>\n            <div class=\"qHolder\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n            </div>\n            <button class=\"stopBtn\">Stop Questions</button>\n            ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -294,30 +271,17 @@ $(function () {
           answerToQuestion = false;
           $answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
-          console.log('correct not selected: ' + currentRegion);
+          // console.log('correct not selected: ' + currentRegion);
           // should update number of turns left after question is answered
           // processTurn();
           //function to check if game has ended(out of turns)
           processTurn();
           gameOverChecker();
-          closeWindow();
         }
         if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
 
-          if (selectedCountries[0].currencies === undefined || selectedCountries[0].currencies === null) {
-            selectedCountries[0].currencies = "XXX";
-          }
-          if (selectedCountries[1].currencies === undefined || selectedCountries[1].currencies === null) {
-            selectedCountries[1].currencies = 'YYY';
-          }
-          if (selectedCountries[2].currencies === undefined || selectedCountries[2].currencies === null) {
-            selectedCountries[2].currencies = 'ZZZ';
-          }
-          if (selectedCountries[3].currencies === undefined || selectedCountries[3].currencies === null) {
-            selectedCountries[3].currencies = 'PPP';
-          }
           selectedCountries = shuffle(selectCountries(countryCode));
           ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
         }
@@ -325,7 +289,7 @@ $(function () {
     }
     //Fifth Question
     var ask5thQuestion = function ask5thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n              <h3>Question 5</h3>\n              <p>Which currency is used in " + countries[countryCode].name + "? </p>\n              <label>" + option1 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              <label>" + option2 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              <label>" + option3 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              <label>" + option4 + "</label>\n              <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              <button class=\"stopBtn\">Stop Questions</button>\n              ");
+      $("#quizPopup").html("\n              <h3>Question 5</h3>\n              <p>Which currency is used in " + countries[countryCode].name + "? </p>\n\n              <div class=\"qHolder\">\n                <label>" + option1 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option2 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option3 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n              </div>\n              <div class=\"qHolder\">\n                <label>" + option4 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n              </div>\n              <button class=\"stopBtn\">Stop Questions</button>\n              ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -344,25 +308,11 @@ $(function () {
           console.log('currency is not ' + currentCurrency);
           processTurn();
           gameOverChecker();
-          closeWindow();
           // should update number of turns left after question is answered
         }
         if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
           $('#quizPopup').hide();
         } else {
-
-          if (selectedCountries[0].borders === undefined || selectedCountries[0].borders === null) {
-            selectedCountries[0].borders = "XXX";
-          }
-          if (selectedCountries[1].borders === undefined || selectedCountries[1].borders === null) {
-            selectedCountries[1].borders = 'YYY';
-          }
-          if (selectedCountries[2].borders === undefined || selectedCountries[2].borders === null) {
-            selectedCountries[2].borders = 'ZZZ';
-          }
-          if (selectedCountries[3].borders === undefined || selectedCountries[3].borders === null) {
-            selectedCountries[3].borders = 'PPP';
-          }
 
           selectedCountries = shuffle(selectCountries(countryCode));
           ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
@@ -372,7 +322,7 @@ $(function () {
 
     //Sixth Question
     var ask6thQuestion = function ask6thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n                <h3>Question 6</h3>\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n                <label>" + option1 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                <label>" + option2 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                <label>" + option3 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                <label>" + option4 + "</label>\n                <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
+      $("#quizPopup").html("\n                <h3>Question 6</h3>\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n\n                <div class=\"qHolder\">\n                  <label>" + option1 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option2 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option3 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option4 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                </div>\n\n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -401,18 +351,6 @@ $(function () {
           $('#quizPopup').hide();
         } else {
 
-          if (selectedCountries[0].currencies === undefined || selectedCountries[0].currencies === null) {
-            selectedCountries[0].currencies = "BBB";
-          }
-          if (selectedCountries[1].currencies === undefined || selectedCountries[1].currencies === null) {
-            selectedCountries[1].currencies = 'YYY';
-          }
-          if (selectedCountries[2].currencies === undefined || selectedCountries[2].currencies === null) {
-            selectedCountries[2].currencies = 'ZZZ';
-          }
-          if (selectedCountries[3].currencies === undefined || selectedCountries[3].currencies === null) {
-            selectedCountries[3].currencies = 'PPP';
-          }
           selectedCountries = shuffle(selectCountries(countryCode));
           ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
         }
