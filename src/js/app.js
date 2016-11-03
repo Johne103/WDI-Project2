@@ -59,7 +59,7 @@ let rulesShowing = false;
 
 function clearMarkers() {
   markers.forEach((marker) => {
-    marker.setMap(null);
+    marker[1].setMap(null);
   });
 
   markers = [];
@@ -86,8 +86,11 @@ function startGame() {
 
     marker.metadata = {type: "country", id: country.name};
 
-    markers.push(marker);
-
+    markers.push([
+      country.name,
+      marker,
+    ]);
+    console.log(markers);
     let countryDetails = `
       <div id='content' >
         <h1>`+ country.name + `</h1>

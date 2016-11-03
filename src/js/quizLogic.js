@@ -112,8 +112,6 @@ $(() => {
     // get random country.
   }
 
-  console.log(getArray());
-
   getArray(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');

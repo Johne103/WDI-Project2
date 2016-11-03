@@ -57,7 +57,7 @@ var rulesShowing = false;
 
 function clearMarkers() {
   markers.forEach(function (marker) {
-    marker.setMap(null);
+    marker[1].setMap(null);
   });
 
   markers = [];
@@ -85,8 +85,8 @@ function startGame() {
 
     marker.metadata = { type: "country", id: country.name };
 
-    markers.push(marker);
-
+    markers.push([country.name, marker]);
+    console.log(markers);
     var countryDetails = "\n      <div id='content' >\n        <h1>" + country.name + "</h1>\n        <div id='countryInfo'>\n            <ul>\n              <li>Power to be gained per question</li>\n              <li class=\"countryPower\">" + country.power + ("</li>\n              <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer?</button>\n            </ul>\n        </div>\n      </div>\n      ");
 
     var eventlistener = marker.addListener('click', function () {

@@ -107,8 +107,6 @@ $(function () {
     // get random country.
   }
 
-  console.log(getArray());
-
   getArray(function () {
     $('#map').on('click', '.conquer', function () {
       var countryCode = $(this).data('country');
