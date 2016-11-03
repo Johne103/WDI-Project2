@@ -207,6 +207,7 @@ $(() => {
     selectedCountries = shuffle(selectCountries(countryCode));
     const questions = [
       {
+        //First question
         theQuestion: 'What is the capital of ' ,
         option1: selectedCountries[0].capital,
         option2: selectedCountries[1].capital,
@@ -216,6 +217,7 @@ $(() => {
         countryCode: countryCode
       },
       {
+        //Second question
         theQuestion: 'What is the population of ' ,
         option1: selectedCountries[0].population.toLocaleString(),
         option2: selectedCountries[1].population.toLocaleString(),
@@ -223,6 +225,50 @@ $(() => {
         option4: selectedCountries[3].population.toLocaleString(),
         currentQuestion: currentPopulation,
         countryCode: countryCode
+      },
+      {
+        //Third question
+        theQuestion: 'What is the area of ' ,
+        option1: selectedCountries[0].area.toLocaleString(),
+        option2: selectedCountries[1].area.toLocaleString(),
+        option3: selectedCountries[2].area.toLocaleString(),
+        option4: selectedCountries[3].area.toLocaleString(),
+        currentQuestion: currentArea,
+        countryCode: countryCode
+
+      },
+      {
+        //Fourth question
+        theQuestion: 'In which is the sub region of ' ,
+        option1: selectedCountries[0].subRegion,
+        option2: selectedCountries[1].subRegion,
+        option3: selectedCountries[2].subRegion,
+        option4: selectedCountries[3].subRegion,
+        currentQuestion: currentSubRegion,
+        countryCode: countryCode
+
+      },
+      {
+        //Fifth question
+        theQuestion: 'What is the area of ' ,
+        option1: selectedCountries[0].area.toLocaleString(),
+        option2: selectedCountries[1].area.toLocaleString(),
+        option3: selectedCountries[2].area.toLocaleString(),
+        option4: selectedCountries[3].area.toLocaleString(),
+        currentQuestion: currentArea,
+        countryCode: countryCode
+
+      },
+      {
+        //Sixth question
+        theQuestion: 'What is the area of ' ,
+        option1: selectedCountries[0].area.toLocaleString(),
+        option2: selectedCountries[1].area.toLocaleString(),
+        option3: selectedCountries[2].area.toLocaleString(),
+        option4: selectedCountries[3].area.toLocaleString(),
+        currentQuestion: currentArea,
+        countryCode: countryCode
+
       }
     ];
 
