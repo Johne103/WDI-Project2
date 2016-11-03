@@ -52,14 +52,13 @@ $(() => {
 
       $gameOverScreen.hide();
 
-      google.maps.event.clearInstanceListeners(map);
-
       startGame();
     });
   }
 
   function endGame() {
     console.log("GAME OVER!!");
+    clearMarkers();
     $gameOverScreen.show();
     $gameOverScreen.html(`
       <h2>Game Over</h2>
