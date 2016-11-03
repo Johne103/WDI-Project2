@@ -312,7 +312,7 @@ $(() => {
             <input type="radio" name="answer" value="${option1}">
           </div>
           <div class="qHolder">
-            <label>${option2} sqKm</label>
+            <label>${option2} sqm</label>
             <input type="radio" name="answer" value="${option2}">
           </div>
           <div class="qHolder">
@@ -479,7 +479,7 @@ $(() => {
               $("#quizPopup").html(`
                 <h3>Question 6</h3>
                 <p>How many countries border ${countries[countryCode].name}? </p>
-                
+
                 <div class="qHolder">
                   <label>${option1}</label>
                   <input type="radio" name="answer" value="${option1}">
