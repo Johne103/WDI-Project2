@@ -18,7 +18,8 @@ $(function () {
   var numberOfQuestionOptions = 0; //Number of options to select for each question.
   gv.players.player1.powerDiv = $('#hud .playerPower');
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
-  var $answerGiven = $('.answerGiven');
+  gv.players.player1.$answerGiven = $('#hud .answerGiven');
+  gv.players.player2.$answerGiven = $('#hud2 .answerGiven');
   var $turnDisplay = $('.turnDisplay');
   gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
   gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
@@ -37,10 +38,12 @@ $(function () {
 
   function makeResetWork() {
     $('#restart').click(function () {
+      gv.players.player1.$answerGiven.html('');
+      gv.players.player2.$answerGiven.html('');
+
       gv.players.player1.powerDiv.html('');
       gv.players.player2.powerDiv.html('');
 
-      $answerGiven.html('');
       $turnDisplay.html('');
 
       gv.players.player1.turnDisplayDiv.html('');
@@ -212,7 +215,8 @@ $(function () {
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentCapital) {
           answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
+
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
           // $main.html(`Oh Yes.`);
           // Should update players amount of power upon answering question correctly
           gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
@@ -222,7 +226,7 @@ $(function () {
           conquerCountry();
         } else {
           answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
           // $main.html(`Oh No.`);
           // should update number of turns left after question is answered
           processTurn(gv.turnInfo.turn);
@@ -247,14 +251,14 @@ $(function () {
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentPopulation.toLocaleString()) {
           answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
 
           // Should update players amount of power upon answering question correctly
           gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
           gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
         } else {
           answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
           // should update number of turns left after question is answered
           processTurn();
           //function to check if game has ended(out of turns)
@@ -276,7 +280,7 @@ $(function () {
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentArea.toLocaleString()) {
           answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct selected: ' + currentArea);
 
@@ -287,7 +291,7 @@ $(function () {
           // gv.players.player1.turnCounter--;
         } else {
           answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct not selected: ' + currentArea);
           // should update number of turns left after question is answered
@@ -312,7 +316,7 @@ $(function () {
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentSubRegion) {
           answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct selected: ' + currentSubRegion);
 
@@ -322,7 +326,7 @@ $(function () {
           // should update number of turns left after question is answered
         } else {
           answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           // console.log('correct not selected: ' + currentRegion);
           // should update number of turns left after question is answered
@@ -347,7 +351,7 @@ $(function () {
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentCurrency) {
           answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
           console.log('currency is ' + currentCurrency);
 
           // Should update players amount of power upon answering question correctly
@@ -356,7 +360,7 @@ $(function () {
           // should update number of turns left after question is answered
         } else {
           answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log('currency is not ' + currentCurrency);
           processTurn();
           gameOverChecker();
@@ -380,7 +384,7 @@ $(function () {
       $('input:radio[name="answer"]').change(function () {
         if ($(this).val() == currentBorderCount) {
           answerToQuestion = true;
-          $answerGiven.html('Yeh You Gave the Right Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct border selected: ' + currentBorderCount);
 
@@ -392,7 +396,7 @@ $(function () {
           closeWindow();
         } else {
           answerToQuestion = false;
-          $answerGiven.html('Oh No You Gave the Wrong Answer');
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
           console.log("Answer: " + answerToQuestion);
           console.log('correct border not selected: ' + currentBorderCount);
           processTurn();
