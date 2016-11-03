@@ -68,11 +68,11 @@ function clearMarkers() {
 function startGame() {
   if (event) event.preventDefault();
   $(this).remove();
-  $('#showPlayerTurn').show();
+  // $('#showPlayerTurn').show();
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0.7");
+  gv.main.mainP2.parent().css("opacity", "0");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -410,6 +410,8 @@ $(() => {
     showLoginForm();
     clearMarkers();
     $('#showPlayerTurn').hide();
+    $('#gameOverDiv').hide();
+    $('#quizPopup').hide();
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
@@ -439,7 +441,7 @@ $(() => {
 
   function showRules () {
 
-      gv.main.mainP1.html(`
+      gv.main.mainP1.append(`
       <div class="rulesContent">
       <button class="exitRules" >x</button>
       <p>

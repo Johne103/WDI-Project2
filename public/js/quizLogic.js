@@ -67,13 +67,18 @@ $(function () {
   }
 
   function endGame() {
-    console.log("GAME OVER!!");
+    var winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
+    var draw = gv.players.player1.power === gv.players.player2.power;
+    var winStr = draw ? "It's a tie!" : winner + " wins!";
     clearMarkers();
     $turnIndicator.hide();
     $gameOverScreen.show();
-    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + " points</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + " points</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    $gameOverScreen.html("\n      <h2>Game Over</h2>\n\n      <p>" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
+
+  // <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +` points</p>
+  // <p id="playerTwoFinalScore">Player Two has `+ gv.players.player2.power +` points</p>
 
   function gameOverChecker() {
     if (gv.players.player2.turnCounter <= 0) {
@@ -83,15 +88,15 @@ $(function () {
   }
 
   function processTurn() {
-    gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.7');
+    gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0');
     gv.players["player" + gv.turnInfo.turn].turnCounter--;
     gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn - 1;
-    if (gv.turnInfo.turn === 1) {
-      $turnIndicator.html("Player 1's Turn");
-    } else if (gv.turnInfo.turn === 2) {
-      $turnIndicator.html("Player 2's Turn");
-    }
+    // if(gv.turnInfo.turn === 1){
+    //   $turnIndicator.html("Player 1's Turn");
+    // } else if (gv.turnInfo.turn === 2) {
+    //   $turnIndicator.html("Player 2's Turn");
+    // }
     console.log(gv.turnInfo.turn);
     gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
     closeWindow();
