@@ -147,7 +147,7 @@ $(function () {
     }).done(function (data) {
       if (data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username);
-      startGame();
+      $main.append("\n        <a class=\"nav-link edit\">Edit</a>\n        <a class=\"nav-link delete\">Delete</a>\n\n        ");
       $registerButton.hide();
       $login.hide();
       $logoutbutton.show();
