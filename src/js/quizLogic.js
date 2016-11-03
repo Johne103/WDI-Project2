@@ -232,7 +232,7 @@ $(() => {
           <label>${option4}</label>
           <input type="radio" name="answer" value="${option4}">
         </div>
-        <button class="stopBtn">Give Up</button>
+        <button class="stopBtn">Retreat</button>
 
         `);
 
@@ -288,7 +288,7 @@ $(() => {
         <input type="radio" name="answer" value="${option4}">
 
         </div>
-        <button class="stopBtn">Give Up</button>
+        <button class="stopBtn">Retreat</button>
       `);
 
         //Check for correct answer and return true or false.
@@ -338,7 +338,7 @@ $(() => {
             <label>${option4} sqm</label>
             <input type="radio" name="answer" value="${option4}">
           </div>
-          <button class="stopBtn">Give Up</button>
+          <button class="stopBtn">Retreat</button>
           `);
 
 
@@ -396,7 +396,7 @@ $(() => {
               <label>${option4}</label>
               <input type="radio" name="answer" value="${option4}">
             </div>
-            <button class="stopBtn">Give Up</button>
+            <button class="stopBtn">Retreat</button>
             `);
 
 
@@ -454,7 +454,7 @@ $(() => {
                 <label>${option4}</label>
                 <input type="radio" name="answer" value="${option4}">
               </div>
-              <button class="stopBtn">Give Up</button>
+              <button class="stopBtn">Retreat</button>
               `
             );
               //Check for correct answer and return true or false.
@@ -512,7 +512,7 @@ $(() => {
                   <input type="radio" name="answer" value="${option4}">
                 </div>
 
-                <button class="stopBtn">Give Up</button>
+                <button class="stopBtn">Retreat</button>
                 `);
 
 
