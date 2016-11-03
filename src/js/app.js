@@ -65,6 +65,8 @@ function clearMarkers() {
 }
 
 function startGame() {
+  if (event) event.preventDefault();
+  $(this).remove();
   let currentWindow = null;
   clearMarkers();
   $main2.parent().css("opacity", "0.7");
@@ -367,7 +369,9 @@ $(() =>{
 
   map.setOptions({ maxZoom: 7});
 
+
   $('#rulesLink').on("click", showRules);
+
 
 
   function showRules () {

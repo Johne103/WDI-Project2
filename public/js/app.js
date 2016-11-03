@@ -65,6 +65,8 @@ function clearMarkers() {
 }
 
 function startGame() {
+  if (event) event.preventDefault();
+  $(this).remove();
   var currentWindow = null;
   clearMarkers();
   $main2.parent().css("opacity", "0.7");
