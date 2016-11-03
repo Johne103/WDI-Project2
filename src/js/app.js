@@ -72,7 +72,7 @@ function startGame() {
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0.7");
+  gv.main.mainP2.parent().css("opacity", "0");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
