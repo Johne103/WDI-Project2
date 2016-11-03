@@ -16,8 +16,8 @@ $(() => {
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
   let $answerGiven = $('.answerGiven');
   let $turnDisplay = $('.turnDisplay');
-  gv.players.player1.turnDisplayDiv = $('#hud .playerPower');
-  gv.players.player2.turnDisplayDiv = $('#hud2 .playerPower');
+  gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
+  gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
@@ -58,13 +58,13 @@ $(() => {
   }
 
   function processTurn() {
-    gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player"+gv.turnInfo.turn].turnCounter--;
     gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.html ('Turns left: ' + gv.players["player"+gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn -1;
 
     console.log(gv.turnInfo.turn);
-    gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '1');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
     closeWindow();
   }
 
