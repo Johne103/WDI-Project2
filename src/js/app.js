@@ -51,8 +51,6 @@ let map;
 let fnc_removeListener;
 let currentCountryListener;
 let infoWindow = null;
-let $main = null;
-let $main2 = null;
 
 let markers = [];
 let rulesShowing = false;
@@ -70,7 +68,7 @@ function startGame() {
   $(this).remove();
   let currentWindow = null;
   clearMarkers();
-  $main2.parent().css("opacity", "0.7");
+  gv.main.mainP2.parent().css("opacity", "0.7");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -135,12 +133,13 @@ function changeIcon(ci) {
 
 $(() => {
 
-  let $main = $('#hud main');
-  let $main2 = $('#hud2 main');
+  gv.main.mainP1 = $('#hud main');
+  gv.main.mainP2 = $('#hud2 main');
 
-  $main.on('submit', 'form', handleForm);
-  $main.on('click', '.delete', deleteUser);
-  $main.on('click', '.edit', getUser);
+
+  gv.main.mainP1.on('submit', 'form', handleForm);
+  gv.main.mainP1.on('click', '.delete', deleteUser);
+  gv.main.mainP1.on('click', '.edit', getUser);
 
   $('html').on('click', '.startGame', startGame);
 
@@ -155,12 +154,12 @@ $(() => {
   $logoutbutton.on('click', logout);
 
 
-  $main.on('click', '.avatar', function() {
+  gv.main.mainP1.on('click', '.avatar', function() {
     console.log(this);
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
     let avatarID = $(this).data('id');
-    let input = $main.find('#characterId');
+    let input = gv.main.mainP1.find('#characterId');
     input.val(avatarID);
   });
 
@@ -206,7 +205,7 @@ $(() => {
       })
       .fail(function(jqXHR){
         console.log(jqXHR.status);
-        $main.html(`You are a failure.`);
+        gv.main.mainP1.html(`You are a failure.`);
       });
     }
     $avatars.append($hiddenField);
@@ -248,12 +247,12 @@ $(() => {
     })
     .done((profile) => {
       let obj = profile.data[0];
-      $main.parent().css({
+      gv.main.mainP1.parent().css({
         'width': '15%',
         'background-color': gv.heroes[obj.name.toLowerCase()]
         });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      $main.html(`
+      gv.main.mainP1.html(`
         <div class="profileHolder">
           <div class="profileImage">
             <img src="${gv.players.player1.avatar}" >
@@ -263,7 +262,7 @@ $(() => {
         </div>
         `);
 
-        $main.append(`
+        gv.main.mainP1.append(`
           <a class="nav-link edit" data-id="${userID}">Edit</a>
           <a class="nav-link delete" data-id="${userID}">Delete</a>
         `);
@@ -286,10 +285,10 @@ $(() => {
       let obj = profile.data[0];
       console.log(obj);
       gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      $main2.parent().css({
+      gv.main.mainP2.parent().css({
         'background-color': gv.heroes[obj.name.toLowerCase()]
         });
-      $main2.html(`
+      gv.main.mainP2.html(`
         <div class="profileHolder">
           <div class="profileImage">
             <img src="${gv.players.player2.avatar }" >
@@ -303,7 +302,7 @@ $(() => {
 
   function showLoginForm() {
     if(event) event.preventDefault();
-    $main.html(`
+    gv.main.mainP1.html(`
       <form method="post" action="/api/user/login">
         <div class="form-group">
           <input class="form-control" name="email" placeholder="Email">
@@ -319,7 +318,7 @@ $(() => {
   function showRegisterForm() {
     let $avatars = getAvatars(0, 'register');
     if(event) event.preventDefault();
-    $main.html(`
+    gv.main.mainP1.html(`
       <form method="post" action="/api/user/register">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username">
@@ -337,8 +336,8 @@ $(() => {
         <button class="btn btn-primary">Register</button>
       </form>
     `);
-    // $main.on(eventName, '.avatarHolder', function() {});
-    $main.find('.avatarHolder').append($avatars);
+    // gv.main.mainP1.on(eventName, '.avatarHolder', function() {});
+    gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
 
   function getUser() {
@@ -359,7 +358,7 @@ $(() => {
   function showEditForm(user) {
     let $avatars = getAvatars(user.characterId, 'edit');
     if(event) event.preventDefault();
-    $main.html(`
+    gv.main.mainP1.html(`
       <h2>Edit User</h2>
       <form method="put" action="/api/user/${user._id}">
         <div class="form-group">
@@ -372,7 +371,7 @@ $(() => {
         <button class="btn btn-primary">Register</button>
       </form>
     `);
-    $main.find('.avatarHolder').append($avatars);
+    gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
 
 // DELETE
@@ -402,7 +401,7 @@ $(() => {
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
-    $main.parent().css({
+    gv.main.mainP1.parent().css({
       'width': '45%',
       'background-color': "#1234f4"
     });
@@ -420,14 +419,14 @@ $(() => {
 
 
   $('#rulesLink').on("click", showRules);
-  $main.on("click", '.exitRules', () => {
+  gv.main.mainP1.on("click", '.exitRules', () => {
     $('.rulesContent').hide();
     $(".rules").show();
   });
 
   function showRules () {
 
-      $main.html(`
+      gv.main.mainP1.html(`
       <div class="rulesContent">
       <button class="exitRules" >x</button>
       <p>
