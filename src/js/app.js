@@ -68,7 +68,7 @@ function clearMarkers() {
 function startGame() {
   if (event) event.preventDefault();
   $(this).remove();
-  $('#showPlayerTurn').show();
+  // $('#showPlayerTurn').show();
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
