@@ -2,6 +2,8 @@
 
 $(function () {
 
+  // let $gameOverScreen;
+
   var countryData = [];
   var selectedCountries = [];
   var currentCountry = "";
@@ -30,6 +32,8 @@ $(function () {
   gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
+
+  $gameOverScreen.hide();
 
   function conquerCountry(marker) {
     google.maps.event.clearListeners(gv.turnInfo.currentIcon);
