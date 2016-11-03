@@ -118,8 +118,8 @@ img {
 .rulesContent {
   font-size: 12px;
   font-family: helvetica;
-  height: 300px;
-  width: 300px;
+  height: 50%;
+  width: 90%;
   background-color: gray;
   border-radius: 30px;
   margin:15px;
@@ -127,6 +127,14 @@ img {
   color: white;
   text-align: center;
 
+  .exitRules{
+
+    background-color: white;
+  }
+
+}
+.exitRules {
+  float: right;
 }
 
 .rulesT {
@@ -136,6 +144,13 @@ font-size: 14px;
 margin: 5px;
 text-align: center;
 
+}
+
+#restart {
+
+  border-radius: 15px;
+  padding:10px;
+  width: 100%;
 }
 
 #content{

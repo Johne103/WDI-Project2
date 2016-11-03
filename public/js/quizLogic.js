@@ -61,7 +61,7 @@ $(function () {
     console.log("GAME OVER!!");
     clearMarkers();
     $gameOverScreen.show();
-    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + " points</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + " points</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
 
