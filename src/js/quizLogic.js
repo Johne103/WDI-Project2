@@ -63,8 +63,8 @@ $(() => {
     $gameOverScreen.show();
     $gameOverScreen.html(`
       <h2>Game Over</h2>
-      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
-      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
+      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +` points</p>
+      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +` points</p>
       <button id="restart">Restart</button>
     `);
     makeResetWork();
