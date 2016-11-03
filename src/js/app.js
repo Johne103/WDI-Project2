@@ -436,7 +436,7 @@ $(() => {
 
   function showRules () {
 
-      gv.main.mainP1.html(`
+      gv.main.mainP1.append(`
       <div class="rulesContent">
       <button class="exitRules" >x</button>
       <p>
