@@ -51,7 +51,72 @@ let map;
 let fnc_removeListener;
 let currentCountryListener;
 let infoWindow = null;
+let $main = null;
+let $main2 = null;
 
+let markers = [];
+
+function clearMarkers() {
+  markers.forEach((marker) => {
+    marker.setMap(null);
+  });
+
+  markers = [];
+}
+
+function startGame() {
+  let currentWindow = null;
+  clearMarkers();
+  $main2.parent().css("opacity", "0.7");
+  for (let countryCode in countries){
+
+    let country = countries[countryCode];
+    let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
+    let marker = new google.maps.Marker({
+      map: map,
+      position: latLng,
+      icon:"images/grayMarker.png"
+
+    });
+
+    marker.metadata = {type: "country", id: country.name};
+
+    markers.push(marker);
+
+    let countryDetails = `
+      <div id='content' >
+        <h1>`+ country.name + `</h1>
+        <div id='countryInfo'>
+            <ul>
+              <li>Power to be gained per question</li>
+              <li class="countryPower">`+ country.power +`</li>
+              <button class="conquer" data-country="${countryCode}">Conquer?</button>
+            </ul>
+        </div>
+      </div>
+      `;
+
+    let eventlistener = marker.addListener('click', function() {
+
+      infoWindow = new google.maps.InfoWindow({
+        content: countryDetails,
+        position: new google.maps.LatLng(latLng.lat, latLng.lng)
+      });
+
+      $('.cPower').html(`${country.power}`);
+      gv.turnInfo.currentIcon = this; // set global to variable.
+
+
+      if (currentWindow !== null) {
+        currentWindow.close();
+      }
+      infoWindow.open(map, marker);
+      currentWindow = infoWindow;
+
+    });
+
+  }
+}
 
 function changeIcon(ci) {
   console.log(ci);
@@ -66,8 +131,8 @@ function changeIcon(ci) {
 
 $(() =>{
 
-  let $main = $('#hud main');
-  let $main2 = $('#hud2 main');
+  $main = $('#hud main');
+  $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
   $main.on('click', '.delete', deleteUser);
@@ -256,7 +321,7 @@ $(() =>{
         <div class="form-group">
           <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-primary">Login</button>
       </form>
     `);
   }
@@ -284,7 +349,7 @@ $(() =>{
     if(event) event.preventDefault();
     localStorage.removeItem('token');
     showLoginForm();
-
+    clearMarkers();
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
@@ -297,83 +362,27 @@ $(() =>{
 
     center: { lat:0, lng: 0},
     zoom: 2,
-    styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-
+    styles:[{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]
   });
 
   map.setOptions({ maxZoom: 7});
 
-  function startGame() {
-    if (event) event.preventDefault();
-
-    let currentWindow = null;
-    $main2.parent().css("opacity", "0.7");
-    $('.edit').hide();
-    $('.delete').hide();
-    $(this).remove();
-
-    for (let countryCode in countries){
-
-      let country = countries[countryCode];
-      let latLng = { lat: country.latlng[0], lng: country.latlng[1] };
-      let marker = new google.maps.Marker({
-        map: map,
-        position: latLng,
-        icon:"images/grayMarker.png"
-
-      });
-
-      marker.metadata = {type: "country", id: country.name};
-
-      let countryDetails = `
-        <div id='content' >
-          <h1>`+ country.name + `</h1>
-          <div id='countryInfo'>
-              <ul>
-                <li>Power to be gained per question</li>
-                <li class="countryPower">`+ country.power +`</li>
-                <button class="conquer" data-country="${countryCode}">Conquer?</button>
-              </ul>
-          </div>
-        </div>
-        `;
-
-      let eventlistener = marker.addListener('click', function() {
-
-        infoWindow = new google.maps.InfoWindow({
-          content: countryDetails,
-          position: new google.maps.LatLng(latLng.lat, latLng.lng)
-        });
-
-        $('.cPower').html(`${country.power}`);
-        gv.turnInfo.currentIcon = this; // set global to variable.
-
-
-        if (currentWindow !== null) {
-          currentWindow.close();
-        }
-        infoWindow.open(map, marker);
-        currentWindow = infoWindow;
-
-      });
-
-    }
-  }
   $('#rulesLink').on("click", showRules);
+
 
   function showRules () {
     console.log("SHOW RULES...");
     $main.html(`
       <div class="rulesContent"><p>
 
-  <strong>Object:</strong>
+  <strong class="rulesT">Object:</strong>
   <br>Score the most points to win the game. <br>
 
-  <strong>Setup:</strong>
+  <strong class="rulesT">Setup:</strong>
   <br>
   Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
 <br>
-  <strong>Playing the game:</strong>
+  <strong class="rulesT">Playing the game:</strong>
 <br>
   Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
   Players take turns and accumulate points throughout the game based on answering the quiz correctly.
