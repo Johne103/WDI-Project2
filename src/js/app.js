@@ -139,7 +139,7 @@ $(() =>{
 
   $main.on('submit', 'form', handleForm);
   $main.on('click', '.delete', deleteUser);
-  $main.on('click', '.edit', getAvatars);
+  $main.on('click', '.edit', getUser);
 
   $('html').on('click', '.startGame', startGame);
 
@@ -174,10 +174,11 @@ $(() =>{
     showLoginForm();
   }
 
-  function getAvatars() {
-    // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
+  function getAvatars(characterId, type) {
     const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
+
     let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
+    let $hiddenField = $(`<input type="hidden" name="characterId" id="characterId" value="" />`);
 
     for(let i = 0; i<characters.length; i++){
       $.ajax({
@@ -185,9 +186,16 @@ $(() =>{
         method: "GET"
       })
       .done(function(profile){
+
         let obj = profile.data[0];
+
+        let selected = characterId === obj.id ? "selected" : "";
+        if (selected === "selected") {
+          alert('yo dis is sick!');
+          $hiddenField.val(obj.id);
+        }
         $avatars.append(`
-          <div class="avatar" data-id="${obj.id}">
+          <div class="avatar ${selected}" data-id="${obj.id}">
             <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" alt="profile image">
               <div class="overlay">
                 <h4>${obj.name}</h4>
@@ -200,33 +208,8 @@ $(() =>{
         $main.html(`You are a failure.`);
       });
     }
+    $avatars.append($hiddenField);
     return $avatars;
-  }
-
-  function showRegisterForm() {
-    let $avatars = getAvatars();
-    if(event) event.preventDefault();
-    $main.html(`
-      <form method="post" action="/api/user/register">
-        <div class="form-group">
-          <input class="form-control" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-          <input class="form-control" name="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
-        </div>
-        <div class="avatarHolder"></div>
-        <input type="hidden" name="characterId" id="characterId" value="" />
-        <button class="btn btn-primary">Register</button>
-      </form>
-    `);
-    // $main.on(eventName, '.avatarHolder', function() {});
-    $main.find('.avatarHolder').append($avatars);
   }
 
   function handleForm() {
@@ -247,6 +230,7 @@ $(() =>{
       }
     })
     .done((data) => {
+      console.log(data);
       if(data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
@@ -271,16 +255,18 @@ $(() =>{
       $main.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${gv.players.player1.avatar }" >
+            <img src="${gv.players.player1.avatar}" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
         </div>
         `);
+
         $main.append(`
-          <a class="nav-link edit">Edit</a>
+          <a class="nav-link edit" data-id="${userID}">Edit</a>
           <a class="nav-link delete" data-id="${userID}">Delete</a>
         `);
+
         $('html').append(`
           <a class="startGame" href="#">I WANT WAR</a>
         `);
@@ -329,6 +315,64 @@ $(() =>{
     `);
   }
 
+  function showRegisterForm() {
+    let $avatars = getAvatars(0, 'register');
+    if(event) event.preventDefault();
+    $main.html(`
+      <form method="post" action="/api/user/register">
+        <div class="form-group">
+          <input class="form-control" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <input class="form-control" name="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+        </div>
+        <div class="avatarHolder"></div>
+        <button class="btn btn-primary">Register</button>
+      </form>
+    `);
+    // $main.on(eventName, '.avatarHolder', function() {});
+    $main.find('.avatarHolder').append($avatars);
+  }
+
+  function getUser() {
+    let id = $(this).data('id');
+    let token = localStorage.getItem('token');
+
+    $.ajax({
+      url: `/api/user/${id}`,
+      method: "GET",
+      beforeSend: function(jqXHR) {
+        if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
+      }
+    })
+    .done(showEditForm)
+    .fail(showLoginForm);
+  }
+
+  function showEditForm(user) {
+    let $avatars = getAvatars(user.characterId, 'edit');
+    if(event) event.preventDefault();
+    $main.html(`
+      <h2>Edit User</h2>
+      <form method="put" action="/api/user/${user._id}">
+        <div class="form-group">
+          <input class="form-control" name="username" placeholder="Username" value="${user.username}">
+        </div>
+        <div class="form-group">
+          <input class="form-control" name="email" placeholder="Email" value="${user.email}">
+        </div>
+        <div class="avatarHolder"></div>
+        <button class="btn btn-primary">Register</button>
+      </form>
+    `);
+    $main.find('.avatarHolder').append($avatars);
+  }
 
 // DELETE
   function deleteUser() {
