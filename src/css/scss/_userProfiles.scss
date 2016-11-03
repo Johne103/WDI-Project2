@@ -21,6 +21,7 @@
   }
   h3 {
     font-size:18px;
+    text-align: center;
   }
   p {
     font-family: 'Helvetica';
@@ -38,6 +39,7 @@
   width:100%;
   color:yellow;
   font-size: 12px;
+  text-align: center;
   margin: 5px;
 
   img {
@@ -72,9 +74,7 @@
         vertical-align: middle;
         color: white;
         font-size: 15px;
-
         text-align: center;
-
         padding-top: calc(50% - 5px);
       }
     }
