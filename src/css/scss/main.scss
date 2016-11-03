@@ -12,21 +12,67 @@ body, html{
   padding: 0;
 }
 
+nav {
+  height:40px;
+  width:100%;
+
+  margin:0px 0px 10px 0px;
+
+  display:block;
+
+  background-color: rgba(250,0,6,1);
+
+    a {
+      width:48%;
+      margin: 10px 0px;
+
+      color: rgba(255,255,255,1);
+      font-family: "classic-comic";
+      text-align: center;
+      &.logout {
+        width: 100%;
+      }
+    }
+}
+
 #hud {
   height: 100%;
   width: 30%;
   position: relative;
   z-index: 2;
-  background-color: #0d0c47;
+
+  background-color: #1d1d1d;
+  background-image: url('/images/speck.png');
+  background-repeat: repeat;
   color: white;
   overflow: auto;
   transition: all 0.5s;
 
   header {
     width: 100%;
-    height: 27%;
     overflow: hidden;
 
+  }
+}
+
+#hud2 {
+  height: 100%;
+  width: 15%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #1d1d1d;
+  background-image: url('/images/speck.png');
+  background-repeat: repeat;
+  color: white;
+
+  overflow: auto;
+  transition: all 0.5s;
+
+  header {
+    width: 100%;
+    overflow: hidden;
   }
 }
 
@@ -36,7 +82,6 @@ a {
   font-size: 22px;
   margin: 15px;
   list-style: none;
-
 }
 
 a:hover {
@@ -56,9 +101,12 @@ a:hover {
 
 img {
   width: 100%;
-  // height: 100%;
 }
 
+#rulesLink {
+  display: block;
+  text-align: center;
+}
 .rulesContent {
   font-size: 11px;
   font-family: helvetica;
@@ -89,6 +137,9 @@ img {
   color:red;
 }
 
+.cPower {
+  display: none;
+}
 // Import sections
 
 @import '_map';

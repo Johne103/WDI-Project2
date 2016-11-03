@@ -1,6 +1,6 @@
 #quizPopup {
 
-  height: 200px;
+  height: auto;
   width: 50%;
   border-radius: 20px;
   display: none;
@@ -47,6 +47,11 @@ form {
   h4 {
     color:yellow
   }
+
+  .stopBtn:hover {
+    background-color: #EF677B;
+  }
+
 
 }
 
