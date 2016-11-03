@@ -273,6 +273,7 @@ $(function () {
 
 
   function showRules() {
+
     console.log("SHOW RULES...");
     $main.html("\n      <div class=\"rulesContent\"><p>\n\n  <strong class=\"rulesT\">Object:</strong>\n  <br>Score the most points to win the game. <br>\n\n  <strong class=\"rulesT\">Setup:</strong>\n  <br>\n  Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n<br>\n  <strong class=\"rulesT\">Playing the game:</strong>\n<br>\n  Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n  Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n\n  After comparing the scores, a winner is annouced.</p></div>\n    ");
   }

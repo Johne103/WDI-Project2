@@ -345,6 +345,7 @@ $(() =>{
 
 
   function showRules () {
+
     console.log("SHOW RULES...");
     $main.html(`
       <div class="rulesContent"><p>
