@@ -34,7 +34,7 @@ $(() => {
 
   $gameOverScreen.hide();
   $turnIndicator.hide();
-  
+
   function conquerCountry(marker) {
     google.maps.event.clearListeners(gv.turnInfo.currentIcon);
     console.log('NO CLECK NO CRY');
@@ -67,18 +67,23 @@ $(() => {
   }
 
   function endGame() {
-    console.log("GAME OVER!!");
+    let winner = gv.players.player1.power > gv.players.player2.power ? player1 : player2;
+    let draw = gv.players.player1.power === gv.players.player2.power;
+    let winStr = draw ? "It's a tie!" : `${winner} wins!`;
     clearMarkers();
     $turnIndicator.hide();
     $gameOverScreen.show();
     $gameOverScreen.html(`
       <h2>Game Over</h2>
-      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +` points</p>
-      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +` points</p>
+
+      <p>${winStr}</p>
       <button id="restart">Restart</button>
     `);
     makeResetWork();
   }
+
+  // <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +` points</p>
+  // <p id="playerTwoFinalScore">Player Two has `+ gv.players.player2.power +` points</p>
 
   function gameOverChecker() {
     if (gv.players.player2.turnCounter <= 0){

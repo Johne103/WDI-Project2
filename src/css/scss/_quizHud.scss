@@ -80,7 +80,8 @@ form {
 #gameOverDiv {
   position: absolute;
   top: 200px;
-  left: 30%;
+  left: calc(50% - 200px);
+  width: 400px;
   z-index: 12;
   background-color: white;
   margin: 20px;
