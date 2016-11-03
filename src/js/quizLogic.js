@@ -24,6 +24,39 @@ $(() => {
   gv.players.player1.turnCounter = 3;
   gv.players.player2.turnCounter = 3;
 
+  // functions to check if the turns have ended and to display gameOver screen when out of turns
+
+  function conquerCountry(marker) {
+    google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+    console.log('NO CLECK NO CRY');
+  }
+
+
+
+  function makeResetWork() {
+    $('#restart').click( function() {
+      console.log("CLEKCK!");
+    });
+  }
+
+  function endGame() {
+    console.log("GAME OVER!!");
+    $gameOverScreen.html(`
+      <h2>Game Over</h2>
+      <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
+      <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
+      <button id="restart">Restart</button>
+    `);
+    makeResetWork();
+  }
+
+  function gameOverChecker() {
+    if (gv.players.player2.turnCounter <= 0){
+      console.log("GAME OVER MAN");
+      endGame();
+    }
+  }
+
   function processTurn() {
     gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player"+gv.turnInfo.turn].turnCounter--;
@@ -49,6 +82,7 @@ $(() => {
 
   function closeWindow () {
     $('#quizPopup').hide();
+    gameOverChecker();
   }
 
   function getArray(callback) {
@@ -410,7 +444,7 @@ $(() => {
                   if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                       $('#quizPopup').hide();
                   } else {
-            
+
                     selectedCountries = shuffle(selectCountries(countryCode));
                     ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
                   }
@@ -439,7 +473,7 @@ $(() => {
                   <label>${option4}</label>
                   <input type="radio" name="answer" value="${option4}">
                 </div>
-                
+
                 <button class="stopBtn">Stop Questions</button>
                 `);
 
@@ -469,35 +503,5 @@ $(() => {
                     processTurn();
                 });
             };
-
-        function conquerCountry(marker) {
-          google.maps.event.clearListeners(gv.turnInfo.currentIcon);
-          console.log('NO CLECK NO CRY');
-        }
-
-        // functions to check if the turns have ended and to display gameOver screen when out of turns
-        function gameOverChecker() {
-          if (gv.players['player' + gv.turnInfo.turn].turnCounter <= 0){
-            console.log("GAME OVER MAN");
-            endGame();
-          }
-        }
-
-        function makeResetWork() {
-          $('#restart').click( function() {
-            console.log("CLEKCK!");
-          });
-        }
-
-        function endGame() {
-          console.log("GAME OVER!!");
-          $gameOverScreen.html(`
-            <h2>Game Over</h2>
-            <p id="playerOneFinalScore">Player One has `+ gv.players['player' + gv.turnInfo.turn].power +`</p>
-            <p id="playeTwoFinalScore">Player Two has `+ gv.players.player2.power +`</p>
-            <button id="restart">Restart</button>
-          `);
-          makeResetWork();
-        }
 }
 });

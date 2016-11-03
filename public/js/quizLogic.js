@@ -26,6 +26,32 @@ $(function () {
   gv.players.player1.turnCounter = 3;
   gv.players.player2.turnCounter = 3;
 
+  // functions to check if the turns have ended and to display gameOver screen when out of turns
+
+  function conquerCountry(marker) {
+    google.maps.event.clearListeners(gv.turnInfo.currentIcon);
+    console.log('NO CLECK NO CRY');
+  }
+
+  function makeResetWork() {
+    $('#restart').click(function () {
+      console.log("CLEKCK!");
+    });
+  }
+
+  function endGame() {
+    console.log("GAME OVER!!");
+    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + "</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    makeResetWork();
+  }
+
+  function gameOverChecker() {
+    if (gv.players.player2.turnCounter <= 0) {
+      console.log("GAME OVER MAN");
+      endGame();
+    }
+  }
+
   function processTurn() {
     gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player" + gv.turnInfo.turn].turnCounter--;
@@ -50,6 +76,7 @@ $(function () {
 
   function closeWindow() {
     $('#quizPopup').hide();
+    gameOverChecker();
   }
 
   function getArray(callback) {
@@ -316,7 +343,7 @@ $(function () {
 
     //Sixth Question
     var ask6thQuestion = function ask6thQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html("\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n\n                <div class=\"qHolder\">\n                  <label>" + option1 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option2 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option3 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option4 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                </div>\n                \n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
+      $("#quizPopup").html("\n                <p>Which country borders " + countries[countryCode].name + "? </p>\n\n                <div class=\"qHolder\">\n                  <label>" + option1 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option1 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option2 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option2 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option3 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option3 + "\">\n                </div>\n                <div class=\"qHolder\">\n                  <label>" + option4 + "</label>\n                  <input type=\"radio\" name=\"answer\" value=\"" + option4 + "\">\n                </div>\n\n                <button class=\"stopBtn\">Stop Questions</button>\n                ");
 
       //Check for correct answer and return true or false.
       $('input:radio[name="answer"]').change(function () {
@@ -343,30 +370,5 @@ $(function () {
         processTurn();
       });
     };
-
-    function conquerCountry(marker) {
-      google.maps.event.clearListeners(gv.turnInfo.currentIcon);
-      console.log('NO CLECK NO CRY');
-    }
-
-    // functions to check if the turns have ended and to display gameOver screen when out of turns
-    function gameOverChecker() {
-      if (gv.players['player' + gv.turnInfo.turn].turnCounter <= 0) {
-        console.log("GAME OVER MAN");
-        endGame();
-      }
-    }
-
-    function makeResetWork() {
-      $('#restart').click(function () {
-        console.log("CLEKCK!");
-      });
-    }
-
-    function endGame() {
-      console.log("GAME OVER!!");
-      $gameOverScreen.html("\n            <h2>Game Over</h2>\n            <p id=\"playerOneFinalScore\">Player One has " + gv.players['player' + gv.turnInfo.turn].power + "</p>\n            <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + "</p>\n            <button id=\"restart\">Restart</button>\n          ");
-      makeResetWork();
-    }
   }
 });
