@@ -1,4 +1,5 @@
 $(() => {
+
   let countryData = [];
   let selectedCountries = [];
   let currentCountry = "";
@@ -8,6 +9,7 @@ $(() => {
   let currentSubRegion = "";
   let currentCurrency = [];
   let currentBorder = [];
+  let currentBorderCount = 0;
   let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
@@ -16,13 +18,13 @@ $(() => {
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
   let $answerGiven = $('.answerGiven');
   let $turnDisplay = $('.turnDisplay');
-  gv.players.player1.turnDisplayDiv = $('#hud .playerPower');
-  gv.players.player2.turnDisplayDiv = $('#hud2 .playerPower');
+  gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
+  gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
   let $gameOverScreen = $('#gameOverDiv');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 3;
-  gv.players.player2.turnCounter = 3;
+  gv.players.player1.turnCounter = 1;
+  gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
 
@@ -35,12 +37,30 @@ $(() => {
 
   function makeResetWork() {
     $('#restart').click( function() {
-      console.log("CLEKCK!");
+      gv.players.player1.powerDiv.html('');
+      gv.players.player2.powerDiv.html('');
+
+      $answerGiven.html('');
+      $turnDisplay.html('');
+
+      gv.players.player1.turnDisplayDiv.html('');
+      gv.players.player2.turnDisplayDiv.html('');
+
+      gv.players.player1.power = 0;
+      gv.players.player2.power = 0;
+      gv.players.player1.turnCounter = 1;
+      gv.players.player2.turnCounter = 1;
+
+      $gameOverScreen.hide();
+
+      startGame();
     });
   }
 
   function endGame() {
     console.log("GAME OVER!!");
+    clearMarkers();
+    $gameOverScreen.show();
     $gameOverScreen.html(`
       <h2>Game Over</h2>
       <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +`</p>
@@ -58,20 +78,16 @@ $(() => {
   }
 
   function processTurn() {
-    gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '0.7');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.7');
     gv.players["player"+gv.turnInfo.turn].turnCounter--;
     gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.html ('Turns left: ' + gv.players["player"+gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn -1;
 
     console.log(gv.turnInfo.turn);
-    gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.parent().parent().parent().css('opacity', '1');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
     closeWindow();
   }
 
-
-  function initialize(){
-
-  }
 
   getArray(() => {
     $('#map').on('click', '.conquer', function() {
@@ -105,7 +121,8 @@ $(() => {
           region: country.region,
           subRegion: country.subregion,
           area: country.area,
-          borders: country.borders[0],
+          borders: country.borders,
+          bordersCount: country.borders.length,
           currencies: country.currencies[0],
           location: {
             lat: country.latlng[0],
@@ -131,6 +148,9 @@ $(() => {
     currentSubRegion = countryData[index].subRegion;
     currentCurrency = countryData[index].currencies;
     currentBorder = countryData[index].borders;
+    currentBorderCount = countryData[index].borders.length;
+
+
 
     currentCountryPower = $('html').find('.cPower').html();
     // console.log('find: ' + currentCountryPower[0], currentCountryPower);
@@ -183,6 +203,11 @@ $(() => {
   function quizQuestion(countryCode) {
     selectedCountries = shuffle(selectCountries(countryCode));
 
+    console.log('current border count ' + currentBorderCount);
+    console.log('border 0 length ' + selectedCountries[0].borders.length);
+    console.log('border 1 length ' + selectedCountries[1].borders.length);
+    console.log('border 2 length ' + selectedCountries[2].borders.length);
+    console.log('border 3 length ' + selectedCountries[3].borders.length);
 
     //First Question
     ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
@@ -240,7 +265,7 @@ $(() => {
 
 
             selectedCountries = shuffle(selectCountries(countryCode));
-            ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
+            ask2ndQuestion(selectedCountries[0].population.toLocaleString(), selectedCountries[1].population.toLocaleString(), selectedCountries[2].population.toLocaleString(), selectedCountries[3].population.toLocaleString());
           }
         });
     }
@@ -269,7 +294,7 @@ $(() => {
         //Check for correct answer and return true or false.
         $('input:radio[name="answer"]').change(
           function() {
-            if ($(this).val() == currentPopulation) {
+            if ($(this).val() == currentPopulation.toLocaleString()) {
               answerToQuestion = true;
               $answerGiven.html ('Yeh You Gave the Right Answer');
 
@@ -288,7 +313,7 @@ $(() => {
                 $('#quizPopup').hide();
             } else {
             selectedCountries = shuffle(selectCountries(countryCode));
-            ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
+            ask3rdQuestion(selectedCountries[0].area.toLocaleString(), selectedCountries[1].area.toLocaleString(), selectedCountries[2].area.toLocaleString(), selectedCountries[3].area.toLocaleString());
             }
           });
       }
@@ -298,19 +323,19 @@ $(() => {
           <p>What is the area of ${countries[countryCode].name}? </p>
 
           <div class="qHolder">
-            <label>${option1}</label>
+            <label>${option1} sqm</label>
             <input type="radio" name="answer" value="${option1}">
           </div>
           <div class="qHolder">
-            <label>${option2}</label>
+            <label>${option2} sqm</label>
             <input type="radio" name="answer" value="${option2}">
           </div>
           <div class="qHolder">
-            <label>${option3}</label>
+            <label>${option3} sqm</label>
             <input type="radio" name="answer" value="${option3}">
           </div>
           <div class="qHolder">
-            <label>${option4}</label>
+            <label>${option4} sqm</label>
             <input type="radio" name="answer" value="${option4}">
           </div>
           <button class="stopBtn">Give Up</button>
@@ -320,7 +345,7 @@ $(() => {
           //Check for correct answer and return true or false.
           $('input:radio[name="answer"]').change(
             function() {
-              if ($(this).val() == currentArea) {
+              if ($(this).val() == currentArea.toLocaleString()) {
                 answerToQuestion = true;
                 $answerGiven.html ('Yeh You Gave the Right Answer');
                 console.log(`Answer: ${answerToQuestion}`);
@@ -432,8 +457,6 @@ $(() => {
               <button class="stopBtn">Give Up</button>
               `
             );
-
-
               //Check for correct answer and return true or false.
               $('input:radio[name="answer"]').change(
                 function() {
@@ -459,8 +482,9 @@ $(() => {
                   } else {
 
                     selectedCountries = shuffle(selectCountries(countryCode));
-                    ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
-                  }
+                    ask6thQuestion(selectedCountries[0].borders.length, selectedCountries[1].borders.length, selectedCountries[2].borders.length, selectedCountries[3].borders.length);
+
+                   }
                 });
             };
 
@@ -468,7 +492,8 @@ $(() => {
             //Sixth Question
             let ask6thQuestion = function(option1, option2, option3, option4) {
               $("#quizPopup").html(`
-                <p>Which country borders ${countries[countryCode].name}? </p>
+                <h3>Question 6</h3>
+                <p>How many countries border ${countries[countryCode].name}? </p>
 
                 <div class="qHolder">
                   <label>${option1}</label>
@@ -494,11 +519,11 @@ $(() => {
                 //Check for correct answer and return true or false.
                 $('input:radio[name="answer"]').change(
                   function() {
-                    if ($(this).val() == currentBorder) {
+                    if ($(this).val() == currentBorderCount) {
                       answerToQuestion = true;
                       $answerGiven.html ('Yeh You Gave the Right Answer');
                       console.log(`Answer: ${answerToQuestion}`);
-                      console.log('correct border selected: ' + currentBorder);
+                      console.log('correct border selected: ' + currentBorderCount);
 
                       // Should update players amount of power upon answering question correctly
                       gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
@@ -510,7 +535,7 @@ $(() => {
                       answerToQuestion = false;
                       $answerGiven.html ('Oh No You Gave the Wrong Answer');
                       console.log(`Answer: ${answerToQuestion}`);
-                      console.log('correct border not selected: ' + currentBorder);
+                      console.log('correct border not selected: ' + currentBorderCount);
                       processTurn();
                       gameOverChecker();
                       closeWindow();
