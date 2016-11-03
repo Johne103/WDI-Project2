@@ -287,7 +287,7 @@ $(() =>{
               <ul>
                 <li>Power to be gained per question</li>
                 <li class="countryPower">`+ country.power +`</li>
-                <button class="conquer" data-country="${countryCode}">Conquer</button>
+                <button class="conquer" data-country="${countryCode}">Conquer?</button>
               </ul>
           </div>
         </div>

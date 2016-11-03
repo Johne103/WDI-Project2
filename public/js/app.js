@@ -224,7 +224,7 @@ $(function () {
 
       marker.metadata = { type: "country", id: country.name };
 
-      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer</button>\n              </ul>\n          </div>\n        </div>\n        ");
+      var countryDetails = "\n        <div id='content'>\n          <h1>" + country.name + "</h1>\n          <div id='countryInfo'>\n              <ul>\n                <li>Power to be gained per question</li>\n                <li class=\"countryPower\">" + country.power + ("</li>\n                <button class=\"conquer\" data-country=\"" + countryCode + "\">Conquer?</button>\n              </ul>\n          </div>\n        </div>\n        ");
 
       var eventlistener = marker.addListener('click', function () {
 

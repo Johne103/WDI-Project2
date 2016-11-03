@@ -6,8 +6,8 @@ $(() => {
   let currentPopulation = "";
   let currentArea = "";
   let currentSubRegion = "";
-  let currentCurrency = "";
-  let currentBorder = "";
+  let currentCurrency = [];
+  let currentBorder = [];
   let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
@@ -63,8 +63,8 @@ $(() => {
           region: country.region,
           subRegion: country.subregion,
           area: country.area,
-          borders: country.borders,
-          currencies: country.currencies,
+          borders: country.borders[0],
+          currencies: country.currencies[0],
           location: {
             lat: country.latlng[0],
             lng: country.latlng[1]
@@ -86,8 +86,8 @@ $(() => {
     currentPopulation = countryData[index].population;
     currentArea = countryData[index].area;
     currentSubRegion = countryData[index].subRegion;
-    currentCurrency = countryData[index].currency;
-    currentBorder = countryData[index].border;
+    currentCurrency = countryData[index].currencies;
+    currentBorder = countryData[index].borders;
 
     currentCountryPower = $('html').find('.cPower').html();
     // console.log('find: ' + currentCountryPower[0], currentCountryPower);
@@ -147,6 +147,7 @@ $(() => {
     function ask1stQuestion(option1, option2, option3, option4) {
 
       $("#quizPopup").html(`
+        <h3>Question 1</h3>
         <p>What is the capital of ${countries[countryCode].name}? </p>
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
@@ -197,6 +198,7 @@ $(() => {
             $('#quizPopup').hide();
           } else {
             conquerCountry();
+            selectedCountries = shuffle(selectCountries(countryCode));
             ask2ndQuestion(selectedCountries[0].population, selectedCountries[1].population, selectedCountries[2].population, selectedCountries[3].population);
           }
         });
@@ -205,6 +207,7 @@ $(() => {
     //Second Question
     function ask2ndQuestion(option1, option2, option3, option4) {
       $("#quizPopup").html(`
+        <h3>Question 2</h3>
         <p>What is the population of ${countries[countryCode].name}? </p>
         <label>${option1}</label>
         <input type="radio" name="answer" value="${option1}">
@@ -243,6 +246,7 @@ $(() => {
             if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                 $('#quizPopup').hide();
             } else {
+            selectedCountries = shuffle(selectCountries(countryCode));
             ask3rdQuestion(selectedCountries[0].area, selectedCountries[1].area, selectedCountries[2].area, selectedCountries[3].area);
             }
           });
@@ -250,6 +254,7 @@ $(() => {
       //Third Question
       function ask3rdQuestion(option1, option2, option3, option4) {
         $("#quizPopup").html(`
+          <h3>Question 3</h3>
           <p>What is the area of ${countries[countryCode].name}? </p>
           <label>${option1}</label>
           <input type="radio" name="answer" value="${option1}">
@@ -290,6 +295,20 @@ $(() => {
               if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                   $('#quizPopup').hide();
               } else {
+
+                if (selectedCountries[0].subRegion === undefined  || selectedCountries[0].subRegion === null ) {
+                  selectedCountries[0].subRegion = "XXX";
+                }
+                if (selectedCountries[1].subRegion === undefined  || selectedCountries[1].subRegion === null ) {
+                  selectedCountries[1].subRegion = 'YYY';
+                }
+                if (selectedCountries[2].subRegion === undefined  || selectedCountries[2].subRegion === null ) {
+                  selectedCountries[2].subRegion = 'ZZZ';
+                }
+                if (selectedCountries[3].subRegion === undefined  || selectedCountries[3].subRegion === null ) {
+                  selectedCountries[3].subRegion = 'PPP';
+                }
+              selectedCountries = shuffle(selectCountries(countryCode));
               ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
               }
             });
@@ -297,6 +316,7 @@ $(() => {
         //Forth Question
         function ask4thQuestion(option1, option2, option3, option4) {
           $("#quizPopup").html(`
+            <h3>Question 4</h3>
             <p>In what subregion is ${countries[countryCode].name} located? </p>
             <label>${option1}</label>
             <input type="radio" name="answer" value="${option1}">
@@ -338,15 +358,27 @@ $(() => {
                     $('#quizPopup').hide();
                 } else {
 
+                  if (selectedCountries[0].currencies === undefined || selectedCountries[0].currencies === null ) {
+                    selectedCountries[0].currencies = "XXX";
+                  }
+                  if (selectedCountries[1].currencies === undefined || selectedCountries[1].currencies === null) {
+                    selectedCountries[1].currencies = 'YYY';
+                  }
+                  if (selectedCountries[2].currencies === undefined || selectedCountries[2].currencies === null) {
+                    selectedCountries[2].currencies = 'ZZZ';
+                  }
+                  if (selectedCountries[3].currencies === undefined || selectedCountries[3].currencies === null) {
+                    selectedCountries[3].currencies = 'PPP';
+                  }
                   selectedCountries = shuffle(selectCountries(countryCode));
                   ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
-
                 }
               });
           }
           //Fifth Question
           let ask5thQuestion = function(option1, option2, option3, option4) {
             $("#quizPopup").html(`
+              <h3>Question 5</h3>
               <p>Which currency is used in ${countries[countryCode].name}? </p>
               <label>${option1}</label>
               <input type="radio" name="answer" value="${option1}">
@@ -366,6 +398,7 @@ $(() => {
                   if ($(this).val() == currentCurrency) {
                     answerToQuestion = true;
                     $answerGiven.html ('Yeh You Gave the Right Answer');
+                    console.log('currency is ' + currentCurrency);
 
                     // Should update players amount of power upon answering question correctly
                     gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
@@ -374,6 +407,7 @@ $(() => {
                   } else {
                     answerToQuestion = false;
                     $answerGiven.html ('Oh No You Gave the Wrong Answer');
+                    console.log('currency is not ' + currentCurrency);
                     processTurn();
                     gameOverChecker();
                     closeWindow();
@@ -382,7 +416,20 @@ $(() => {
                   if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
                       $('#quizPopup').hide();
                   } else {
-            
+
+                    if (selectedCountries[0].borders === undefined || selectedCountries[0].borders === null ) {
+                      selectedCountries[0].borders = "XXX";
+                    }
+                    if (selectedCountries[1].borders === undefined || selectedCountries[1].borders === null ) {
+                      selectedCountries[1].borders = 'YYY';
+                    }
+                    if (selectedCountries[2].borders === undefined || selectedCountries[2].borders === null ) {
+                      selectedCountries[2].borders = 'ZZZ';
+                    }
+                    if (selectedCountries[3].borders === undefined || selectedCountries[3].borders === null ) {
+                      selectedCountries[3].borders = 'PPP';
+                    }
+
                     selectedCountries = shuffle(selectCountries(countryCode));
                     ask6thQuestion(selectedCountries[0].borders, selectedCountries[1].borders, selectedCountries[2].borders, selectedCountries[3].borders);
                   }
@@ -393,6 +440,7 @@ $(() => {
             //Sixth Question
             let ask6thQuestion = function(option1, option2, option3, option4) {
               $("#quizPopup").html(`
+                <h3>Question 6</h3>
                 <p>Which country borders ${countries[countryCode].name}? </p>
                 <label>${option1}</label>
                 <input type="radio" name="answer" value="${option1}">
@@ -408,27 +456,46 @@ $(() => {
                 //Check for correct answer and return true or false.
                 $('input:radio[name="answer"]').change(
                   function() {
-                    if ($(this).val() == currentCurrency) {
+                    if ($(this).val() == currentBorder) {
                       answerToQuestion = true;
                       $answerGiven.html ('Yeh You Gave the Right Answer');
                       console.log(`Answer: ${answerToQuestion}`);
-                      console.log('correct selected: ' + currentCurrency);
+                      console.log('correct border selected: ' + currentBorder);
 
                       // Should update players amount of power upon answering question correctly
                       gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
                       gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
+                      processTurn();
+                      gameOverChecker();
+                      closeWindow();
                     } else {
                       answerToQuestion = false;
                       $answerGiven.html ('Oh No You Gave the Wrong Answer');
                       console.log(`Answer: ${answerToQuestion}`);
-                      console.log('correct not selected: ' + currentCurrency);
+                      console.log('correct border not selected: ' + currentBorder);
+                      processTurn();
+                      gameOverChecker();
+                      closeWindow();
                     }
-                    // if ($turnCounter === 0) {
+                    if ($turnCounter === 0) {
                         $('#quizPopup').hide();
-                    // } else {
-                    // ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
-                    // }
-                    processTurn();
+                    } else {
+
+                    if (selectedCountries[0].currencies === undefined || selectedCountries[0].currencies === null ) {
+                      selectedCountries[0].currencies = "BBB";
+                    }
+                    if (selectedCountries[1].currencies === undefined || selectedCountries[1].currencies === null ) {
+                      selectedCountries[1].currencies = 'YYY';
+                    }
+                    if (selectedCountries[2].currencies === undefined || selectedCountries[2].currencies === null ) {
+                      selectedCountries[2].currencies = 'ZZZ';
+                    }
+                    if (selectedCountries[3].currencies === undefined || selectedCountries[3].currencies === null ) {
+                      selectedCountries[3].currencies = 'PPP';
+                    }
+                    selectedCountries = shuffle(selectCountries(countryCode));
+                    ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
+                    }
                 });
             };
 
