@@ -347,14 +347,14 @@ $(() =>{
     $main.html(`
       <div class="rulesContent"><p>
 
-  <strong>Object:</strong>
+  <strong class="rulesT">Object:</strong>
   <br>Score the most points to win the game. <br>
 
-  <strong>Setup:</strong>
+  <strong class="rulesT">Setup:</strong>
   <br>
   Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
 <br>
-  <strong>Playing the game:</strong>
+  <strong class="rulesT">Playing the game:</strong>
 <br>
   Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
   Players take turns and accumulate points throughout the game based on answering the quiz correctly.
