@@ -2,9 +2,10 @@
 const express = require("express");
 const router  = express.Router();
 
-const gamesController = require("../controllers/games");
+const usersController = require("../controllers/users");
 const authController = require('../controllers/auth');
 
+const jwt    = require("jsonwebtoken");
 const secret  =  require('./tokens').secret;
 
 
@@ -29,15 +30,12 @@ router.route("/user/register")
 router.route("/user/login")
   .post(authController.login);
 
-router.route("/games")
-  .post(secureRoute,gamesController.create)
-  .get(gamesController.index);
 
-router.route("/games/:id")
+router.route("/user/:id")
   .all(secureRoute)
-  .get(gamesController.show)
-  .put(gamesController.update)
-  .delete(gamesController.delete);
+  .get(usersController.show)
+  .put(usersController.update)
+  .delete(usersController.delete);
 
 router.route("/user")
   .get(authController.index);
