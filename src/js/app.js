@@ -338,6 +338,7 @@ $(() =>{
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
+    $('#gameLogo').show();
     $registerButton.show();
     $login.show();
     $logoutbutton.hide();
