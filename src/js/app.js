@@ -20,6 +20,7 @@ const gv = {
     "magneto": "rgba(64,38,85,1)",
     "apocalypse": "rgba(193,97,21,1)",
     "venom": "rgba(191,157,24,1)",
+    "elektra": "rgba(191,157,24,1)",
     "spider-man": "rgba(191,157,24,1)",
     "loki": "rgba(139,139,139,1)",
     "doctor octopus": "rgba(194,94,19,1)",
@@ -69,8 +70,10 @@ $(() =>{
   let $main2 = $('#hud2 main');
 
   $main.on('submit', 'form', handleForm);
-  $main.on('click', 'button.delete', deleteUser);
-  $main.on('click', 'button.edit', getAvatars);
+  $main.on('click', '.delete', deleteUser);
+  $main.on('click', '.edit', getAvatars);
+
+  $('html').on('click', '.startGame', startGame);
 
   let $registerButton = $('.register');
   $registerButton.on('click', showRegisterForm);
@@ -105,7 +108,7 @@ $(() =>{
 
   function getAvatars() {
     // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
-    const characters = ['hulk', 'wolverine', 'deadpool', 'Apocalypse'];
+    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
     let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
 
     for(let i = 0; i<characters.length; i++){
@@ -177,12 +180,7 @@ $(() =>{
     })
     .done((data) => {
       if(data.token) localStorage.setItem('token', data.token);
-      showPlayerProfiles(data.user.characterId, data.user.username);
-      $main.append(`
-        <a class="nav-link edit">Edit</a>
-        <a class="nav-link delete">Delete</a>
-
-        `);
+      showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
       $logoutbutton.show();
@@ -190,11 +188,12 @@ $(() =>{
     .fail(showLoginForm);
   }
 
-  function showPlayerProfiles(id, user){
+  function showPlayerProfiles(id, user, userID){
     $.ajax({
       url: "/api/profile/show/"+ id,
       method: 'GET'
-    }).done((profile) => {
+    })
+    .done((profile) => {
       let obj = profile.data[0];
       $main.parent().css({
         'width': '15%',
@@ -210,17 +209,27 @@ $(() =>{
           <p>${obj.description}</p>
         </div>
         `);
-    }).fail(showLoginForm);
+        $main.append(`
+          <a class="nav-link edit">Edit</a>
+          <a class="nav-link delete" data-id="${userID}">Delete</a>
+        `);
+        $('html').append(`
+          <a class="startGame" href="#">I WANT WAR</a>
+        `);
+    })
+    .fail(showLoginForm);
 
-    const characters = ['venom', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto'];
-    let rndCharacter = characters[Math.floor(Math.random() * characters.length)];
-    console.log(rndCharacter);
+    const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+    let rndNum = Math.floor(Math.random() * characters.length);
+    let rndCharacter = characters[rndNum];
+    console.log(rndNum, rndCharacter);
     // Player 2
     $.ajax({
       url: "/api/profile/"+ rndCharacter,
       method: 'GET'
     }).done((profile) => {
       let obj = profile.data[0];
+      console.log(obj);
       gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       $main2.parent().css({
         'background-color': gv.heroes[obj.name.toLowerCase()]
@@ -259,13 +268,13 @@ $(() =>{
     let token = localStorage.getItem('token');
 
     $.ajax({
-      url: `/api/users/${id}`,
+      url: `/api/user/${id}`,
       method: "DELETE",
       beforeSend: function(jqXHR) {
         if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
       }
     })
-    .done(getAvatars)
+    .done(logout)
     .fail(showLoginForm);
   }
 
@@ -295,8 +304,14 @@ $(() =>{
   map.setOptions({ maxZoom: 7});
 
   function startGame() {
+    if (event) event.preventDefault();
+
     let currentWindow = null;
     $main2.parent().css("opacity", "0.7");
+    $('.edit').hide();
+    $('.delete').hide();
+    $(this).remove();
+
     for (let countryCode in countries){
 
       let country = countries[countryCode];
