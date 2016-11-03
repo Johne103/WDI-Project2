@@ -57,6 +57,8 @@ let $main2 = null;
 let markers = [];
 let rulesShowing = false;
 
+
+
 function clearMarkers() {
   markers.forEach((marker) => {
     marker.setMap(null);
@@ -68,6 +70,7 @@ function clearMarkers() {
 function startGame() {
   if (event) event.preventDefault();
   $(this).remove();
+  $('#showPlayerTurn').show();
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();

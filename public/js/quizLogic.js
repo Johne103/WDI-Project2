@@ -22,6 +22,7 @@ $(function () {
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
   gv.players.player1.$answerGiven = $('#hud .answerGiven');
   gv.players.player2.$answerGiven = $('#hud2 .answerGiven');
+  var $turnIndicator = $('#showPlayerTurn');
   var $turnDisplay = $('.turnDisplay');
   gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
   gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
@@ -34,6 +35,7 @@ $(function () {
   // functions to check if the turns have ended and to display gameOver screen when out of turns
 
   $gameOverScreen.hide();
+  $turnIndicator.hide();
 
   function conquerCountry(marker) {
     google.maps.event.clearListeners(gv.turnInfo.currentIcon);
@@ -67,6 +69,7 @@ $(function () {
   function endGame() {
     console.log("GAME OVER!!");
     clearMarkers();
+    $turnIndicator.hide();
     $gameOverScreen.show();
     $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + " points</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + " points</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
@@ -84,7 +87,11 @@ $(function () {
     gv.players["player" + gv.turnInfo.turn].turnCounter--;
     gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn - 1;
-
+    if (gv.turnInfo.turn === 1) {
+      $turnIndicator.html("Player 1's Turn");
+    } else if (gv.turnInfo.turn === 2) {
+      $turnIndicator.html("Player 2's Turn");
+    }
     console.log(gv.turnInfo.turn);
     gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
     closeWindow();
