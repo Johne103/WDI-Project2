@@ -55,6 +55,7 @@ let $main = null;
 let $main2 = null;
 
 let markers = [];
+let rulesShowing = false;
 
 function clearMarkers() {
   markers.forEach((marker) => {
@@ -370,28 +371,28 @@ $(() =>{
 
 
   $('#rulesLink').on("click", showRules);
-
-
+  $main.on("click", '.exitRules', () => {
+    $('.rulesContent').hide();
+    $(".rules").show();
+  });
 
   function showRules () {
-    console.log("SHOW RULES...");
-    $main.html(`
-      <div class="rulesContent"><p>
-
-  <strong class="rulesT">Object:</strong>
-  <br>Score the most points to win the game. <br>
-
-  <strong class="rulesT">Setup:</strong>
-  <br>
-  Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
-<br>
-  <strong class="rulesT">Playing the game:</strong>
-<br>
-  Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-  Players take turns and accumulate points throughout the game based on answering the quiz correctly.
-
-  After comparing the scores, a winner is annouced.</p></div>
-    `);
+      $main.html(`
+      <div class="rulesContent">
+      <button class="exitRules" >x</button>
+      <p>
+      <strong class="rulesT">Object:</strong>
+      <br>Score the most points to win the game. <br>
+      <strong class="rulesT">Setup:</strong>
+      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
+      <br>
+      <strong class="rulesT">Playing the game:</strong>
+      <br>
+      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
+      Players take turns and accumulate points throughout the game based on answering the quiz correctly.
+      After comparing the scores, a winner is annouced.</p></div>
+      `);
+      $(".rules").hide();
   }
 
 });
