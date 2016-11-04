@@ -20,6 +20,7 @@ const gv = {
     "deadpool": "rgba(55,174,182,1)", //lightblue
     "emma frost": "rgba(55,174,182,1)", //lightblue
     "thor": "rgba(40,107,152,1)", //medblue
+    "ultron": "rgba(40,107,152,1)", //medblue
     "hulk": "rgba(64,38,85,1)", //purple
     "magneto": "rgba(64,38,85,1)", //purple
     "iron man": "rgba(64,38,85,1)", //purple
