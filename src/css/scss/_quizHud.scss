@@ -65,12 +65,23 @@ form {
 
 }
 
-
+#showPlayerTurn {
+  position: absolute;
+  top: 20px;
+  left: 40%;
+  z-index: 15;
+  margin: 20px;
+  padding: 15px;
+  font-family: knewave;
+  font-size: 30px;
+  color: black;
+}
 
 #gameOverDiv {
   position: absolute;
   top: 200px;
-  left: 30%;
+  left: calc(50% - 200px);
+  width: 400px;
   z-index: 12;
   background-color: white;
   margin: 20px;
@@ -78,5 +89,4 @@ form {
   font-family: knewave;
   font-size: 20px;
   border-radius: 20px;
-
 }

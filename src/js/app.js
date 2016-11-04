@@ -7,25 +7,28 @@ const gv = {
   },
   players: {
     player1: {
-      avatar: ""
+      avatar: "",
+      name: ""
     },
     player2: {
-      avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
+      avatar: "",
+      name: ""
     }
   },
   heroes: {
-    "wolverine": "rgba(55,174,182,1)",
-    "deadpool": "rgba(55,174,182,1)",
-    "hulk": "rgba(64,38,85,1)",
-    "magneto": "rgba(64,38,85,1)",
-    "apocalypse": "rgba(193,97,21,1)",
-    "venom": "rgba(191,157,24,1)",
-    "elektra": "rgba(191,157,24,1)",
+    "wolverine": "rgba(55,174,182,1)", //lightblue
+    "deadpool": "rgba(55,174,182,1)", //lightblue
+    "hulk": "rgba(64,38,85,1)", //purple
+    "magneto": "rgba(64,38,85,1)", //purple
+    "apocalypse": "rgba(193,97,21,1)", //orange
+    "venom": "rgba(191,157,24,1)", //yellow
+    "elektra": "rgba(191,157,24,1)", //yellow
     "spider-man": "rgba(191,157,24,1)",
-    "loki": "rgba(139,139,139,1)",
-    "doctor octopus": "rgba(194,94,19,1)",
+    "loki": "rgba(139,139,139,1)", //grey
+    "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
-    "doctor doom": "rgba(40,107,152,1)"
+    "doctor doom": "rgba(40,107,152,1)",
+    "sif": "rgba(139,139,139,1)" //grey
   }
 };
 
@@ -51,26 +54,47 @@ let map;
 let fnc_removeListener;
 let currentCountryListener;
 let infoWindow = null;
-let $main = null;
-let $main2 = null;
 
 let markers = [];
+let markersAlt = [];
 let rulesShowing = false;
+
+
 
 function clearMarkers() {
   markers.forEach((marker) => {
-    marker.setMap(null);
+    marker[0].setMap(null);
   });
 
   markers = [];
+  markersAlt = [];
 }
 
 function startGame() {
   if (event) event.preventDefault();
-  $(this).remove();
+
+  gv.players.player1.$answerGiven.html('');
+  gv.players.player2.$answerGiven.html('');
+  gv.players.player1.powerDiv.html('');
+  gv.players.player2.powerDiv.html('');
+  gv.main.turnDisplay.html('');
+  gv.players.player1.turnDisplayDiv.html('');
+  gv.players.player2.turnDisplayDiv.html('');
+  gv.players.player1.power = 0;
+  gv.players.player2.power = 0;
+  gv.players.player1.turnCounter = 3;
+  gv.players.player2.turnCounter = 3;
+
+  $('.edit').hide();
+  $('.delete').hide();
+
+  $(this).parent().remove();
+  // $('#showPlayerTurn').show();
+
   let currentWindow = null;
+  $('#gameLogo').hide();
   clearMarkers();
-  $main2.parent().css("opacity", "0.7");
+  gv.main.mainP2.parent().css("opacity", "0.8");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -79,12 +103,15 @@ function startGame() {
       map: map,
       position: latLng,
       icon:"images/grayMarker.png"
-
     });
 
     marker.metadata = {type: "country", id: country.name};
 
-    markers.push(marker);
+    markers.push([
+      marker,
+      country.name,
+      country.power
+    ]);
 
     let countryDetails = `
       <div id='content' >
@@ -108,7 +135,7 @@ function startGame() {
 
       $('.cPower').html(`${country.power}`);
       gv.turnInfo.currentIcon = this; // set global to variable.
-
+      gv.main.selectedCountry = this.metadata.id;
 
       if (currentWindow !== null) {
         currentWindow.close();
@@ -119,10 +146,10 @@ function startGame() {
     });
 
   }
+  markersAlt = markers.slice(0);
 }
 
 function changeIcon(ci) {
-  console.log(ci);
   ci.setIcon({
       url: gv.players['player' + gv.turnInfo.turn].avatar, // url
       scaledSize: new google.maps.Size(50, 50), // scaled size
@@ -131,15 +158,17 @@ function changeIcon(ci) {
   });
 }
 
+// Document on load
 
-$(() =>{
+$(() => {
 
-  $main = $('#hud main');
-  $main2 = $('#hud2 main');
+  gv.main.mainP1 = $('#hud main');
+  gv.main.mainP2 = $('#hud2 main');
 
-  $main.on('submit', 'form', handleForm);
-  $main.on('click', '.delete', deleteUser);
-  $main.on('click', '.edit', getAvatars);
+
+  gv.main.mainP1.on('submit', 'form', handleForm);
+  gv.main.mainP1.on('click', '.delete', deleteUser);
+  gv.main.mainP1.on('click', '.edit', getUser);
 
   $('html').on('click', '.startGame', startGame);
 
@@ -149,17 +178,16 @@ $(() =>{
   let $login = $('.login');
   $login.on('click', showLoginForm);
 
-  let $logoutbutton = $('.logout');
-  $logoutbutton.hide();
-  $logoutbutton.on('click', logout);
+  $('.logout').hide();
+  // $('.logout').on('click', logout);
+  $('html').on('click', '.logout', logout);
 
 
-  $main.on('click', '.avatar', function() {
-    console.log(this);
+  gv.main.mainP1.on('click', '.avatar', function() {
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
     let avatarID = $(this).data('id');
-    let input = $main.find('#characterId');
+    let input = gv.main.mainP1.find('#characterId');
     input.val(avatarID);
   });
 
@@ -174,10 +202,11 @@ $(() =>{
     showLoginForm();
   }
 
-  function getAvatars() {
-    // const characters = ['spider-man', 'hulk', 'wolverine', 'gambit', 'deadpool', 'Iron Man', 'Star-Lord (Peter Quill)', 'Black Widow%2FNatasha Romanoff (MAA)', 'Ultron', 'Venom (Flash Thompson)', 'loki', 'Apocalypse'];
-    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
+  function getAvatars(characterId, type) {
+    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'thor', 'captain america', 'groot', 'punisher'];
+
     let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
+    let $hiddenField = $(`<input type="hidden" name="characterId" id="characterId" value="" />`);
 
     for(let i = 0; i<characters.length; i++){
       $.ajax({
@@ -185,9 +214,16 @@ $(() =>{
         method: "GET"
       })
       .done(function(profile){
+
         let obj = profile.data[0];
+
+        let selected = characterId === obj.id ? "selected" : "";
+        if (selected === "selected") {
+          // alert('yo dis is sick!');
+          $hiddenField.val(obj.id);
+        }
         $avatars.append(`
-          <div class="avatar" data-id="${obj.id}">
+          <div class="avatar ${selected}" data-id="${obj.id}">
             <img src="${obj.thumbnail.path + '.' + obj.thumbnail.extension}" alt="profile image">
               <div class="overlay">
                 <h4>${obj.name}</h4>
@@ -197,36 +233,11 @@ $(() =>{
       })
       .fail(function(jqXHR){
         console.log(jqXHR.status);
-        $main.html(`You are a failure.`);
+        gv.main.mainP1.html(`You are a failure.`);
       });
     }
+    $avatars.append($hiddenField);
     return $avatars;
-  }
-
-  function showRegisterForm() {
-    let $avatars = getAvatars();
-    if(event) event.preventDefault();
-    $main.html(`
-      <form method="post" action="/api/user/register">
-        <div class="form-group">
-          <input class="form-control" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-          <input class="form-control" name="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
-        </div>
-        <div class="avatarHolder"></div>
-        <input type="hidden" name="characterId" id="characterId" value="" />
-        <button class="btn btn-primary">Register</button>
-      </form>
-    `);
-    // $main.on(eventName, '.avatarHolder', function() {});
-    $main.find('.avatarHolder').append($avatars);
   }
 
   function handleForm() {
@@ -247,11 +258,12 @@ $(() =>{
       }
     })
     .done((data) => {
+      console.log(data);
       if(data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
-      $logoutbutton.show();
+      $('.logout').show();
     })
     .fail(showLoginForm);
   }
@@ -263,60 +275,66 @@ $(() =>{
     })
     .done((profile) => {
       let obj = profile.data[0];
-      $main.parent().css({
+      gv.main.mainP1.parent().css({
         'width': '15%',
         'background-color': gv.heroes[obj.name.toLowerCase()]
         });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      $main.html(`
+      gv.players.player1.handle = user;
+      gv.main.mainP1.html(`
         <div class="profileHolder">
           <div class="profileImage">
-            <img src="${gv.players.player1.avatar }" >
+            <img src="${gv.players.player1.avatar}" >
           </div>
           <h3>${user}</h3>
           <p>${obj.description}</p>
         </div>
         `);
-        $main.append(`
-          <a class="nav-link edit">Edit</a>
+
+        gv.main.mainP1.append(`
+          <a class="nav-link edit" data-id="${userID}">Edit</a>
           <a class="nav-link delete" data-id="${userID}">Delete</a>
         `);
-        $('html').append(`
-          <a class="startGame" href="#">I WANT WAR</a>
-        `);
+
+        const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+        let rndNum = Math.floor(Math.random() * characters.length);
+        let rndCharacter = characters[rndNum];
+        console.log(rndNum, rndCharacter);
+        // Player 2
+        $.ajax({
+          url: "/api/profile/"+ rndCharacter,
+          method: 'GET'
+        }).done((profile) => {
+          let obj = profile.data[0];
+
+          gv.players.player2.handle = obj.name;
+          gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+          gv.main.mainP2.parent().css({
+            "opacity": "0.7",
+            'background-color': gv.heroes[obj.name.toLowerCase()]
+            });
+          gv.main.mainP2.html(`
+            <div class="profileHolder">
+              <div class="profileImage">
+                <img src="${gv.players.player2.avatar}" >
+              </div>
+              <h3>${obj.name}</h3>
+              <p>${obj.description}</p>
+            </div>
+            `);
+            $('html').append(`
+              <div class="startGameHolder"><p><span>${gv.players.player2.handle}</span> has found a way out from <em>"eternal"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>${gv.players.player1.handle}</span>. Will you stand up and fight for against the forces of evil?</p>
+              <p>What is your response, hero?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
+            `);
+        }).fail(showLoginForm);
     })
     .fail(showLoginForm);
-
-    const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
-    let rndNum = Math.floor(Math.random() * characters.length);
-    let rndCharacter = characters[rndNum];
-    console.log(rndNum, rndCharacter);
-    // Player 2
-    $.ajax({
-      url: "/api/profile/"+ rndCharacter,
-      method: 'GET'
-    }).done((profile) => {
-      let obj = profile.data[0];
-      console.log(obj);
-      gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      $main2.parent().css({
-        'background-color': gv.heroes[obj.name.toLowerCase()]
-        });
-      $main2.html(`
-        <div class="profileHolder">
-          <div class="profileImage">
-            <img src="${gv.players.player2.avatar }" >
-          </div>
-          <h3>${obj.name}</h3>
-          <p>${obj.description}</p>
-        </div>
-        `);
-    }).fail(showLoginForm);
+    console.log(gv.players.player2.handle);
   }
 
   function showLoginForm() {
     if(event) event.preventDefault();
-    $main.html(`
+    gv.main.mainP1.html(`
       <form method="post" action="/api/user/login">
         <div class="form-group">
           <input class="form-control" name="email" placeholder="Email">
@@ -329,11 +347,73 @@ $(() =>{
     `);
   }
 
+  function showRegisterForm() {
+    let $avatars = getAvatars(0, 'register');
+    if(event) event.preventDefault();
+    gv.main.mainP1.html(`
+      <form method="post" action="/api/user/register">
+        <div class="form-group">
+          <input class="form-control" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <input class="form-control" name="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="passwordConfirmation" placeholder="Password Confirmation">
+        </div>
+        <div class="avatarHolder"></div>
+        <button class="btn btn-primary">Register</button>
+      </form>
+    `);
+    // gv.main.mainP1.on(eventName, '.avatarHolder', function() {});
+    gv.main.mainP1.find('.avatarHolder').append($avatars);
+  }
+
+  function getUser() {
+    let id = $(this).data('id');
+    let token = localStorage.getItem('token');
+
+    $('html').find('.startGameHolder').remove();
+
+    $.ajax({
+      url: `/api/user/${id}`,
+      method: "GET",
+      beforeSend: function(jqXHR) {
+        if(token) return jqXHR.setRequestHeader('Authorization', `Bearer ${token}`);
+      }
+    })
+    .done(showEditForm)
+    .fail(showLoginForm);
+  }
+
+  function showEditForm(user) {
+    let $avatars = getAvatars(user.characterId, 'edit');
+    if(event) event.preventDefault();
+    gv.main.mainP1.html(`
+      <h2>Edit User</h2>
+      <form method="put" action="/api/user/${user._id}">
+        <div class="form-group">
+          <input class="form-control" name="username" placeholder="Username" value="${user.username}">
+        </div>
+        <div class="form-group">
+          <input class="form-control" name="email" placeholder="Email" value="${user.email}">
+        </div>
+        <div class="avatarHolder"></div>
+        <button class="btn btn-primary">Register</button>
+      </form>
+    `);
+    gv.main.mainP1.find('.avatarHolder').append($avatars);
+  }
 
 // DELETE
   function deleteUser() {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
+
+    $('html').find('.startGameHolder').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -350,13 +430,21 @@ $(() =>{
 // LOGOUT
   function logout() {
     if(event) event.preventDefault();
+    $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
+    $('#showPlayerTurn').hide();
+    $('#gameOverDiv').hide();
+    $('#quizPopup').hide();
+    $('#gameLogo').show();
     $registerButton.show();
     $login.show();
-    $logoutbutton.hide();
-
+    $('.logout').hide();
+    gv.main.mainP1.parent().css({
+      'width': '45%',
+      'background-color': "#0d0c47"
+    });
   }
 
   let $mapDiv = $('#map');
@@ -371,27 +459,26 @@ $(() =>{
 
 
   $('#rulesLink').on("click", showRules);
-  $main.on("click", '.exitRules', () => {
+  gv.main.mainP1.on("click", '.exitRules', () => {
     $('.rulesContent').hide();
     $(".rules").show();
   });
 
   function showRules () {
 
-      $main.html(`
+      gv.main.mainP1.append(`
       <div class="rulesContent">
       <button class="exitRules" >x</button>
       <p>
       <strong class="rulesT">Object:</strong>
       <br>Score the most points to win the game. <br>
       <strong class="rulesT">Setup:</strong>
-      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
+      <br>Choose a player from the list. You have 20 turns. Countries have different values based on power structures.
       <br>
       <strong class="rulesT">Playing the game:</strong>
       <br>
       Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-      Players take turns and accumulate points throughout the game based on answering the quiz correctly.
-      After comparing the scores, a winner is annouced.</p></div>
+      Players take turns and accumulate points throughout the game based on answering the quiz correctly.</p></div>
       `);
       $(".rules").hide();
   }

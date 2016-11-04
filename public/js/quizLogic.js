@@ -2,6 +2,8 @@
 
 $(function () {
 
+  // let $gameOverScreen;
+
   var countryData = [];
   var selectedCountries = [];
   var currentCountry = "";
@@ -21,17 +23,18 @@ $(function () {
   var theQuestion = '';
   gv.players.player1.powerDiv = $('#hud .playerPower');
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
-  var $answerGiven = $('.answerGiven');
-  var $turnDisplay = $('.turnDisplay');
+  gv.players.player1.$answerGiven = $('#hud .answerGiven');
+  gv.players.player2.$answerGiven = $('#hud2 .answerGiven');
+  var $turnIndicator = $('#showPlayerTurn');
+  gv.main.turnDisplay = $('.turnDisplay');
   gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
   gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
-  gv.players.player1.power = 0;
-  gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 1;
-  gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
+
+  $gameOverScreen.hide();
+  $turnIndicator.hide();
 
   function conquerCountry(marker) {
     google.maps.event.clearListeners(gv.turnInfo.currentIcon);
@@ -40,20 +43,6 @@ $(function () {
 
   function makeResetWork() {
     $('#restart').click(function () {
-      gv.players.player1.powerDiv.html('');
-      gv.players.player2.powerDiv.html('');
-
-      $answerGiven.html('');
-      $turnDisplay.html('');
-
-      gv.players.player1.turnDisplayDiv.html('');
-      gv.players.player2.turnDisplayDiv.html('');
-
-      gv.players.player1.power = 0;
-      gv.players.player2.power = 0;
-      gv.players.player1.turnCounter = 1;
-      gv.players.player2.turnCounter = 1;
-
       $gameOverScreen.hide();
 
       startGame();
@@ -61,12 +50,21 @@ $(function () {
   }
 
   function endGame() {
-    console.log("GAME OVER!!");
+    $('.edit').hide();
+    $('.delete').hide();
+
+    var winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
+    var draw = gv.players.player1.power === gv.players.player2.power;
+    var winStr = draw ? "It's a tie!" : winner + " wins!";
     clearMarkers();
+    $turnIndicator.hide();
     $gameOverScreen.show();
-    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p id=\"playerOneFinalScore\">Player One has " + gv.players.player1.power + " points</p>\n      <p id=\"playeTwoFinalScore\">Player Two has " + gv.players.player2.power + " points</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p>" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
+
+  // <p id="playerOneFinalScore">Player One has `+ gv.players.player1.power +` points</p>
+  // <p id="playerTwoFinalScore">Player Two has `+ gv.players.player2.power +` points</p>
 
   function gameOverChecker() {
     if (gv.players.player2.turnCounter <= 0) {
@@ -75,15 +73,51 @@ $(function () {
     }
   }
 
+  function rndNumber(max) {
+    var rndNumber = Math.floor(Math.random() * max);
+    return rndNumber;
+  }
+
   function processTurn() {
-    gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.7');
+    gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.8');
     gv.players["player" + gv.turnInfo.turn].turnCounter--;
     gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn - 1;
-
-    console.log(gv.turnInfo.turn);
+    // if(gv.turnInfo.turn === 1){
+    //   $turnIndicator.html("Player 1's Turn");
+    // } else if (gv.turnInfo.turn === 2) {
+    //   $turnIndicator.html("Player 2's Turn");
+    // }
     gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
+
+    for (var i = 0; i < markersAlt.length; i++) {
+      if (gv.main.selectedCountry === markersAlt[i][1]) {
+        markersAlt.splice(i, 1);
+      }
+    }
+
     closeWindow();
+    checkAI();
+  }
+
+  function checkAI() {
+    if (gv.turnInfo.turn === 2) {
+      runAI();
+    }
+  }
+
+  function runAI() {
+    var rndNum = rndNumber(markersAlt.length);
+    var aiCountry = markersAlt[rndNum];
+
+    var aiScore = aiCountry[2] * rndNumber(6);
+    gv.players.player2.power += aiScore;
+    gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
+    google.maps.event.clearListeners(aiCountry[0]);
+    console.log(aiCountry, aiScore);
+    changeIcon(aiCountry[0]);
+    markersAlt.splice(rndNum, 1);
+    processTurn();
   }
 
   getArray(function () {
@@ -286,7 +320,7 @@ $(function () {
     $('input:radio[name="answer"]').change(function () {
       if ($(this).val() == questionDef.currentQuestion) {
         answerToQuestion = true;
-        $answerGiven.html('Yeh You Gave the Right Answer');
+        gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
         // $main.html(`Oh Yes.`);
         // Should update players amount of power upon answering question correctly
         gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
@@ -296,19 +330,19 @@ $(function () {
         conquerCountry();
       } else {
         answerToQuestion = false;
-        $answerGiven.html('Oh No You Gave the Wrong Answer');
+        gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
         // $main.html(`Oh No.`);
         // should update number of turns left after question is answered
         processTurn(gv.turnInfo.turn);
         //function to check if game has ended(out of turns)
         gameOverChecker();
       }
-
+      if (numberOfQuestions === 2) {
+        processTurn(gv.turnInfo.turn);
+      }
       if (numberOfQuestions > 1) {
         askQuestions(questionDefs);
         numberOfQuestions--;
-
-        console.log('number of questions left ' + numberOfQuestions);
       } else {
         $('#quizPopup').hide();
       }
