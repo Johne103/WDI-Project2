@@ -7,7 +7,6 @@ const secret = require("../config/tokens").secret;
 
 
 function register(req, res){
- console.log(req.body);
  User.create(req.body, (err, user) => {
    console.log(err);
    if (err) return res.status(500).json({ message: "Something went wrong.", err });
@@ -34,7 +33,7 @@ function login(req, res){
    User.findOne({ email: req.body.email }, (err, user) => {
      if (err) return res.status(500).json({ message: "Something went wrong." });
      if (!user || !user.validatePassword(req.body.password)) {
-       return res.status(401).json({ message: "Unauthorized." });
+       return res.status(401).json({ message: "Unauthorized. Invalid credentials, please try again.",  });
      }
 
      let payload =  { _id: user._id, username:user.username };
