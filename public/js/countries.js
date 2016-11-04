@@ -5,21 +5,21 @@ var countries = {
     "name": "Aruba",
     "latlng": [12.5, -69.96666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "AF": {
     "name": "Afghanistan",
     "latlng": [33, 65],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["IR", "PK", "TM", "UZ", "TJ", "CN"]
   },
   "AO": {
     "name": "Angola",
     "latlng": [-12.5, 18.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["CG", "CD", "ZM", "NA"]
   },
   "AI": {
@@ -40,28 +40,28 @@ var countries = {
     "name": "Albania",
     "latlng": [41, 20],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["ME", "GR", "MK", "XK"]
   },
   "AD": {
     "name": "Andorra",
     "latlng": [42.5, 1.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["FR", "ES"]
   },
   "AE": {
     "name": "United Arab Emirates",
     "latlng": [24, 54],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["OM", "SA"]
   },
   "AR": {
     "name": "Argentina",
     "latlng": [-34, -64],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["BO", "BR", "CL", "PY", "UY"]
   },
   "AM": {
@@ -103,7 +103,7 @@ var countries = {
     "name": "Australia",
     "latlng": [-27, 133],
     "questions": ["What is the capital city?"],
-    "power": 30,
+    "power": 40,
     "borders": []
   },
   "AT": {
@@ -117,7 +117,7 @@ var countries = {
     "name": "Azerbaijan",
     "latlng": [40.5, 47.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AM", "GE", "IR", "RU", "TR"]
   },
   "BI": {
@@ -131,7 +131,7 @@ var countries = {
     "name": "Belgium",
     "latlng": [50.83333333, 4],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 30,
     "borders": ["FR", "DE", "LU", "NL"]
   },
   "BJ": {
@@ -152,147 +152,147 @@ var countries = {
     "name": "Bangladesh",
     "latlng": [24, 90],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["MM", "IN"]
   },
   "BG": {
     "name": "Bulgaria",
     "latlng": [43, 25],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["GR", "MK", "RO", "RS", "TR"]
   },
   "BH": {
     "name": "Bahrain",
     "latlng": [26, 50.55],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BS": {
     "name": "Bahamas",
     "latlng": [24.25, -76],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BA": {
     "name": "Bosnia and Herzegovina",
     "latlng": [44, 18],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["HR", "ME", "RS"]
   },
   "BL": {
     "name": "Saint Barthélemy",
     "latlng": [18.5, -63.41666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BY": {
     "name": "Belarus",
     "latlng": [53, 28],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["LV", "LT", "PL", "RU", "UA"]
   },
   "BZ": {
     "name": "Belize",
     "latlng": [17.25, -88.75],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["GT", "MX"]
   },
   "BM": {
     "name": "Bermuda",
     "latlng": [32.33333333, -64.75],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BO": {
     "name": "Bolivia",
     "latlng": [-17, -65],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AR", "BR", "CL", "PY", "PE"]
   },
   "BR": {
     "name": "Brazil",
     "latlng": [-10, -55],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AR", "BO", "CO", "GF", "GY", "PY", "PE", "SR", "UY", "VE"]
   },
   "BB": {
     "name": "Barbados",
     "latlng": [13.16666666, -59.53333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BN": {
     "name": "Brunei",
     "latlng": [4.5, 114.66666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["MY"]
   },
   "BT": {
     "name": "Bhutan",
     "latlng": [27.5, 90.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["CN", "IN"]
   },
   "BV": {
     "name": "Bouvet Island",
     "latlng": [-54.43333333, 3.4],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BW": {
     "name": "Botswana",
     "latlng": [-22, 24],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["NA", "ZA", "ZM", "ZW"]
   },
   "CF": {
     "name": "Central African Republic",
     "latlng": [7, 21],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["CM", "TD", "CD", "CG", "SS", "SD"]
   },
   "CA": {
     "name": "Canada",
     "latlng": [60, -95],
     "questions": ["What is the capital city?"],
-    "power": 30,
+    "power": 20,
     "borders": ["US"]
   },
   "CC": {
     "name": "Cocos (Keeling) Islands",
     "latlng": [-12.5, 96.83333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CH": {
     "name": "Switzerland",
     "latlng": [47, 8],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AT", "FR", "IT", "LI", "DE"]
   },
   "CL": {
     "name": "Chile",
     "latlng": [-30, -71],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AR", "BO", "PE"]
   },
   "CN": {
@@ -306,35 +306,35 @@ var countries = {
     "name": "Ivory Coast",
     "latlng": [8, -5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["BF", "GH", "GN", "LR", "ML"]
   },
   "CM": {
     "name": "Cameroon",
     "latlng": [6, 12],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["CF", "TD", "CG", "GQ", "GA", "NG"]
   },
   "CD": {
     "name": "DR Congo",
     "latlng": [0, 25],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AO", "BI", "CF", "CG", "RW", "SS", "TZ", "UG", "ZM"]
   },
   "CG": {
     "name": "Republic of the Congo",
     "latlng": [-1, 15],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AO", "CM", "CF", "CD", "GA"]
   },
   "CK": {
     "name": "Cook Islands",
     "latlng": [-21.23333333, -159.76666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CO": {
@@ -376,63 +376,63 @@ var countries = {
     "name": "Curaçao",
     "latlng": [12.116667, -68.933333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CX": {
     "name": "Christmas Island",
     "latlng": [-10.5, 105.66666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "KY": {
     "name": "Cayman Islands",
     "latlng": [19.5, -80.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CY": {
     "name": "Cyprus",
     "latlng": [35, 33],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["GB"]
   },
   "CZ": {
     "name": "Czech Republic",
     "latlng": [49.75, 15.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AT", "DE", "PL", "SK"]
   },
   "DE": {
     "name": "Germany",
     "latlng": [51, 9],
     "questions": ["What is the capital city?"],
-    "power": 40,
+    "power": 20,
     "borders": ["AT", "BE", "CZ", "DK", "FR", "LU", "NL", "PL", "CH"]
   },
   "DJ": {
     "name": "Djibouti",
     "latlng": [11.5, 43],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["ER", "ET", "SO"]
   },
   "DM": {
     "name": "Dominica",
     "latlng": [15.41666666, -61.33333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "DK": {
     "name": "Denmark",
     "latlng": [56, 10],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["DE"]
   },
   "DO": {
@@ -460,21 +460,21 @@ var countries = {
     "name": "Egypt",
     "latlng": [27, 30],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["IL", "LY", "SD"]
   },
   "ER": {
     "name": "Eritrea",
     "latlng": [15, 39],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["DJ", "ET", "SD"]
   },
   "EH": {
     "name": "Western Sahara",
     "latlng": [24.5, -13],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["DZ", "MR", "MA"]
   },
   "ES": {
@@ -614,133 +614,133 @@ var countries = {
     "name": "Equatorial Guinea",
     "latlng": [2, 10],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["CM", "GA"]
   },
   "GR": {
     "name": "Greece",
     "latlng": [39, 22],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["AL", "BG", "TR", "MK"]
   },
   "GD": {
     "name": "Grenada",
     "latlng": [12.11666666, -61.66666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "GL": {
     "name": "Greenland",
     "latlng": [72, -40],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "GT": {
     "name": "Guatemala",
     "latlng": [15.5, -90.25],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["BZ", "SV", "HN", "MX"]
   },
   "GF": {
     "name": "French Guiana",
     "latlng": [4, -53],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["BR", "SR"]
   },
   "GU": {
     "name": "Guam",
     "latlng": [13.46666666, 144.78333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "GY": {
     "name": "Guyana",
     "latlng": [5, -59],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["BR", "SR", "VE"]
   },
   "HK": {
     "name": "Hong Kong",
     "latlng": [22.267, 114.188],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 30,
     "borders": ["CN"]
   },
   "HM": {
     "name": "Heard Island and McDonald Islands",
     "latlng": [-53.1, 72.51666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "HN": {
     "name": "Honduras",
     "latlng": [15, -86.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["GT", "SV", "NI"]
   },
   "HR": {
     "name": "Croatia",
     "latlng": [45.16666666, 15.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["BA", "HU", "ME", "RS", "SI"]
   },
   "HT": {
     "name": "Haiti",
     "latlng": [19, -72.41666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["DO"]
   },
   "HU": {
     "name": "Hungary",
     "latlng": [47, 20],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["AT", "HR", "RO", "RS", "SK", "SI", "UA"]
   },
   "ID": {
     "name": "Indonesia",
     "latlng": [-5, 120],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["TL", "MY", "PG"]
   },
   "IM": {
     "name": "Isle of Man",
     "latlng": [54.25, -4.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "IN": {
     "name": "India",
     "latlng": [20, 77],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["AF", "BD", "BT", "MM", "CN", "NP", "PK", "LK"]
   },
   "IO": {
     "name": "British Indian Ocean Territory",
     "latlng": [-6, 71.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "IE": {
     "name": "Ireland",
     "latlng": [53, -8],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["GB"]
   },
   "IR": {
@@ -761,7 +761,7 @@ var countries = {
     "name": "Iceland",
     "latlng": [65, -18],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "IL": {
@@ -859,175 +859,175 @@ var countries = {
     "name": "Kosovo",
     "latlng": [42.666667, 21.166667],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["AL", "MK", "ME", "RS"]
   },
   "KW": {
     "name": "Kuwait",
     "latlng": [29.5, 45.75],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["IQ", "SA"]
   },
   "LA": {
     "name": "Laos",
     "latlng": [18, 105],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["MM", "KH", "CN", "TH", "VN"]
   },
   "LB": {
     "name": "Lebanon",
     "latlng": [33.83333333, 35.83333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["IL", "SY"]
   },
   "LR": {
     "name": "Liberia",
     "latlng": [6.5, -9.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["GN", "CI", "SL"]
   },
   "LY": {
     "name": "Libya",
     "latlng": [25, 17],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["DZ", "TD", "EG", "NE", "SD", "TN"]
   },
   "LC": {
     "name": "Saint Lucia",
     "latlng": [13.88333333, -60.96666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "LI": {
     "name": "Liechtenstein",
     "latlng": [47.26666666, 9.53333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["AT", "CH"]
   },
   "LK": {
     "name": "Sri Lanka",
     "latlng": [7, 81],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["IN"]
   },
   "LS": {
     "name": "Lesotho",
     "latlng": [-29.5, 28.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["ZA"]
   },
   "LT": {
     "name": "Lithuania",
     "latlng": [56, 24],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["BY", "LV", "PL", "RU"]
   },
   "LU": {
     "name": "Luxembourg",
     "latlng": [49.75, 6.16666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["BE", "FR", "DE"]
   },
   "LV": {
     "name": "Latvia",
     "latlng": [57, 25],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["BY", "EE", "LT", "RU"]
   },
   "MO": {
     "name": "Macau",
     "latlng": [22.16666666, 113.55],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["CN"]
   },
   "MF": {
     "name": "Saint Martin",
     "latlng": [18.08333333, -63.95],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["SX"]
   },
   "MA": {
     "name": "Morocco",
     "latlng": [32, -5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["DZ", "EH", "ES"]
   },
   "MC": {
     "name": "Monaco",
     "latlng": [43.73333333, 7.4],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["FR"]
   },
   "MD": {
     "name": "Moldova",
     "latlng": [47, 29],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["RO", "UA"]
   },
   "MG": {
     "name": "Madagascar",
     "latlng": [-20, 47],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MV": {
     "name": "Maldives",
     "latlng": [3.25, 73],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MX": {
     "name": "Mexico",
     "latlng": [23, -102],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 25,
     "borders": ["BZ", "GT", "US"]
   },
   "MH": {
     "name": "Marshall Islands",
     "latlng": [9, 168],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MK": {
     "name": "Macedonia",
     "latlng": [41.83333333, 22],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["AL", "BG", "GR", "XK", "RS"]
   },
   "ML": {
     "name": "Mali",
     "latlng": [17, -4],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["DZ", "BF", "GN", "CI", "MR", "NE", "SN"]
   },
   "MT": {
     "name": "Malta",
     "latlng": [35.83333333, 14.58333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MM": {
@@ -1069,91 +1069,91 @@ var countries = {
     "name": "Mauritania",
     "latlng": [20, -12],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["DZ", "ML", "SN", "EH"]
   },
   "MS": {
     "name": "Montserrat",
     "latlng": [16.75, -62.2],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "MQ": {
     "name": "Martinique",
     "latlng": [14.666667, -61],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "MU": {
     "name": "Mauritius",
     "latlng": [-20.28333333, 57.55],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "MW": {
     "name": "Malawi",
     "latlng": [-13.5, 34],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["MZ", "TZ", "ZM"]
   },
   "MY": {
     "name": "Malaysia",
     "latlng": [2.5, 112.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["BN", "ID", "TH"]
   },
   "YT": {
     "name": "Mayotte",
     "latlng": [-12.83333333, 45.16666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "NA": {
     "name": "Namibia",
     "latlng": [-22, 17],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["AO", "BW", "ZA", "ZM"]
   },
   "NC": {
     "name": "New Caledonia",
     "latlng": [-21.5, 165.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "NE": {
     "name": "Niger",
     "latlng": [16, 8],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["DZ", "BJ", "BF", "TD", "LY", "ML", "NG"]
   },
   "NF": {
     "name": "Norfolk Island",
     "latlng": [-29.03333333, 167.95],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "NG": {
     "name": "Nigeria",
     "latlng": [10, 8],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["BJ", "CM", "TD", "NE"]
   },
   "NI": {
     "name": "Nicaragua",
     "latlng": [13, -85],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["CR", "HN"]
   },
   "NU": {
@@ -1174,7 +1174,7 @@ var countries = {
     "name": "Norway",
     "latlng": [62, 10],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["FI", "SE", "RU"]
   },
   "NP": {
@@ -1195,7 +1195,7 @@ var countries = {
     "name": "New Zealand",
     "latlng": [-41, 174],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "OM": {
@@ -1209,14 +1209,14 @@ var countries = {
     "name": "Pakistan",
     "latlng": [30, 70],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["AF", "CN", "IN", "IR"]
   },
   "PA": {
     "name": "Panama",
     "latlng": [9, -80],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 35,
     "borders": ["CO", "CR"]
   },
   "PN": {
@@ -1258,28 +1258,28 @@ var countries = {
     "name": "Poland",
     "latlng": [52, 20],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["BY", "CZ", "DE", "LT", "RU", "SK", "UA"]
   },
   "PR": {
     "name": "Puerto Rico",
     "latlng": [18.25, -66.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "KP": {
     "name": "North Korea",
     "latlng": [40, 127],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 1,
     "borders": ["CN", "KR", "RU"]
   },
   "PT": {
     "name": "Portugal",
     "latlng": [39.5, -8],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["ES"]
   },
   "PY": {
@@ -1293,7 +1293,7 @@ var countries = {
     "name": "Palestine",
     "latlng": [31.9, 35.2],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["IL", "EG", "JO"]
   },
   "PF": {
@@ -1307,7 +1307,7 @@ var countries = {
     "name": "Qatar",
     "latlng": [25.5, 51.25],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["SA"]
   },
   "RE": {
@@ -1342,14 +1342,14 @@ var countries = {
     "name": "Saudi Arabia",
     "latlng": [25, 45],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["IQ", "JO", "KW", "OM", "QA", "AE", "YE"]
   },
   "SD": {
     "name": "Sudan",
     "latlng": [15, 30],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["CF", "TD", "EG", "ER", "ET", "LY", "SS"]
   },
   "SN": {
@@ -1363,7 +1363,7 @@ var countries = {
     "name": "Singapore",
     "latlng": [1.36666666, 103.8],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "GS": {
@@ -1384,28 +1384,28 @@ var countries = {
     "name": "Solomon Islands",
     "latlng": [-8, 159],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "SL": {
     "name": "Sierra Leone",
     "latlng": [8.5, -11.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["GN", "LR"]
   },
   "SV": {
     "name": "El Salvador",
     "latlng": [13.83333333, -88.91666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["GT", "HN"]
   },
   "SM": {
     "name": "San Marino",
     "latlng": [43.76666666, 12.41666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["IT"]
   },
   "SO": {
@@ -1419,21 +1419,21 @@ var countries = {
     "name": "Saint Pierre and Miquelon",
     "latlng": [46.83333333, -56.33333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "RS": {
     "name": "Serbia",
     "latlng": [44, 21],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["BA", "BG", "HR", "HU", "XK", "MK", "ME", "RO"]
   },
   "SS": {
     "name": "South Sudan",
     "latlng": [7, 30],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["CF", "CD", "ET", "KE", "SD", "UG"]
   },
   "ST": {
@@ -1468,7 +1468,7 @@ var countries = {
     "name": "Sweden",
     "latlng": [62, 15],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 30,
     "borders": ["FI", "NO"]
   },
   "SZ": {
@@ -1524,7 +1524,7 @@ var countries = {
     "name": "Thailand",
     "latlng": [15, 100],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["MM", "KH", "LA", "MY"]
   },
   "TJ": {
@@ -1545,7 +1545,7 @@ var countries = {
     "name": "Turkmenistan",
     "latlng": [40, 60],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["AF", "IR", "KZ", "UZ"]
   },
   "TL": {
@@ -1608,14 +1608,14 @@ var countries = {
     "name": "Uganda",
     "latlng": [1, 32],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["CD", "KE", "RW", "SS", "TZ"]
   },
   "UA": {
     "name": "Ukraine",
     "latlng": [49, 32],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": ["BY", "HU", "MD", "PL", "RO", "RU", "SK"]
   },
   "UY": {
@@ -1636,14 +1636,14 @@ var countries = {
     "name": "Uzbekistan",
     "latlng": [41, 64],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["AF", "KZ", "KG", "TJ", "TM"]
   },
   "VA": {
     "name": "Vatican City",
     "latlng": [41.9, 12.45],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 35,
     "borders": ["IT"]
   },
   "VC": {
@@ -1678,7 +1678,7 @@ var countries = {
     "name": "Vietnam",
     "latlng": [16.16666666, 107.83333333],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["KH", "CN", "LA"]
   },
   "VU": {
@@ -1713,7 +1713,7 @@ var countries = {
     "name": "South Africa",
     "latlng": [-29, 24],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": ["BW", "LS", "MZ", "NA", "SZ", "ZW"]
   },
   "ZM": {
@@ -1727,7 +1727,7 @@ var countries = {
     "name": "Zimbabwe",
     "latlng": [-20, 30],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 100,
     "borders": ["BW", "MZ", "ZA", "ZM"]
   }
 };

@@ -8,7 +8,7 @@ let countries =
       -69.96666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "AF": {
@@ -18,7 +18,7 @@ let countries =
       65
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "IR",
       "PK",
@@ -35,7 +35,7 @@ let countries =
       18.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "CG",
       "CD",
@@ -70,7 +70,7 @@ let countries =
       20
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "ME",
       "GR",
@@ -85,7 +85,7 @@ let countries =
       1.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "FR",
       "ES"
@@ -98,7 +98,7 @@ let countries =
       54
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "OM",
       "SA"
@@ -111,7 +111,7 @@ let countries =
       -64
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "BO",
       "BR",
@@ -182,7 +182,7 @@ let countries =
       133
     ],
     "questions": ["What is the capital city?"],
-    "power": 30,
+    "power": 40,
     "borders": []
   },
   "AT": {
@@ -211,7 +211,7 @@ let countries =
       47.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AM",
       "GE",
@@ -241,7 +241,7 @@ let countries =
       4
     ],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 30,
     "borders": [
       "FR",
       "DE",
@@ -288,7 +288,7 @@ let countries =
       90
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "MM",
       "IN"
@@ -301,7 +301,7 @@ let countries =
       25
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "GR",
       "MK",
@@ -317,7 +317,7 @@ let countries =
       50.55
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BS": {
@@ -327,7 +327,7 @@ let countries =
       -76
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BA": {
@@ -337,7 +337,7 @@ let countries =
       18
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "HR",
       "ME",
@@ -351,7 +351,7 @@ let countries =
       -63.41666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BY": {
@@ -361,7 +361,7 @@ let countries =
       28
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "LV",
       "LT",
@@ -377,7 +377,7 @@ let countries =
       -88.75
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "GT",
       "MX"
@@ -390,7 +390,7 @@ let countries =
       -64.75
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BO": {
@@ -400,7 +400,7 @@ let countries =
       -65
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AR",
       "BR",
@@ -416,7 +416,7 @@ let countries =
       -55
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AR",
       "BO",
@@ -437,7 +437,7 @@ let countries =
       -59.53333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BN": {
@@ -447,7 +447,7 @@ let countries =
       114.66666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "MY"
     ]
@@ -459,7 +459,7 @@ let countries =
       90.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "CN",
       "IN"
@@ -472,7 +472,7 @@ let countries =
       3.4
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "BW": {
@@ -482,7 +482,7 @@ let countries =
       24
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "NA",
       "ZA",
@@ -497,7 +497,7 @@ let countries =
       21
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "CM",
       "TD",
@@ -514,7 +514,7 @@ let countries =
       -95
     ],
     "questions": ["What is the capital city?"],
-    "power": 30,
+    "power": 20,
     "borders": [
       "US"
     ]
@@ -526,7 +526,7 @@ let countries =
       96.83333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CH": {
@@ -536,7 +536,7 @@ let countries =
       8
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AT",
       "FR",
@@ -552,7 +552,7 @@ let countries =
       -71
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AR",
       "BO",
@@ -592,7 +592,7 @@ let countries =
       -5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "BF",
       "GH",
@@ -608,7 +608,7 @@ let countries =
       12
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "CF",
       "TD",
@@ -625,7 +625,7 @@ let countries =
       25
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AO",
       "BI",
@@ -645,7 +645,7 @@ let countries =
       15
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AO",
       "CM",
@@ -661,7 +661,7 @@ let countries =
       -159.76666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CO": {
@@ -730,7 +730,7 @@ let countries =
       -68.933333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CX": {
@@ -740,7 +740,7 @@ let countries =
       105.66666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "KY": {
@@ -750,7 +750,7 @@ let countries =
       -80.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "CY": {
@@ -760,7 +760,7 @@ let countries =
       33
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "GB"
     ]
@@ -772,7 +772,7 @@ let countries =
       15.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AT",
       "DE",
@@ -787,7 +787,7 @@ let countries =
       9
     ],
     "questions": ["What is the capital city?"],
-    "power": 40,
+    "power": 20,
     "borders": [
       "AT",
       "BE",
@@ -807,7 +807,7 @@ let countries =
       43
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "ER",
       "ET",
@@ -821,7 +821,7 @@ let countries =
       -61.33333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "DK": {
@@ -831,7 +831,7 @@ let countries =
       10
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "DE"
     ]
@@ -886,7 +886,7 @@ let countries =
       30
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "IL",
       "LY",
@@ -900,7 +900,7 @@ let countries =
       39
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "DJ",
       "ET",
@@ -914,7 +914,7 @@ let countries =
       -13
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "DZ",
       "MR",
@@ -1176,7 +1176,7 @@ let countries =
       10
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "CM",
       "GA"
@@ -1189,7 +1189,7 @@ let countries =
       22
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "AL",
       "BG",
@@ -1204,7 +1204,7 @@ let countries =
       -61.66666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "GL": {
@@ -1214,7 +1214,7 @@ let countries =
       -40
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "GT": {
@@ -1224,7 +1224,7 @@ let countries =
       -90.25
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "BZ",
       "SV",
@@ -1239,7 +1239,7 @@ let countries =
       -53
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "BR",
       "SR"
@@ -1252,7 +1252,7 @@ let countries =
       144.78333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "GY": {
@@ -1262,7 +1262,7 @@ let countries =
       -59
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "BR",
       "SR",
@@ -1276,7 +1276,7 @@ let countries =
       114.188
     ],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 30,
     "borders": [
       "CN"
     ]
@@ -1288,7 +1288,7 @@ let countries =
       72.51666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "HN": {
@@ -1298,7 +1298,7 @@ let countries =
       -86.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "GT",
       "SV",
@@ -1312,7 +1312,7 @@ let countries =
       15.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "BA",
       "HU",
@@ -1328,7 +1328,7 @@ let countries =
       -72.41666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "DO"
     ]
@@ -1340,7 +1340,7 @@ let countries =
       20
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "AT",
       "HR",
@@ -1358,7 +1358,7 @@ let countries =
       120
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "TL",
       "MY",
@@ -1372,7 +1372,7 @@ let countries =
       -4.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "IN": {
@@ -1382,7 +1382,7 @@ let countries =
       77
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "AF",
       "BD",
@@ -1401,7 +1401,7 @@ let countries =
       71.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "IE": {
@@ -1411,7 +1411,7 @@ let countries =
       -8
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "GB"
     ]
@@ -1458,7 +1458,7 @@ let countries =
       -18
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "IL": {
@@ -1638,7 +1638,7 @@ let countries =
       21.166667
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "AL",
       "MK",
@@ -1653,7 +1653,7 @@ let countries =
       45.75
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "IQ",
       "SA"
@@ -1666,7 +1666,7 @@ let countries =
       105
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "MM",
       "KH",
@@ -1682,7 +1682,7 @@ let countries =
       35.83333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "IL",
       "SY"
@@ -1695,7 +1695,7 @@ let countries =
       -9.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "GN",
       "CI",
@@ -1709,7 +1709,7 @@ let countries =
       17
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "DZ",
       "TD",
@@ -1726,7 +1726,7 @@ let countries =
       -60.96666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "LI": {
@@ -1736,7 +1736,7 @@ let countries =
       9.53333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "AT",
       "CH"
@@ -1749,7 +1749,7 @@ let countries =
       81
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "IN"
     ]
@@ -1761,7 +1761,7 @@ let countries =
       28.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "ZA"
     ]
@@ -1773,7 +1773,7 @@ let countries =
       24
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "BY",
       "LV",
@@ -1788,7 +1788,7 @@ let countries =
       6.16666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "BE",
       "FR",
@@ -1802,7 +1802,7 @@ let countries =
       25
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "BY",
       "EE",
@@ -1817,7 +1817,7 @@ let countries =
       113.55
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "CN"
     ]
@@ -1829,7 +1829,7 @@ let countries =
       -63.95
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "SX"
     ]
@@ -1841,7 +1841,7 @@ let countries =
       -5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "DZ",
       "EH",
@@ -1855,7 +1855,7 @@ let countries =
       7.4
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "FR"
     ]
@@ -1867,7 +1867,7 @@ let countries =
       29
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "RO",
       "UA"
@@ -1880,7 +1880,7 @@ let countries =
       47
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MV": {
@@ -1890,7 +1890,7 @@ let countries =
       73
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MX": {
@@ -1900,7 +1900,7 @@ let countries =
       -102
     ],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 25,
     "borders": [
       "BZ",
       "GT",
@@ -1914,7 +1914,7 @@ let countries =
       168
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MK": {
@@ -1924,7 +1924,7 @@ let countries =
       22
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "AL",
       "BG",
@@ -1940,7 +1940,7 @@ let countries =
       -4
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "DZ",
       "BF",
@@ -1958,7 +1958,7 @@ let countries =
       14.58333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "MM": {
@@ -2040,7 +2040,7 @@ let countries =
       -12
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "DZ",
       "ML",
@@ -2055,7 +2055,7 @@ let countries =
       -62.2
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "MQ": {
@@ -2065,7 +2065,7 @@ let countries =
       -61
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "MU": {
@@ -2075,7 +2075,7 @@ let countries =
       57.55
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "MW": {
@@ -2085,7 +2085,7 @@ let countries =
       34
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "MZ",
       "TZ",
@@ -2099,7 +2099,7 @@ let countries =
       112.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "BN",
       "ID",
@@ -2113,7 +2113,7 @@ let countries =
       45.16666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "NA": {
@@ -2123,7 +2123,7 @@ let countries =
       17
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "AO",
       "BW",
@@ -2138,7 +2138,7 @@ let countries =
       165.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "NE": {
@@ -2148,7 +2148,7 @@ let countries =
       8
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "DZ",
       "BJ",
@@ -2166,7 +2166,7 @@ let countries =
       167.95
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "NG": {
@@ -2176,7 +2176,7 @@ let countries =
       8
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "BJ",
       "CM",
@@ -2191,7 +2191,7 @@ let countries =
       -85
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "CR",
       "HN"
@@ -2227,7 +2227,7 @@ let countries =
       10
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "FI",
       "SE",
@@ -2264,7 +2264,7 @@ let countries =
       174
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": []
   },
   "OM": {
@@ -2288,7 +2288,7 @@ let countries =
       70
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "AF",
       "CN",
@@ -2303,7 +2303,7 @@ let countries =
       -80
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 35,
     "borders": [
       "CO",
       "CR"
@@ -2374,7 +2374,7 @@ let countries =
       20
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "BY",
       "CZ",
@@ -2392,7 +2392,7 @@ let countries =
       -66.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": []
   },
   "KP": {
@@ -2402,7 +2402,7 @@ let countries =
       127
     ],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 1,
     "borders": [
       "CN",
       "KR",
@@ -2416,7 +2416,7 @@ let countries =
       -8
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "ES"
     ]
@@ -2442,7 +2442,7 @@ let countries =
       35.2
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "IL",
       "EG",
@@ -2466,7 +2466,7 @@ let countries =
       51.25
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "SA"
     ]
@@ -2544,7 +2544,7 @@ let countries =
       45
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "IQ",
       "JO",
@@ -2562,7 +2562,7 @@ let countries =
       30
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "CF",
       "TD",
@@ -2596,7 +2596,7 @@ let countries =
       103.8
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": []
   },
   "GS": {
@@ -2626,7 +2626,7 @@ let countries =
       159
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "SL": {
@@ -2636,7 +2636,7 @@ let countries =
       -11.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "GN",
       "LR"
@@ -2649,7 +2649,7 @@ let countries =
       -88.91666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "GT",
       "HN"
@@ -2662,7 +2662,7 @@ let countries =
       12.41666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "IT"
     ]
@@ -2688,7 +2688,7 @@ let countries =
       -56.33333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "RS": {
@@ -2698,7 +2698,7 @@ let countries =
       21
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "BA",
       "BG",
@@ -2717,7 +2717,7 @@ let countries =
       30
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "CF",
       "CD",
@@ -2789,7 +2789,7 @@ let countries =
       15
     ],
     "questions": ["What is the capital city?"],
-    "power": 20,
+    "power": 30,
     "borders": [
       "FI",
       "NO"
@@ -2894,7 +2894,7 @@ let countries =
       100
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "MM",
       "KH",
@@ -2934,7 +2934,7 @@ let countries =
       60
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "AF",
       "IR",
@@ -3052,7 +3052,7 @@ let countries =
       32
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "CD",
       "KE",
@@ -3068,7 +3068,7 @@ let countries =
       32
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 25,
     "borders": [
       "BY",
       "HU",
@@ -3112,7 +3112,7 @@ let countries =
       64
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "AF",
       "KZ",
@@ -3128,7 +3128,7 @@ let countries =
       12.45
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 35,
     "borders": [
       "IT"
     ]
@@ -3184,7 +3184,7 @@ let countries =
       107.83333333
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "KH",
       "CN",
@@ -3241,7 +3241,7 @@ let countries =
       24
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 20,
     "borders": [
       "BW",
       "LS",
@@ -3277,7 +3277,7 @@ let countries =
       30
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 100,
     "borders": [
       "BW",
       "MZ",

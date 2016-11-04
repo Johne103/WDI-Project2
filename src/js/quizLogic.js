@@ -44,7 +44,8 @@ $(() => {
   function makeResetWork() {
     $('#restart').click( function() {
       $gameOverScreen.hide();
-
+      $turnIndicator.html('');
+      // $turnIndicator.show();
       startGame();
     });
   }
@@ -117,6 +118,7 @@ $(() => {
     let aiScore = aiCountry[2] * rndNumber(6);
     gv.players.player2.power += aiScore;
     gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
+    $turnIndicator.show().html(aiCountry[1] + " has fallen! Fight back hero!");
     google.maps.event.clearListeners(aiCountry[0]);
     console.log(aiCountry, aiScore);
     changeIcon(aiCountry[0]);
@@ -211,7 +213,7 @@ $(() => {
     for(let i = 0;i<3;i++) {
       let country = findRandomCountry();
       console.log(country);
-      while(selectedCountries.indexOf(country) !== -1 && currentArea === null ) {
+      while(selectedCountries.indexOf(country) !== -1 || currentArea === null ) {
         country = findRandomCountry();
       }
       selectedCountries.push(country);
@@ -362,6 +364,9 @@ $(() => {
           changeIcon(gv.turnInfo.currentIcon);
           //function to check if game has ended(out of turns)
           conquerCountry();
+          $('.turnDisplay').show();
+          $('.playerPower').show();
+          $('.answerGiven').show();
         } else {
           answerToQuestion = false;
           gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
@@ -370,6 +375,9 @@ $(() => {
           processTurn(gv.turnInfo.turn);
           //function to check if game has ended(out of turns)
           gameOverChecker();
+          $('.turnDisplay').show();
+          $('.playerPower').show();
+          $('.answerGiven').show();
         }
         if (numberOfQuestions === 1 ){
           processTurn(gv.turnInfo.turn);
