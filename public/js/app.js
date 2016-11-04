@@ -323,6 +323,9 @@ $(function () {
     var $avatars = getAvatars(user.characterId, 'edit');
     if (event) event.preventDefault();
     gv.main.mainP1.html("\n      <h2>Edit User</h2>\n      <form method=\"put\" action=\"/api/user/" + user._id + "\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\" value=\"" + user.username + "\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + user.email + "\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    gv.main.mainP1.parent().css({
+      "width": "40%"
+    });
     gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
 
