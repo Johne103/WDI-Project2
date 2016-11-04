@@ -411,6 +411,7 @@ $(() => {
           <input class="form-control" name="email" placeholder="Email" value="${user.email}">
         </div>
         <div class="avatarHolder"></div>
+        <span class="error"></span>
         <button class="btn btn-primary">Register</button>
       </form>
     `);
