@@ -185,7 +185,9 @@ $(() => {
   $registerButton.on('click', showRegisterForm);
 
   let $login = $('.login');
-  $login.on('click', showLoginForm);
+  $login.on('click', function(){
+    showLoginForm({message: ""});
+  });
 
   $('.logout').hide();
   // $('.logout').on('click', logout);
@@ -208,7 +210,7 @@ $(() => {
     // showProfileForm();
     console.log("logged in!");
   } else {
-    showLoginForm();
+    showLoginForm({message: ""});
   }
 
   function getAvatars(characterId, type) {
@@ -267,14 +269,20 @@ $(() => {
       }
     })
     .done((data) => {
-      console.log(data);
       if(data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
       $('.logout').show();
     })
-    .fail(showLoginForm);
+    .fail(function(data){
+        if(url === "/api/user/register"){
+          showRegisterForm(data);
+        } else {
+          showLoginForm(data);
+        }
+      }
+    );
   }
 
   function showPlayerProfiles(id, user, userID){
@@ -341,8 +349,11 @@ $(() => {
     console.log(gv.players.player2.handle);
   }
 
-  function showLoginForm() {
+  function showLoginForm(data) {
     if(event) event.preventDefault();
+    console.log(data.responseText);
+    // console.log(JSON.parse(data.responseText));
+    let retMsg = !!data.responseText ? "Invalid credentials" : "";
     gv.main.mainP1.html(`
       <form method="post" action="/api/user/login">
         <div class="form-group">
@@ -351,16 +362,19 @@ $(() => {
         <div class="form-group">
           <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
+        <span class="error">${retMsg}</span>
         <button class="btn btn-primary">Login</button>
       </form>
     `);
   }
 
-  function showRegisterForm() {
+  function showRegisterForm(data) {
     let $avatars = getAvatars(0, 'register');
+    let retMsg = !!data.responseText ? "You have not filled out all the fields, please try again! Remember to choose your avatar" : "";
     if(event) event.preventDefault();
     gv.main.mainP1.html(`
       <form method="post" action="/api/user/register">
+        <span class="error">${retMsg}</span>
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username">
         </div>
@@ -445,7 +459,7 @@ $(() => {
     if(event) event.preventDefault();
     $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
-    showLoginForm();
+    showLoginForm({message: ""});
     clearMarkers();
     $('#showPlayerTurn').hide();
     $('#gameOverDiv').hide();

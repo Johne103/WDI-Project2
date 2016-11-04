@@ -193,8 +193,6 @@ text-align: center;
   border-radius: 5px;
 }
 
-// LH extra added styles
-
 
 .startGameHolder {
   height: 400px;
@@ -247,6 +245,12 @@ text-align: center;
     }
   }
 
+}
+
+.error {
+  color: red;
+  padding:20px;
+  display: block;
 }
 
 .cPower {

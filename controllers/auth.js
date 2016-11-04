@@ -7,7 +7,6 @@ const secret = require("../config/tokens").secret;
 
 
 function register(req, res){
- console.log(req.body);
  User.create(req.body, (err, user) => {
    console.log(err);
    if (err) return res.status(500).json({ message: "Something went wrong.", err });

@@ -170,7 +170,9 @@ $(function () {
   $registerButton.on('click', showRegisterForm);
 
   var $login = $('.login');
-  $login.on('click', showLoginForm);
+  $login.on('click', function () {
+    showLoginForm({ message: "" });
+  });
 
   $('.logout').hide();
   // $('.logout').on('click', logout);
@@ -192,7 +194,7 @@ $(function () {
     // showProfileForm();
     console.log("logged in!");
   } else {
-    showLoginForm();
+    showLoginForm({ message: "" });
   }
 
   function getAvatars(characterId, type) {
@@ -241,13 +243,18 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
     }).done(function (data) {
-      console.log(data);
       if (data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
       $('.logout').show();
-    }).fail(showLoginForm);
+    }).fail(function (data) {
+      if (url === "/api/user/register") {
+        showRegisterForm(data);
+      } else {
+        showLoginForm(data);
+      }
+    });
   }
 
   function showPlayerProfiles(id, user, userID) {
@@ -290,15 +297,19 @@ $(function () {
     console.log(gv.players.player2.handle);
   }
 
-  function showLoginForm() {
+  function showLoginForm(data) {
     if (event) event.preventDefault();
-    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Login</button>\n      </form>\n    ");
+    console.log(data.responseText);
+    // console.log(JSON.parse(data.responseText));
+    var retMsg = !!data.responseText ? "Invalid credentials" : "";
+    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <span class=\"error\">" + retMsg + "</span>\n        <button class=\"btn btn-primary\">Login</button>\n      </form>\n    ");
   }
 
-  function showRegisterForm() {
+  function showRegisterForm(data) {
     var $avatars = getAvatars(0, 'register');
+    var retMsg = !!data.responseText ? "You have not filled out all the fields, please try again! Remember to choose your avatar" : "";
     if (event) event.preventDefault();
-    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/register\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/register\">\n        <span class=\"error\">" + retMsg + "</span>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
     // gv.main.mainP1.on(eventName, '.avatarHolder', function() {});
     gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
@@ -349,7 +360,7 @@ $(function () {
     if (event) event.preventDefault();
     $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
-    showLoginForm();
+    showLoginForm({ message: "" });
     clearMarkers();
     $('#showPlayerTurn').hide();
     $('#gameOverDiv').hide();
