@@ -7,14 +7,15 @@ const gv = {
   },
   players: {
     player1: {
-      avatar: ""
+      avatar: "",
+      name: ""
     },
     player2: {
-      avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
+      avatar: "",
+      name: ""
     }
   },
   heroes: {
-
     "wolverine": "rgba(55,174,182,1)", //lightblue
     "deadpool": "rgba(55,174,182,1)", //lightblue
     "emma frost": "rgba(55,174,182,1)", //lightblue
@@ -28,10 +29,9 @@ const gv = {
     "venom": "rgba(191,157,24,1)", //yellow
     "elektra": "rgba(191,157,24,1)", //yellow
     "spider-man": "rgba(191,157,24,1)",
-    "loki": "rgba(139,139,139,1)",
-    "doctor octopus": "rgba(194,94,19,1)",
+    "loki": "rgba(139,139,139,1)", //grey
+    "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
-
     "doctor doom": "rgba(40,107,152,1)",
     "winter soldier": "rgba(75,130,75)", // green
     "jean grey": "rgba(0,0,0,1)", //black
@@ -65,26 +65,45 @@ let currentCountryListener;
 let infoWindow = null;
 
 let markers = [];
+let markersAlt = [];
 let rulesShowing = false;
 
 
 
 function clearMarkers() {
   markers.forEach((marker) => {
-    marker.setMap(null);
+    marker[0].setMap(null);
   });
 
   markers = [];
+  markersAlt = [];
 }
 
 function startGame() {
   if (event) event.preventDefault();
-  $(this).remove();
-  $('#showPlayerTurn').show();
+
+  gv.players.player1.$answerGiven.html('');
+  gv.players.player2.$answerGiven.html('');
+  gv.players.player1.powerDiv.html('');
+  gv.players.player2.powerDiv.html('');
+  gv.main.turnDisplay.html('');
+  gv.players.player1.turnDisplayDiv.html('');
+  gv.players.player2.turnDisplayDiv.html('');
+  gv.players.player1.power = 0;
+  gv.players.player2.power = 0;
+  gv.players.player1.turnCounter = 3;
+  gv.players.player2.turnCounter = 3;
+
+  $('.edit').hide();
+  $('.delete').hide();
+
+  $(this).parent().remove();
+  // $('#showPlayerTurn').show();
+
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0");
+  gv.main.mainP2.parent().css("opacity", "0.8");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -93,12 +112,15 @@ function startGame() {
       map: map,
       position: latLng,
       icon:"images/grayMarker.png"
-
     });
 
     marker.metadata = {type: "country", id: country.name};
 
-    markers.push(marker);
+    markers.push([
+      marker,
+      country.name,
+      country.power
+    ]);
 
     let countryDetails = `
       <div id='content' >
@@ -122,7 +144,7 @@ function startGame() {
 
       $('.cPower').html(`${country.power}`);
       gv.turnInfo.currentIcon = this; // set global to variable.
-
+      gv.main.selectedCountry = this.metadata.id;
 
       if (currentWindow !== null) {
         currentWindow.close();
@@ -133,12 +155,12 @@ function startGame() {
     });
 
   }
+  markersAlt = markers.slice(0);
 }
 
 function changeIcon(ci) {
-  console.log(ci);
   ci.setIcon({
-      // url: gv.players['player' + gv.turnInfo.turn].avatar, // url
+      url: gv.players['player' + gv.turnInfo.turn].avatar, // url
       scaledSize: new google.maps.Size(50, 50), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -165,13 +187,12 @@ $(() => {
   let $login = $('.login');
   $login.on('click', showLoginForm);
 
-  let $logoutbutton = $('.logout');
-  $logoutbutton.hide();
-  $logoutbutton.on('click', logout);
+  $('.logout').hide();
+  // $('.logout').on('click', logout);
+  $('html').on('click', '.logout', logout);
 
 
   gv.main.mainP1.on('click', '.avatar', function() {
-    console.log(this);
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
     let avatarID = $(this).data('id');
@@ -191,7 +212,7 @@ $(() => {
   }
 
   function getAvatars(characterId, type) {
-    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
+    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'thor', 'captain america', 'groot', 'punisher'];
 
     let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
     let $hiddenField = $(`<input type="hidden" name="characterId" id="characterId" value="" />`);
@@ -251,7 +272,7 @@ $(() => {
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
-      $logoutbutton.show();
+      $('.logout').show();
     })
     .fail(showLoginForm);
   }
@@ -268,6 +289,7 @@ $(() => {
         'background-color': gv.heroes[obj.name.toLowerCase()]
         });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      gv.players.player1.handle = user;
       gv.main.mainP1.html(`
         <div class="profileHolder">
           <div class="profileImage">
@@ -279,10 +301,9 @@ $(() => {
         `);
 
         gv.main.mainP1.append(`
-          <a class="edit" data-id="${userID}">Edit</a>
-          <a class="delete" data-id="${userID}">Delete</a>
+          <a class="nav-link edit" data-id="${userID}">Edit</a>
+          <a class="nav-link delete" data-id="${userID}">Delete</a>
         `);
-
 
         const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
         let rndNum = Math.floor(Math.random() * characters.length);
@@ -317,32 +338,7 @@ $(() => {
         }).fail(showLoginForm);
     })
     .fail(showLoginForm);
-
-    const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
-    let rndNum = Math.floor(Math.random() * characters.length);
-    let rndCharacter = characters[rndNum];
-    console.log(rndNum, rndCharacter);
-    // Player 2
-    $.ajax({
-      url: "/api/profile/"+ rndCharacter,
-      method: 'GET'
-    }).done((profile) => {
-      let obj = profile.data[0];
-      console.log(obj);
-      gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      gv.main.mainP2.parent().css({
-        'background-color': gv.heroes[obj.name.toLowerCase()]
-        });
-      gv.main.mainP2.html(`
-        <div class="profileHolder">
-          <div class="profileImage">
-            <img src="${gv.players.player2.avatar }" >
-          </div>
-          <h3>${obj.name}</h3>
-          <p>${obj.description}</p>
-        </div>
-        `);
-    }).fail(showLoginForm);
+    console.log(gv.players.player2.handle);
   }
 
   function showLoginForm() {
@@ -389,7 +385,7 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
-    $('html').find('.startGame').remove();
+    $('html').find('.startGameHolder').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -415,7 +411,7 @@ $(() => {
           <input class="form-control" name="email" placeholder="Email" value="${user.email}">
         </div>
         <div class="avatarHolder"></div>
-        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary">Register</button>
       </form>
     `);
     gv.main.mainP1.parent().css({
@@ -429,7 +425,7 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
-    $('html').find('.startGame').remove();
+    $('html').find('.startGameHolder').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -445,8 +441,8 @@ $(() => {
 
 // LOGOUT
   function logout() {
-
     if(event) event.preventDefault();
+    $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
@@ -456,7 +452,7 @@ $(() => {
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
-    $logoutbutton.hide();
+    $('.logout').hide();
     gv.main.mainP1.parent().css({
       'width': '45%',
       'background-color': "#0d0c47"
@@ -489,13 +485,12 @@ $(() => {
       <strong class="rulesT">Object:</strong>
       <br>Score the most points to win the game. <br>
       <strong class="rulesT">Setup:</strong>
-      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
+      <br>Choose a player from the list. You have 20 turns. Countries have different values based on power structures.
       <br>
       <strong class="rulesT">Playing the game:</strong>
       <br>
       Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-      Players take turns and accumulate points throughout the game based on answering the quiz correctly.
-      After comparing the scores, a winner is annouced.</p></div>
+      Players take turns and accumulate points throughout the game based on answering the quiz correctly.</p></div>
       `);
       $(".rules").hide();
   }
