@@ -414,6 +414,9 @@ $(() => {
         <button class="btn btn-primary">Register</button>
       </form>
     `);
+    gv.main.mainP1.parent().css({
+      "width": "40%"
+    });
     gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
 
