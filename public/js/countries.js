@@ -5,21 +5,21 @@ var countries = {
     "name": "Aruba",
     "latlng": [12.5, -69.96666666],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "AF": {
     "name": "Afghanistan",
     "latlng": [33, 65],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": ["IR", "PK", "TM", "UZ", "TJ", "CN"]
   },
   "AO": {
     "name": "Angola",
     "latlng": [-12.5, 18.5],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": ["CG", "CD", "ZM", "NA"]
   },
   "AI": {

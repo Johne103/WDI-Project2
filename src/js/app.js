@@ -445,6 +445,9 @@ $(() => {
     showLoginForm();
     clearMarkers();
     $('#showPlayerTurn').hide();
+    $('.turnDisplay').hide();
+    $('.playerPower').hide();
+    $('.answerGiven').hide();
     $('#gameOverDiv').hide();
     $('#quizPopup').hide();
     $('#gameLogo').show();

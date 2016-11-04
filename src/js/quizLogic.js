@@ -364,6 +364,9 @@ $(() => {
           changeIcon(gv.turnInfo.currentIcon);
           //function to check if game has ended(out of turns)
           conquerCountry();
+          $('.turnDisplay').show();
+          $('.playerPower').show();
+          $('.answerGiven').show();
         } else {
           answerToQuestion = false;
           gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
@@ -372,6 +375,9 @@ $(() => {
           processTurn(gv.turnInfo.turn);
           //function to check if game has ended(out of turns)
           gameOverChecker();
+          $('.turnDisplay').show();
+          $('.playerPower').show();
+          $('.answerGiven').show();
         }
         if (numberOfQuestions === 1 ){
           processTurn(gv.turnInfo.turn);

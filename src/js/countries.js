@@ -8,7 +8,7 @@ let countries =
       -69.96666666
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": []
   },
   "AF": {
@@ -18,7 +18,7 @@ let countries =
       65
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 30,
     "borders": [
       "IR",
       "PK",
@@ -35,7 +35,7 @@ let countries =
       18.5
     ],
     "questions": ["What is the capital city?"],
-    "power": 10,
+    "power": 15,
     "borders": [
       "CG",
       "CD",
