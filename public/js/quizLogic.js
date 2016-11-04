@@ -18,7 +18,6 @@ $(function () {
   var isCountry = "";
   var answerToQuestion = "";
   var numberOfQuestions = 0;
-  var numberOfQuestionOptions = 0; //Number of options to select for each question.
   var units = "";
   var theQuestion = '';
   gv.players.player1.powerDiv = $('#hud .playerPower');
@@ -196,8 +195,6 @@ $(function () {
     return countryData[randomIndex];
   }
 
-  numberOfQuestionOptions = 3;
-
   //Select first four countries from randam array and check for duplicate selectioins.
   function selectCountries(alpha2Code) {
     selectedCountries = [];
@@ -302,7 +299,6 @@ $(function () {
     }];
 
     numberOfQuestions = questions.length;
-
     askQuestions(questions);
   }
 
@@ -311,9 +307,6 @@ $(function () {
     var questionDefHead = questionDefs.splice(0, 1);
     var questionDef = questionDefHead[0];
 
-    console.log('What is in questionDef ' + questionDef);
-    console.log('What is in theQuestion ' + theQuestion);
-
     $("#quizPopup").html("\n      <p>" + questionDef.theQuestion + " " + countries[questionDef.countryCode].name + "? </p>\n      <div class=\"qHolder\">\n        <label>" + questionDef.option1 + questionDef.units + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + questionDef.option1 + "\">\n      </div>\n      <div class=\"qHolder\">\n        <label>" + questionDef.option2 + questionDef.units + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + questionDef.option2 + "\">\n      </div>\n      <div class=\"qHolder\">\n        <label>" + questionDef.option3 + questionDef.units + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + questionDef.option3 + "\">\n      </div>\n      <div class=\"qHolder\">\n        <label>" + questionDef.option4 + questionDef.units + "</label>\n        <input type=\"radio\" name=\"answer\" value=\"" + questionDef.option4 + "\">\n      </div>\n      <button class=\"stopBtn\">Retreat</button>\n      ");
 
     //Check for correct answer and return true or false.
@@ -321,7 +314,6 @@ $(function () {
       if ($(this).val() == questionDef.currentQuestion) {
         answerToQuestion = true;
         gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Yeh You Gave the Right Answer');
-        // $main.html(`Oh Yes.`);
         // Should update players amount of power upon answering question correctly
         gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
         gv.players['player' + gv.turnInfo.turn].powerDiv.html('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
@@ -331,13 +323,12 @@ $(function () {
       } else {
         answerToQuestion = false;
         gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
-        // $main.html(`Oh No.`);
         // should update number of turns left after question is answered
         processTurn(gv.turnInfo.turn);
         //function to check if game has ended(out of turns)
         gameOverChecker();
       }
-      if (numberOfQuestions === 2) {
+      if (numberOfQuestions === 1) {
         processTurn(gv.turnInfo.turn);
       }
       if (numberOfQuestions > 1) {
