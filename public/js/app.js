@@ -92,7 +92,7 @@ function startGame() {
   var currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0.5");
+  gv.main.mainP2.parent().css("opacity", "0.8");
 
   var _loop = function _loop(countryCode) {
 
@@ -187,7 +187,7 @@ $(function () {
   }
 
   function getAvatars(characterId, type) {
-    var characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
+    var characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'thor', 'captain america', 'groot', 'punisher'];
 
     var $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
     var $hiddenField = $("<input type=\"hidden\" name=\"characterId\" id=\"characterId\" value=\"\" />");
@@ -256,28 +256,28 @@ $(function () {
       gv.main.mainP1.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player1.avatar + "\" >\n          </div>\n          <h3>" + user + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
 
       gv.main.mainP1.append("\n          <a class=\"nav-link edit\" data-id=\"" + userID + "\">Edit</a>\n          <a class=\"nav-link delete\" data-id=\"" + userID + "\">Delete</a>\n        ");
+
+      var characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+      var rndNum = Math.floor(Math.random() * characters.length);
+      var rndCharacter = characters[rndNum];
+      console.log(rndNum, rndCharacter);
+      // Player 2
+      $.ajax({
+        url: "/api/profile/" + rndCharacter,
+        method: 'GET'
+      }).done(function (profile) {
+        var obj = profile.data[0];
+
+        gv.players.player2.handle = obj.name;
+        gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+        gv.main.mainP2.parent().css({
+          "opacity": "0.7",
+          'background-color': gv.heroes[obj.name.toLowerCase()]
+        });
+        gv.main.mainP2.html("\n            <div class=\"profileHolder\">\n              <div class=\"profileImage\">\n                <img src=\"" + gv.players.player2.avatar + "\" >\n              </div>\n              <h3>" + obj.name + "</h3>\n              <p>" + obj.description + "</p>\n            </div>\n            ");
+        $('html').append("\n              <div class=\"startGameHolder\"><p><span>" + gv.players.player2.handle + "</span> has found a way out from <em>\"eternal\"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>" + gv.players.player1.handle + "</span>. Will you stand up and fight for against the forces of evil?</p>\n              <p>What is your response, hero?</p> <a href=\"#\" class=\"startGame\">I WANT WAR</a> <a href=\"#\" class=\"logout\"> I'm washing my hair</a> </div>\n            ");
+      }).fail(showLoginForm);
     }).fail(showLoginForm);
-
-    var characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
-    var rndNum = Math.floor(Math.random() * characters.length);
-    var rndCharacter = characters[rndNum];
-    console.log(rndNum, rndCharacter);
-    // Player 2
-    $.ajax({
-      url: "/api/profile/" + rndCharacter,
-      method: 'GET'
-    }).done(function (profile) {
-      var obj = profile.data[0];
-
-      gv.players.player2.handle = obj.name;
-      gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      gv.main.mainP2.parent().css({
-        'background-color': gv.heroes[obj.name.toLowerCase()]
-      });
-      gv.main.mainP2.html("\n        <div class=\"profileHolder\">\n          <div class=\"profileImage\">\n            <img src=\"" + gv.players.player2.avatar + "\" >\n          </div>\n          <h3>" + obj.name + "</h3>\n          <p>" + obj.description + "</p>\n        </div>\n        ");
-      $('html').append("\n          <div class=\"startGameHolder\"><p>" + gv.players.player2.handle + " has found a way out from eternal banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... " + gv.players.player1.handle + ". Will you stand up and fight for against the forces of evil?</p> <a href=\"#\" class=\"startGame\">I WANT WAR</a> <a href=\"#\" class=\"logout\"> I'm washing my hair</a> </div>\n        ");
-    }).fail(showLoginForm);
-
     console.log(gv.players.player2.handle);
   }
 
@@ -370,7 +370,7 @@ $(function () {
 
   function showRules() {
 
-    gv.main.mainP1.append("\n      <div class=\"rulesContent\">\n      <button class=\"exitRules\" >x</button>\n      <p>\n      <strong class=\"rulesT\">Object:</strong>\n      <br>Score the most points to win the game. <br>\n      <strong class=\"rulesT\">Setup:</strong>\n      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.\n      <br>\n      <strong class=\"rulesT\">Playing the game:</strong>\n      <br>\n      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n      Players take turns and accumulate points throughout the game based on answering the quiz correctly.\n      After comparing the scores, a winner is annouced.</p></div>\n      ");
+    gv.main.mainP1.append("\n      <div class=\"rulesContent\">\n      <button class=\"exitRules\" >x</button>\n      <p>\n      <strong class=\"rulesT\">Object:</strong>\n      <br>Score the most points to win the game. <br>\n      <strong class=\"rulesT\">Setup:</strong>\n      <br>Choose a player from the list. You have 20 turns. Countries have different values based on power structures.\n      <br>\n      <strong class=\"rulesT\">Playing the game:</strong>\n      <br>\n      Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.\n      Players take turns and accumulate points throughout the game based on answering the quiz correctly.</p></div>\n      ");
     $(".rules").hide();
   }
 });

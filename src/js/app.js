@@ -94,7 +94,7 @@ function startGame() {
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0.5");
+  gv.main.mainP2.parent().css("opacity", "0.8");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -203,7 +203,7 @@ $(() => {
   }
 
   function getAvatars(characterId, type) {
-    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
+    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'thor', 'captain america', 'groot', 'punisher'];
 
     let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
     let $hiddenField = $(`<input type="hidden" name="characterId" id="characterId" value="" />`);
@@ -295,42 +295,41 @@ $(() => {
           <a class="nav-link edit" data-id="${userID}">Edit</a>
           <a class="nav-link delete" data-id="${userID}">Delete</a>
         `);
+
+        const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+        let rndNum = Math.floor(Math.random() * characters.length);
+        let rndCharacter = characters[rndNum];
+        console.log(rndNum, rndCharacter);
+        // Player 2
+        $.ajax({
+          url: "/api/profile/"+ rndCharacter,
+          method: 'GET'
+        }).done((profile) => {
+          let obj = profile.data[0];
+
+          gv.players.player2.handle = obj.name;
+          gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+          gv.main.mainP2.parent().css({
+            "opacity": "0.7",
+            'background-color': gv.heroes[obj.name.toLowerCase()]
+            });
+          gv.main.mainP2.html(`
+            <div class="profileHolder">
+              <div class="profileImage">
+                <img src="${gv.players.player2.avatar}" >
+              </div>
+              <h3>${obj.name}</h3>
+              <p>${obj.description}</p>
+            </div>
+            `);
+            $('html').append(`
+              <div class="startGameHolder"><p><span>${gv.players.player2.handle}</span> has found a way out from <em>"eternal"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>${gv.players.player1.handle}</span>. Will you stand up and fight for against the forces of evil?</p>
+              <p>What is your response, hero?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
+            `);
+        }).fail(showLoginForm);
     })
     .fail(showLoginForm);
-
-    const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
-    let rndNum = Math.floor(Math.random() * characters.length);
-    let rndCharacter = characters[rndNum];
-    console.log(rndNum, rndCharacter);
-    // Player 2
-    $.ajax({
-      url: "/api/profile/"+ rndCharacter,
-      method: 'GET'
-    }).done((profile) => {
-      let obj = profile.data[0];
-
-      gv.players.player2.handle = obj.name;
-      gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      gv.main.mainP2.parent().css({
-        'background-color': gv.heroes[obj.name.toLowerCase()]
-        });
-      gv.main.mainP2.html(`
-        <div class="profileHolder">
-          <div class="profileImage">
-            <img src="${gv.players.player2.avatar }" >
-          </div>
-          <h3>${obj.name}</h3>
-          <p>${obj.description}</p>
-        </div>
-        `);
-        $('html').append(`
-          <div class="startGameHolder"><p>${gv.players.player2.handle} has found a way out from eternal banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... ${gv.players.player1.handle}. Will you stand up and fight for against the forces of evil?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
-        `);
-    }).fail(showLoginForm);
-
     console.log(gv.players.player2.handle);
-
-
   }
 
   function showLoginForm() {
@@ -474,13 +473,12 @@ $(() => {
       <strong class="rulesT">Object:</strong>
       <br>Score the most points to win the game. <br>
       <strong class="rulesT">Setup:</strong>
-      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
+      <br>Choose a player from the list. You have 20 turns. Countries have different values based on power structures.
       <br>
       <strong class="rulesT">Playing the game:</strong>
       <br>
       Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-      Players take turns and accumulate points throughout the game based on answering the quiz correctly.
-      After comparing the scores, a winner is annouced.</p></div>
+      Players take turns and accumulate points throughout the game based on answering the quiz correctly.</p></div>
       `);
       $(".rules").hide();
   }

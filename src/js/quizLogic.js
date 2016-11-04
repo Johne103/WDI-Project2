@@ -80,7 +80,7 @@ $(() => {
   }
 
   function processTurn() {
-    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.5');
+    gv.players["player"+gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.8');
     gv.players["player"+gv.turnInfo.turn].turnCounter--;
     gv.players["player"+gv.turnInfo.turn].turnDisplayDiv.html ('Turns left: ' + gv.players["player"+gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn -1;
@@ -113,7 +113,7 @@ $(() => {
 
     let aiScore = aiCountry[2] * rndNumber(6);
     gv.players.player2.power += aiScore;
-    gv.players.player2.powerDiv.html(gv.players.player2.power);
+    gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
     google.maps.event.clearListeners(aiCountry[0]);
     console.log(aiCountry, aiScore);
     changeIcon(aiCountry[0]);
