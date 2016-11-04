@@ -66,13 +66,13 @@ form {
 }
 
 #showPlayerTurn {
-  height: 80px;
+  height: 150px;
   width: 500px;
-  padding: 0px;
+  padding: 17px;
 
   position: absolute;
   left: calc(50% - 250px);
-  top: calc(95% - 80px);
+  bottom: 5%;
   z-index: 11;
 
   background-color: rgba(180,30,30,1);

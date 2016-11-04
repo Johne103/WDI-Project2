@@ -118,7 +118,7 @@ $(() => {
     let aiScore = aiCountry[2] * rndNumber(6);
     gv.players.player2.power += aiScore;
     gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
-    $turnIndicator.show().html(aiCountry[1] + " has fallen! <br> Fight back hero!");
+    $turnIndicator.show().html(aiCountry[1] + ` has fallen to ${gv.players.player2.handle}! <br> Fight back hero!`);
     google.maps.event.clearListeners(aiCountry[0]);
     console.log(aiCountry, aiScore);
     changeIcon(aiCountry[0]);
