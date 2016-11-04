@@ -34,8 +34,8 @@ const gv = {
     "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
     "doctor doom": "rgba(40,107,152,1)",
-    "winter soldier": "rgba(75,130,75)", // green
-    "thanos": "rgba(75,130,75)", // green
+    "thanos": "rgba(75,130,75,1)", // green
+    "winter soldier": "rgba(75,130,75,1)", // green
     "jean grey": "rgba(0,0,0,1)", //black
     "punisher": "rgba(140,37,22,1)", //red
     "medusa": "rgba(140,37,22,1)", //red
@@ -419,7 +419,6 @@ $(() => {
     let $avatars = getAvatars(user.characterId, 'edit');
     if(event) event.preventDefault();
     gv.main.mainP1.html(`
-      <h2>Edit User</h2>
       <form method="put" action="/api/user/${user._id}">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username" value="${user.username}">
@@ -428,8 +427,8 @@ $(() => {
           <input class="form-control" name="email" placeholder="Email" value="${user.email}">
         </div>
         <div class="avatarHolder"></div>
-        <span class="error"></span>
-        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-primary">Edit</button>
+
       </form>
     `);
     gv.main.mainP1.parent().css({

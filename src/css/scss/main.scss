@@ -165,6 +165,17 @@ text-align: center;
   border-radius: 15px;
   padding:10px;
   width: 100%;
+  color: red;
+  background-color: white;
+  font-family: 'classic-comic';
+  font-size: 16px;
+}
+
+.handle {
+  color:#0d0c47;
+  font-family: "classic-comic";
+  font-size: 18px;
+
 }
 
 #content{
@@ -256,24 +267,9 @@ text-align: center;
   display: none;
 }
 
-#playerOneFinalScore {
 
-  font-family: helvetica;
 
-}
 
-#playerTwoFinalScore {
-
-  font-family: helvetica;
-
-}
-
-.edit {
-
-  color: yellow;
-  font-family: knewave;
-  text-align: center;
-}
 
 // Import sections
 

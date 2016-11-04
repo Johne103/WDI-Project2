@@ -35,8 +35,8 @@ var gv = {
     "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
     "doctor doom": "rgba(40,107,152,1)",
-    "winter soldier": "rgba(75,130,75)", // green
-    "thanos": "rgba(75,130,75)", // green
+    "thanos": "rgba(75,130,75,1)", // green
+    "winter soldier": "rgba(75,130,75,1)", // green
     "jean grey": "rgba(0,0,0,1)", //black
     "punisher": "rgba(140,37,22,1)", //red
     "medusa": "rgba(140,37,22,1)", //red
@@ -335,7 +335,7 @@ $(function () {
   function showEditForm(user) {
     var $avatars = getAvatars(user.characterId, 'edit');
     if (event) event.preventDefault();
-    gv.main.mainP1.html("\n      <h2>Edit User</h2>\n      <form method=\"put\" action=\"/api/user/" + user._id + "\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\" value=\"" + user.username + "\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + user.email + "\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <span class=\"error\"></span>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    gv.main.mainP1.html("\n      <form method=\"put\" action=\"/api/user/" + user._id + "\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\" value=\"" + user.username + "\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + user.email + "\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Edit</button>\n\n      </form>\n    ");
     gv.main.mainP1.parent().css({
       "width": "40%"
     });

@@ -54,15 +54,15 @@ $(() => {
     $('.edit').hide();
     $('.delete').hide();
 
-    let winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
+    let winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handles"' + gv.players.player1.handle +'</span' + " scores " + '<span class="handle"' + gv.players.player1.power +'</span>' + " points and saves the day! hooray!": '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' +  gv.players.player2.power + ' </span> points and takes over the world! muahahah' ;
     let draw = gv.players.player1.power === gv.players.player2.power;
-    let winStr = draw ? "It's a tie!" : `${winner} wins!`;
+    let winStr = draw ? "It's a tie!" : `${winner}`;
     clearMarkers();
     $turnIndicator.hide();
     $gameOverScreen.show();
     $gameOverScreen.html(`
-      <h2>Game Over</h2>
-      <p>${winStr}</p>
+      <h2 class="GO">Game Over</h2>
+      <p class="GOwin">${winStr}</p>
       <button id="restart">Restart</button>
     `);
     makeResetWork();
@@ -213,7 +213,7 @@ $(() => {
     for(let i = 0;i<3;i++) {
       let country = findRandomCountry();
       console.log(country);
-      while(selectedCountries.indexOf(country) !== -1 && currentArea === null ) {
+      while(selectedCountries.indexOf(country) !== -1 || currentArea === null ) {
         country = findRandomCountry();
       }
       selectedCountries.push(country);
