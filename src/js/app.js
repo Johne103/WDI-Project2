@@ -7,28 +7,25 @@ const gv = {
   },
   players: {
     player1: {
-      avatar: "",
-      name: ""
+      avatar: ""
     },
     player2: {
-      avatar: "",
-      name: ""
+      avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
     }
   },
   heroes: {
-    "wolverine": "rgba(55,174,182,1)", //lightblue
-    "deadpool": "rgba(55,174,182,1)", //lightblue
-    "hulk": "rgba(64,38,85,1)", //purple
-    "magneto": "rgba(64,38,85,1)", //purple
-    "apocalypse": "rgba(193,97,21,1)", //orange
-    "venom": "rgba(191,157,24,1)", //yellow
-    "elektra": "rgba(191,157,24,1)", //yellow
+    "wolverine": "rgba(55,174,182,1)",
+    "deadpool": "rgba(55,174,182,1)",
+    "hulk": "rgba(64,38,85,1)",
+    "magneto": "rgba(64,38,85,1)",
+    "apocalypse": "rgba(193,97,21,1)",
+    "venom": "rgba(191,157,24,1)",
+    "elektra": "rgba(191,157,24,1)",
     "spider-man": "rgba(191,157,24,1)",
-    "loki": "rgba(139,139,139,1)", //grey
-    "doctor octopus": "rgba(194,94,19,1)", //orange
+    "loki": "rgba(139,139,139,1)",
+    "doctor octopus": "rgba(194,94,19,1)",
     "star-lord": "rgba(140,37,22,1)",
-    "doctor doom": "rgba(40,107,152,1)",
-    "sif": "rgba(139,139,139,1)" //grey
+    "doctor doom": "rgba(40,107,152,1)"
   }
 };
 
@@ -56,45 +53,26 @@ let currentCountryListener;
 let infoWindow = null;
 
 let markers = [];
-let markersAlt = [];
 let rulesShowing = false;
 
 
 
 function clearMarkers() {
   markers.forEach((marker) => {
-    marker[0].setMap(null);
+    marker.setMap(null);
   });
 
   markers = [];
-  markersAlt = [];
 }
 
 function startGame() {
   if (event) event.preventDefault();
-
-  gv.players.player1.$answerGiven.html('');
-  gv.players.player2.$answerGiven.html('');
-  gv.players.player1.powerDiv.html('');
-  gv.players.player2.powerDiv.html('');
-  gv.main.turnDisplay.html('');
-  gv.players.player1.turnDisplayDiv.html('');
-  gv.players.player2.turnDisplayDiv.html('');
-  gv.players.player1.power = 0;
-  gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 3;
-  gv.players.player2.turnCounter = 3;
-
-  $('.edit').hide();
-  $('.delete').hide();
-
-  $(this).parent().remove();
-  // $('#showPlayerTurn').show();
-
+  $(this).remove();
+  $('#showPlayerTurn').show();
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0.8");
+  gv.main.mainP2.parent().css("opacity", "0");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -103,15 +81,12 @@ function startGame() {
       map: map,
       position: latLng,
       icon:"images/grayMarker.png"
+
     });
 
     marker.metadata = {type: "country", id: country.name};
 
-    markers.push([
-      marker,
-      country.name,
-      country.power
-    ]);
+    markers.push(marker);
 
     let countryDetails = `
       <div id='content' >
@@ -135,7 +110,7 @@ function startGame() {
 
       $('.cPower').html(`${country.power}`);
       gv.turnInfo.currentIcon = this; // set global to variable.
-      gv.main.selectedCountry = this.metadata.id;
+
 
       if (currentWindow !== null) {
         currentWindow.close();
@@ -146,12 +121,12 @@ function startGame() {
     });
 
   }
-  markersAlt = markers.slice(0);
 }
 
 function changeIcon(ci) {
+  console.log(ci);
   ci.setIcon({
-      url: gv.players['player' + gv.turnInfo.turn].avatar, // url
+      // url: gv.players['player' + gv.turnInfo.turn].avatar, // url
       scaledSize: new google.maps.Size(50, 50), // scaled size
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(0, 0) // anchor
@@ -178,12 +153,13 @@ $(() => {
   let $login = $('.login');
   $login.on('click', showLoginForm);
 
-  $('.logout').hide();
-  // $('.logout').on('click', logout);
-  $('html').on('click', '.logout', logout);
+  let $logoutbutton = $('.logout');
+  $logoutbutton.hide();
+  $logoutbutton.on('click', logout);
 
 
   gv.main.mainP1.on('click', '.avatar', function() {
+    console.log(this);
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
     let avatarID = $(this).data('id');
@@ -203,7 +179,7 @@ $(() => {
   }
 
   function getAvatars(characterId, type) {
-    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'thor', 'captain america', 'groot', 'punisher'];
+    const characters = ['hulk', 'wolverine', 'deadpool', 'Elektra', 'spider-man', 'gambit', 'iron man', 'rogue', 'Jean Grey', 'medusa', 'emma frost', 'sif', 'thor', 'captain america', 'groot', 'punisher'];
 
     let $avatars = $('<div class="avatarSelection"><h4>Choose your avatar</h4></div>');
     let $hiddenField = $(`<input type="hidden" name="characterId" id="characterId" value="" />`);
@@ -263,7 +239,7 @@ $(() => {
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
-      $('.logout').show();
+      $logoutbutton.show();
     })
     .fail(showLoginForm);
   }
@@ -280,7 +256,6 @@ $(() => {
         'background-color': gv.heroes[obj.name.toLowerCase()]
         });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-      gv.players.player1.handle = user;
       gv.main.mainP1.html(`
         <div class="profileHolder">
           <div class="profileImage">
@@ -292,44 +267,41 @@ $(() => {
         `);
 
         gv.main.mainP1.append(`
-          <a class="nav-link edit" data-id="${userID}">Edit</a>
-          <a class="nav-link delete" data-id="${userID}">Delete</a>
+          <a class="edit" data-id="${userID}">Edit</a>
+          <a class="delete" data-id="${userID}">Delete</a>
         `);
 
-        const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
-        let rndNum = Math.floor(Math.random() * characters.length);
-        let rndCharacter = characters[rndNum];
-        console.log(rndNum, rndCharacter);
-        // Player 2
-        $.ajax({
-          url: "/api/profile/"+ rndCharacter,
-          method: 'GET'
-        }).done((profile) => {
-          let obj = profile.data[0];
-
-          gv.players.player2.handle = obj.name;
-          gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
-          gv.main.mainP2.parent().css({
-            "opacity": "0.7",
-            'background-color': gv.heroes[obj.name.toLowerCase()]
-            });
-          gv.main.mainP2.html(`
-            <div class="profileHolder">
-              <div class="profileImage">
-                <img src="${gv.players.player2.avatar}" >
-              </div>
-              <h3>${obj.name}</h3>
-              <p>${obj.description}</p>
-            </div>
-            `);
-            $('html').append(`
-              <div class="startGameHolder"><p><span>${gv.players.player2.handle}</span> has found a way out from <em>"eternal"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>${gv.players.player1.handle}</span>. Will you stand up and fight for against the forces of evil?</p>
-              <p>What is your response, hero?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
-            `);
-        }).fail(showLoginForm);
+        $('html').append(`
+          <a class="startGame" href="#">I WANT WAR</a>
+        `);
     })
     .fail(showLoginForm);
-    console.log(gv.players.player2.handle);
+
+    const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+    let rndNum = Math.floor(Math.random() * characters.length);
+    let rndCharacter = characters[rndNum];
+    console.log(rndNum, rndCharacter);
+    // Player 2
+    $.ajax({
+      url: "/api/profile/"+ rndCharacter,
+      method: 'GET'
+    }).done((profile) => {
+      let obj = profile.data[0];
+      console.log(obj);
+      gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      gv.main.mainP2.parent().css({
+        'background-color': gv.heroes[obj.name.toLowerCase()]
+        });
+      gv.main.mainP2.html(`
+        <div class="profileHolder">
+          <div class="profileImage">
+            <img src="${gv.players.player2.avatar }" >
+          </div>
+          <h3>${obj.name}</h3>
+          <p>${obj.description}</p>
+        </div>
+        `);
+    }).fail(showLoginForm);
   }
 
   function showLoginForm() {
@@ -376,7 +348,7 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
-    $('html').find('.startGameHolder').remove();
+    $('html').find('.startGame').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -402,7 +374,7 @@ $(() => {
           <input class="form-control" name="email" placeholder="Email" value="${user.email}">
         </div>
         <div class="avatarHolder"></div>
-        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-primary">Edit</button>
       </form>
     `);
     gv.main.mainP1.find('.avatarHolder').append($avatars);
@@ -413,7 +385,7 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
-    $('html').find('.startGameHolder').remove();
+    $('html').find('.startGame').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -429,8 +401,8 @@ $(() => {
 
 // LOGOUT
   function logout() {
+
     if(event) event.preventDefault();
-    $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
@@ -440,7 +412,7 @@ $(() => {
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
-    $('.logout').hide();
+    $logoutbutton.hide();
     gv.main.mainP1.parent().css({
       'width': '45%',
       'background-color': "#0d0c47"
@@ -473,12 +445,13 @@ $(() => {
       <strong class="rulesT">Object:</strong>
       <br>Score the most points to win the game. <br>
       <strong class="rulesT">Setup:</strong>
-      <br>Choose a player from the list. You have 20 turns. Countries have different values based on power structures.
+      <br>Choose a player from the list and a country as your headquarters. You have 20 turns and 10 points to start. Countries have different values based on power structures.
       <br>
       <strong class="rulesT">Playing the game:</strong>
       <br>
       Click on the marker to choose the next country you want to conquer and complete the multiple choice quiz.
-      Players take turns and accumulate points throughout the game based on answering the quiz correctly.</p></div>
+      Players take turns and accumulate points throughout the game based on answering the quiz correctly.
+      After comparing the scores, a winner is annouced.</p></div>
       `);
       $(".rules").hide();
   }
