@@ -34,8 +34,8 @@ var gv = {
     "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
     "doctor doom": "rgba(40,107,152,1)",
-    "winter soldier": "rgba(75,130,75)", // green
-    "thanos": "rgba(75,130,75)", // green
+    "thanos": "rgba(75,130,75,1)", // green
+    "winter soldier": "rgba(75,130,75,1)", // green
     "jean grey": "rgba(0,0,0,1)", //black
     "punisher": "rgba(140,37,22,1)", //red
     "medusa": "rgba(140,37,22,1)", //red

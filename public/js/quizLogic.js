@@ -207,7 +207,7 @@ $(function () {
     for (var i = 0; i < 3; i++) {
       var country = findRandomCountry();
       console.log(country);
-      while (selectedCountries.indexOf(country) !== -1 && currentArea === null) {
+      while (selectedCountries.indexOf(country) !== -1 || currentArea === null) {
         country = findRandomCountry();
       }
       selectedCountries.push(country);
