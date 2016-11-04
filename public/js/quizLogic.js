@@ -53,13 +53,13 @@ $(function () {
     $('.edit').hide();
     $('.delete').hide();
 
-    var winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
+    var winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handles"' + gv.players.player1.handle + '</span' + " scores " + '<span class="handle"' + gv.players.player1.power + '</span>' + " points and saves the day! hooray!" : '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' + gv.players.player2.power + ' </span> points and takes over the world! muahahah';
     var draw = gv.players.player1.power === gv.players.player2.power;
-    var winStr = draw ? "It's a tie!" : winner + " wins!";
+    var winStr = draw ? "It's a tie!" : "" + winner;
     clearMarkers();
     $turnIndicator.hide();
     $gameOverScreen.show();
-    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p>" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    $gameOverScreen.html("\n      <h2 class=\"GO\">Game Over</h2>\n      <p class=\"GOwin\">" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
 

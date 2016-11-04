@@ -402,7 +402,6 @@ $(() => {
     let $avatars = getAvatars(user.characterId, 'edit');
     if(event) event.preventDefault();
     gv.main.mainP1.html(`
-      <h2>Edit User</h2>
       <form method="put" action="/api/user/${user._id}">
         <div class="form-group">
           <input class="form-control" name="username" placeholder="Username" value="${user.username}">
@@ -411,7 +410,7 @@ $(() => {
           <input class="form-control" name="email" placeholder="Email" value="${user.email}">
         </div>
         <div class="avatarHolder"></div>
-        <button class="btn btn-primary">Register</button>
+        <button class="btn btn-primary">Edit</button>
       </form>
     `);
     gv.main.mainP1.parent().css({
