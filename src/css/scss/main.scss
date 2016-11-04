@@ -182,14 +182,14 @@ text-align: center;
 // LH extra added styles
 
 
-a.startGame {
-  height: 70px;
-  width: 120px;
+.startGameHolder {
+  height: 400px;
+  width: 500px;
   padding: 10px;
 
   position: absolute;
-  left: calc(50% - 60px);
-  top: calc(50% - 35px);
+  left: calc(50% - 210px);
+  top: calc(50% - 250px);
   z-index: 11;
 
   background-color: rgba(255,0,0,1);
@@ -199,7 +199,14 @@ a.startGame {
 
   color: rgba(255,255,255,1);
   font-family: 'classic-comic';
-  font-size: 14px;
+  font-size: 18px;
+  text-align: center;
+
+  a {
+    display: block;
+    float: left;
+    height:40px;
+  }
 
 }
 

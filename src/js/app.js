@@ -7,25 +7,28 @@ const gv = {
   },
   players: {
     player1: {
-      avatar: ""
+      avatar: "",
+      name: ""
     },
     player2: {
-      avatar: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/53176bb096d17.jpg"
+      avatar: "",
+      name: ""
     }
   },
   heroes: {
-    "wolverine": "rgba(55,174,182,1)",
-    "deadpool": "rgba(55,174,182,1)",
-    "hulk": "rgba(64,38,85,1)",
-    "magneto": "rgba(64,38,85,1)",
-    "apocalypse": "rgba(193,97,21,1)",
-    "venom": "rgba(191,157,24,1)",
-    "elektra": "rgba(191,157,24,1)",
+    "wolverine": "rgba(55,174,182,1)", //lightblue
+    "deadpool": "rgba(55,174,182,1)", //lightblue
+    "hulk": "rgba(64,38,85,1)", //purple
+    "magneto": "rgba(64,38,85,1)", //purple
+    "apocalypse": "rgba(193,97,21,1)", //orange
+    "venom": "rgba(191,157,24,1)", //yellow
+    "elektra": "rgba(191,157,24,1)", //yellow
     "spider-man": "rgba(191,157,24,1)",
-    "loki": "rgba(139,139,139,1)",
-    "doctor octopus": "rgba(194,94,19,1)",
+    "loki": "rgba(139,139,139,1)", //grey
+    "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
-    "doctor doom": "rgba(40,107,152,1)"
+    "doctor doom": "rgba(40,107,152,1)",
+    "sif": "rgba(139,139,139,1)" //grey
   }
 };
 
@@ -53,26 +56,45 @@ let currentCountryListener;
 let infoWindow = null;
 
 let markers = [];
+let markersAlt = [];
 let rulesShowing = false;
 
 
 
 function clearMarkers() {
   markers.forEach((marker) => {
-    marker[1].setMap(null);
+    marker[0].setMap(null);
   });
 
   markers = [];
+  markersAlt = [];
 }
 
 function startGame() {
   if (event) event.preventDefault();
-  $(this).remove();
+
+  gv.players.player1.$answerGiven.html('');
+  gv.players.player2.$answerGiven.html('');
+  gv.players.player1.powerDiv.html('');
+  gv.players.player2.powerDiv.html('');
+  gv.main.turnDisplay.html('');
+  gv.players.player1.turnDisplayDiv.html('');
+  gv.players.player2.turnDisplayDiv.html('');
+  gv.players.player1.power = 0;
+  gv.players.player2.power = 0;
+  gv.players.player1.turnCounter = 3;
+  gv.players.player2.turnCounter = 3;
+
+  $('.edit').hide();
+  $('.delete').hide();
+
+  $(this).parent().remove();
   // $('#showPlayerTurn').show();
+
   let currentWindow = null;
   $('#gameLogo').hide();
   clearMarkers();
-  gv.main.mainP2.parent().css("opacity", "0");
+  gv.main.mainP2.parent().css("opacity", "0.5");
   for (let countryCode in countries){
 
     let country = countries[countryCode];
@@ -81,16 +103,16 @@ function startGame() {
       map: map,
       position: latLng,
       icon:"images/grayMarker.png"
-
     });
 
     marker.metadata = {type: "country", id: country.name};
 
     markers.push([
-      country.name,
       marker,
+      country.name,
+      country.power
     ]);
-    console.log(markers);
+
     let countryDetails = `
       <div id='content' >
         <h1>`+ country.name + `</h1>
@@ -113,7 +135,7 @@ function startGame() {
 
       $('.cPower').html(`${country.power}`);
       gv.turnInfo.currentIcon = this; // set global to variable.
-
+      gv.main.selectedCountry = this.metadata.id;
 
       if (currentWindow !== null) {
         currentWindow.close();
@@ -124,10 +146,10 @@ function startGame() {
     });
 
   }
+  markersAlt = markers.slice(0);
 }
 
 function changeIcon(ci) {
-  console.log(ci);
   ci.setIcon({
       url: gv.players['player' + gv.turnInfo.turn].avatar, // url
       scaledSize: new google.maps.Size(50, 50), // scaled size
@@ -156,13 +178,12 @@ $(() => {
   let $login = $('.login');
   $login.on('click', showLoginForm);
 
-  let $logoutbutton = $('.logout');
-  $logoutbutton.hide();
-  $logoutbutton.on('click', logout);
+  $('.logout').hide();
+  // $('.logout').on('click', logout);
+  $('html').on('click', '.logout', logout);
 
 
   gv.main.mainP1.on('click', '.avatar', function() {
-    console.log(this);
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
     let avatarID = $(this).data('id');
@@ -242,7 +263,7 @@ $(() => {
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
-      $logoutbutton.show();
+      $('.logout').show();
     })
     .fail(showLoginForm);
   }
@@ -259,6 +280,7 @@ $(() => {
         'background-color': gv.heroes[obj.name.toLowerCase()]
         });
       gv.players.player1.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+      gv.players.player1.handle = user;
       gv.main.mainP1.html(`
         <div class="profileHolder">
           <div class="profileImage">
@@ -273,10 +295,6 @@ $(() => {
           <a class="nav-link edit" data-id="${userID}">Edit</a>
           <a class="nav-link delete" data-id="${userID}">Delete</a>
         `);
-
-        $('html').append(`
-          <a class="startGame" href="#">I WANT WAR</a>
-        `);
     })
     .fail(showLoginForm);
 
@@ -290,7 +308,8 @@ $(() => {
       method: 'GET'
     }).done((profile) => {
       let obj = profile.data[0];
-      console.log(obj);
+
+      gv.players.player2.handle = obj.name;
       gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
       gv.main.mainP2.parent().css({
         'background-color': gv.heroes[obj.name.toLowerCase()]
@@ -304,7 +323,14 @@ $(() => {
           <p>${obj.description}</p>
         </div>
         `);
+        $('html').append(`
+          <div class="startGameHolder"><p>${gv.players.player2.handle} has found a way out from eternal banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... ${gv.players.player1.handle}. Will you stand up and fight for against the forces of evil?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
+        `);
     }).fail(showLoginForm);
+
+    console.log(gv.players.player2.handle);
+
+
   }
 
   function showLoginForm() {
@@ -351,7 +377,7 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
-    $('html').find('.startGame').remove();
+    $('html').find('.startGameHolder').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -388,7 +414,7 @@ $(() => {
     let id = $(this).data('id');
     let token = localStorage.getItem('token');
 
-    $('html').find('.startGame').remove();
+    $('html').find('.startGameHolder').remove();
 
     $.ajax({
       url: `/api/user/${id}`,
@@ -404,8 +430,8 @@ $(() => {
 
 // LOGOUT
   function logout() {
-
     if(event) event.preventDefault();
+    $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
     showLoginForm();
     clearMarkers();
@@ -415,7 +441,7 @@ $(() => {
     $('#gameLogo').show();
     $registerButton.show();
     $login.show();
-    $logoutbutton.hide();
+    $('.logout').hide();
     gv.main.mainP1.parent().css({
       'width': '45%',
       'background-color': "#0d0c47"

@@ -23,14 +23,10 @@ $(function () {
   gv.players.player1.$answerGiven = $('#hud .answerGiven');
   gv.players.player2.$answerGiven = $('#hud2 .answerGiven');
   var $turnIndicator = $('#showPlayerTurn');
-  var $turnDisplay = $('.turnDisplay');
+  gv.main.turnDisplay = $('.turnDisplay');
   gv.players.player1.turnDisplayDiv = $('#hud .turnDisplay');
   gv.players.player2.turnDisplayDiv = $('#hud2 .turnDisplay');
   var $gameOverScreen = $('#gameOverDiv');
-  gv.players.player1.power = 0;
-  gv.players.player2.power = 0;
-  gv.players.player1.turnCounter = 1;
-  gv.players.player2.turnCounter = 1;
 
   // functions to check if the turns have ended and to display gameOver screen when out of turns
 
@@ -44,22 +40,6 @@ $(function () {
 
   function makeResetWork() {
     $('#restart').click(function () {
-      gv.players.player1.$answerGiven.html('');
-      gv.players.player2.$answerGiven.html('');
-
-      gv.players.player1.powerDiv.html('');
-      gv.players.player2.powerDiv.html('');
-
-      $turnDisplay.html('');
-
-      gv.players.player1.turnDisplayDiv.html('');
-      gv.players.player2.turnDisplayDiv.html('');
-
-      gv.players.player1.power = 0;
-      gv.players.player2.power = 0;
-      gv.players.player1.turnCounter = 1;
-      gv.players.player2.turnCounter = 1;
-
       $gameOverScreen.hide();
 
       startGame();
@@ -67,13 +47,16 @@ $(function () {
   }
 
   function endGame() {
+    $('.edit').hide();
+    $('.delete').hide();
+
     var winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
     var draw = gv.players.player1.power === gv.players.player2.power;
     var winStr = draw ? "It's a tie!" : winner + " wins!";
     clearMarkers();
     $turnIndicator.hide();
     $gameOverScreen.show();
-    $gameOverScreen.html("\n      <h2>Game Over</h2>\n\n      <p>" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p>" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
 
@@ -87,8 +70,13 @@ $(function () {
     }
   }
 
+  function rndNumber(max) {
+    var rndNumber = Math.floor(Math.random() * max);
+    return rndNumber;
+  }
+
   function processTurn() {
-    gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0');
+    gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '0.5');
     gv.players["player" + gv.turnInfo.turn].turnCounter--;
     gv.players["player" + gv.turnInfo.turn].turnDisplayDiv.html('Turns left: ' + gv.players["player" + gv.turnInfo.turn].turnCounter);
     gv.turnInfo.turn = gv.turnInfo.turn === 1 ? gv.turnInfo.turn + 1 : gv.turnInfo.turn - 1;
@@ -97,9 +85,16 @@ $(function () {
     // } else if (gv.turnInfo.turn === 2) {
     //   $turnIndicator.html("Player 2's Turn");
     // }
-    console.log(gv.turnInfo.turn);
     gv.players["player" + gv.turnInfo.turn].powerDiv.parent().parent().parent().css('opacity', '1');
+
+    for (var i = 0; i < markersAlt.length; i++) {
+      if (gv.main.selectedCountry === markersAlt[i][1]) {
+        markersAlt.splice(i, 1);
+      }
+    }
+
     closeWindow();
+    checkAI();
   }
 
   function checkAI() {
@@ -109,7 +104,17 @@ $(function () {
   }
 
   function runAI() {
-    // get random country.
+    var rndNum = rndNumber(markersAlt.length);
+    var aiCountry = markersAlt[rndNum];
+
+    var aiScore = aiCountry[2] * rndNumber(6);
+    gv.players.player2.power += aiScore;
+    gv.players.player2.powerDiv.html(gv.players.player2.power);
+    google.maps.event.clearListeners(aiCountry[0]);
+    console.log(aiCountry, aiScore);
+    changeIcon(aiCountry[0]);
+    markersAlt.splice(rndNum, 1);
+    processTurn();
   }
 
   getArray(function () {
