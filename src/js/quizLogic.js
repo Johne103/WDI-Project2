@@ -15,7 +15,10 @@ $(() => {
   let currentCountryPower = 0;
   let isCountry = "";
   let answerToQuestion = "";
+  let numberOfQuestions = 0;
   let numberOfQuestionOptions = 0; //Number of options to select for each question.
+  let units = "";
+  let theQuestion = '';
   gv.players.player1.powerDiv = $('#hud .playerPower');
   gv.players.player2.powerDiv = $('#hud2 .playerPower');
   gv.players.player1.$answerGiven = $('#hud .answerGiven');
@@ -124,6 +127,9 @@ $(() => {
   getArray(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');
+      console.log('--on map conquer click:');
+      console.log('  countryCode:', countryCode);
+      console.log('  selectedCountries:', selectedCountries);
       $('#quizPopup').show();
       infoWindow.close();
       quizQuestion(countryCode);
@@ -182,7 +188,7 @@ $(() => {
     currentBorder = countryData[index].borders;
     currentBorderCount = countryData[index].borders.length;
 
-
+    console.log('current capital is ' + currentCapital);
 
     currentCountryPower = $('html').find('.cPower').html();
     // console.log('find: ' + currentCountryPower[0], currentCountryPower);
@@ -205,7 +211,7 @@ $(() => {
     for(let i = 0;i<3;i++) {
       let country = findRandomCountry();
       console.log(country);
-      while(selectedCountries.indexOf(country) !== -1) {
+      while(selectedCountries.indexOf(country) !== -1 && currentArea === null ) {
         country = findRandomCountry();
       }
       selectedCountries.push(country);
@@ -233,355 +239,149 @@ $(() => {
   }
 
   function quizQuestion(countryCode) {
+
     selectedCountries = shuffle(selectCountries(countryCode));
 
-    console.log('current border count ' + currentBorderCount);
-    console.log('border 0 length ' + selectedCountries[0].borders.length);
-    console.log('border 1 length ' + selectedCountries[1].borders.length);
-    console.log('border 2 length ' + selectedCountries[2].borders.length);
-    console.log('border 3 length ' + selectedCountries[3].borders.length);
 
-    //First Question
-    ask1stQuestion(selectedCountries[0].capital, selectedCountries[1].capital, selectedCountries[2].capital, selectedCountries[3].capital);
+    const questions = [
+      {
+        //First question
+        theQuestion: 'What is the capital of ' ,
+        option1: selectedCountries[0].capital,
+        option2: selectedCountries[1].capital,
+        option3: selectedCountries[2].capital,
+        option4: selectedCountries[3].capital,
+        currentQuestion: currentCapital,
+        countryCode: countryCode,
+        units: ''
+      },
+      {
+        //Second question
+        theQuestion: 'What is the population of ' ,
+        option1: selectedCountries[1].population.toLocaleString(),
+        option2: selectedCountries[0].population.toLocaleString(),
+        option3: selectedCountries[3].population.toLocaleString(),
+        option4: selectedCountries[2].population.toLocaleString(),
+        currentQuestion: currentPopulation.toLocaleString(),
+        countryCode: countryCode,
+        units: ''
 
-    function ask1stQuestion(option1, option2, option3, option4) {
+      },
+      {
+        //Third question
+        theQuestion: 'What is the area of ' ,
+        option1: selectedCountries[2].area.toLocaleString(),
+        option2: selectedCountries[1].area.toLocaleString(),
+        option3: selectedCountries[0].area.toLocaleString(),
+        option4: selectedCountries[3].area.toLocaleString(),
+        currentQuestion: currentArea.toLocaleString(),
+        countryCode: countryCode,
+        units: 'sqm'
+      },
+      {
+        //Fourth question
+        theQuestion: 'In which sub regaion is ' ,
+        option1: selectedCountries[3].subRegion,
+        option2: selectedCountries[0].subRegion,
+        option3: selectedCountries[2].subRegion,
+        option4: selectedCountries[1].subRegion,
+        currentQuestion: currentSubRegion,
+        countryCode: countryCode,
+        units: ''
+      },
+      {
+        //Fifth question
+        theQuestion: 'What is the currency of ' ,
+        option1: selectedCountries[0].currencies,
+        option2: selectedCountries[1].currencies,
+        option3: selectedCountries[3].currencies,
+        option4: selectedCountries[2].currencies,
+        currentQuestion: currentCurrency,
+        countryCode: countryCode,
+        units: ''
+      },
+      {
+        //Sixth question
+        theQuestion: 'How may countries have a border with ' ,
+        option1: selectedCountries[2].borders.length,
+        option2: selectedCountries[1].borders.length,
+        option3: selectedCountries[3].borders.length,
+        option4: selectedCountries[0].borders.length,
+        currentQuestion: currentBorderCount,
+        countryCode: countryCode,
+        units: ''
+      }
+    ];
 
-      $("#quizPopup").html(`
-        <p>What is the capital of ${countries[countryCode].name}? </p>
-        <div class="qHolder">
-          <label>${option1}</label>
-          <input type="radio" name="answer" value="${option1}">
-        </div>
-        <div class="qHolder">
-          <label>${option2}</label>
-          <input type="radio" name="answer" value="${option2}">
-        </div>
-        <div class="qHolder">
-          <label>${option3}</label>
-          <input type="radio" name="answer" value="${option3}">
-        </div>
-        <div class="qHolder">
-          <label>${option4}</label>
-          <input type="radio" name="answer" value="${option4}">
-        </div>
-        <button class="stopBtn">Retreat</button>
+    numberOfQuestions = questions.length;
 
-        `);
+    askQuestions(questions);
+  }
+
+  function askQuestions(questionDefs) {
 
 
-      //Check for correct answer and return true or false.
-      $('input:radio[name="answer"]').change(
-        function() {
-          if ($(this).val() == currentCapital) {
-            answerToQuestion = true;
+    let questionDefHead = questionDefs.splice(0, 1);
+    let questionDef = questionDefHead[0];
 
-            gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
-            // $main.html(`Oh Yes.`);
-            // Should update players amount of power upon answering question correctly
-            gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-            gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-            changeIcon(gv.turnInfo.currentIcon);
-            //function to check if game has ended(out of turns)
-            conquerCountry();
-          } else {
-            answerToQuestion = false;
-            gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
-            // $main.html(`Oh No.`);
-            // should update number of turns left after question is answered
-            processTurn(gv.turnInfo.turn);
-            //function to check if game has ended(out of turns)
-            gameOverChecker();
-          }
-          if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
-            $('#quizPopup').hide();
-          } else {
+    console.log('What is in questionDef ' + questionDef);
+    console.log('What is in theQuestion ' + theQuestion);
 
 
-            selectedCountries = shuffle(selectCountries(countryCode));
-            ask2ndQuestion(selectedCountries[0].population.toLocaleString(), selectedCountries[1].population.toLocaleString(), selectedCountries[2].population.toLocaleString(), selectedCountries[3].population.toLocaleString());
-          }
-        });
-    }
-
-    //Second Question
-    function ask2ndQuestion(option1, option2, option3, option4) {
-      $("#quizPopup").html(`
-        <p>What is the population of ${countries[countryCode].name}? </p>
-        </div>
-        <div class="qHolder"><label>${option1}</label>
-        <input type="radio" name="answer" value="${option1}">
-        </div>
-        <div class="qHolder"><label>${option2}</label>
-        <input type="radio" name="answer" value="${option2}">
-        </div>
-        <div class="qHolder"><label>${option3}</label>
-        <input type="radio" name="answer" value="${option3}">
-        </div>
-        <div class="qHolder"><label>${option4}</label>
-        <input type="radio" name="answer" value="${option4}">
-
-        </div>
-        <button class="stopBtn">Retreat</button>
+    $("#quizPopup").html(`
+      <p>${questionDef.theQuestion} ${countries[questionDef.countryCode].name}? </p>
+      <div class="qHolder">
+        <label>${questionDef.option1}${questionDef.units}</label>
+        <input type="radio" name="answer" value="${questionDef.option1}">
+      </div>
+      <div class="qHolder">
+        <label>${questionDef.option2}${questionDef.units}</label>
+        <input type="radio" name="answer" value="${questionDef.option2}">
+      </div>
+      <div class="qHolder">
+        <label>${questionDef.option3}${questionDef.units}</label>
+        <input type="radio" name="answer" value="${questionDef.option3}">
+      </div>
+      <div class="qHolder">
+        <label>${questionDef.option4}${questionDef.units}</label>
+        <input type="radio" name="answer" value="${questionDef.option4}">
+      </div>
+      <button class="stopBtn">Retreat</button>
       `);
 
-        //Check for correct answer and return true or false.
-        $('input:radio[name="answer"]').change(
-          function() {
-            if ($(this).val() == currentPopulation.toLocaleString()) {
-              answerToQuestion = true;
-              gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
-
-              // Should update players amount of power upon answering question correctly
-              gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-              gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-            } else {
-              answerToQuestion = false;
-              gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
-              // should update number of turns left after question is answered
-              processTurn();
-              //function to check if game has ended(out of turns)
-              gameOverChecker();
-            }
-            if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
-                $('#quizPopup').hide();
-            } else {
-            selectedCountries = shuffle(selectCountries(countryCode));
-            ask3rdQuestion(selectedCountries[0].area.toLocaleString(), selectedCountries[1].area.toLocaleString(), selectedCountries[2].area.toLocaleString(), selectedCountries[3].area.toLocaleString());
-            }
-          });
-      }
-      //Third Question
-      function ask3rdQuestion(option1, option2, option3, option4) {
-        $("#quizPopup").html(`
-          <p>What is the area of ${countries[countryCode].name}? </p>
-
-          <div class="qHolder">
-            <label>${option1} sqm</label>
-            <input type="radio" name="answer" value="${option1}">
-          </div>
-          <div class="qHolder">
-            <label>${option2} sqm</label>
-            <input type="radio" name="answer" value="${option2}">
-          </div>
-          <div class="qHolder">
-            <label>${option3} sqm</label>
-            <input type="radio" name="answer" value="${option3}">
-          </div>
-          <div class="qHolder">
-            <label>${option4} sqm</label>
-            <input type="radio" name="answer" value="${option4}">
-          </div>
-          <button class="stopBtn">Retreat</button>
-          `);
-
-
-          //Check for correct answer and return true or false.
-          $('input:radio[name="answer"]').change(
-            function() {
-              if ($(this).val() == currentArea.toLocaleString()) {
-                answerToQuestion = true;
-                gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
-                console.log(`Answer: ${answerToQuestion}`);
-                console.log('correct selected: ' + currentArea);
-
-                // Should update players amount of power upon answering question correctly
-                gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-                gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-                // should update number of turns left after question is answered
-                // gv.players.player1.turnCounter--;
-              } else {
-                answerToQuestion = false;
-                gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
-                console.log(`Answer: ${answerToQuestion}`);
-                console.log('correct not selected: ' + currentArea);
-                // should update number of turns left after question is answered
-                //function to check if game has ended(out of turns)
-                processTurn();
-                gameOverChecker();
-              }
-              if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
-                  $('#quizPopup').hide();
-              } else {
-
-              selectedCountries = shuffle(selectCountries(countryCode));
-              ask4thQuestion(selectedCountries[0].subRegion, selectedCountries[1].subRegion, selectedCountries[2].subRegion, selectedCountries[3].subRegion);
-              }
-            });
+    //Check for correct answer and return true or false.
+    $('input:radio[name="answer"]').change(
+      function() {
+        if ($(this).val() == questionDef.currentQuestion) {
+          answerToQuestion = true;
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
+          // $main.html(`Oh Yes.`);
+          // Should update players amount of power upon answering question correctly
+          gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
+          gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
+          changeIcon(gv.turnInfo.currentIcon);
+          //function to check if game has ended(out of turns)
+          conquerCountry();
+        } else {
+          answerToQuestion = false;
+          gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
+          // $main.html(`Oh No.`);
+          // should update number of turns left after question is answered
+          processTurn(gv.turnInfo.turn);
+          //function to check if game has ended(out of turns)
+          gameOverChecker();
         }
-        //Forth Question
-        function ask4thQuestion(option1, option2, option3, option4) {
-          $("#quizPopup").html(`
-            <p>In what subregion is ${countries[countryCode].name} located? </p>
-
-            <div class="qHolder">
-              <label>${option1}</label>
-              <input type="radio" name="answer" value="${option1}">
-            </div>
-            <div class="qHolder">
-              <label>${option2}</label>
-              <input type="radio" name="answer" value="${option2}">
-            </div>
-            <div class="qHolder">
-              <label>${option3}</label>
-              <input type="radio" name="answer" value="${option3}">
-            </div>
-            <div class="qHolder">
-              <label>${option4}</label>
-              <input type="radio" name="answer" value="${option4}">
-            </div>
-            <button class="stopBtn">Retreat</button>
-            `);
+        if (numberOfQuestions === 2 ){
+          processTurn(gv.turnInfo.turn);
+        }
+        if (numberOfQuestions > 1) {
+            askQuestions(questionDefs);
+            numberOfQuestions --;
 
 
-            //Check for correct answer and return true or false.
-            $('input:radio[name="answer"]').change(
-              function() {
-                if ($(this).val() == currentSubRegion) {
-                  answerToQuestion = true;
-                  gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
-                  console.log(`Answer: ${answerToQuestion}`);
-                  console.log('correct selected: ' + currentSubRegion);
-
-                  // Should update players amount of power upon answering question correctly
-                  gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-                  gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-                  // should update number of turns left after question is answered
-                } else {
-                  answerToQuestion = false;
-                  gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
-                  console.log(`Answer: ${answerToQuestion}`);
-                  // console.log('correct not selected: ' + currentRegion);
-                  // should update number of turns left after question is answered
-                  // processTurn();
-                  //function to check if game has ended(out of turns)
-                  processTurn();
-                  gameOverChecker();
-                }
-                if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
-                    $('#quizPopup').hide();
-                } else {
-
-                  selectedCountries = shuffle(selectCountries(countryCode));
-                  ask5thQuestion(selectedCountries[0].currencies, selectedCountries[1].currencies, selectedCountries[2].currencies, selectedCountries[3].currencies);
-                }
-              });
-          }
-          //Fifth Question
-          let ask5thQuestion = function(option1, option2, option3, option4) {
-            $("#quizPopup").html(`
-              <p>Which currency is used in ${countries[countryCode].name}? </p>
-
-              <div class="qHolder">
-                <label>${option1}</label>
-                <input type="radio" name="answer" value="${option1}">
-              </div>
-              <div class="qHolder">
-                <label>${option2}</label>
-                <input type="radio" name="answer" value="${option2}">
-              </div>
-              <div class="qHolder">
-                <label>${option3}</label>
-                <input type="radio" name="answer" value="${option3}">
-              </div>
-              <div class="qHolder">
-                <label>${option4}</label>
-                <input type="radio" name="answer" value="${option4}">
-              </div>
-              <button class="stopBtn">Retreat</button>
-              `
-            );
-              //Check for correct answer and return true or false.
-              $('input:radio[name="answer"]').change(
-                function() {
-                  if ($(this).val() == currentCurrency) {
-                    answerToQuestion = true;
-                    gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
-                    console.log('currency is ' + currentCurrency);
-
-                    // Should update players amount of power upon answering question correctly
-                    gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-                    gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-                    // should update number of turns left after question is answered
-                  } else {
-                    answerToQuestion = false;
-                    gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
-                    console.log('currency is not ' + currentCurrency);
-                    processTurn();
-                    gameOverChecker();
-                    // should update number of turns left after question is answered
-                  }
-                  if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
-                      $('#quizPopup').hide();
-                  } else {
-
-                    selectedCountries = shuffle(selectCountries(countryCode));
-                    ask6thQuestion(selectedCountries[0].borders.length, selectedCountries[1].borders.length, selectedCountries[2].borders.length, selectedCountries[3].borders.length);
-
-                   }
-                });
-            };
-
-
-            //Sixth Question
-            let ask6thQuestion = function(option1, option2, option3, option4) {
-              $("#quizPopup").html(`
-                <h3>Question 6</h3>
-                <p>How many countries border ${countries[countryCode].name}? </p>
-
-                <div class="qHolder">
-                  <label>${option1}</label>
-                  <input type="radio" name="answer" value="${option1}">
-                </div>
-                <div class="qHolder">
-                  <label>${option2}</label>
-                  <input type="radio" name="answer" value="${option2}">
-                </div>
-                <div class="qHolder">
-                  <label>${option3}</label>
-                  <input type="radio" name="answer" value="${option3}">
-                </div>
-                <div class="qHolder">
-                  <label>${option4}</label>
-                  <input type="radio" name="answer" value="${option4}">
-                </div>
-
-                <button class="stopBtn">Retreat</button>
-                `);
-
-
-                //Check for correct answer and return true or false.
-                $('input:radio[name="answer"]').change(
-                  function() {
-                    if ($(this).val() == currentBorderCount) {
-                      answerToQuestion = true;
-                      gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Yeh You Gave the Right Answer');
-                      console.log(`Answer: ${answerToQuestion}`);
-                      console.log('correct border selected: ' + currentBorderCount);
-
-                      // Should update players amount of power upon answering question correctly
-                      gv.players['player' + gv.turnInfo.turn].power += currentCountryPower;
-                      gv.players['player' + gv.turnInfo.turn].powerDiv.html ('Power: ' + gv.players['player' + gv.turnInfo.turn].power);
-                      processTurn();
-                      gameOverChecker();
-                      closeWindow();
-                    } else {
-                      answerToQuestion = false;
-                      gv.players['player' + gv.turnInfo.turn].$answerGiven.html ('Oh No You Gave the Wrong Answer');
-                      console.log(`Answer: ${answerToQuestion}`);
-                      console.log('correct border not selected: ' + currentBorderCount);
-                      processTurn();
-                      gameOverChecker();
-                      closeWindow();
-                    }
-                    if (gv.players['player' + gv.turnInfo.turn].turnCounter === 0) {
-                        $('#quizPopup').hide();
-                    } else {
-
-                    // selectedCountries = shuffle(selectCountries(countryCode));
-                    // ask7thQuestion(selectedCountries[0].borders[0], selectedCountries[1].borders[0], selectedCountries[2].borders[0], selectedCountries[3].borders[0]);
-                    }
-                });
-            };
-
-}
+        } else {
+          $('#quizPopup').hide();
+        }
+      });
+    }
 });
