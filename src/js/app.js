@@ -34,6 +34,7 @@ const gv = {
     "star-lord": "rgba(140,37,22,1)",
     "doctor doom": "rgba(40,107,152,1)",
     "winter soldier": "rgba(75,130,75)", // green
+    "thanos": "rgba(75,130,75)", // green
     "jean grey": "rgba(0,0,0,1)", //black
     "punisher": "rgba(140,37,22,1)", //red
     "medusa": "rgba(140,37,22,1)", //red
@@ -163,7 +164,7 @@ function changeIcon(ci) {
       url: gv.players['player' + gv.turnInfo.turn].avatar, // url
       scaledSize: new google.maps.Size(50, 50), // scaled size
       origin: new google.maps.Point(0, 0), // origin
-      anchor: new google.maps.Point(0, 0) // anchor
+      anchor: new google.maps.Point(40, 40) // anchor
   });
 }
 
