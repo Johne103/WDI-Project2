@@ -54,7 +54,7 @@ $(function () {
     $('.edit').hide();
     $('.delete').hide();
 
-    var winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handles"' + gv.players.player1.handle + '</span' + " scores " + '<span class="handle"' + gv.players.player1.power + '</span>' + " points and saves the day! hooray!" : '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' + gv.players.player2.power + ' </span> points and takes over the world! muahahah';
+    var winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handle"' + gv.players.player1.handle + '</span' + " scores " + '<span class="handle"' + gv.players.player1.power + '</span>' + " points and saves the day! hooray!" : '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' + gv.players.player2.power + ' </span> points and takes over the world! muahahah';
     var draw = gv.players.player1.power === gv.players.player2.power;
     var winStr = draw ? "It's a tie!" : "" + winner;
     clearMarkers();
