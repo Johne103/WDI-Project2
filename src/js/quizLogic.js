@@ -54,7 +54,7 @@ $(() => {
     $('.edit').hide();
     $('.delete').hide();
 
-    let winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handles"' + gv.players.player1.handle +'</span' + " scores " + '<span class="handle"' + gv.players.player1.power +'</span>' + " points and saves the day! hooray!": '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' +  gv.players.player2.power + ' </span> points and takes over the world! muahahah' ;
+    let winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handle">' + gv.players.player1.handle +'</span>' + " scores " + '<span class="handle">' + gv.players.player1.power +'</span>' + " points and saves the day! hooray!": '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' +  gv.players.player2.power + ' </span> points and takes over the world! muahahah' ;
     let draw = gv.players.player1.power === gv.players.player2.power;
     let winStr = draw ? "It's a tie!" : `${winner}`;
     clearMarkers();
