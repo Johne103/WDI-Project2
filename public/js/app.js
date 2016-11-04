@@ -284,7 +284,7 @@ $(function () {
           'background-color': gv.heroes[obj.name.toLowerCase()]
         });
         gv.main.mainP2.html("\n            <div class=\"profileHolder\">\n              <div class=\"profileImage\">\n                <img src=\"" + gv.players.player2.avatar + "\" >\n              </div>\n              <h3>" + obj.name + "</h3>\n              <p>" + obj.description + "</p>\n            </div>\n            ");
-        $('html').append("\n              <div class=\"startGameHolder\"><p><span>" + gv.players.player2.handle + "</span> has found a way out from <em>\"eternal\"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>" + gv.players.player1.handle + "</span>. Will you stand up and fight for against the forces of evil?</p>\n              <p>What is your response, hero?</p> <a href=\"#\" class=\"startGame\">I WANT WAR</a> <a href=\"#\" class=\"logout\"> I'm washing my hair</a> </div>\n            ");
+        $('html').append("\n              <div class=\"startGameHolder\"><p><span>" + gv.players.player2.handle + "</span> has found a way out from <em>\"eternal\"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>" + gv.players.player1.handle + "</span>. Will you stand up and fight against the forces of evil?</p>\n              <p>What is your response, hero?</p> <a href=\"#\" class=\"startGame\">I WANT WAR</a> <a href=\"#\" class=\"logout\"> I'm washing my hair</a> </div>\n            ");
       }).fail(showLoginForm);
     }).fail(showLoginForm);
     console.log(gv.players.player2.handle);

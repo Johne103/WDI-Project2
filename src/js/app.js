@@ -332,7 +332,7 @@ $(() => {
             </div>
             `);
             $('html').append(`
-              <div class="startGameHolder"><p><span>${gv.players.player2.handle}</span> has found a way out from <em>"eternal"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>${gv.players.player1.handle}</span>. Will you stand up and fight for against the forces of evil?</p>
+              <div class="startGameHolder"><p><span>${gv.players.player2.handle}</span> has found a way out from <em>"eternal"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>${gv.players.player1.handle}</span>. Will you stand up and fight against the forces of evil?</p>
               <p>What is your response, hero?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
             `);
         }).fail(showLoginForm);
