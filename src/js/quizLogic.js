@@ -371,7 +371,7 @@ $(() => {
           //function to check if game has ended(out of turns)
           gameOverChecker();
         }
-        if (numberOfQuestions === 2 ){
+        if (numberOfQuestions === 1 ){
           processTurn(gv.turnInfo.turn);
         }
         if (numberOfQuestions > 1) {

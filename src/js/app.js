@@ -14,18 +14,30 @@ const gv = {
     }
   },
   heroes: {
-    "wolverine": "rgba(55,174,182,1)",
-    "deadpool": "rgba(55,174,182,1)",
-    "hulk": "rgba(64,38,85,1)",
-    "magneto": "rgba(64,38,85,1)",
-    "apocalypse": "rgba(193,97,21,1)",
-    "venom": "rgba(191,157,24,1)",
-    "elektra": "rgba(191,157,24,1)",
+
+    "wolverine": "rgba(55,174,182,1)", //lightblue
+    "deadpool": "rgba(55,174,182,1)", //lightblue
+    "emma frost": "rgba(55,174,182,1)", //lightblue
+    "thor": "rgba(40,107,152,1)", //medblue
+    "hulk": "rgba(64,38,85,1)", //purple
+    "magneto": "rgba(64,38,85,1)", //purple
+    "iron man": "rgba(64,38,85,1)", //purple
+    "apocalypse": "rgba(193,97,21,1)", //orange
+    "rogue": "rgba(193,97,21,1)", //orange
+    "groot": "rgba(193,97,21,1)", //orange
+    "venom": "rgba(191,157,24,1)", //yellow
+    "elektra": "rgba(191,157,24,1)", //yellow
     "spider-man": "rgba(191,157,24,1)",
     "loki": "rgba(139,139,139,1)",
     "doctor octopus": "rgba(194,94,19,1)",
     "star-lord": "rgba(140,37,22,1)",
-    "doctor doom": "rgba(40,107,152,1)"
+
+    "doctor doom": "rgba(40,107,152,1)",
+    "winter soldier": "rgba(75,130,75)", // green
+    "jean grey": "rgba(0,0,0,1)", //black
+    "punisher": "rgba(140,37,22,1)", //red
+    "medusa": "rgba(140,37,22,1)", //red
+    "sif": "rgba(139,139,139,1)" //grey
   }
 };
 
@@ -271,9 +283,38 @@ $(() => {
           <a class="delete" data-id="${userID}">Delete</a>
         `);
 
-        $('html').append(`
-          <a class="startGame" href="#">I WANT WAR</a>
-        `);
+
+        const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
+        let rndNum = Math.floor(Math.random() * characters.length);
+        let rndCharacter = characters[rndNum];
+        console.log(rndNum, rndCharacter);
+        // Player 2
+        $.ajax({
+          url: "/api/profile/"+ rndCharacter,
+          method: 'GET'
+        }).done((profile) => {
+          let obj = profile.data[0];
+
+          gv.players.player2.handle = obj.name;
+          gv.players.player2.avatar = obj.thumbnail.path + '.' + obj.thumbnail.extension;
+          gv.main.mainP2.parent().css({
+            "opacity": "0.7",
+            'background-color': gv.heroes[obj.name.toLowerCase()]
+            });
+          gv.main.mainP2.html(`
+            <div class="profileHolder">
+              <div class="profileImage">
+                <img src="${gv.players.player2.avatar}" >
+              </div>
+              <h3>${obj.name}</h3>
+              <p>${obj.description}</p>
+            </div>
+            `);
+            $('html').append(`
+              <div class="startGameHolder"><p><span>${gv.players.player2.handle}</span> has found a way out from <em>"eternal"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>${gv.players.player1.handle}</span>. Will you stand up and fight against the forces of evil?</p>
+              <p>What is your response, hero?</p> <a href="#" class="startGame">I WANT WAR</a> <a href="#" class="logout"> I'm washing my hair</a> </div>
+            `);
+        }).fail(showLoginForm);
     })
     .fail(showLoginForm);
 
