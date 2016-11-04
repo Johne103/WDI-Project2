@@ -87,6 +87,7 @@ function startGame() {
   gv.main.turnDisplay.html('');
   gv.players.player1.turnDisplayDiv.html('');
   gv.players.player2.turnDisplayDiv.html('');
+  $('#showPlayerTurn').append().html('');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
   gv.players.player1.turnCounter = 3;

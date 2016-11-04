@@ -44,7 +44,8 @@ $(function () {
   function makeResetWork() {
     $('#restart').click(function () {
       $gameOverScreen.hide();
-
+      $turnIndicator.html('');
+      // $turnIndicator.show();
       startGame();
     });
   }
@@ -113,6 +114,7 @@ $(function () {
     var aiScore = aiCountry[2] * rndNumber(6);
     gv.players.player2.power += aiScore;
     gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
+    $turnIndicator.show().html(aiCountry[1] + " has fallen! Fight back hero!");
     google.maps.event.clearListeners(aiCountry[0]);
     console.log(aiCountry, aiScore);
     changeIcon(aiCountry[0]);
