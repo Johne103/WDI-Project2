@@ -1,3 +1,15 @@
+
+
+---
+title: End of module 2 project.
+type: Project
+duration: "7 days"
+creators:
+    name: Jamie Simpson, Luke Hammond, Gisselle, John Evans
+    city: London
+competencies: Full Stack, RESTful intro.
+---
+
 # Project #2: A Full-stack Application:                                                         CONQUIZTADOR - Playing for Global Domination
 
 
@@ -9,83 +21,63 @@ Conquiztador: a game in which a player takes on the role of a marval superhero t
 
 # CONQUIZTADORS
 
-Play the game [here](https://dashboard.heroku.com/apps/conquiztadors)
+Play the game [here](https://conquiztadors.herokuapp.com/)
 
-![WDI-Project2](./images/Conquiztador_Login_screenshot.png)
+![WDI-Project2](.public/images/Conquiztador_Login_screenshot.png)
 
 
 
 
 ### Overview
 
-This project is **a full-stack RESTful application** that includes a **Google Map** a **Marvel API** and an **authenticated User**.
+This project is **a full-stack RESTful application** that includes a **Google Map** a **Marvel and REST Countries API** and provision for  **User authentication**.
 
 This solution is **built using an Express application** that has a **Mongo** database using the **Mongoose ORM**.
 
 The solution has been developed by a team of four using Git in support of version control and output coordination. 
 
-The solution has be developed with the use of tools such as Trello to support project planning and task coordination and wireframes before the devlepment of user stories defining what users will do with the app. The outcomes and scope of requirements have been prioritised using the MoSCoW technique.
-
+The solution has be developed with the use of tools such as Trello to support project planning and task coordination and the use of Balsamic wireframes aligned with the develepment of user stories outlining the expected users experience while using the app. The outcomes and scope of requirements have been prioritised using the MoSCoW technique. At the outset of the project the following prioritised requirements have been defined.
 
 ---
 
 ### Technologies Used
 
-The app has met the following Technical Requirments:
+The app has employed the following Technologies:
 
-* **Inlcudes 2 models** – one represents the user and one that represents the main resource of the app; Marvel API.
-* **Iincludes authentication** -  encrypted passwords & an authorization flow has been included.
-* **Includes RESTful routes** for the player resource complete RESTful routes have been implemented: GET, POST, PUT, PATCH, and DELETE
-* **Includes Google Map** has been included.
-* **Includes SASS** - as this is a key industry skill
-* **Wireframes used** - have been designed before building the app
+* **Team Workflow using Git and GitHub** 
+* **Node.js, Express.js, Morgan, Nodemon**
+* **MVC**
+* **RESTful routing** 
+* **AJAX**
+* **NoSQL with MongoDB backed Models and Mongoose**
+* **Bcrypt, JWT, Encrypted Passwords and Authentication**
+* **Gulp** 
+* **OAuth and Third Party APIs**
+* **SASS**
+* **Wireframes using Balsamic**
 * **Semantically clean HTML** 
-* **Includes data from an API** - has been included to make the app more dynamic. External data from restcountries.eu API has been store in the app.
-* **Deployed online via Heroku** - the application has been made accessible to the public through deployment to heroku.
+* **Deployed online via Heroku** 
 
 ---
 
 ### Preparation
 
 
-Use the information taught in module 2.
+Use the information taught in module 2 of the WDI-23 programme.
 
-Second project to create an application front and backend technologies in order to develop an improved understanding of the approach required to create and deploy for general use a viable full stack apjplication.
+Second project to create an application using frontend and backend technologies in order to develop an improved understanding of the approach required to create and deploy for general use a viable full stack apjplication, while working within a team.
 
 
 * Conquiztadors is a **working full-stack application** game played against and AI. In order to win the player must answer as many questions correctly once they have selected a country to conquer. The AI will pick an alternate country and randomly select answers to gain points.
 
-![WDI-Project2](./images/Conquiztador_Login_screenshot.png)
+![WDI-Project2](.public/images/Conquiztador_Login_screenshot2.png)
 ---
 
 ###The Steps taken
 
-Initial planning using Trello, timeline, wireframes, developing game concept and gameplay rules, technology to use, code tests, functionality tests and uploading to Git.
+Initial planning using Trello, timeline, wireframes, developing game concept and gameplay rules, technologies to use, code testing, functionality tests and uploading to Git. Team approach to undertaking the 
 
 Review of MoSCoW prrioritization and management of scope was a key aspect to achieving deliverables.
-
-
-###Challenges faced
-
-- Managing communications between team members in support of ensuring Git was correctly aligned with all updates.
-- Resolving issues with quiz logic when played with AI has taken quite a bit of effort to get right. Continuous testing and regular co-ordinated git add, commits, and merges where required.
-- Remembering not to work in development also proved to be a challenge. 
-
-###Where to from here?
-The game could be improved in the following ways:
-
-* The game has not used OOP and this would be a useful next step.
-* The game currently has an AI as the second player, the ability to have a second player on the same device or a different device can be explored
-* Investigate ways of cleaning up the data that is used to illiminate null fields
-* Include audio themes depending on the super hero picked
-* In
-* Investigate indroducing responsiveness to allow game to be played on smaller screen formats.
-
-
-
-###Bugs/Issues
-- Computer may at times freeze part way through the game.
-- Investigate size of image files and reduce to improve responsiveness 
 
 
 ### Outline of Application Requirements and Prioritisation
@@ -113,7 +105,7 @@ __COULD HAVE Application Requirements:__
 * Colour of country respresentation on map to change colour to indicate conquered country for each player. (COULD HAVE)
 * Option for two player game on seperate devices (COULD HAVE)
 * Timer for answering each question. (COULD HAVE) 
-* Use a marvel comics API , maybe the user could choose a superhero to play (user a) and a villain (user b) so it'd be good vs. evil world domination. (COULLD HAVE)
+* Use a marvel comics API , maybe the user could choose a superhero to play (user a) and a villain (user b) so it'd be good vs. evil world domination. (COULD HAVE)
 * Saving game states to user profiles. (COULD HAVE) 
 
 __WON'T HAVE Application Requirements (Out of Scope):__
@@ -121,7 +113,34 @@ __WON'T HAVE Application Requirements (Out of Scope):__
 * Application will not support use on smartphones. (WON'T HAVE)
 
 
----
+The team subdivided the project deliverables into modules with a member of the four person team developing the solution for each module based on the MUST HAVE priorities identified.
+
+Over the course of the project the requirements and prioritisation has been continuously reviewed and refined.
+
+
+###Challenges faced
+
+- Managing communications between team members in support of ensuring Git was correctly aligned with all updates.
+- Resolving game question call function within quiz logic.
+- Resolution of null fields in countries API dataset resulting in intermitent blank question pop up. 
+- Issues with deployment of AI solution.
+- Resolution of issues identified with Auth Key limits restricting access to Marvel API.
+- Resolution of issues with registration and login functionality. 
+
+###Where to from here?
+The game could be improved in the following areas:
+
+* The game has used some OOP functionaluty. Enabling full OOP will be a useful next step.
+* Provisw the ability to have a second player on the same device or a seperate.
+* Include audio themes depending on the super hero or villian selected.
+* Include animation for selected super heros and villains.
+
+
+###Bugs/Issues
+- On occassions selecting a country to conquer displays a blank pop-up instead of a pop-up with questions.
+
+
+
 
 ### Project Feedback + Evaluation - Key measures to be considered
 
