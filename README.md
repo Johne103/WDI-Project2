@@ -23,7 +23,7 @@ Conquiztador: a game in which a player takes on the role of a marval superhero t
 
 Play the game [here](https://conquiztadors.herokuapp.com/)
 
-![WDI-Project2](.public/images/Conquiztador_Login_screenshot.png)
+![WDI-Project2](./public/images/Conquiztador_Login.png)
 
 
 
@@ -137,7 +137,7 @@ The game could be improved in the following areas:
 
 
 ###Bugs/Issues
-- On occassions selecting a country to conquer displays a blank pop-up instead of a pop-up with questions.
+- On occassions selecting a country to conquer displays a blank pop-up instead of a pop-/up with questions.
 
 
 
