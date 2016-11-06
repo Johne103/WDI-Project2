@@ -111,9 +111,11 @@ Over the course of the project the requirements and prioritisation has been cont
 ---
 
 
-###The Solution
+###The Application
 
-Conquiztadors is a **working full-stack application** game played against and AI. In order to win the player must answer as many questions correctly once they have selected a country to conquer. The AI will pick an alternate country and randomly select answers to gain points.
+The solution developed is a **working full-stack application** game played against and AI. Although only six questions are field at present, the code allows for additional questions to be included through the provision of additional objects into an array of questions with defined properties. The player picks from a list of four options per question, while the AI will also randomly pick and answer from the list of four options per question.
+
+In order to win the player must answer as many questions correctly once they have selected a country to conquer. The AI will pick an alternate country and randomly select answers to gain points.
 
 The start the game a player is presented with a splash page and is invited to register and select an avatar.
 
@@ -166,6 +168,7 @@ The game could be improved in the following areas:
 * Provisw the ability to have a second player on the same device or a seperate.
 * Include audio themes depending on the super hero or villian selected.
 * Include animation for selected super heros and villains.
+* The inclusion of additional questions with five questions allocated to all countries but the most powerful which will be allocated ten questions.
 
 
 ###Bugs/Issues
