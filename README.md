@@ -19,24 +19,24 @@ THE CONQUIZTADOR TEAM: Jamie Simpsonn, Luke Hammond, Gi, John Evans.
 
 Conquiztador: a game in which a player takes on the role of a marval superhero to defend the world against evil super villains played by an AI, intent on taking control of the world, by conquering countries and overtaking terretories. Points are accumulated by correctly answering questions about the countries the adversaries are seeking to conquer. 
 
+---
+
 # CONQUIZTADORS
 
 Play the game [here](https://conquiztadors.herokuapp.com/)
 
-![WDI-Project2](./public/images/Conquiztador_Login.png)
+![WDI-Project2](./public/images/Conquiztador_GameInplay.png)
 
-
-
+---
 
 ### Overview
 
-This project is **a full-stack RESTful application** that includes a **Google Map** a **Marvel and REST Countries API** and provision for  **User authentication**.
+This project makes use of the materials taught in the second module of the WDI-23 programme and creates an application using frontend and backend technologies in order to develop an improved understanding of the techniques and approaches required to create and deploy a viable full stack apjplication, while working within a small team.
 
-This solution is **built using an Express application** that has a **Mongo** database using the **Mongoose ORM**.
+The solution is **a full-stack RESTful application** that includes a **Google Map** a **Marvel and REST Countries API** with provision for  **User authentication**. 
 
-The solution has been developed by a team of four using Git in support of version control and output coordination. 
+The application has been **built using an Express** with a **Mongo** database using the **Mongoose ORM** with a team of four using Git to manage workflow, version control and output coordination. 
 
-The solution has be developed with the use of tools such as Trello to support project planning and task coordination and the use of Balsamic wireframes aligned with the develepment of user stories outlining the expected users experience while using the app. The outcomes and scope of requirements have been prioritised using the MoSCoW technique. At the outset of the project the following prioritised requirements have been defined.
 
 ---
 
@@ -62,23 +62,15 @@ The app has employed the following Technologies:
 
 ### Preparation
 
+The solution developed came about as a result of the passion for Marvel comic heros held by members of the team.
 
-Use the information taught in module 2 of the WDI-23 programme.
+Tools such as Trello task planning, Balsamic wireframes, User stories and psuedo code, have been used to support  task coordination and alignement with the expected users experience. 
 
-Second project to create an application using frontend and backend technologies in order to develop an improved understanding of the approach required to create and deploy for general use a viable full stack apjplication, while working within a team.
+![WDI-Project2](./public/images/Conquiztador_Trello.png)
 
+![WDI-Project2](./public/images/Conquiztador_QuizPopupWireFr.png)
 
-* Conquiztadors is a **working full-stack application** game played against and AI. In order to win the player must answer as many questions correctly once they have selected a country to conquer. The AI will pick an alternate country and randomly select answers to gain points.
-
-![WDI-Project2](.public/images/Conquiztador_Login_screenshot2.png)
----
-
-###The Steps taken
-
-Initial planning using Trello, timeline, wireframes, developing game concept and gameplay rules, technologies to use, code testing, functionality tests and uploading to Git. Team approach to undertaking the 
-
-Review of MoSCoW prrioritization and management of scope was a key aspect to achieving deliverables.
-
+The outcomes and scope of requirements have been prioritised using the MoSCoW technique. At the outset of the project the following prioritised requirements have been defined.
 
 ### Outline of Application Requirements and Prioritisation
 
@@ -112,10 +104,50 @@ __WON'T HAVE Application Requirements (Out of Scope):__
 
 * Application will not support use on smartphones. (WON'T HAVE)
 
+The team subdivided the project deliverables into modules with each member of the four person team developing the solution for each module based on the MUST HAVE priorities identified to achieve minimum viable product.
 
-The team subdivided the project deliverables into modules with a member of the four person team developing the solution for each module based on the MUST HAVE priorities identified.
+Over the course of the project the requirements and prioritisation has been continuously reviewed and refined to create a viable product.
 
-Over the course of the project the requirements and prioritisation has been continuously reviewed and refined.
+---
+
+
+###The Solution
+
+Conquiztadors is a **working full-stack application** game played against and AI. In order to win the player must answer as many questions correctly once they have selected a country to conquer. The AI will pick an alternate country and randomly select answers to gain points.
+
+The start the game a player is presented with a splash page and is invited to register and select an avatar.
+
+![WDI-Project2](./public/images/Conquiztador_Splash.png)
+
+![WDI-Project2](./public/images/Conquiztador_Registration.png)
+
+A player is able to select a link to show game objectives and rules.
+
+![WDI-Project2](./public/images/Conquiztador_Rules.png)
+
+Once registered and loged in, a player is presented with a board game and invited to play.
+
+![WDI-Project2](./public/images/Conquiztador_Gamestart.png)
+
+If the player elects to start the game, they are able to pick a country by clicking on the marker for the country selected. On clicking the player is presented with an information pop-up indicating the country and power to be gained by conquering the country.
+
+![WDI-Project2](./public/images/Conquiztador_InfoPopup.png)
+
+If the player chooses to try to conquer the country selected then they will be presented with a round of questions. Answering the first question correctly will enable the play to take the country, while the answering of subsequent questions allows the player to gain additional points and power.
+
+![WDI-Project2](./public/images/Conquiztador_QuizPopup.png)
+
+Once a player answers all the available questions for the country selected or they answer a question incorrectly, the points accumulated will be added to the total score and the AI will be able to make its choice of country and will play by randomly selecting an answer to the questions provided for the AIs selected country and anounce which country has been conquered. 
+
+![WDI-Project2](./public/images/Conquiztador_AIplay.png)
+
+
+
+After the maximum number of turns have been played, the winner will be announce with a game over prompt and an invitation to restart the game.
+
+![WDI-Project2](./public/images/Conquiztador_GameEnd.png)
+---
+
 
 
 ###Challenges faced
@@ -138,19 +170,9 @@ The game could be improved in the following areas:
 
 ###Bugs/Issues
 - On occassions selecting a country to conquer displays a blank pop-up instead of a pop-/up with questions.
+- On occassions when selecting a new country after a country has been conquered, a question pop-up appears instead of an info pop-up.
 
 
 
 
-### Project Feedback + Evaluation - Key measures to be considered
-
-* __Project Workflow__: Did you complete the user stories, wireframes, task tracking, and/or ERDs, as specified above? Did you use source control as expected for the phase of the program you’re in (detailed above)?
-
-* __Technical Requirements__: Did you deliver a project that met all the technical requirements? Given what the class has covered so far, did you build something that was reasonably complex?
-
-* __Creativity__: Did you added a personal spin or creative element into your project submission? Did you deliver something of value to the end user (not just a login button and an index page)?
-
-* __Code Quality__: Did you follow code style guidance and best practices covered in class, such as spacing, modularity, and semantic naming? Did you comment your code as your instructors as we have in class?
-
-* __Deployment and Functionality__: Is your application deployed and functional at a public URL? Is your application free of errors and incomplete functionality?
 
