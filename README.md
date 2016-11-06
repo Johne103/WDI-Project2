@@ -115,7 +115,9 @@ Over the course of the project the requirements and prioritisation has been cont
 
 The solution developed is a **working full-stack application** game played against and AI. Although only six questions are field at present, the code allows for additional questions to be included through the provision of additional objects into an array of questions with defined properties. The player picks from a list of four options per question, while the AI will also randomly pick and answer from the list of four options per question.
 
-In order to win the player must answer as many questions correctly once they have selected a country to conquer. The AI will pick an alternate country and randomly select answers to gain points.
+In order to win the player must answer as many questions correctly once they have selected a country to conquer, bulding up power based on the country selected for each correct answer. The AI will pick an alternate country and randomly select answers to gain points, and will increase power based on the correct answers selected from is random pick of the answers available.
+
+When the maximum number of set turns are completed the player with the greatest level of accumulated power based on the selected countries conquered, wins. 
 
 The start the game a player is presented with a splash page and is invited to register and select an avatar.
 
