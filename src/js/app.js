@@ -211,7 +211,6 @@ $(() => {
 
   if(isLoggedIn()) {
     // showProfileForm();
-    console.log("logged in!");
   } else {
     showLoginForm({message: ""});
   }
@@ -246,7 +245,6 @@ $(() => {
         `);
       })
       .fail(function(jqXHR){
-        console.log(jqXHR.status);
         gv.main.mainP1.html(`You are a failure.`);
       });
     }
@@ -319,7 +317,6 @@ $(() => {
         const characters = ['apocalypse', 'Doctor Doom', 'doctor octopus', 'loki', 'magneto', 'Winter Soldier', 'thanos', 'ultron'];
         let rndNum = Math.floor(Math.random() * characters.length);
         let rndCharacter = characters[rndNum];
-        console.log(rndNum, rndCharacter);
         // Player 2
         $.ajax({
           url: "/api/profile/"+ rndCharacter,
@@ -349,13 +346,10 @@ $(() => {
         }).fail(showLoginForm);
     })
     .fail(showLoginForm);
-    console.log(gv.players.player2.handle);
   }
 
   function showLoginForm(data) {
     if(event) event.preventDefault();
-    console.log(data.responseText);
-    // console.log(JSON.parse(data.responseText));
     let retMsg = !!data.responseText ? "Invalid credentials" : "";
     gv.main.mainP1.html(`
       <form method="post" action="/api/user/login">

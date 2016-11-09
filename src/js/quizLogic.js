@@ -36,7 +36,6 @@ $(() => {
 
   function conquerCountry(marker) {
     google.maps.event.clearListeners(gv.turnInfo.currentIcon);
-    console.log('NO CLECK NO CRY');
   }
 
 
@@ -73,7 +72,6 @@ $(() => {
 
   function gameOverChecker() {
     if (gv.players.player2.turnCounter <= 0){
-      console.log("GAME OVER MAN");
       endGame();
     }
   }
@@ -120,7 +118,6 @@ $(() => {
     gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
     $turnIndicator.show().html(aiCountry[1] + ` has fallen to ${gv.players.player2.handle}! <br> Fight back hero!`);
     google.maps.event.clearListeners(aiCountry[0]);
-    console.log(aiCountry, aiScore);
     changeIcon(aiCountry[0]);
     markersAlt.splice(rndNum,1);
     processTurn();
@@ -129,9 +126,6 @@ $(() => {
   getArray(() => {
     $('#map').on('click', '.conquer', function() {
       let countryCode = $(this).data('country');
-      console.log('--on map conquer click:');
-      console.log('  countryCode:', countryCode);
-      console.log('  selectedCountries:', selectedCountries);
       $('#quizPopup').show();
       infoWindow.close();
       quizQuestion(countryCode);
@@ -147,7 +141,6 @@ $(() => {
   }
 
   function getArray(callback) {
-    console.log("getArray started");
     // create array of objects of all countries with properties name, capital, alpha2Code and latLng.
     $.get("https://restcountries.eu/rest/v1/all")
     .done(function(data) {
@@ -190,8 +183,6 @@ $(() => {
     currentBorder = countryData[index].borders;
     currentBorderCount = countryData[index].borders.length;
 
-    console.log('current capital is ' + currentCapital);
-
     currentCountryPower = $('html').find('.cPower').html();
     // console.log('find: ' + currentCountryPower[0], currentCountryPower);
     currentCountryPower = parseFloat(currentCountryPower);
@@ -212,7 +203,6 @@ $(() => {
     selectedCountries.push(findCountryByAlpha2Code(alpha2Code));
     for(let i = 0;i<3;i++) {
       let country = findRandomCountry();
-      console.log(country);
       while(selectedCountries.indexOf(country) !== -1 || currentArea === null ) {
         country = findRandomCountry();
       }
@@ -282,7 +272,7 @@ $(() => {
       },
       {
         //Fourth question
-        theQuestion: 'In which sub regaion is ' ,
+        theQuestion: 'In which sub region is ' ,
         option1: selectedCountries[3].subRegion,
         option2: selectedCountries[0].subRegion,
         option3: selectedCountries[2].subRegion,
@@ -325,10 +315,6 @@ $(() => {
 
     let questionDefHead = questionDefs.splice(0, 1);
     let questionDef = questionDefHead[0];
-
-    console.log('What is in questionDef ' + questionDef);
-    console.log('What is in theQuestion ' + theQuestion);
-
 
     $("#quizPopup").html(`
       <p>${questionDef.theQuestion} ${countries[questionDef.countryCode].name}? </p>
