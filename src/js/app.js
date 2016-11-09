@@ -16,30 +16,30 @@ const gv = {
     }
   },
   heroes: {
-    "wolverine": "rgba(55,174,182,1)", //lightblue
-    "deadpool": "rgba(55,174,182,1)", //lightblue
-    "emma frost": "rgba(55,174,182,1)", //lightblue
-    "thor": "rgba(40,107,152,1)", //medblue
-    "ultron": "rgba(40,107,152,1)", //medblue
-    "hulk": "rgba(64,38,85,1)", //purple
-    "magneto": "rgba(64,38,85,1)", //purple
-    "iron man": "rgba(64,38,85,1)", //purple
-    "apocalypse": "rgba(193,97,21,1)", //orange
-    "rogue": "rgba(193,97,21,1)", //orange
-    "groot": "rgba(193,97,21,1)", //orange
-    "venom": "rgba(191,157,24,1)", //yellow
-    "elektra": "rgba(191,157,24,1)", //yellow
-    "spider-man": "rgba(191,157,24,1)",
-    "loki": "rgba(139,139,139,1)", //grey
-    "doctor octopus": "rgba(194,94,19,1)", //orange
-    "star-lord": "rgba(140,37,22,1)",
-    "doctor doom": "rgba(40,107,152,1)",
-    "thanos": "rgba(75,130,75,1)", // green
-    "winter soldier": "rgba(75,130,75,1)", // green
-    "jean grey": "rgba(0,0,0,1)", //black
-    "punisher": "rgba(140,37,22,1)", //red
-    "medusa": "rgba(140,37,22,1)", //red
-    "sif": "rgba(139,139,139,1)" //grey
+    'wolverine': 'rgba(55,174,182,1)', //lightblue
+    'deadpool': 'rgba(55,174,182,1)', //lightblue
+    'emma frost': 'rgba(55,174,182,1)', //lightblue
+    'thor': 'rgba(40,107,152,1)', //medblue
+    'ultron': 'rgba(40,107,152,1)', //medblue
+    'hulk': 'rgba(64,38,85,1)', //purple
+    'magneto': 'rgba(64,38,85,1)', //purple
+    'iron man': 'rgba(64,38,85,1)', //purple
+    'apocalypse': 'rgba(193,97,21,1)', //orange
+    'rogue': 'rgba(193,97,21,1)', //orange
+    'groot': 'rgba(193,97,21,1)', //orange
+    'venom': 'rgba(191,157,24,1)', //yellow
+    'elektra': 'rgba(191,157,24,1)', //yellow
+    'spider-man': 'rgba(191,157,24,1)',
+    'loki': 'rgba(139,139,139,1)', //grey
+    'doctor octopus': 'rgba(194,94,19,1)', //orange
+    'star-lord': 'rgba(140,37,22,1)',
+    'doctor doom': 'rgba(40,107,152,1)',
+    'thanos': 'rgba(75,130,75,1)', // green
+    'winter soldier': 'rgba(75,130,75,1)', // green
+    'jean grey': 'rgba(0,0,0,1)', //black
+    'punisher': 'rgba(140,37,22,1)', //red
+    'medusa': 'rgba(140,37,22,1)', //red
+    'sif': 'rgba(139,139,139,1)' //grey
   }
 };
 
@@ -475,11 +475,11 @@ $(() => {
 
   let $mapDiv = $('#map');
 
-   map = new  google.maps.Map($mapDiv[0], {
+  map = new  google.maps.Map($mapDiv[0], {
 
-    center: { lat:0, lng: 0},
-    zoom: 2,
-    styles:[{"stylers":[{"saturation":-100},{"gamma":1}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"water","stylers":[{"visibility":"on"},{"saturation":50},{"gamma":0},{"hue":"#50a5d1"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"color":"#333333"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"weight":0.5},{"color":"#333333"}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"gamma":1},{"saturation":50}]}]  });
+  center: { lat:0, lng: 0},
+  zoom: 2,
+  styles: [{'stylers': [{'saturation': -100},{'gamma': 1}]},{'elementType': 'labels.text.stroke','stylers': [{'visibility': 'off'}]},{'featureType': 'poi.business','elementType': 'labels.text','stylers': [{'visibility': 'off'}]},{'featureType': 'poi.business','elementType': 'labels.icon','stylers': [{'visibility': 'off'}]},{'featureType': 'poi.place_of_worship','elementType': 'labels.text','stylers': [{'visibility': 'off'}]},{'featureType': 'poi.place_of_worship','elementType': 'labels.icon','stylers': [{'visibility': 'off'}]},{'featureType': 'road','elementType': 'geometry','stylers': [{'visibility': 'simplified'}]},{'featureType': 'water','stylers': [{'visibility': 'on'},{'saturation': 50},{'gamma': 0},{'hue': '#50a5d1'}]},{'featureType': 'administrative.neighborhood','elementType': 'labels.text.fill','stylers': [{'color': '#333333'}]},{'featureType': 'road.local','elementType': 'labels.text','stylers': [{'weight': 0.5},{'color': '#333333'}]},{'featureType': 'transit.station','elementType': 'labels.icon','stylers': [{'gamma': 1},{'saturation': 50}]}]  });
 
   map.setOptions({ maxZoom: 7});
 
