@@ -1,5 +1,5 @@
-const express         = require ('express');
-const morgan          = require ('morgan');
+const express         = require('express');
+const morgan          = require('morgan');
 const bodyParser      = require('body-parser');
 const mongoose        = require('mongoose');
 const routes          = require('./config/routes');
@@ -12,7 +12,7 @@ let mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/WDI-Project2';
 mongoose.connect(mongoUri);
 
 app.use(express.static(`${__dirname}/public`));
-app.get(`/profile`, (req,res) => express.static(`${__dirname}/profile`));
+app.get(`/profile`, (req, res) => express.static(`${__dirname}/profile`));
 
 app.use(morgan('dev'));
 

@@ -43,7 +43,8 @@ $(function () {
   function makeResetWork() {
     $('#restart').click(function () {
       $gameOverScreen.hide();
-
+      $turnIndicator.html('');
+      // $turnIndicator.show();
       startGame();
     });
   }
@@ -52,13 +53,13 @@ $(function () {
     $('.edit').hide();
     $('.delete').hide();
 
-    var winner = gv.players.player1.power > gv.players.player2.power ? "player one" : "player two";
+    var winner = gv.players.player1.power > gv.players.player2.power ? '<span class="handle">' + gv.players.player1.handle + '</span>' + " scores " + '<span class="handle">' + gv.players.player1.power + '</span>' + " points and saves the day! hooray!" : '<span class="handle">' + gv.players.player2.handle + '</span> scores <span class="handle">' + gv.players.player2.power + ' </span> points and takes over the world! muahahah';
     var draw = gv.players.player1.power === gv.players.player2.power;
-    var winStr = draw ? "It's a tie!" : winner + " wins!";
+    var winStr = draw ? "It's a tie!" : "" + winner;
     clearMarkers();
     $turnIndicator.hide();
     $gameOverScreen.show();
-    $gameOverScreen.html("\n      <h2>Game Over</h2>\n      <p>" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
+    $gameOverScreen.html("\n      <h2 class=\"GO\">Game Over</h2>\n      <p class=\"GOwin\">" + winStr + "</p>\n      <button id=\"restart\">Restart</button>\n    ");
     makeResetWork();
   }
 
@@ -112,6 +113,7 @@ $(function () {
     var aiScore = aiCountry[2] * rndNumber(6);
     gv.players.player2.power += aiScore;
     gv.players.player2.powerDiv.html("Power: " + gv.players.player2.power);
+    $turnIndicator.show().html(aiCountry[1] + (" has fallen to " + gv.players.player2.handle + "! <br> Fight back hero!"));
     google.maps.event.clearListeners(aiCountry[0]);
     console.log(aiCountry, aiScore);
     changeIcon(aiCountry[0]);
@@ -202,7 +204,7 @@ $(function () {
     for (var i = 0; i < 3; i++) {
       var country = findRandomCountry();
       console.log(country);
-      while (selectedCountries.indexOf(country) !== -1 && currentArea === null) {
+      while (selectedCountries.indexOf(country) !== -1 || currentArea === null) {
         country = findRandomCountry();
       }
       selectedCountries.push(country);
@@ -320,6 +322,9 @@ $(function () {
         changeIcon(gv.turnInfo.currentIcon);
         //function to check if game has ended(out of turns)
         conquerCountry();
+        $('.turnDisplay').show();
+        $('.playerPower').show();
+        $('.answerGiven').show();
       } else {
         answerToQuestion = false;
         gv.players['player' + gv.turnInfo.turn].$answerGiven.html('Oh No You Gave the Wrong Answer');
@@ -327,6 +332,9 @@ $(function () {
         processTurn(gv.turnInfo.turn);
         //function to check if game has ended(out of turns)
         gameOverChecker();
+        $('.turnDisplay').show();
+        $('.playerPower').show();
+        $('.answerGiven').show();
       }
       if (numberOfQuestions === 1) {
         processTurn(gv.turnInfo.turn);

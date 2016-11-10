@@ -19,9 +19,15 @@ var gv = {
   heroes: {
     "wolverine": "rgba(55,174,182,1)", //lightblue
     "deadpool": "rgba(55,174,182,1)", //lightblue
+    "emma frost": "rgba(55,174,182,1)", //lightblue
+    "thor": "rgba(40,107,152,1)", //medblue
+    "ultron": "rgba(40,107,152,1)", //medblue
     "hulk": "rgba(64,38,85,1)", //purple
     "magneto": "rgba(64,38,85,1)", //purple
+    "iron man": "rgba(64,38,85,1)", //purple
     "apocalypse": "rgba(193,97,21,1)", //orange
+    "rogue": "rgba(193,97,21,1)", //orange
+    "groot": "rgba(193,97,21,1)", //orange
     "venom": "rgba(191,157,24,1)", //yellow
     "elektra": "rgba(191,157,24,1)", //yellow
     "spider-man": "rgba(191,157,24,1)",
@@ -29,6 +35,11 @@ var gv = {
     "doctor octopus": "rgba(194,94,19,1)", //orange
     "star-lord": "rgba(140,37,22,1)",
     "doctor doom": "rgba(40,107,152,1)",
+    "thanos": "rgba(75,130,75,1)", // green
+    "winter soldier": "rgba(75,130,75,1)", // green
+    "jean grey": "rgba(0,0,0,1)", //black
+    "punisher": "rgba(140,37,22,1)", //red
+    "medusa": "rgba(140,37,22,1)", //red
     "sif": "rgba(139,139,139,1)" //grey
   }
 };
@@ -78,6 +89,7 @@ function startGame() {
   gv.main.turnDisplay.html('');
   gv.players.player1.turnDisplayDiv.html('');
   gv.players.player2.turnDisplayDiv.html('');
+  $('#showPlayerTurn').append().html('');
   gv.players.player1.power = 0;
   gv.players.player2.power = 0;
   gv.players.player1.turnCounter = 3;
@@ -140,7 +152,7 @@ function changeIcon(ci) {
     url: gv.players['player' + gv.turnInfo.turn].avatar, // url
     scaledSize: new google.maps.Size(50, 50), // scaled size
     origin: new google.maps.Point(0, 0), // origin
-    anchor: new google.maps.Point(0, 0) // anchor
+    anchor: new google.maps.Point(40, 40) // anchor
   });
 }
 
@@ -161,7 +173,9 @@ $(function () {
   $registerButton.on('click', showRegisterForm);
 
   var $login = $('.login');
-  $login.on('click', showLoginForm);
+  $login.on('click', function () {
+    showLoginForm({ message: "" });
+  });
 
   $('.logout').hide();
   // $('.logout').on('click', logout);
@@ -183,7 +197,7 @@ $(function () {
     // showProfileForm();
     console.log("logged in!");
   } else {
-    showLoginForm();
+    showLoginForm({ message: "" });
   }
 
   function getAvatars(characterId, type) {
@@ -232,13 +246,18 @@ $(function () {
         if (token) return jqXHR.setRequestHeader('Authorization', "Bearer " + token);
       }
     }).done(function (data) {
-      console.log(data);
       if (data.token) localStorage.setItem('token', data.token);
       showPlayerProfiles(data.user.characterId, data.user.username, data.user._id);
       $registerButton.hide();
       $login.hide();
       $('.logout').show();
-    }).fail(showLoginForm);
+    }).fail(function (data) {
+      if (url === "/api/user/register") {
+        showRegisterForm(data);
+      } else {
+        showLoginForm(data);
+      }
+    });
   }
 
   function showPlayerProfiles(id, user, userID) {
@@ -275,21 +294,25 @@ $(function () {
           'background-color': gv.heroes[obj.name.toLowerCase()]
         });
         gv.main.mainP2.html("\n            <div class=\"profileHolder\">\n              <div class=\"profileImage\">\n                <img src=\"" + gv.players.player2.avatar + "\" >\n              </div>\n              <h3>" + obj.name + "</h3>\n              <p>" + obj.description + "</p>\n            </div>\n            ");
-        $('html').append("\n              <div class=\"startGameHolder\"><p><span>" + gv.players.player2.handle + "</span> has found a way out from <em>\"eternal\"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>" + gv.players.player1.handle + "</span>. Will you stand up and fight for against the forces of evil?</p>\n              <p>What is your response, hero?</p> <a href=\"#\" class=\"startGame\">I WANT WAR</a> <a href=\"#\" class=\"logout\"> I'm washing my hair</a> </div>\n            ");
+        $('html').append("\n              <div class=\"startGameHolder\"><p><span>" + gv.players.player2.handle + "</span> has found a way out from <em>\"eternal\"</em> banishment in the prisons of Asgard, intent on destroying earth and enslaving all it's people! Our future now rests on our last hope.. You... <span>" + gv.players.player1.handle + "</span>. Will you stand up and fight against the forces of evil?</p>\n              <p>What is your response, hero?</p> <a href=\"#\" class=\"startGame\">I WANT WAR</a> <a href=\"#\" class=\"logout\"> I'm washing my hair</a> </div>\n            ");
       }).fail(showLoginForm);
     }).fail(showLoginForm);
     console.log(gv.players.player2.handle);
   }
 
-  function showLoginForm() {
+  function showLoginForm(data) {
     if (event) event.preventDefault();
-    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <button class=\"btn btn-primary\">Login</button>\n      </form>\n    ");
+    console.log(data.responseText);
+    // console.log(JSON.parse(data.responseText));
+    var retMsg = !!data.responseText ? "Invalid credentials" : "";
+    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/login\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <span class=\"error\">" + retMsg + "</span>\n        <button class=\"btn btn-primary\">Login</button>\n      </form>\n    ");
   }
 
-  function showRegisterForm() {
+  function showRegisterForm(data) {
     var $avatars = getAvatars(0, 'register');
+    var retMsg = !!data.responseText ? "You have not filled out all the fields, please try again! Remember to choose your avatar" : "";
     if (event) event.preventDefault();
-    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/register\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    gv.main.mainP1.html("\n      <form method=\"post\" action=\"/api/user/register\">\n        <span class=\"error\">" + retMsg + "</span>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"Password\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" type=\"password\" name=\"passwordConfirmation\" placeholder=\"Password Confirmation\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
     // gv.main.mainP1.on(eventName, '.avatarHolder', function() {});
     gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
@@ -312,7 +335,10 @@ $(function () {
   function showEditForm(user) {
     var $avatars = getAvatars(user.characterId, 'edit');
     if (event) event.preventDefault();
-    gv.main.mainP1.html("\n      <h2>Edit User</h2>\n      <form method=\"put\" action=\"/api/user/" + user._id + "\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\" value=\"" + user.username + "\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + user.email + "\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Register</button>\n      </form>\n    ");
+    gv.main.mainP1.html("\n      <form method=\"put\" action=\"/api/user/" + user._id + "\">\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"username\" placeholder=\"Username\" value=\"" + user.username + "\">\n        </div>\n        <div class=\"form-group\">\n          <input class=\"form-control\" name=\"email\" placeholder=\"Email\" value=\"" + user.email + "\">\n        </div>\n        <div class=\"avatarHolder\"></div>\n        <button class=\"btn btn-primary\">Edit</button>\n\n      </form>\n    ");
+    gv.main.mainP1.parent().css({
+      "width": "40%"
+    });
     gv.main.mainP1.find('.avatarHolder').append($avatars);
   }
 
@@ -337,9 +363,12 @@ $(function () {
     if (event) event.preventDefault();
     $('html').find('.startGameHolder').remove();
     localStorage.removeItem('token');
-    showLoginForm();
+    showLoginForm({ message: "" });
     clearMarkers();
     $('#showPlayerTurn').hide();
+    $('.turnDisplay').hide();
+    $('.playerPower').hide();
+    $('.answerGiven').hide();
     $('#gameOverDiv').hide();
     $('#quizPopup').hide();
     $('#gameLogo').show();
